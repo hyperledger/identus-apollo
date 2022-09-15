@@ -204,6 +204,9 @@ kotlin {
 **For the third point**
 You need to use Kotlin version `1.6.21` could be updated in the near future to `1.7.21`
 
+## Usage
+Please have a look at unit tests, more samples will be added soon.
+
 
 # Cryptography Notice
 This distribution includes cryptographic software. The country in which you currently reside may 
