@@ -99,11 +99,33 @@ TBD
 You need to do the following:
 1. You need to let Gradle know where to search for the Apollo package
 2. Import the packages in the common target as per your project needs
-    1. Once you insert the import in the common target, it will automatically retrieve each supported target knowing that the currently only available targets are
-        1. iOS
-        2. Android
-        3. JVM
-        4. JS
+    1. Once you insert the import in the common target, it will automatically retrieve each supported target knowing that the currently only available targets are:
+
+|Platform| Supported |
+|--------|------------------|
+|iOS x86 64 | :heavy_check_mark:|
+|iOS Arm 64 | :heavy_check_mark:|
+|iOS Arm 32 | :heavy_check_mark:|
+|iOS Simulator Arm 64 (Apple Silicon)| :heavy_check_mark:|
+|JVM| :heavy_check_mark:| 
+|Android| :heavy_check_mark:|
+|JS Browser| :heavy_check_mark:|
+|NodeJS Browser| :heavy_check_mark:|
+|Linux X86 64| :x:|
+|Linux Arm 64| :x:|
+|Linux Arm 32| :x:|
+|macOS X86 64| :x:|
+|macOS Arm 64 (Apple Silicon)| :x:|
+|minGW X86 64| :x:|
+|minGW X86 32| :x:| 
+|watchOS X86 32 | :x:|
+|watchOS Arm 64(_32) | :x:|
+|watchOS Arm 32 | :x:|
+|watchOS Simulator Arm 64 (Apple Silicon)| :x:|
+|tvOS X86 64 | :x:|
+|tvOS Arm 64 | :x:|
+|tvOS Simulator Arm 64 (Apple Silicon)| :x:|
+
 3. You need to use the new iOS hierarchy system (In case they have an iOS target)
 4. You need to use the same Kotlin version used in our project
 
