@@ -89,6 +89,12 @@ TBD
 ## How to use for NodeJS app
 TBD
 
+## How to use for Python
+TBD
+
+## How to use for Scala
+TBD
+
 ## How to use for another KMM project
 You need to do the following:
 1. You need to let Gradle know where to search for the Apollo package
