@@ -1,5 +1,5 @@
 # Apollo
-[![Kotlin](https://img.shields.io/badge/kotlin-1.6.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.7.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![CI](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml)
 
 A cryptography lib built with Kotlin Multiplatform with support for the following targets:
@@ -203,11 +203,10 @@ kotlin {
 }
 ```
 **For the third point**
-You need to use Kotlin version `1.6.21` could be updated in the near future to `1.7.21`
+You need to use Kotlin version `1.7.10` could be updated in the near future to `1.7.21`
 
 ## Usage
 Please have a look at unit tests, more samples will be added soon.
-
 
 # Cryptography Notice
 This distribution includes cryptographic software. The country in which you currently reside may 
