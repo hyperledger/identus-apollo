@@ -1,7 +1,15 @@
 package io.iohk.prism.apollo
 
-import kotlinx.cinterop.*
-import platform.Foundation.*
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.allocArrayOf
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.usePinned
+import platform.Foundation.NSData
+import platform.Foundation.create
+import platform.Foundation.NSNumber
+import platform.Foundation.NSString
+import platform.Foundation.numberWithInt
 import platform.posix.memcpy
 
 @OptIn(UnsafeNumber::class)
