@@ -77,18 +77,28 @@ final class BLAKE224 : HashingBase() {
             t0 -= 512 - bitLen
         }
         if (ptr < 56) {
-            for (i in ptr + 1..55) tmpBuf[i] = 0x00
-            if (digestLength == 32) tmpBuf[55] = tmpBuf[55] or 0x01
+            for (i in ptr + 1..55) {
+                tmpBuf[i] = 0x00
+            }
+            if (digestLength == 32) {
+                tmpBuf[55] = tmpBuf[55] or 0x01
+            }
             MathHelper.encodeBEInt(th, tmpBuf, 56)
             MathHelper.encodeBEInt(tl, tmpBuf, 60)
             update(tmpBuf, ptr, 64 - ptr)
         } else {
-            for (i in ptr + 1..63) tmpBuf[i] = 0
+            for (i in ptr + 1..63) {
+                tmpBuf[i] = 0
+            }
             update(tmpBuf, ptr, 64 - ptr)
             t0 = -0x200
             t1 = -0x1
-            for (i in 0..55) tmpBuf[i] = 0x00
-            if (digestLength == 32) tmpBuf[55] = 0x01
+            for (i in 0..55) {
+                tmpBuf[i] = 0x00
+            }
+            if (digestLength == 32) {
+                tmpBuf[55] = 0x01
+            }
             MathHelper.encodeBEInt(th, tmpBuf, 56)
             MathHelper.encodeBEInt(tl, tmpBuf, 60)
             update(tmpBuf, 0, 64)
@@ -100,7 +110,9 @@ final class BLAKE224 : HashingBase() {
         MathHelper.encodeBEInt(h4, output, outputOffset + 16)
         MathHelper.encodeBEInt(h5, output, outputOffset + 20)
         MathHelper.encodeBEInt(h6, output, outputOffset + 24)
-        if (digestLength == 32) MathHelper.encodeBEInt(h7, output, outputOffset + 28)
+        if (digestLength == 32) {
+            MathHelper.encodeBEInt(h7, output, outputOffset + 28)
+        }
     }
 
     override fun processBlock(data: ByteArray) {
@@ -123,7 +135,9 @@ final class BLAKE224 : HashingBase() {
         var vE = t1 xor 0x082EFA98
         var vF = t1 xor -0x13b19377
         val m = tmpM
-        for (i in 0..15) m[i] = MathHelper.decodeBEInt(data, 4 * i)
+        for (i in 0..15) {
+            m[i] = MathHelper.decodeBEInt(data, 4 * i)
+        }
         for (r in 0..13) {
             var o0 = SIGMA[(r shl 4) + 0x0]
             var o1 = SIGMA[(r shl 4) + 0x1]

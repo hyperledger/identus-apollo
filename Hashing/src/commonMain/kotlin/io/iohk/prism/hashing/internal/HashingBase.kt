@@ -134,7 +134,9 @@ abstract class HashingBase : Digest {
         var len = length
         while (len > 0) {
             var copyLen = blockLen - inputLen
-            if (copyLen > len) copyLen = len
+            if (copyLen > len) {
+                copyLen = len
+            }
             input.copyInto(blockBuffer, inputLen, offset1, offset1 + copyLen)
 
             offset1 += copyLen
