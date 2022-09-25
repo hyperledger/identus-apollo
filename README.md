@@ -25,7 +25,7 @@ OpenJDK 64-Bit Server VM (build 11.0.11+9, mixed mode)
 Install XCode from App Store. 
 
 Then approve xcodebuild license in your terminal. Like so:
-```
+```bash
 $ sudo xcodebuild -license
 ```
 
@@ -34,11 +34,11 @@ $ sudo xcodebuild -license
 Install Android SDK from SDK Manager (via Android Studio). 
 
 Then approve Android SDK license. Like so:
-```
-$ cd /Users/{{YOUR USER}}/Library/Android/sdk 
+```bash
+$ cd /Users/{{YOUR USER}}/Library/Android/sdk
 $ tools/bin/sdkmanager --licenses
 ```
-While there are many ways to install Android SDK this has proven to be the most reliable way. Standard IntelliJ with Android plugin may work. However, we've had several issues. Your milage may vary.
+While there are many ways to install Android SDK this has proven to be the most reliable way. Standard IntelliJ with Android plugin may work. However, we've had several issues. Your mileage may vary.
 
 For Ubuntu, `sudo apt update && sudo apt install android-sdk` should work, leaving the SDK at `~/Android/Sdk`
 
@@ -47,13 +47,13 @@ For Ubuntu, `sudo apt update && sudo apt install android-sdk` should work, leavi
 Create a file named local.properties in the root of the prism-kotlin-sdk.
 
 Add your sdk path to local.properties file. Like so:
-```
+```properties
 sdk.dir = /Users/{{YOUR USER}}/Library/Android/sdk
 ```
 This will indicate to your ide which SDK to use.
 
 Alternatively, you can add the following environment variable into your shell profile file:
-```
+```bash
 $ export ANDROID_HOME='/Users/{{YOUR USER}}/Library/Android/sdk
 ```
 
@@ -64,7 +64,8 @@ You should be able to import and build the project in IntelliJ IDEA now.
 #### Troubleshooting
 If you get error:
 
-```No binary for ChromeHeadless browser on your platform.
+```log
+No binary for ChromeHeadless browser on your platform.
 Please, set "CHROME_BIN" env variable.
 java.lang.IllegalStateException: Errors occurred during launch of browser for testing.
 - ChromeHeadless
@@ -73,9 +74,9 @@ java.lang.IllegalStateException: Errors occurred during launch of browser for te
 Solution:
 - Install headless chrome or just Chrome browser
 
-In case IntelliJ was building but was still showing syntex error in Gradle Script. 
+In case IntelliJ was building but was still showing syntax error in Gradle Script. 
 Solution:
-- Go to preferance/settings and make sure to select the correct Java version 11.
+- Go to preference/settings and make sure to select the correct Java version 11.
 
 ## How to use for JVM/Android app
 TBD
@@ -100,34 +101,33 @@ You need to do the following:
 1. You need to let Gradle know where to search for the Apollo package
 2. Import the packages in the common target as per your project needs
     1. Once you insert the import in the common target, it will automatically retrieve each supported target knowing that the currently only available targets are:
-
-|Platform| Supported |
-|--------|------------------|
-|iOS x86 64 | :heavy_check_mark:|
-|iOS Arm 64 | :heavy_check_mark:|
-|iOS Arm 32 | :heavy_check_mark:|
-|iOS Simulator Arm 64 (Apple Silicon)| :heavy_check_mark:|
-|JVM| :heavy_check_mark:| 
-|Android| :heavy_check_mark:|
-|JS Browser| :heavy_check_mark:|
-|NodeJS Browser| :heavy_check_mark:|
-|Linux X86 64| :x:|
-|Linux Arm 64| :x:|
-|Linux Arm 32| :x:|
-|macOS X86 64| :x:|
-|macOS Arm 64 (Apple Silicon)| :x:|
-|minGW X86 64| :x:|
-|minGW X86 32| :x:| 
-|watchOS X86 32 | :x:|
-|watchOS Arm 64(_32) | :x:|
-|watchOS Arm 32 | :x:|
-|watchOS Simulator Arm 64 (Apple Silicon)| :x:|
-|tvOS X86 64 | :x:|
-|tvOS Arm 64 | :x:|
-|tvOS Simulator Arm 64 (Apple Silicon)| :x:|
-
 3. You need to use the new iOS hierarchy system (In case they have an iOS target)
 4. You need to use the same Kotlin version used in our project
+
+| Platform                                 | Supported          |
+|------------------------------------------|--------------------|
+| iOS x86 64                               | :heavy_check_mark: |
+| iOS Arm 64                               | :heavy_check_mark: |
+| iOS Arm 32                               | :heavy_check_mark: |
+| iOS Simulator Arm 64 (Apple Silicon)     | :heavy_check_mark: |
+| JVM                                      | :heavy_check_mark: | 
+| Android                                  | :heavy_check_mark: |
+| JS Browser                               | :heavy_check_mark: |
+| NodeJS Browser                           | :heavy_check_mark: |
+| Linux X86 64                             | :x:                |
+| Linux Arm 64                             | :x:                |
+| Linux Arm 32                             | :x:                |
+| macOS X86 64                             | :x:                |
+| macOS Arm 64 (Apple Silicon)             | :x:                |
+| minGW X86 64                             | :x:                |
+| minGW X86 32                             | :x:                | 
+| watchOS X86 32                           | :x:                |
+| watchOS Arm 64(_32)                      | :x:                |
+| watchOS Arm 32                           | :x:                |
+| watchOS Simulator Arm 64 (Apple Silicon) | :x:                |
+| tvOS X86 64                              | :x:                |
+| tvOS Arm 64                              | :x:                |
+| tvOS Simulator Arm 64 (Apple Silicon)    | :x:                |
 
 **For the first, second & third point** we have two cases using Groovy and using Kotlin DSL
 ### Using Groovy
@@ -175,8 +175,8 @@ allprojects {
         maven {
             url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
             credentials {
-                username = System.getenv("ATALA_GITHUB_ACTOR") // this is CMD system environment and you can replace the retrieval of its value to any other preferable way if needed
-                password = System.getenv("ATALA_GITHUB_TOKEN") // this is CMD system environment and you can replace the retrieval of its value to any other preferable way if needed
+                username = System.getenv("ATALA_GITHUB_ACTOR") // this is CMD system environment, and you can replace the retrieval of its value to any other preferable way if needed
+                password = System.getenv("ATALA_GITHUB_TOKEN") // this is CMD system environment, and you can replace the retrieval of its value to any other preferable way if needed
             }
         }
     }
@@ -195,7 +195,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // This following is just an example you can import it as per you needs
-                implementation("io.iohk.atala.prism:Apollo:${latest version}")
+                implementation("io.iohk.atala.prism:Apollo:<latest version>")
             }
         }
     }
@@ -207,14 +207,14 @@ You need to use Kotlin version `1.7.10` could be updated in the near future to `
 ## Usage
 Please have a look at unit tests, more samples will be added soon.
 
-# Cryptography Notice
+## Cryptography Notice
 This distribution includes cryptographic software. The country in which you currently reside may 
 have restrictions on the import, possession, use, and/or re-export to another country, of encryption 
 software. BEFORE using any encryption software, please check your country's laws, regulations and policies 
 concerning the import, possession, or use, and re-export of encryption software, to see if this is permitted. 
 See [http://www.wassenaar.org/](http://www.wassenaar.org/) for more information.
 
-# License
+## License
 This software is provided 'as-is', without any express or implied warranty. In no event will the
 authors be held liable for any damages arising from the use of this software. Permission is granted
 to anyone to use this software for any purpose, including commercial applications, and to alter it

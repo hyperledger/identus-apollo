@@ -1,9 +1,11 @@
 package io.iohk.prism.hashing.internal
 
+import kotlin.jvm.JvmOverloads
+
 /**
  * [HMAC] is defined in RFC 2104 (also FIPS 198a).
  */
-class HMAC(dig: Digest, key: ByteArray, outputLength: Int? = null) : HashingBase() {
+class HMAC @JvmOverloads constructor(dig: Digest, key: ByteArray, outputLength: Int? = null) : HashingBase() {
 
     private var dig: Digest
     private var outputLength: Int
@@ -24,23 +26,22 @@ class HMAC(dig: Digest, key: ByteArray, outputLength: Int? = null) : HashingBase
      * @param outputLength (optional) the HMAC output length (in bytes)
      */
     init {
-        @Suppress("NAME_SHADOWING")
-        var key = key
+        var key1 = key
         dig.reset()
         this.dig = dig
         var b = dig.blockLength
         if (b < 0) {
             val n = -b
-            b = n * ((key.size + (n - 1)) / n)
+            b = n * ((key1.size + (n - 1)) / n)
         }
         val keyB = ByteArray(b)
-        var len = key.size
+        var len = key1.size
         if (len > b) {
-            key = dig.digest(key)
-            len = key.size
+            key1 = dig.digest(key1)
+            len = key1.size
             if (len > b) len = b
         }
-        key.copyInto(keyB, 0, 0, len)
+        key1.copyInto(keyB, 0, 0, len)
         processKey(keyB)
         this.outputLength = -1
         tmpOut = ByteArray(dig.digestLength)

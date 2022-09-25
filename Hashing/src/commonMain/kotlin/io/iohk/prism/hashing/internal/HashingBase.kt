@@ -130,15 +130,14 @@ abstract class HashingBase : Digest {
     }
 
     override fun update(input: ByteArray, offset: Int, length: Int) {
-        @Suppress("NAME_SHADOWING")
-        var offset = offset
+        var offset1 = offset
         var len = length
         while (len > 0) {
             var copyLen = blockLen - inputLen
             if (copyLen > len) copyLen = len
-            input.copyInto(blockBuffer, inputLen, offset, offset + copyLen)
+            input.copyInto(blockBuffer, inputLen, offset1, offset1 + copyLen)
 
-            offset += copyLen
+            offset1 += copyLen
             inputLen += copyLen
             len -= copyLen
             if (inputLen == blockLen) {
