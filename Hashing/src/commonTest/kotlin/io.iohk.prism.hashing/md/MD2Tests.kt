@@ -8,7 +8,7 @@ import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class MD2Tests: BaseHashTests() {
+class MD2Tests : BaseHashTests() {
     override val valueForHash: List<String>
         get() = listOf(
             "8350e5a3e24c153df2275c9f80692773",

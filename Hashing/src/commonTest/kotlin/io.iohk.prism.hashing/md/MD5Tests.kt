@@ -7,7 +7,7 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class MD5Tests: BaseHashTests() {
+class MD5Tests : BaseHashTests() {
     override val valueForHash: List<String>
         get() = listOf(
             "d41d8cd98f00b204e9800998ecf8427e",
@@ -44,6 +44,6 @@ class MD5Tests: BaseHashTests() {
         repeat(16_777_216) {
             hash.update("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno".encodeToByteArray())
         }
-        assertEquals("d338139169d50f55526194c790ec0448",  hash.digest().toHexString())
+        assertEquals("d338139169d50f55526194c790ec0448", hash.digest().toHexString())
     }
 }

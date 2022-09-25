@@ -6,7 +6,7 @@ import io.iohk.prism.hashing.internal.toHexString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SHA512_256Tests: BaseHashTests() {
+class SHA512_256Tests : BaseHashTests() {
     override val valueForHash: List<String>
         get() = listOf(
             "c672b8d1ef56ed28ab87c3622c5114069bdd3ad7b8f9737498d0c01ecef0967a",

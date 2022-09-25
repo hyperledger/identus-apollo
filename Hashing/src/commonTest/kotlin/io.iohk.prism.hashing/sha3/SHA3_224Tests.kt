@@ -46,6 +46,6 @@ class SHA3_224Tests : BaseHashTests() {
         repeat(16_777_216) {
             hash.update("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno".encodeToByteArray())
         }
-        assertEquals("c6d66e77ae289566afb2ce39277752d6da2a3c46010f1e0a0970ff60",  hash.digest().toHexString())
+        assertEquals("c6d66e77ae289566afb2ce39277752d6da2a3c46010f1e0a0970ff60", hash.digest().toHexString())
     }
 }

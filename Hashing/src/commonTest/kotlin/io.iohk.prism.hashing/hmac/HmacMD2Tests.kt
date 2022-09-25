@@ -6,7 +6,7 @@ import io.iohk.prism.hashing.internal.toHexString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class HmacMD2Tests: BaseHmacHashTests() {
+class HmacMD2Tests : BaseHmacHashTests() {
 
     override fun hash(key: ByteArray, stringToHash: ByteArray, outputLength: Int?): String {
         val hash = MD2().createHmac(key, outputLength)

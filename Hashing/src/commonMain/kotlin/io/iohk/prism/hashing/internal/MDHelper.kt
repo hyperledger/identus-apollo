@@ -4,7 +4,7 @@ abstract class MDHelper(
     private val littleEndian: Boolean,
     lenlen: Int,
     private val fbyte: Byte = 0x80.toByte()
-): HashingBase() {
+) : HashingBase() {
     private val countBuf: ByteArray = ByteArray(lenlen)
 
     /**

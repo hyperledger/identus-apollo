@@ -8,7 +8,7 @@ import io.iohk.prism.hashing.internal.MathHelper
  * This class implements the SHA-512 digest algorithm under the [MDHelper] API.
  * SHA-512 is specified by FIPS 180-2.
  */
-final class SHA512: MDHelper(false, 16), HMACInterface {
+final class SHA512 : MDHelper(false, 16), HMACInterface {
     private lateinit var currentVal: LongArray
     private lateinit var w: LongArray
     override val digestLength: Int
@@ -56,14 +56,20 @@ final class SHA512: MDHelper(false, 16), HMACInterface {
         var h = currentVal[7]
         for (i in 0..15) w[i] = MathHelper.decodeBELong(data, 8 * i)
         for (i in 16..79) {
-            w[i] = ((MathHelper.circularLeftLong(w[i - 2], 45)
-                    xor MathHelper.circularLeftLong(w[i - 2], 3)
-                    xor (w[i - 2] ushr 6)) +
+            w[i] = (
+                (
+                    MathHelper.circularLeftLong(w[i - 2], 45)
+                        xor MathHelper.circularLeftLong(w[i - 2], 3)
+                        xor (w[i - 2] ushr 6)
+                    ) +
                     w[i - 7] +
-                    (MathHelper.circularLeftLong(w[i - 15], 63)
+                    (
+                        MathHelper.circularLeftLong(w[i - 15], 63)
                             xor MathHelper.circularLeftLong(w[i - 15], 56)
-                            xor (w[i - 15] ushr 7)) +
-                    w[i - 16])
+                            xor (w[i - 15] ushr 7)
+                        ) +
+                    w[i - 16]
+                )
         }
         for (i in 0..79) {
             /*

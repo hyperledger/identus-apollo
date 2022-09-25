@@ -3,7 +3,7 @@ package io.iohk.prism.hashing.internal
 /**
  * All hashing algorithms shared operations
  */
-abstract class HashingBase: Digest {
+abstract class HashingBase : Digest {
     private var digestLen: Int
     private val blockLen: Int
     private var inputLen: Int

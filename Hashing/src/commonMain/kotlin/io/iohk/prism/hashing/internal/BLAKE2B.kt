@@ -1,6 +1,6 @@
 package io.iohk.prism.hashing.internal
 
-open class BLAKE2B: Digest {
+open class BLAKE2B : Digest {
     private var digestSize = 64
     private var keyLength = 0
     private var salt: ByteArray? = null
@@ -313,8 +313,9 @@ open class BLAKE2B: Digest {
     private fun init() {
         if (chainValue == null) {
             chainValue = LongArray(8)
-            chainValue!![0] = (blake2b_IV[0]
-                    xor (digestSize.toLong() or (keyLength.toLong() shl 8) or 0x1010000L))
+            chainValue!![0] = (
+                blake2b_IV[0] xor (digestSize.toLong() or (keyLength.toLong() shl 8) or 0x1010000L)
+                )
             // 0x1010000 = ((fanout << 16) | (depth << 24) | (leafLength <<
             // 32));
             // with fanout = 1; depth = 0; leafLength = 0;
@@ -342,11 +343,13 @@ open class BLAKE2B: Digest {
         internalState[posA] = internalState[posA] + internalState[posB] + m1
         internalState[posD] = MathHelper.circularRightLong(internalState[posD] xor internalState[posA], 32)
         internalState[posC] = internalState[posC] + internalState[posD]
-        internalState[posB] = MathHelper.circularRightLong(internalState[posB] xor internalState[posC], 24) // replaces 25 of BLAKE
+        internalState[posB] =
+            MathHelper.circularRightLong(internalState[posB] xor internalState[posC], 24) // replaces 25 of BLAKE
         internalState[posA] = internalState[posA] + internalState[posB] + m2
         internalState[posD] = MathHelper.circularRightLong(internalState[posD] xor internalState[posA], 16)
         internalState[posC] = internalState[posC] + internalState[posD]
-        internalState[posB] = MathHelper.circularRightLong(internalState[posB] xor internalState[posC], 63) // replaces 11 of BLAKE
+        internalState[posB] =
+            MathHelper.circularRightLong(internalState[posB] xor internalState[posC], 63) // replaces 11 of BLAKE
     }
 
     private fun compress(message: ByteArray, messagePos: Int) {
@@ -381,7 +384,7 @@ open class BLAKE2B: Digest {
         salt: ByteArray? = null,
         personalisation: ByteArray? = null,
         outputSizeBits: Int = 512
-    ): BLAKE2B(key, outputSizeBits shl 3, salt, personalisation)
+    ) : BLAKE2B(key, outputSizeBits shl 3, salt, personalisation)
 
     companion object {
         // Blake2b Initialization Vector:
