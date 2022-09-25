@@ -104,5 +104,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          path: "**/build/test-results/**/TEST-*.xml"
+          path: "**/build/reports/"
           name: report-${{ matrix.os-type }}
