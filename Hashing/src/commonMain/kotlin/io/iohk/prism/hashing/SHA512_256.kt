@@ -9,7 +9,7 @@ import io.iohk.prism.hashing.internal.MathHelper
  * This class implements the SHA-512/256 digest algorithm under the [MDHelper] API.
  * SHA-512/256 is defined by FIPS 180-4.
  */
-final class SHA512_256: Digest, HMACInterface {
+final class SHA512_256 : Digest, HMACInterface {
     private var delegate = HashHelper()
     override val digestLength: Int
         get() = 32
@@ -48,7 +48,7 @@ final class SHA512_256: Digest, HMACInterface {
 
     override fun reset() = delegate.reset()
 
-    private class HashHelper: MDHelper(false, 16) {
+    private class HashHelper : MDHelper(false, 16) {
         private lateinit var currentVal: LongArray
         private lateinit var w: LongArray
         override val digestLength: Int
@@ -96,14 +96,20 @@ final class SHA512_256: Digest, HMACInterface {
             var h = currentVal[7]
             for (i in 0..15) w[i] = MathHelper.decodeBELong(data, 8 * i)
             for (i in 16..79) {
-                w[i] = ((MathHelper.circularLeftLong(w[i - 2], 45)
-                        xor MathHelper.circularLeftLong(w[i - 2], 3)
-                        xor (w[i - 2] ushr 6)) +
+                w[i] = (
+                    (
+                        MathHelper.circularLeftLong(w[i - 2], 45)
+                            xor MathHelper.circularLeftLong(w[i - 2], 3)
+                            xor (w[i - 2] ushr 6)
+                        ) +
                         w[i - 7] +
-                        (MathHelper.circularLeftLong(w[i - 15], 63)
+                        (
+                            MathHelper.circularLeftLong(w[i - 15], 63)
                                 xor MathHelper.circularLeftLong(w[i - 15], 56)
-                                xor (w[i - 15] ushr 7)) +
-                        w[i - 16])
+                                xor (w[i - 15] ushr 7)
+                            ) +
+                        w[i - 16]
+                    )
             }
             for (i in 0..79) {
                 /*

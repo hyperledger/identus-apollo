@@ -8,7 +8,7 @@ import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SHA3_256Tests: BaseHashTests() {
+class SHA3_256Tests : BaseHashTests() {
     override val valueForHash: List<String>
         get() = listOf(
             "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a",
@@ -46,6 +46,6 @@ class SHA3_256Tests: BaseHashTests() {
         repeat(16_777_216) {
             hash.update("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno".encodeToByteArray())
         }
-        assertEquals("ecbbc42cbf296603acb2c6bc0410ef4378bafb24b710357f12df607758b33e2b",  hash.digest().toHexString())
+        assertEquals("ecbbc42cbf296603acb2c6bc0410ef4378bafb24b710357f12df607758b33e2b", hash.digest().toHexString())
     }
 }

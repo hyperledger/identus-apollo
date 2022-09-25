@@ -12,7 +12,7 @@ abstract class BaseHashTests {
         "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq", // Input message: "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq" (length 448 bits)
         "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu", // Input message: "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu" (length 896 bits)
         "a", // Input message: one million (1,000,000) repetitions of the character "a" (0x61)
-        "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno"// Input message: the extremely-long message "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno" repeated 16,777,216 times
+        "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno" // Input message: the extremely-long message "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno" repeated 16,777,216 times
     )
     abstract val valueForHash: List<String>
 

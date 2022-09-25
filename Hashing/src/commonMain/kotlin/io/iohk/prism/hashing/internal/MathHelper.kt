@@ -29,10 +29,12 @@ object MathHelper {
      * @return the decoded value
      */
     fun decodeBEInt(buf: ByteArray, off: Int): Int {
-        return (buf[off].toInt() and 0xFF shl 24
+        return (
+            buf[off].toInt() and 0xFF shl 24
                 or (buf[off + 1].toInt() and 0xFF shl 16)
                 or (buf[off + 2].toInt() and 0xFF shl 8)
-                or (buf[off + 3].toInt() and 0xFF))
+                or (buf[off + 3].toInt() and 0xFF)
+            )
     }
 
     /**
@@ -93,14 +95,16 @@ object MathHelper {
      * @return the decoded value
      */
     fun decodeBELong(buf: ByteArray, off: Int): Long {
-        return ((buf[off].toLong() and 0xFF) shl 56
+        return (
+            (buf[off].toLong() and 0xFF) shl 56
                 or ((buf[off + 1].toLong() and 0xFF) shl 48)
                 or ((buf[off + 2].toLong() and 0xFF) shl 40)
                 or ((buf[off + 3].toLong() and 0xFF) shl 32)
                 or ((buf[off + 4].toLong() and 0xFF) shl 24)
                 or ((buf[off + 5].toLong() and 0xFF) shl 16)
                 or ((buf[off + 6].toLong() and 0xFF) shl 8)
-                or (buf[off + 7].toLong() and 0xFF))
+                or (buf[off + 7].toLong() and 0xFF)
+            )
     }
 
     /**
@@ -125,10 +129,12 @@ object MathHelper {
      * @return the decoded value
      */
     fun decodeLEInt(buf: ByteArray, off: Int): Int {
-        return ((buf[off + 3].toInt() and 0xFF shl 24)
+        return (
+            (buf[off + 3].toInt() and 0xFF shl 24)
                 or (buf[off + 2].toInt() and 0xFF shl 16)
                 or (buf[off + 1].toInt() and 0xFF shl 8)
-                or (buf[off].toInt() and 0xFF))
+                or (buf[off].toInt() and 0xFF)
+            )
     }
 
     /**
@@ -157,14 +163,16 @@ object MathHelper {
      * @return the decoded integer
      */
     fun decodeLELong(buf: ByteArray, off: Int): Long {
-        return (buf[off + 0].toLong() and 0xFF
+        return (
+            buf[off + 0].toLong() and 0xFF
                 or ((buf[off + 1].toLong() and 0xFF) shl 8)
                 or ((buf[off + 2].toLong() and 0xFF) shl 16)
                 or ((buf[off + 3].toLong() and 0xFF) shl 24)
                 or ((buf[off + 4].toLong() and 0xFF) shl 32)
                 or ((buf[off + 5].toLong() and 0xFF) shl 40)
                 or ((buf[off + 6].toLong() and 0xFF) shl 48)
-                or ((buf[off + 7].toLong() and 0xFF) shl 56))
+                or ((buf[off + 7].toLong() and 0xFF) shl 56)
+            )
     }
 
     /**

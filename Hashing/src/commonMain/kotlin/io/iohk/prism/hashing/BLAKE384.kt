@@ -4,7 +4,7 @@ import io.iohk.prism.hashing.internal.HashingBase
 import io.iohk.prism.hashing.internal.MathHelper
 import kotlin.experimental.or
 
-final class BLAKE384: HashingBase() {
+final class BLAKE384 : HashingBase() {
     private var h0: Long = 0
     private var h1: Long = 0
     private var h2: Long = 0

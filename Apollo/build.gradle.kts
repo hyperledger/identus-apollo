@@ -75,7 +75,7 @@ kotlin {
             }
         }
     }
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -155,7 +155,7 @@ tasks.withType<DokkaTask> {
     }
 }
 
-//afterEvaluate {
+// afterEvaluate {
 //    tasks.withType<AbstractTestTask> {
 //        testLogging {
 //            events("passed", "skipped", "failed", "standard_out", "standard_error")
@@ -163,4 +163,4 @@ tasks.withType<DokkaTask> {
 //            showStackTraces = true
 //        }
 //    }
-//}
+// }

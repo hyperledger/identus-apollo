@@ -7,7 +7,7 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class MD4Tests: BaseHashTests() {
+class MD4Tests : BaseHashTests() {
     override val valueForHash: List<String>
         get() = listOf(
             "31d6cfe0d16ae931b73c59d7e0c089c0",
@@ -44,6 +44,6 @@ class MD4Tests: BaseHashTests() {
         repeat(16_777_216) {
             hash.update("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno".encodeToByteArray())
         }
-        assertEquals("699057dc7272ba3db0e32f09b8ab8442",  hash.digest().toHexString())
+        assertEquals("699057dc7272ba3db0e32f09b8ab8442", hash.digest().toHexString())
     }
 }

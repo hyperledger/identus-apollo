@@ -4,7 +4,7 @@ package io.iohk.prism.hashing.internal
  * Implementation of Keccak digest.
  * Based on their research paper: https://keccak.team/papers.html
  */
-abstract class KeccakDigest(private val markByte: Byte = 0x01): HashingBase() {
+abstract class KeccakDigest(private val markByte: Byte = 0x01) : HashingBase() {
     private lateinit var a: LongArray
     private lateinit var tmpOut: ByteArray
     override val blockLength: Int

@@ -5,7 +5,7 @@ import io.iohk.prism.hashing.internal.toHexString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class HmacSHA512_256Tests: BaseHmacHashTests() {
+class HmacSHA512_256Tests : BaseHmacHashTests() {
 
     override fun hash(key: ByteArray, stringToHash: ByteArray, outputLength: Int?): String {
         val hash = SHA512_256().createHmac(key, outputLength)

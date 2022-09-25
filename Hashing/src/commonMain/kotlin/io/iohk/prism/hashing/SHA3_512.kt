@@ -7,7 +7,7 @@ import io.iohk.prism.hashing.internal.KeccakDigest
  * This class implements the SHA3-512 digest algorithm under the [KeccakDigest] API.
  * SHA3-512 is defined by FIPS PUB 202.
  */
-final class SHA3_512: KeccakDigest(0x06), HMACInterface {
+final class SHA3_512 : KeccakDigest(0x06), HMACInterface {
     override val digestLength: Int
         get() = 64
 

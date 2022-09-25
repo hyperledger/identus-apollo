@@ -3,7 +3,7 @@ package io.iohk.prism.hashing.internal
 /**
  * [HMAC] is defined in RFC 2104 (also FIPS 198a).
  */
-class HMAC(dig: Digest, key: ByteArray, outputLength: Int? = null): HashingBase() {
+class HMAC(dig: Digest, key: ByteArray, outputLength: Int? = null) : HashingBase() {
 
     private var dig: Digest
     private var outputLength: Int
