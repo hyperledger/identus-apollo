@@ -3,7 +3,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
 version = rootProject.version
-val moduleName = "Apollo"
+val currentModuleName: String = "Apollo"
 val os = OperatingSystem.current()
 
 plugins {
@@ -32,7 +32,7 @@ kotlin {
         iosSimulatorArm64()
     }
     js(IR) {
-        this.moduleName = moduleName
+        this.moduleName = currentModuleName
         this.binaries.executable()
         this.useCommonJs()
         this.compilations["main"].packageJson {
@@ -43,7 +43,7 @@ kotlin {
         }
         browser {
             this.webpackTask {
-                this.output.library = moduleName
+                this.output.library = currentModuleName
                 this.output.libraryTarget = Target.VAR
             }
             this.commonWebpackConfig {
@@ -71,7 +71,7 @@ kotlin {
             this.authors = "IOG"
             this.ios.deploymentTarget = "13.0"
             framework {
-                this.baseName = moduleName
+                this.baseName = currentModuleName
             }
         }
     }
@@ -110,6 +110,9 @@ kotlin {
             val iosSimulatorArm64Test by getting {
                 this.dependsOn(iosTest)
             }
+        }
+        all {
+            languageSettings.optIn("kotlin.RequiresOptIn")
         }
     }
 }

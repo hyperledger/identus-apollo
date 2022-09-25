@@ -130,6 +130,7 @@ abstract class HashingBase : Digest {
     }
 
     override fun update(input: ByteArray, offset: Int, length: Int) {
+        @Suppress("NAME_SHADOWING")
         var offset = offset
         var len = length
         while (len > 0) {
