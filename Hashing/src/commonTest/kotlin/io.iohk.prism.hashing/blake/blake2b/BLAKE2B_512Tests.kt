@@ -8,9 +8,9 @@ import kotlin.test.assertEquals
 
 class BLAKE2B_512Tests {
 
-    private fun hash(stringToHash: String, output: String): String {
+    private fun hash(stringToHash: String, output: String) {
         val hash = BLAKE2B_512()
-        return hash.digest(stringToHash.encodeToByteArray()).toHexString()
+        assertEquals(output, hash.digest(stringToHash.encodeToByteArray()).toHexString())
     }
 
     private fun hashKeyed(stringToHash: String, output: String) {

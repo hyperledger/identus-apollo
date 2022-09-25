@@ -39,6 +39,7 @@ class MD4Tests : BaseHashTests() {
     }
 
     @Test
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     fun test_VeryLong() = runTest {
         val hash = MD4()
         repeat(16_777_216) {
