@@ -1,5 +1,6 @@
 # Apollo
 [![Kotlin](https://img.shields.io/badge/kotlin-1.6.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![CI](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml)
 
 A cryptography lib built with Kotlin Multiplatform with support for the following targets:
 - JS
