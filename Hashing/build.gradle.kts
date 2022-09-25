@@ -1,3 +1,4 @@
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
@@ -29,13 +30,17 @@ kotlin {
     }
     if (os.isMacOsX) {
         ios()
-        iosSimulatorArm64()
         tvos()
-        tvosSimulatorArm64()
         watchos()
-        watchosSimulatorArm64()
-        macosArm64()
         macosX64()
+        if (Os.isFamily(Os.FAMILY_MAC)) {
+            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+                iosSimulatorArm64()
+                tvosSimulatorArm64()
+                watchosSimulatorArm64()
+                macosArm64()
+            }
+        }
     }
     if (os.isWindows) {
         mingwX86()
@@ -107,23 +112,11 @@ kotlin {
         if (os.isMacOsX) {
             val iosMain by getting
             val iosTest by getting
-            val iosSimulatorArm64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val iosSimulatorArm64Test by getting {
-                this.dependsOn(iosTest)
-            }
             val tvosMain by getting {
                 this.dependsOn(iosMain)
             }
             val tvosTest by getting {
                 this.dependsOn(iosTest)
-            }
-            val tvosSimulatorArm64Main by getting {
-                this.dependsOn(tvosMain)
-            }
-            val tvosSimulatorArm64Test by getting {
-                this.dependsOn(tvosTest)
             }
             val watchosMain by getting {
                 this.dependsOn(iosMain)
@@ -131,23 +124,39 @@ kotlin {
             val watchosTest by getting {
                 this.dependsOn(iosTest)
             }
-            val watchosSimulatorArm64Main by getting {
-                this.dependsOn(watchosMain)
-            }
-            val watchosSimulatorArm64Test by getting {
-                this.dependsOn(watchosTest)
-            }
-            val macosArm64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val macosArm64Test by getting {
-                this.dependsOn(iosTest)
-            }
             val macosX64Main by getting {
                 this.dependsOn(iosMain)
             }
             val macosX64Test by getting {
                 this.dependsOn(iosTest)
+            }
+            if (Os.isFamily(Os.FAMILY_MAC)) {
+                if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+                    val iosSimulatorArm64Main by getting {
+                        this.dependsOn(iosMain)
+                    }
+                    val iosSimulatorArm64Test by getting {
+                        this.dependsOn(iosTest)
+                    }
+                    val tvosSimulatorArm64Main by getting {
+                        this.dependsOn(tvosMain)
+                    }
+                    val tvosSimulatorArm64Test by getting {
+                        this.dependsOn(tvosTest)
+                    }
+                    val watchosSimulatorArm64Main by getting {
+                        this.dependsOn(watchosMain)
+                    }
+                    val watchosSimulatorArm64Test by getting {
+                        this.dependsOn(watchosTest)
+                    }
+                    val macosArm64Main by getting {
+                        this.dependsOn(iosMain)
+                    }
+                    val macosArm64Test by getting {
+                        this.dependsOn(iosTest)
+                    }
+                }
             }
         }
         if (os.isWindows) {
