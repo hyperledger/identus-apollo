@@ -1,11 +1,13 @@
 package io.iohk.prism.hashing.blake
 
 import io.iohk.prism.hashing.BLAKE384
+import io.iohk.prism.hashing.internal.JsIgnore
 import io.iohk.prism.hashing.internal.toBinary
 import io.iohk.prism.hashing.internal.toHexString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+@JsIgnore
 class BLAKE384Tests {
 
     private fun hash(stringToHash: ByteArray): String {
