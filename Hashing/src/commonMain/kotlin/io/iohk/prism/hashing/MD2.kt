@@ -7,7 +7,7 @@ import io.iohk.prism.hashing.internal.HashingBase
  * This class implements the MD2 digest algorithm under the [HashingBase] API.
  * MD2 is defined by RFC 1319.
  */
-final class MD2: HashingBase(), HMACInterface {
+final class MD2 : HashingBase(), HMACInterface {
     private lateinit var x: IntArray
     private lateinit var c: IntArray
     private lateinit var d: ByteArray

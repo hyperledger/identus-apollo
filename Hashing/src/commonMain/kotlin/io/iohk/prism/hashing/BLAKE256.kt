@@ -4,7 +4,7 @@ import io.iohk.prism.hashing.internal.HashingBase
 import io.iohk.prism.hashing.internal.MathHelper
 import kotlin.experimental.or
 
-final class BLAKE256: HashingBase() {
+final class BLAKE256 : HashingBase() {
     private var h0 = 0
     private var h1 = 0
     private var h2 = 0

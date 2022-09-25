@@ -8,7 +8,7 @@ import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SHA3_512Tests: BaseHashTests() {
+class SHA3_512Tests : BaseHashTests() {
     override val valueForHash: List<String>
         get() = listOf(
             "a69f73cca23a9ac5c8b567dc185a756e97c982164fe25859e0d1dcc1475c80a615b2123af1f5f94c11e3e9402c3ac558f500199d95b6d3e301758586281dcd26",
@@ -41,11 +41,12 @@ class SHA3_512Tests: BaseHashTests() {
 
     @Test
     @Ignore // takes too long
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     fun test_VeryLong() = runTest {
         val hash = SHA3_512()
         repeat(16_777_216) {
             hash.update("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno".encodeToByteArray())
         }
-        assertEquals("235ffd53504ef836a1342b488f483b396eabbfe642cf78ee0d31feec788b23d0d18d5c339550dd5958a500d4b95363da1b5fa18affc1bab2292dc63b7d85097c",  hash.digest().toHexString())
+        assertEquals("235ffd53504ef836a1342b488f483b396eabbfe642cf78ee0d31feec788b23d0d18d5c339550dd5958a500d4b95363da1b5fa18affc1bab2292dc63b7d85097c", hash.digest().toHexString())
     }
 }

@@ -2,7 +2,7 @@ package io.iohk.prism.hashing
 
 import io.iohk.prism.hashing.internal.BLAKE2B
 
-final class BLAKE2B_256: BLAKE2B(256) {
+final class BLAKE2B_256 : BLAKE2B(256) {
     override val blockLength: Int
         get() = 128
 
@@ -12,7 +12,7 @@ final class BLAKE2B_256: BLAKE2B(256) {
         key: ByteArray,
         salt: ByteArray? = null,
         personalisation: ByteArray? = null
-    ): BLAKE2B(key, 256, salt, personalisation) {
+    ) : BLAKE2B(key, 256, salt, personalisation) {
         override val blockLength: Int
             get() = 128
 

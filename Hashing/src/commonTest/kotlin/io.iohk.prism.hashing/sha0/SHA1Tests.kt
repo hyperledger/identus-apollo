@@ -7,7 +7,7 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SHA1Tests: BaseHashTests() {
+class SHA1Tests : BaseHashTests() {
     override val valueForHash: List<String>
         get() = listOf(
             "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -39,11 +39,12 @@ class SHA1Tests: BaseHashTests() {
     }
 
     @Test
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     fun test_VeryLong() = runTest {
         val hash = SHA1()
         repeat(16_777_216) {
             hash.update("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno".encodeToByteArray())
         }
-        assertEquals("7789f0c9ef7bfc40d93311143dfbe69e2017f592",  hash.digest().toHexString())
+        assertEquals("7789f0c9ef7bfc40d93311143dfbe69e2017f592", hash.digest().toHexString())
     }
 }

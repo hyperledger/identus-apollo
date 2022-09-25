@@ -8,7 +8,7 @@ import io.iohk.prism.hashing.internal.MathHelper
  * This class implements the SHA-256 digest algorithm under the [MDHelper] API.
  * SHA-256 is specified by FIPS 180-2.
  */
-final class SHA256: MDHelper(false, 8), HMACInterface {
+final class SHA256 : MDHelper(false, 8), HMACInterface {
     private lateinit var currentVal: IntArray
     private lateinit var w: IntArray
     override val digestLength: Int
@@ -56,22 +56,36 @@ final class SHA256: MDHelper(false, 8), HMACInterface {
         var h = currentVal[7]
         for (i in 0..15) w[i] = MathHelper.decodeBEInt(data, 4 * i)
         for (i in 16..63) {
-            w[i] = ((MathHelper.circularLeftInt(w[i - 2], 15)
-                    xor MathHelper.circularLeftInt(w[i - 2], 13)
-                    xor (w[i - 2] ushr 10)) +
+            w[i] = (
+                (
+                    MathHelper.circularLeftInt(w[i - 2], 15)
+                        xor MathHelper.circularLeftInt(w[i - 2], 13)
+                        xor (w[i - 2] ushr 10)
+                    ) +
                     w[i - 7] +
-                    (MathHelper.circularLeftInt(w[i - 15], 25)
+                    (
+                        MathHelper.circularLeftInt(w[i - 15], 25)
                             xor MathHelper.circularLeftInt(w[i - 15], 14)
-                            xor (w[i - 15] ushr 3)) +
-                    w[i - 16])
+                            xor (w[i - 15] ushr 3)
+                        ) +
+                    w[i - 16]
+                )
         }
         for (i in 0..63) {
-            val t1 = (h + (MathHelper.circularLeftInt(e, 26) xor MathHelper.circularLeftInt(e, 21)
-                    xor MathHelper.circularLeftInt(e, 7)) + (f and e xor (g and e.inv())) +
-                    K[i] + w[i])
-            val t2 = ((MathHelper.circularLeftInt(a, 30) xor MathHelper.circularLeftInt(a, 19)
-                    xor MathHelper.circularLeftInt(a, 10)) +
-                    (a and b xor (a and c) xor (b and c)))
+            val t1 = (
+                h + (
+                    MathHelper.circularLeftInt(e, 26) xor MathHelper.circularLeftInt(e, 21)
+                        xor MathHelper.circularLeftInt(e, 7)
+                    ) + (f and e xor (g and e.inv())) +
+                    K[i] + w[i]
+                )
+            val t2 = (
+                (
+                    MathHelper.circularLeftInt(a, 30) xor MathHelper.circularLeftInt(a, 19)
+                        xor MathHelper.circularLeftInt(a, 10)
+                    ) +
+                    (a and b xor (a and c) xor (b and c))
+                )
             h = g
             g = f
             f = e

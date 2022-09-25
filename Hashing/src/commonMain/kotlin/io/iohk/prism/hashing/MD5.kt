@@ -8,7 +8,7 @@ import io.iohk.prism.hashing.internal.MathHelper
  * This class implements the MD5 digest algorithm under the [MDHelper] API.
  * MD5 is described in RFC 1321.
  */
-final class MD5: MDHelper(true, 8), HMACInterface {
+final class MD5 : MDHelper(true, 8), HMACInterface {
     private lateinit var currentVal: IntArray
     private lateinit var x: IntArray
     override val digestLength: Int

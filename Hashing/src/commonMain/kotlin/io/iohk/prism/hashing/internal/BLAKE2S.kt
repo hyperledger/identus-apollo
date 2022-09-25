@@ -1,6 +1,6 @@
 package io.iohk.prism.hashing.internal
 
-open class BLAKE2S: Digest {
+open class BLAKE2S : Digest {
     private var digestSize = 32
     private var keyLength = 0
     private var salt: ByteArray? = null
@@ -326,14 +326,18 @@ open class BLAKE2S: Digest {
         }
         if (chainValue == null) {
             chainValue = IntArray(8)
-            chainValue!![0] = (blake2s_IV[0]
-                    xor (digestSize or (keyLength shl 8) or (fanout shl 16 or (depth shl 24))))
+            chainValue!![0] = (
+                blake2s_IV[0]
+                    xor (digestSize or (keyLength shl 8) or (fanout shl 16 or (depth shl 24)))
+                )
             chainValue!![1] = blake2s_IV[1] xor leafLength
             val nofHi = (nodeOffset shr 32).toInt()
             val nofLo = nodeOffset.toInt()
             chainValue!![2] = blake2s_IV[2] xor nofLo
-            chainValue!![3] = blake2s_IV[3] xor (nofHi or
-                    (nodeDepth shl 16) or (innerHashLength shl 24))
+            chainValue!![3] = blake2s_IV[3] xor (
+                nofHi or
+                    (nodeDepth shl 16) or (innerHashLength shl 24)
+                )
             chainValue!![4] = blake2s_IV[4]
             chainValue!![5] = blake2s_IV[5]
             if (salt != null) {

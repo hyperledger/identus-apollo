@@ -3,7 +3,7 @@ package io.iohk.prism.hashing.internal
 /**
  * All hashing algorithms shared operations
  */
-abstract class HashingBase: Digest {
+abstract class HashingBase : Digest {
     private var digestLen: Int
     private val blockLen: Int
     private var inputLen: Int
@@ -130,14 +130,16 @@ abstract class HashingBase: Digest {
     }
 
     override fun update(input: ByteArray, offset: Int, length: Int) {
-        var offset = offset
+        var offset1 = offset
         var len = length
         while (len > 0) {
             var copyLen = blockLen - inputLen
-            if (copyLen > len) copyLen = len
-            input.copyInto(blockBuffer, inputLen, offset, offset + copyLen)
+            if (copyLen > len) {
+                copyLen = len
+            }
+            input.copyInto(blockBuffer, inputLen, offset1, offset1 + copyLen)
 
-            offset += copyLen
+            offset1 += copyLen
             inputLen += copyLen
             len -= copyLen
             if (inputLen == blockLen) {
