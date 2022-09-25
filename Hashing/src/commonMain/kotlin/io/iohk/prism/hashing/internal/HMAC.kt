@@ -24,6 +24,7 @@ class HMAC(dig: Digest, key: ByteArray, outputLength: Int? = null) : HashingBase
      * @param outputLength (optional) the HMAC output length (in bytes)
      */
     init {
+        @Suppress("NAME_SHADOWING")
         var key = key
         dig.reset()
         this.dig = dig
