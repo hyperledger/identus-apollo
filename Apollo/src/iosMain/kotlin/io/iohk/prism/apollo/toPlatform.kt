@@ -6,9 +6,9 @@ import kotlinx.cinterop.allocArrayOf
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
-import platform.Foundation.create
 import platform.Foundation.NSNumber
 import platform.Foundation.NSString
+import platform.Foundation.create
 import platform.Foundation.numberWithInt
 import platform.posix.memcpy
 
