@@ -40,6 +40,7 @@ class SHA384Tests : BaseHashTests() {
     }
 
     @Test
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     fun test_VeryLong() = runTest {
         val hash = SHA384()
         repeat(16_777_216) {
