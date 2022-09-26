@@ -2,11 +2,13 @@ package io.iohk.prism.hashing.sha0
 
 import io.iohk.prism.hashing.BaseHashTests
 import io.iohk.prism.hashing.SHA1
+import io.iohk.prism.hashing.internal.JsIgnore
 import io.iohk.prism.hashing.internal.toHexString
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+@JsIgnore
 class SHA1Tests : BaseHashTests() {
     override val valueForHash: List<String>
         get() = listOf(
