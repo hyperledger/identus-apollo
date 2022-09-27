@@ -65,6 +65,9 @@ kotlin {
                 this.cssSupport.enabled = true
             }
             this.testTask {
+                if (os.isWindows) {
+                    this.enabled = false
+                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -72,6 +75,9 @@ kotlin {
         }
         nodejs {
             this.testTask {
+                if (os.isWindows) {
+                    this.enabled = false
+                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
