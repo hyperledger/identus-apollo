@@ -1,4 +1,3 @@
-import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
@@ -30,10 +29,8 @@ kotlin {
     }
     if (os.isMacOsX) {
         ios()
-        if (Os.isFamily(Os.FAMILY_MAC)) {
-            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-                iosSimulatorArm64()
-            }
+        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+            iosSimulatorArm64()
         }
     }
     js(IR) {
@@ -109,14 +106,12 @@ kotlin {
         if (os.isMacOsX) {
             val iosMain by getting
             val iosTest by getting
-            if (Os.isFamily(Os.FAMILY_MAC)) {
-                if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-                    val iosSimulatorArm64Main by getting {
-                        this.dependsOn(iosMain)
-                    }
-                    val iosSimulatorArm64Test by getting {
-                        this.dependsOn(iosTest)
-                    }
+            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+                val iosSimulatorArm64Main by getting {
+                    this.dependsOn(iosMain)
+                }
+                val iosSimulatorArm64Test by getting {
+                    this.dependsOn(iosTest)
                 }
             }
         }
