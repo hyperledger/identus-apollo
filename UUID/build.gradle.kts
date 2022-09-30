@@ -40,7 +40,7 @@ kotlin {
         }
     }
     if (os.isWindows) {
-        mingwX86()
+        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
         mingwX64()
     }
     js(IR) {
@@ -149,8 +149,8 @@ kotlin {
             }
         }
         if (os.isWindows) {
-            val mingwX86Main by getting
-            val mingwX86Test by getting
+            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
+            // val mingwX86Test by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
             val mingwX64Main by getting
             val mingwX64Test by getting
         }
