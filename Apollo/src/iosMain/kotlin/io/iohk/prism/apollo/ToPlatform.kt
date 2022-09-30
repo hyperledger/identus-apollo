@@ -3,6 +3,7 @@ package io.iohk.prism.apollo
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.allocArrayOf
+import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
@@ -10,13 +11,14 @@ import platform.Foundation.NSNumber
 import platform.Foundation.NSString
 import platform.Foundation.create
 import platform.Foundation.numberWithInt
+import platform.darwin.NSUInteger
 import platform.posix.memcpy
 
 @OptIn(UnsafeNumber::class)
 fun ByteArray.toNSData(): NSData = memScoped {
     NSData.create(
         bytes = allocArrayOf(this@toNSData),
-        length = this@toNSData.size.toULong()
+        length = this@toNSData.size.convert<NSUInteger>()
     )
 }
 
