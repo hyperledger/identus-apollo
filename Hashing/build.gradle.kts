@@ -59,7 +59,9 @@ kotlin {
                 this.output.libraryTarget = Target.VAR
             }
             this.commonWebpackConfig {
-                this.cssSupport.enabled = true
+                this.cssSupport {
+                    this.enabled = true
+                }
             }
             this.testTask {
                 if (os.isWindows) {
