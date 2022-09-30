@@ -7,7 +7,6 @@ class PlatformTest {
 
     @Test
     fun testPlatformName() {
-        println(Platform.OS)
         assertTrue(Platform.OS.lowercase().contains("mac"), "Check macOS is mentioned")
     }
 }
