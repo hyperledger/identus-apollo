@@ -1,11 +1,13 @@
 package io.iohk.prism.hashing.hmac
 
 import io.iohk.prism.hashing.SHA3_224
+import io.iohk.prism.hashing.internal.JsIgnore
 import io.iohk.prism.hashing.internal.toBinary
 import io.iohk.prism.hashing.internal.toHexString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+@JsIgnore
 class HmacSHA3_224Tests : BaseHmacHashTests() {
 
     override fun hash(key: ByteArray, stringToHash: ByteArray, outputLength: Int?): String {

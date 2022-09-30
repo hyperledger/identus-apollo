@@ -98,7 +98,7 @@ jobs:
         
       - name: Build project and run tests
         run: |
-          ./gradlew build test dokkaHtmlMultiModule --stacktrace
+          ./gradlew clean build check --stacktrace
       
       - name: Upload the build report
         if: always()

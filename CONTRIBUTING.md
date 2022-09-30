@@ -12,7 +12,7 @@ The complete platform is separated in multiple repositories:
 
 * [Apollo](https://github.com/input-output-hk/atala-prism-apollo) - Repo for the Apollo Building Block, this contains the collection of the cryptographic methods used all around Atala PRISM.
 * [atala-prism-building-blocks](https://github.com/input-output-hk/atala-prism-building-blocks) - Repo that contains the servers Building Blocks.
-* [atala-prism-kmm-sdk](--) - Repo that represents the Kotlin Multiplatform SDK.
+* [atala-prism-kmm-sdk]() - Repo that represents the Kotlin Multiplatform SDK.
 
 ### What is Apollo
 A cryptography lib built with Kotlin Multiplatform with support for the following targets:
@@ -24,7 +24,7 @@ A cryptography lib built with Kotlin Multiplatform with support for the followin
 
 ### Your First Code Contribution
 
-Unsure where to begin contributing to Apollo? You can start by looking through the [Readme](https://github.com/input-output-hk/atala-prism-apollo/blob/main/README.md) that provides all the steps to setup your environment.
+Unsure where to begin contributing to Apollo? You can start by looking through the [Readme](https://github.com/input-output-hk/atala-prism-apollo/blob/main/README.md) that provides all the steps to set up your environment.
 
 ### Pull Requests
 
@@ -37,8 +37,8 @@ The process described here has several goals:
 
 Please follow these steps to have your contribution considered by the maintainers:
 
-1. Follow all instructions in [the template](PULL_REQUEST_TEMPLATE.md)
-2. Follow the [styleguides](#styleguides)
+1. Follow all instructions in [the template]()
+2. Follow the [Styleguide](#Styleguide)
 3. After you submit your pull request, verify that all [status checks](https://help.github.com/articles/about-status-checks/) are passing <details><summary>What if the status checks are failing?</summary>If a status check is failing, and you believe that the failure is unrelated to your change, please leave a comment on the pull request explaining why you believe the failure is unrelated. A maintainer will re-run the status check for you. If we conclude that the failure was a false positive, then we will open an issue to track that problem with our status check suite.</details>
 
 While the prerequisites above must be satisfied prior to having your pull request reviewed, the reviewer(s) may ask you to complete additional design work, tests, or other changes before your pull request can be ultimately accepted.
@@ -47,7 +47,7 @@ While the prerequisites above must be satisfied prior to having your pull reques
 
 This section guides you through submitting a bug report for Apollo Atala PRISM. Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior :computer: :computer:, and find related reports :mag_right:.
 
-Before creating bug reports, please check [this list](#before-submitting-a-bug-report) as you might find out that you don't need to create one. When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report). Fill out [the required template](https://github.com/input-output-hk/atala-prism-apollo/blob/main/.github/ISSUE_TEMPLATE/bug_report.md), the information it asks for helps us resolve issues faster.
+Before creating bug reports, please check [this list]() as you might find out that you don't need to create one. When you are creating a bug report, please [include as many details as possible](). Fill out [the required template](https://github.com/input-output-hk/atala-prism-apollo/blob/main/.github/ISSUE_TEMPLATE/bug_report.md), the information it asks for helps us resolve issues faster.
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
 
@@ -55,13 +55,13 @@ Before creating bug reports, please check [this list](#before-submitting-a-bug-r
 * **Check the [Readme](https://github.com/input-output-hk/atala-prism-apollo/blob/main/README.md) ** if you have problems on the setup and the [discussions](https://github.com/input-output-hk/atala-prism-apollo/discussions)** for a list of common questions and problems.
 * **Perform a cursory search to see if the problem has already been reported**. If it has **and the issue is still open**, add a comment to the existing issue instead of opening a new one.
 
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue on that repository and provide the following information by filling in [the template](https://github.com/input-output-hk/atala-prism-apollo/blob/main/.github/ISSUE_TEMPLATE/bug_report.md).
+Bugs are tracked as [GitHub issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues). Create an issue on that repository and provide the following information by filling in [the template](https://github.com/input-output-hk/atala-prism-apollo/blob/main/.github/ISSUE_TEMPLATE/bug_report.md).
 
 Explain the problem and include additional details to help maintainers reproduce the problem:
 
 * **Use a clear and descriptive title** for the issue to identify the problem.
 * **Describe the exact steps which reproduce the problem** in as many details as possible.
-* **Provide specific examples to demonstrate the steps**. Include links to files or GitHub projects, or copy/pasteable snippets, which you use in those examples. If you're providing snippets in the issue, use [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
+* **Provide specific examples to demonstrate the steps**. Include links to files or GitHub projects, or copy/paste able snippets, which you use in those examples. If you're providing snippets in the issue, use [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 * **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
 * **Explain which behavior you expected to see instead and why.**
 * **If you're reporting that Apollo crashed**, include a crash report with a stack trace from the operating system. On macOS, the crash report will be available in `Console.app` under "Diagnostic and usage information" > "User diagnostic reports". Include the crash report in the issue in a [code block](https://help.github.com/articles/markdown-basics/#multiple-lines), a [file attachment](https://help.github.com/articles/file-attachments-on-issues-and-pull-requests/), or put it in a [gist](https://gist.github.com/) and provide link to that gist.
@@ -70,23 +70,23 @@ Explain the problem and include additional details to help maintainers reproduce
 Provide more context by answering these questions:
 
 * **Did the problem start happening recently** (e.g. after updating to a new version of Apollo) or was this always a problem?
-* If the problem started happening recently, **can you reproduce the problem in an older version of Apollo?** What's the most recent version in which the problem doesn't happen?
+* If the problem started happening recently, **can you reproduce the problem in an older version of Apollo?** What's the most recent version in which the problem do not happen?
 * **Can you reliably reproduce the issue?** If not, provide details about how often the problem happens and under which conditions it normally happens.
 
 ### Suggesting Enhancements
 
 This section guides you through submitting an enhancement suggestion for the SDK, including completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion :pencil: and find related suggestions :mag_right:.
 
-Before creating enhancement suggestions, please check [this list](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Fill in [the template](https://github.com/input-output-hk/atala-prism-apollo/blob/main/.github/ISSUE_TEMPLATE/feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
+Before creating enhancement suggestions, please check [this list]() as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](). Fill in [the template](https://github.com/input-output-hk/atala-prism-apollo/blob/main/.github/ISSUE_TEMPLATE/feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
 
-* Most importantly, **check if you're using the lattest version.**
+* Most importantly, **check if you're using the latest version.**
 * **Perform a cursory search** to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
 
 Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue on that repository and provide the following information:
 
 * **Use a clear and descriptive title** for the issue to identify the suggestion.
 * **Provide a step-by-step description of the suggested enhancement** in as many details as possible.
-* **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
+* **Provide specific examples to demonstrate the steps**. Include copy/paste able snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 * **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
 * **Explain why this enhancement would be useful**.
 * **List some other text editors or applications where this enhancement exists.**
@@ -97,7 +97,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 
 ### Git Commit Messages
 
-Atala PRISM uses [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#specification) please always provide a commit following this specifications.
+Atala PRISM uses [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#specification) please always provide a commit following these specifications.
 
 #### Commit Message Format
 
@@ -114,17 +114,17 @@ Each commit message consists of a **header**, a **body**, and a **footer**.
 <footer>  
 ```  
 
-The `header` is mandatory and must conform to the [Commit Message Header](#commit-header) format.
+The `header` is mandatory and must conform to the [Commit Message Header]() format.
 
 The `body` is mandatory for all commits except for those of type "docs".  
-When the body is present it must be at least 20 characters long and must conform to the [Commit Message Body](#commit-body) format.
+When the body is present it must be at least 20 characters long and must conform to the [Commit Message Body]() format.
 
-The `footer` is optional. The [Commit Message Footer](#commit-footer) format describes what the footer is used for and the structure it must have.
+The `footer` is optional. The [Commit Message Footer]() format describes what the footer is used for and the structure it must have.
 
 
 #### Commit Message Header
 
-```
+``` log
 <type>(<scope>): <short summary>
   │       │             │
   │       │             └─⫸ Summary in present tense. Not capitalized. No period at the end.
@@ -188,7 +188,7 @@ You can include a comparison of the previous behavior with the new behavior in o
 The footer can contain information about breaking changes and deprecations and is also the place to reference GitHub issues, Jira tickets, and other PRs that this commit closes or is related to.  
 For example:
 
-```  
+``` log
 BREAKING CHANGE: <breaking change summary>  
 <BLANK LINE>  
 <breaking change description + migration instructions>  
@@ -199,7 +199,7 @@ Fixes ATL-<issue number>
 
 or
 
-```  
+``` log
 DEPRECATED: <what is deprecated>  
 <BLANK LINE>  
 <deprecation description + recommended update path>  
@@ -214,4 +214,4 @@ Similarly, a Deprecation section should start with "DEPRECATED: " followed by a 
 
 ### Kotlin Styleguide
 
-The Kotlin style guide is maintained by tools like [ktlint](https://ktlint.github.io/). That will follow the [The Official Kotlin Style Guide.](https://kotlinlang.org/docs/coding-conventions.html).
+The Kotlin style guide is maintained by tools like [ktlint](https://ktlint.github.io/). That will follow the [Official Kotlin Style Guide](https://kotlinlang.org/docs/coding-conventions.html).
