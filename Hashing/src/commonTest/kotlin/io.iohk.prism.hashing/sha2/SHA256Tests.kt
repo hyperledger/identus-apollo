@@ -2,6 +2,7 @@ package io.iohk.prism.hashing.sha2
 
 import io.iohk.prism.hashing.BaseHashTests
 import io.iohk.prism.hashing.SHA256
+import io.iohk.prism.hashing.internal.JsIgnore
 import io.iohk.prism.hashing.internal.toBinary
 import io.iohk.prism.hashing.internal.toHexString
 import kotlinx.coroutines.test.runTest
@@ -41,6 +42,7 @@ class SHA256Tests : BaseHashTests() {
     }
 
     @Test
+    @JsIgnore
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     fun test_VeryLong() = runTest {
         val hash = SHA256()
