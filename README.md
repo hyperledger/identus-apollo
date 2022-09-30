@@ -1,5 +1,5 @@
 # Apollo
-[![Kotlin](https://img.shields.io/badge/kotlin-1.7.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.7.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![Build](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml)
 
 A cryptography lib built with Kotlin Multiplatform with support for the following targets:
@@ -115,20 +115,20 @@ You need to do the following:
 | Android                                  | :heavy_check_mark: |
 | JS Browser                               | :heavy_check_mark: |
 | NodeJS Browser                           | :heavy_check_mark: |
+| macOS X86 64                             | :heavy_check_mark: |
+| macOS Arm 64 (Apple Silicon)             | :heavy_check_mark: |
+| watchOS X86 32                           | :heavy_check_mark: |
+| watchOS Arm 64(_32)                      | :heavy_check_mark: |
+| watchOS Arm 32                           | :heavy_check_mark: |
+| watchOS Simulator Arm 64 (Apple Silicon) | :heavy_check_mark: |
+| tvOS X86 64                              | :heavy_check_mark: |
+| tvOS Arm 64                              | :heavy_check_mark: |
+| tvOS Simulator Arm 64 (Apple Silicon)    | :heavy_check_mark: |
 | Linux X86 64                             | :x:                |
 | Linux Arm 64                             | :x:                |
 | Linux Arm 32                             | :x:                |
-| macOS X86 64                             | :x:                |
-| macOS Arm 64 (Apple Silicon)             | :x:                |
 | minGW X86 64                             | :x:                |
 | minGW X86 32                             | :x:                | 
-| watchOS X86 32                           | :x:                |
-| watchOS Arm 64(_32)                      | :x:                |
-| watchOS Arm 32                           | :x:                |
-| watchOS Simulator Arm 64 (Apple Silicon) | :x:                |
-| tvOS X86 64                              | :x:                |
-| tvOS Arm 64                              | :x:                |
-| tvOS Simulator Arm 64 (Apple Silicon)    | :x:                |
 
 **For the first, second & third point** we have two cases using Groovy and using Kotlin DSL
 ### Using Groovy
@@ -203,7 +203,7 @@ kotlin {
 }
 ```
 **For the third point**
-You need to use Kotlin version `1.7.10` could be updated in the near future to `1.7.21`
+You need to use Kotlin version `1.7.20`.
 
 ## Usage
 Please have a look at unit tests, more samples will be added soon.
