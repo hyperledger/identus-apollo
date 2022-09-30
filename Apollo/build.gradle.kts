@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
 version = rootProject.version
 val currentModuleName: String = "Apollo"
-val os = OperatingSystem.current()
+val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")

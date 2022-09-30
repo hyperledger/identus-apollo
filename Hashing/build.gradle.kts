@@ -115,24 +115,12 @@ kotlin {
         if (os.isMacOsX) {
             val iosMain by getting
             val iosTest by getting
-            val tvosMain by getting {
-                this.dependsOn(iosMain)
-            }
-            val tvosTest by getting {
-                this.dependsOn(iosTest)
-            }
-            val watchosMain by getting {
-                this.dependsOn(iosMain)
-            }
-            val watchosTest by getting {
-                this.dependsOn(iosTest)
-            }
-            val macosX64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val macosX64Test by getting {
-                this.dependsOn(iosTest)
-            }
+            val tvosMain by getting
+            val tvosTest by getting
+            val watchosMain by getting
+            val watchosTest by getting
+            val macosX64Main by getting
+            val macosX64Test by getting
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
                 val iosSimulatorArm64Main by getting {
                     this.dependsOn(iosMain)
@@ -153,10 +141,10 @@ kotlin {
                     this.dependsOn(watchosTest)
                 }
                 val macosArm64Main by getting {
-                    this.dependsOn(iosMain)
+                    this.dependsOn(macosX64Main)
                 }
                 val macosArm64Test by getting {
-                    this.dependsOn(iosTest)
+                    this.dependsOn(macosX64Test)
                 }
             }
         }
