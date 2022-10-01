@@ -89,16 +89,28 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           
       - name: Install NodeJS ${{ env.NODEJS_VERSION }}
+        if: matrix.os-type == 'linux'
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODEJS_VERSION }}
 
       - name: Test Kotlin code is properly formatted
         run: ./gradlew ktlintCheck
+
+      - name: Build for iOS, macOS, tvOS, watchOS
+        if: matrix.os-type == 'macos'
+        run: |
+          ./gradlew clean build iosX64Test macosX64Test tvosX64Test watchosX64Test --stacktrace
         
-      - name: Build project and run tests
+      - name: Build for JS, Linux, Android, JVM
+        if: matrix.os-type == 'linux'
         run: |
           ./gradlew clean build check --stacktrace
+
+      - name: Build for Windows
+        if: matrix.os-type == 'windows'
+        run: |
+          ./gradlew clean build mingwX64Test --stacktrace
       
       - name: Upload the build report
         if: always()

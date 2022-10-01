@@ -31,12 +31,12 @@ kotlin {
         ios()
         tvos()
         watchos()
-        macosArm64()
         macosX64()
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
             iosSimulatorArm64()
             tvosSimulatorArm64()
             watchosSimulatorArm64()
+            macosArm64()
         }
     }
     if (os.isWindows) {
