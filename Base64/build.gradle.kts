@@ -3,7 +3,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
 version = rootProject.version
-val currentModuleName = "ApolloHashing"
+val currentModuleName = "ApolloBase64"
 val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
@@ -39,10 +39,10 @@ kotlin {
             macosArm64()
         }
     }
-    if (os.isWindows) {
-        mingwX86()
-        mingwX64()
-    }
+//    if (os.isWindows) {
+//        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
+//        mingwX64()
+//    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.executable()
@@ -64,9 +64,6 @@ kotlin {
                 }
             }
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -74,9 +71,6 @@ kotlin {
         }
         nodejs {
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -86,7 +80,7 @@ kotlin {
 
     if (os.isMacOsX) {
         cocoapods {
-            this.summary = "Apollo Hashing is a Hashing library containing MD2, MD4, MD5, SHA, SHA-2, SHA-3, Blake, Blake2b, Blake2s and Blake3"
+            this.summary = "ApolloBase64 is a Base64 lib"
             this.version = rootProject.version.toString()
             this.authors = "IOG"
             this.ios.deploymentTarget = "13.0"
@@ -104,7 +98,6 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
             }
         }
         val jvmMain by getting
@@ -153,15 +146,12 @@ kotlin {
                 }
             }
         }
-        if (os.isWindows) {
-            val mingwX86Main by getting
-            val mingwX86Test by getting
-            val mingwX64Main by getting
-            val mingwX64Test by getting
-        }
-        all {
-            languageSettings.optIn("kotlin.RequiresOptIn")
-        }
+//        if (os.isWindows) {
+//            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
+//            // val mingwX86Test by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
+//            val mingwX64Main by getting
+//            val mingwX64Test by getting
+//        }
     }
 }
 
@@ -196,7 +186,7 @@ tasks.withType<DokkaTask> {
     moduleName.set(project.name)
     moduleVersion.set(rootProject.version.toString())
     description = """
-        This is a Kotlin Multiplatform Library for Hashing in cryptography
+        This is a Kotlin Multiplatform Library for Base64
     """.trimIndent()
     dokkaSourceSets {
         // TODO: Figure out how to include files to the documentations
