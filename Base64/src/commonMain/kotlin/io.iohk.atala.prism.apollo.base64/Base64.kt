@@ -3,7 +3,7 @@ package io.iohk.atala.prism.apollo.base64
 /**
  * Base64 implementation
  */
-final object Base64 {
+internal final object Base64 {
 
     /**
      * Encode string to Base64

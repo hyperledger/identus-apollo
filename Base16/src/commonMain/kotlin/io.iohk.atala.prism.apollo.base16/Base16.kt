@@ -3,24 +3,28 @@ package io.iohk.atala.prism.apollo.base16
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
 
-internal object Base16 {
-
-    private val alphabet: String = "0123456789abcdef"
+/**
+ * Base16 implementation
+ */
+internal final object Base16 {
     private val base: BigInteger = BigInteger.parseString("16")
 
-    fun encode(input: ByteArray): String {
+    /**
+     * Encode string to Base16
+     */
+    fun encode(input: ByteArray, encoding: Encoding = Encoding.Standard): String {
         var bi = BigInteger.fromByteArray(input, Sign.POSITIVE)
         val sb = StringBuilder()
         while (bi >= base) {
             val mod = bi.mod(base)
-            sb.insert(0, alphabet[mod.intValue()])
+            sb.insert(0, encoding.alphabet[mod.intValue()])
             bi = bi.subtract(mod).divide(base)
         }
-        sb.insert(0, alphabet[bi.intValue()])
+        sb.insert(0, encoding.alphabet[bi.intValue()])
         // convert leading zeros.
         for (b in input) {
             if (b.compareTo(0) == 0) {
-                sb.insert(0, alphabet[0])
+                sb.insert(0, encoding.alphabet[0])
             } else {
                 break
             }
@@ -28,12 +32,15 @@ internal object Base16 {
         return sb.toString()
     }
 
-    fun decode(input: String): ByteArray {
-        val bytes = decodeToBigInteger(alphabet, base, input).toByteArray()
+    /**
+     * Decode string to Base16
+     */
+    fun decode(input: String, encoding: Encoding = Encoding.Standard): ByteArray {
+        val bytes = decodeToBigInteger(encoding.alphabet, base, input).toByteArray()
         val stripSignByte = bytes.size > 1 && bytes[0].compareTo(0) == 0 && bytes[1] < 0
         var leadingZeros = 0
         var i = 0
-        while (input[i] == alphabet[0]) {
+        while (input[i] == encoding.alphabet[0]) {
             leadingZeros++
             i++
         }
