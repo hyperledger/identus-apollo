@@ -101,7 +101,9 @@ jobs:
       - name: Build for iOS, macOS, tvOS, watchOS
         if: matrix.os-type == 'macos'
         run: |
-          ./gradlew clean build iosX64Test macosX64Test tvosX64Test watchosX64Test --stacktrace
+          ./gradlew clean build iosX64Test macosX64Test tvosX64Test --stacktrace
+        # removed watchosX64Test as GitHub action gets Invalid device: Apple Watch Series 5 - 44mm
+        # TODO: To be investigated
         
       - name: Build for JS, Linux, Android, JVM
         if: matrix.os-type == 'linux'
