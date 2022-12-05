@@ -2,6 +2,7 @@
 [![Kotlin](https://img.shields.io/badge/kotlin-1.7.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 Apollo Base64 is Kotlin Multiplatform library containing:
+
 - Standard
 - URL safe
 
