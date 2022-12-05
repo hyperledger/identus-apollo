@@ -13,7 +13,7 @@ internal fun ByteArray.asCharArray(): CharArray {
 }
 
 /**
- * Encode a [ByteArray] to Base16 [String]
+ * Encode a [ByteArray] to Base16 [String] standard
  */
 val ByteArray.base16Encoded: String
     get() = Base16.encode(this)
@@ -23,3 +23,15 @@ val ByteArray.base16Encoded: String
  */
 val ByteArray.base16Decoded: String
     get() = asCharArray().concatToString().base16Encoded
+
+/**
+ * Encode a [ByteArray] to Base16 [String] Upper
+ */
+val ByteArray.base16UpperEncoded: String
+    get() = Base16.encode(this, Encoding.Upper)
+
+/**
+ * Decode a [ByteArray] Base16 Upper encoded to [String]
+ */
+val ByteArray.base16UpperDecoded: String
+    get() = asCharArray().concatToString().base16UpperDecoded

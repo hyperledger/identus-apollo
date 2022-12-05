@@ -1,7 +1,10 @@
 # Apollo - Base16
 [![Kotlin](https://img.shields.io/badge/kotlin-1.7.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
-Apollo Base16 is Kotlin Multiplatform library.
+Apollo Base16 is Kotlin Multiplatform library containing:
+
+- Standard
+- Upper
 
 ## Supported Targets
 | Platform                                 | Supported          |
@@ -30,8 +33,14 @@ Apollo Base16 is Kotlin Multiplatform library.
 | Linux Arm 32                             | :x:                |
 
 ## Usage
-### Base16
+### Base16 Standard
 ```kotlin
 val helloWorld = "57656c636f6d6520746f20494f4721".base16Decoded // "Welcome to IOG!"
 println("Welcome to IOG!".base16Encoded) // Prints "57656c636f6d6520746f20494f4721"
+```
+## Usage
+### Base16 Upper
+```kotlin
+val helloWorld = "57656C636F6D6520746F20494F4721".base16UpperDecoded // "Welcome to IOG!"
+println("Welcome to IOG!".base16UpperEncoded) // Prints "57656C636F6D6520746F20494F4721"
 ```
