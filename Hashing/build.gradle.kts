@@ -29,14 +29,14 @@ kotlin {
     }
     if (os.isMacOsX) {
         ios()
-        tvos()
-        watchos()
-        macosX64()
+//        tvos()
+//        watchos()
+//        macosX64()
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
             iosSimulatorArm64()
-            tvosSimulatorArm64()
-            watchosSimulatorArm64()
-            macosArm64()
+//            tvosSimulatorArm64()
+//            watchosSimulatorArm64()
+//            macosArm64()
         }
     }
     if (os.isWindows) {
@@ -120,12 +120,12 @@ kotlin {
         if (os.isMacOsX) {
             val iosMain by getting
             val iosTest by getting
-            val tvosMain by getting
-            val tvosTest by getting
-            val watchosMain by getting
-            val watchosTest by getting
-            val macosX64Main by getting
-            val macosX64Test by getting
+//            val tvosMain by getting
+//            val tvosTest by getting
+//            val watchosMain by getting
+//            val watchosTest by getting
+//            val macosX64Main by getting
+//            val macosX64Test by getting
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
                 val iosSimulatorArm64Main by getting {
                     this.dependsOn(iosMain)
@@ -133,24 +133,24 @@ kotlin {
                 val iosSimulatorArm64Test by getting {
                     this.dependsOn(iosTest)
                 }
-                val tvosSimulatorArm64Main by getting {
-                    this.dependsOn(tvosMain)
-                }
-                val tvosSimulatorArm64Test by getting {
-                    this.dependsOn(tvosTest)
-                }
-                val watchosSimulatorArm64Main by getting {
-                    this.dependsOn(watchosMain)
-                }
-                val watchosSimulatorArm64Test by getting {
-                    this.dependsOn(watchosTest)
-                }
-                val macosArm64Main by getting {
-                    this.dependsOn(macosX64Main)
-                }
-                val macosArm64Test by getting {
-                    this.dependsOn(macosX64Test)
-                }
+//                val tvosSimulatorArm64Main by getting {
+//                    this.dependsOn(tvosMain)
+//                }
+//                val tvosSimulatorArm64Test by getting {
+//                    this.dependsOn(tvosTest)
+//                }
+//                val watchosSimulatorArm64Main by getting {
+//                    this.dependsOn(watchosMain)
+//                }
+//                val watchosSimulatorArm64Test by getting {
+//                    this.dependsOn(watchosTest)
+//                }
+//                val macosArm64Main by getting {
+//                    this.dependsOn(macosX64Main)
+//                }
+//                val macosArm64Test by getting {
+//                    this.dependsOn(macosX64Test)
+//                }
             }
         }
         if (os.isWindows) {
