@@ -38,7 +38,6 @@ Apollo Base16 is Kotlin Multiplatform library containing:
 val helloWorld = "57656c636f6d6520746f20494f4721".base16Decoded // "Welcome to IOG!"
 println("Welcome to IOG!".base16Encoded) // Prints "57656c636f6d6520746f20494f4721"
 ```
-## Usage
 ### Base16 Upper
 ```kotlin
 val helloWorld = "57656C636F6D6520746F20494F4721".base16UpperDecoded // "Welcome to IOG!"
