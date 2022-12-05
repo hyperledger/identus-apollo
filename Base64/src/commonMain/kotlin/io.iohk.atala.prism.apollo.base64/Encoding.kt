@@ -5,14 +5,19 @@ package io.iohk.atala.prism.apollo.base64
  */
 sealed interface Encoding {
     val alphabet: String
-    val requiresPadding: Boolean
 
     /**
      * Base64 Standard
      */
     object Standard : Encoding {
         override val alphabet: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-        override val requiresPadding: Boolean = true
+    }
+
+    /**
+     * Base64 Standard
+     */
+    object StandardPad : Encoding {
+        override val alphabet: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
     }
 
     /**
@@ -20,6 +25,12 @@ sealed interface Encoding {
      */
     object UrlSafe : Encoding {
         override val alphabet: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
-        override val requiresPadding: Boolean = false // Padding is optional
+    }
+
+    /**
+     * Base64 URL
+     */
+    object UrlSafePad : Encoding {
+        override val alphabet: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_="
     }
 }

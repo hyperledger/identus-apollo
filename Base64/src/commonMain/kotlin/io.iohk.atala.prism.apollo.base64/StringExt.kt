@@ -22,7 +22,37 @@ val String.base64Decoded: String
  * RFC 4648 Section 4
  */
 val String.base64DecodedBytes: ByteArray
-    get() = Base64.decode(this, Encoding.Standard).map {
+    get() {
+        val bytes = Base64.decode(this, Encoding.Standard).map {
+            it.toByte()
+        }.toList().dropLast(count { it == '=' }).toByteArray()
+        val count = bytes.count {
+            it.toInt() == 0
+        }
+        return bytes.dropLast(count).toByteArray()
+    }
+
+// Standard with Padding
+/**
+ * Encode a [String] to Base64 [String] standard encoding
+ * RFC 4648 Section 4
+ */
+val String.base64PadEncoded: String
+    get() = Base64.encode(this, Encoding.StandardPad)
+
+/**
+ * Decode a Base64 [String] standard encoded to [String].
+ * RFC 4648 Section 4
+ */
+val String.base64PadDecoded: String
+    get() = base64PadDecodedBytes.decodeToString()
+
+/**
+ * Decode a Base64 [String] standard encoded to [ByteArray].
+ * RFC 4648 Section 4
+ */
+val String.base64PadDecodedBytes: ByteArray
+    get() = Base64.decode(this, Encoding.StandardPad).map {
         it.toByte()
     }.toList().dropLast(count { it == '=' }).toByteArray()
 
@@ -40,22 +70,44 @@ val String.base64UrlEncoded: String
  * RFC 4648 Section 5
  */
 val String.base64UrlDecoded: String
-    get() {
-        val ret = Base64.decode(this, Encoding.UrlSafe).map { it.toChar() }
-        val foo = ret.joinToString("")
-        val bar = foo.dropLast(count { it == '=' })
-        return bar.filterNot { it.code == 0 }
-    }
+    get() = base64UrlDecodedBytes.decodeToString()
 
 /**
  * Decode a Base64 URL-safe encoded [String] to [ByteArray].
  * RFC 4648 Section 5
  */
 val String.base64UrlDecodedBytes: ByteArray
-    get() = Base64.decode(this, Encoding.UrlSafe).map {
-        it.toByte()
-    }.toList().dropLast(
-        count {
-            (it == '=') || (it == Char.MIN_VALUE)
+    get() {
+        val bytes = Base64.decode(this, Encoding.UrlSafe).map {
+            it.toByte()
+        }.toList().dropLast(count { it == '=' || it.code == 0 }).toByteArray()
+        val count = bytes.count {
+            it.toInt() == 0
         }
-    ).toByteArray()
+        return bytes.dropLast(count).toByteArray()
+    }
+
+// Base64URL with padding
+/**
+ * Encode a [String] to Base64 URL-safe encoded [String].
+ * RFC 4648 Section 5
+ * See [RFC 4648 §5](https://datatracker.ietf.org/doc/html/rfc4648#section-5)
+ */
+val String.base64UrlPadEncoded: String
+    get() = Base64.encode(this, Encoding.UrlSafePad)
+
+/**
+ * Decode a Base64 URL-safe encoded [String] to [String].
+ * RFC 4648 Section 5
+ */
+val String.base64UrlPadDecoded: String
+    get() = base64UrlPadDecodedBytes.decodeToString()
+
+/**
+ * Decode a Base64 URL-safe encoded [String] to [ByteArray].
+ * RFC 4648 Section 5
+ */
+val String.base64UrlPadDecodedBytes: ByteArray
+    get() = Base64.decode(this, Encoding.UrlSafePad).map {
+        it.toByte()
+    }.toList().dropLast(count { it == '=' }).toByteArray()

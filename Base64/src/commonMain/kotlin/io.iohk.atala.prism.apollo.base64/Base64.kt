@@ -25,7 +25,7 @@ internal final object Base64 {
             .map { encoding.alphabet[it] }
             .joinToString("")
             .dropLast(padLength)
-        return when (encoding.requiresPadding) {
+        return when (encoding == Encoding.StandardPad || encoding == Encoding.UrlSafePad) {
             true -> encoded.padEnd(encoded.length + padLength, '=')
             else -> encoded
         }
