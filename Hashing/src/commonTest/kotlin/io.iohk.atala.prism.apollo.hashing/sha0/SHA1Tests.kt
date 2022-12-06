@@ -5,6 +5,7 @@ import io.iohk.atala.prism.apollo.hashing.SHA1
 import io.iohk.atala.prism.apollo.hashing.internal.JsIgnore
 import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import kotlinx.coroutines.test.runTest
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -41,6 +42,7 @@ class SHA1Tests : BaseHashTests() {
     }
 
     @Test
+    @Ignore
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     fun test_VeryLong() = runTest {
         val hash = SHA1()

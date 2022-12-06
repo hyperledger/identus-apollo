@@ -7,7 +7,6 @@ import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@JsIgnore
 class HmacSHA256Tests : BaseHmacHashTests() {
 
     override fun hash(key: ByteArray, stringToHash: ByteArray, outputLength: Int?): String {
@@ -74,6 +73,7 @@ class HmacSHA256Tests : BaseHmacHashTests() {
     }
 
     @Test
+    @JsIgnore
     fun test_Hexs() {
         assertEquals(
             "83038173da2181cc0c8c0f92e79c4810e33a6aaad6d09c127cda8cb29d10b734",
@@ -90,6 +90,7 @@ class HmacSHA256Tests : BaseHmacHashTests() {
     }
 
     @Test
+    @JsIgnore
     fun test_Truncation() {
         assertEquals(
             "a3b6167473100ee06e0c796c2955552b",
@@ -98,6 +99,7 @@ class HmacSHA256Tests : BaseHmacHashTests() {
     }
 
     @Test
+    @JsIgnore
     fun test_LargerThanBlockSizeKeyAndLargerThanOneBlockSizeData() {
         assertEquals(
             "60e431591ee0b67f0d8a26aacbf5b77f8e0bc6213728c5140546040f0ee37f54",
@@ -118,6 +120,7 @@ class HmacSHA256Tests : BaseHmacHashTests() {
     }
 
     @Test
+    @JsIgnore
     fun test_Seq() {
         val expectedOutput = listOf(
             "d38b42096d80f45f826b44a9d5607de72496a415d3f4a1a8c88e3bb9da8dc1cb",
