@@ -230,7 +230,7 @@ actual final class BLAKE224 actual constructor() : HashingBase() {
         h7 = h7 xor (s3 xor v7 xor vF)
     }
 
-    actual override fun toString() = "BLAKE-224"
+    override fun toString() = "BLAKE-224"
 
     companion object {
         private val SIGMA = intArrayOf(
