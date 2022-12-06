@@ -107,19 +107,44 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
             }
         }
-        val jvmMain by getting
-        val jvmTest by getting
-        val androidMain by getting
+        val allButJSMain by creating {
+            this.dependsOn(commonMain)
+        }
+        val allButJSTest by creating {
+            this.dependsOn(commonTest)
+        }
+        val jvmMain by getting {
+            this.dependsOn(allButJSMain)
+        }
+        val jvmTest by getting {
+            this.dependsOn(allButJSTest)
+        }
+        val androidMain by getting {
+            this.dependsOn(allButJSMain)
+        }
         val androidTest by getting {
+            this.dependsOn(allButJSTest)
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
         }
-        val jsMain by getting
+        val jsMain by getting {
+            dependencies {
+                implementation(npm("hash.js", "1.1.7"))
+
+                // Polyfill dependencies
+                implementation(npm("stream-browserify", "3.0.0"))
+                implementation(npm("buffer", "6.0.3"))
+            }
+        }
         val jsTest by getting
         if (os.isMacOsX) {
-            val iosMain by getting
-            val iosTest by getting
+            val iosMain by getting {
+                this.dependsOn(allButJSMain)
+            }
+            val iosTest by getting {
+                this.dependsOn(allButJSTest)
+            }
 //            val tvosMain by getting
 //            val tvosTest by getting
 //            val watchosMain by getting
@@ -154,10 +179,18 @@ kotlin {
             }
         }
         if (os.isWindows) {
-            val mingwX86Main by getting
-            val mingwX86Test by getting
-            val mingwX64Main by getting
-            val mingwX64Test by getting
+            val mingwX86Main by getting {
+                this.dependsOn(allButJSMain)
+            }
+            val mingwX86Test by getting {
+                this.dependsOn(allButJSTest)
+            }
+            val mingwX64Main by getting {
+                this.dependsOn(allButJSMain)
+            }
+            val mingwX64Test by getting {
+                this.dependsOn(allButJSTest)
+            }
         }
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")
