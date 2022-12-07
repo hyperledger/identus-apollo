@@ -28,20 +28,20 @@ allprojects {
         mavenCentral()
     }
 
-//    apply(plugin = "org.gradle.maven-publish")
+    apply(plugin = "org.gradle.maven-publish")
 
-//    publishing {
-//        repositories {
-//            maven {
-//                this.name = "GitHubPackages"
-//                this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-//                credentials {
-//                    this.username = System.getenv("ATALA_GITHUB_ACTOR")
-//                    this.password = System.getenv("ATALA_GITHUB_TOKEN")
-//                }
-//            }
-//        }
-//    }
+    publishing {
+        repositories {
+            maven {
+                this.name = "GitHubPackages"
+                this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
+                credentials {
+                    this.username = System.getenv("ATALA_GITHUB_ACTOR")
+                    this.password = System.getenv("ATALA_GITHUB_TOKEN")
+                }
+            }
+        }
+    }
 }
 
 subprojects {
