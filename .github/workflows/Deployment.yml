@@ -64,5 +64,5 @@ jobs:
           if [ "${{ matrix.os-type }}" == "linux" ]; then
             ./gradlew publishAllPublicationsToGitHubPackagesRepository
           else
-            ./gradlew publishIosArm64PublicationToGitHubPackagesRepository publishIosX64PublicationToGitHubPackagesRepository
+            ./gradlew publishIosArm64PublicationToGitHubPackagesRepository publishIosX64PublicationToGitHubPackagesRepository publishIosSimulatorArm64PublicationToGitHubPackagesRepository
           fi
