@@ -91,12 +91,12 @@ kotlin {
             this.watchos.deploymentTarget = "8.0"
             framework {
                 this.baseName = currentModuleName
-                export(project(":Base16"))
-                export(project(":Base32"))
-                export(project(":Base58"))
-                export(project(":Base64"))
-                export(project(":Hashing"))
-                export(project(":Multibase"))
+                export(project(":base16"))
+                export(project(":base32"))
+                export(project(":base58"))
+                export(project(":base64"))
+                export(project(":hashing"))
+                export(project(":multibase"))
             }
         }
     }
@@ -104,12 +104,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":Base16"))
-                api(project(":Base32"))
-                api(project(":Base58"))
-                api(project(":Base64"))
-                api(project(":Hashing"))
-                api(project(":Multibase"))
+                api(project(":base16"))
+                api(project(":base32"))
+                api(project(":base58"))
+                api(project(":base64"))
+                api(project(":hashing"))
+                api(project(":multibase"))
             }
         }
         val commonTest by getting {
@@ -190,13 +190,13 @@ android {
      * disableAutomaticComponentCreation=true in the `gradle.properties` file or use the new
      * publishing DSL.
      */
-//    publishing {
-//        multipleVariants {
-//            withSourcesJar()
-//            withJavadocJar()
-//            allVariants()
-//        }
-//    }
+    publishing {
+        multipleVariants {
+            withSourcesJar()
+            withJavadocJar()
+            allVariants()
+        }
+    }
 }
 
 // Dokka implementation

@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'Multibase'
+    spec.name                     = 'multibase'
     spec.version                  = '1.0.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
@@ -15,13 +15,13 @@ Pod::Spec.new do |spec|
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':Multibase',
+        'KOTLIN_PROJECT_PATH' => ':multibase',
         'PRODUCT_MODULE_NAME' => 'ApolloMultibase',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build Multibase',
+            :name => 'Build multibase',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT

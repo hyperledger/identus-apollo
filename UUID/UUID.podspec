@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'UUID'
+    spec.name                     = 'uuid'
     spec.version                  = '1.0.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
@@ -15,13 +15,13 @@ Pod::Spec.new do |spec|
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':UUID',
+        'KOTLIN_PROJECT_PATH' => ':uuid',
         'PRODUCT_MODULE_NAME' => 'ApolloUUID',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build UUID',
+            :name => 'Build uuid',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT

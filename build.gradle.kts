@@ -2,9 +2,9 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 
 plugins {
-    id("maven-publish")
     id("org.jetbrains.dokka") version "1.7.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
+    id("maven-publish")
 }
 
 buildscript {

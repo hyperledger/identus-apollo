@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'Base58'
+    spec.name                     = 'base58'
     spec.version                  = '1.0.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
@@ -15,13 +15,13 @@ Pod::Spec.new do |spec|
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':Base58',
+        'KOTLIN_PROJECT_PATH' => ':base58',
         'PRODUCT_MODULE_NAME' => 'ApolloBase58',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build Base58',
+            :name => 'Build base58',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT

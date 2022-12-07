@@ -102,10 +102,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":Base16"))
-                implementation(project(":Base32"))
-                implementation(project(":Base58"))
-                implementation(project(":Base64"))
+                api(project(":base16"))
+                api(project(":base32"))
+                api(project(":base58"))
+                api(project(":base64"))
             }
         }
         val commonTest by getting {
@@ -185,13 +185,13 @@ android {
      * disableAutomaticComponentCreation=true in the `gradle.properties` file or use the new
      * publishing DSL.
      */
-//    publishing {
-//        multipleVariants {
-//            withSourcesJar()
-//            withJavadocJar()
-//            allVariants()
-//        }
-//    }
+    publishing {
+        multipleVariants {
+            withSourcesJar()
+            withJavadocJar()
+            allVariants()
+        }
+    }
 }
 
 // Dokka implementation
