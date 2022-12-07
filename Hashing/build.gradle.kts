@@ -215,13 +215,13 @@ android {
      * disableAutomaticComponentCreation=true in the `gradle.properties` file or use the new
      * publishing DSL.
      */
-    publishing {
-        multipleVariants {
-            withSourcesJar()
-            withJavadocJar()
-            allVariants()
-        }
-    }
+//    publishing {
+//        multipleVariants {
+//            withSourcesJar()
+//            withJavadocJar()
+//            allVariants()
+//        }
+//    }
 }
 
 // Dokka implementation
