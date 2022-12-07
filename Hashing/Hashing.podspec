@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'Hashing'
+    spec.name                     = 'hashing'
     spec.version                  = '1.0.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
@@ -15,13 +15,13 @@ Pod::Spec.new do |spec|
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':Hashing',
+        'KOTLIN_PROJECT_PATH' => ':hashing',
         'PRODUCT_MODULE_NAME' => 'ApolloHashing',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build Hashing',
+            :name => 'Build hashing',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
