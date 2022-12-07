@@ -41,7 +41,7 @@ kotlin {
     }
     js(IR) {
         this.moduleName = currentModuleName
-        this.binaries.executable()
+        this.binaries.library()
         this.useCommonJs()
         this.compilations["main"].packageJson {
             this.version = rootProject.version.toString()
@@ -85,6 +85,12 @@ kotlin {
             this.watchos.deploymentTarget = "8.0"
             framework {
                 this.baseName = currentModuleName
+                export(project(":Base16"))
+                export(project(":Base32"))
+                export(project(":Base58"))
+                export(project(":Base64"))
+                export(project(":Hashing"))
+                export(project(":Multibase"))
             }
         }
     }
@@ -92,7 +98,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(project(":Base16"))
+                implementation(project(":Base32"))
+                implementation(project(":Base58"))
+                implementation(project(":Base64"))
                 implementation(project(":Hashing"))
+                implementation(project(":Multibase"))
             }
         }
         val commonTest by getting {
