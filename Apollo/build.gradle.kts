@@ -60,6 +60,9 @@ kotlin {
                 }
             }
             this.testTask {
+                if (os.isWindows) {
+                    this.enabled = false
+                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -67,6 +70,9 @@ kotlin {
         }
         nodejs {
             this.testTask {
+                if (os.isWindows) {
+                    this.enabled = false
+                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }

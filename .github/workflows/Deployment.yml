@@ -66,8 +66,10 @@ jobs:
         run: |
           if [ "${{ matrix.os-type }}" == "linux" ]; then
             ./gradlew publishAllPublicationsToGitHubPackagesRepository
-          else
+          else if [ "${{ matrix.os-type }}" == "macos" ]; then
             ./gradlew publishIosArm64PublicationToGitHubPackagesRepository publishIosX64PublicationToGitHubPackagesRepository
+          else
+            ./gradlew Hashing:publishMingwX86PublicationToGitHubPackagesRepository 
           fi
           
   build:
