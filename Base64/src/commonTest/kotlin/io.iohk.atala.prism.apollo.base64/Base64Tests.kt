@@ -119,8 +119,8 @@ class Base64Tests {
         assertEquals("Word", "V29yZA==".base64UrlDecoded)
         assertEquals("Hello", "SGVsbG8=".base64UrlDecoded)
         assertEquals("World!", "V29ybGQh".base64UrlDecoded)
-         assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ".base64UrlDecoded)
-         assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ==".base64UrlPadDecoded)
+        assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ".base64UrlDecoded)
+        assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ==".base64UrlPadDecoded)
         assertEquals(
             Encoding.Standard.alphabet,
             "QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODkrLw==".base64UrlPadDecoded
