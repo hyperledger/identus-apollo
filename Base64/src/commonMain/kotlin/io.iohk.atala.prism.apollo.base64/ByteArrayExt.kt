@@ -18,14 +18,14 @@ internal fun ByteArray.asCharArray(): CharArray {
  * RFC 4648 Section 4
  */
 val ByteArray.base64Encoded: String
-    get() = asCharArray().concatToString().base64Encoded
+    get() = Base64.encodeToString(this)
 
 /**
  * Decode a [ByteArray] Base64 standard encoded to [String]
  * RFC 4648 Section 4
  */
 val ByteArray.base64Decoded: String
-    get() = asCharArray().concatToString().base64Decoded
+    get() = Base64.decode(this.decodeToString()).decodeToString()
 
 // Base64Standard with padding
 /**
@@ -33,14 +33,14 @@ val ByteArray.base64Decoded: String
  * RFC 4648 Section 4
  */
 val ByteArray.base64PadEncoded: String
-    get() = asCharArray().concatToString().base64PadEncoded
+    get() = Base64.encodeToString(this, Encoding.StandardPad)
 
 /**
  * Decode a [ByteArray] Base64 standard encoded to [String]
  * RFC 4648 Section 4
  */
 val ByteArray.base64PadDecoded: String
-    get() = asCharArray().concatToString().base64PadDecoded
+    get() = Base64.decode(this.decodeToString(), Encoding.StandardPad).decodeToString()
 
 // Base64URL
 /**
@@ -48,14 +48,14 @@ val ByteArray.base64PadDecoded: String
  * RFC 4648 Section 5
  */
 val ByteArray.base64UrlDecoded: String
-    get() = asCharArray().concatToString().base64UrlDecoded
+    get() = Base64.decode(this.decodeToString(), Encoding.UrlSafe).decodeToString()
 
 /**
  * Encode a [ByteArray] to Base64 URL-safe encoded [String].
  * RFC 4648 Section 5
  */
 val ByteArray.base64UrlEncoded: String
-    get() = asCharArray().concatToString().base64UrlEncoded
+    get() = Base64.encodeToString(this, Encoding.UrlSafe)
 
 // Base64URL with padding
 /**
@@ -63,11 +63,11 @@ val ByteArray.base64UrlEncoded: String
  * RFC 4648 Section 5
  */
 val ByteArray.base64UrlPadDecoded: String
-    get() = asCharArray().concatToString().base64UrlPadDecoded
+    get() = Base64.encodeToString(this, Encoding.UrlSafePad)
 
 /**
  * Encode a [ByteArray] to Base64 URL-safe encoded [String].
  * RFC 4648 Section 5
  */
 val ByteArray.base64UrlPadEncoded: String
-    get() = asCharArray().concatToString().base64UrlPadEncoded
+    get() = Base64.encodeToString(this, Encoding.UrlSafePad)

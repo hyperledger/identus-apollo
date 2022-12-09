@@ -6,31 +6,21 @@ package io.iohk.atala.prism.apollo.base64
  * RFC 4648 Section 4
  */
 val String.base64Encoded: String
-    get() = Base64.encode(this, Encoding.Standard)
+    get() = Base64.encodeToString(this.encodeToByteArray(), Encoding.Standard)
 
 /**
  * Decode a Base64 [String] standard encoded to [String].
  * RFC 4648 Section 4
  */
 val String.base64Decoded: String
-    get() = Base64.decode(this, Encoding.Standard).map {
-        it.toChar()
-    }.joinToString("").dropLast(count { it == '=' })
+    get() = Base64.decode(this, Encoding.Standard).decodeToString()
 
 /**
  * Decode a Base64 [String] standard encoded to [ByteArray].
  * RFC 4648 Section 4
  */
 val String.base64DecodedBytes: ByteArray
-    get() {
-        val bytes = Base64.decode(this, Encoding.Standard).map {
-            it.toByte()
-        }.toList().dropLast(count { it == '=' }).toByteArray()
-        val count = bytes.count {
-            it.toInt() == 0
-        }
-        return bytes.dropLast(count).toByteArray()
-    }
+    get() = Base64.decode(this, Encoding.Standard)
 
 // Standard with Padding
 /**
@@ -38,7 +28,7 @@ val String.base64DecodedBytes: ByteArray
  * RFC 4648 Section 4
  */
 val String.base64PadEncoded: String
-    get() = Base64.encode(this, Encoding.StandardPad)
+    get() = Base64.encodeToString(this.encodeToByteArray(), Encoding.StandardPad)
 
 /**
  * Decode a Base64 [String] standard encoded to [String].
@@ -52,9 +42,7 @@ val String.base64PadDecoded: String
  * RFC 4648 Section 4
  */
 val String.base64PadDecodedBytes: ByteArray
-    get() = Base64.decode(this, Encoding.StandardPad).map {
-        it.toByte()
-    }.toList().dropLast(count { it == '=' }).toByteArray()
+    get() = Base64.decode(this, Encoding.StandardPad)
 
 // Base64URL
 /**
@@ -63,7 +51,7 @@ val String.base64PadDecodedBytes: ByteArray
  * See [RFC 4648 §5](https://datatracker.ietf.org/doc/html/rfc4648#section-5)
  */
 val String.base64UrlEncoded: String
-    get() = Base64.encode(this, Encoding.UrlSafe)
+    get() = Base64.encodeToString(this.encodeToByteArray(), Encoding.UrlSafe)
 
 /**
  * Decode a Base64 URL-safe encoded [String] to [String].
@@ -77,15 +65,7 @@ val String.base64UrlDecoded: String
  * RFC 4648 Section 5
  */
 val String.base64UrlDecodedBytes: ByteArray
-    get() {
-        val bytes = Base64.decode(this, Encoding.UrlSafe).map {
-            it.toByte()
-        }.toList().dropLast(count { it == '=' || it.code == 0 }).toByteArray()
-        val count = bytes.count {
-            it.toInt() == 0
-        }
-        return bytes.dropLast(count).toByteArray()
-    }
+    get() = Base64.decode(this, Encoding.UrlSafe)
 
 // Base64URL with padding
 /**
@@ -94,7 +74,7 @@ val String.base64UrlDecodedBytes: ByteArray
  * See [RFC 4648 §5](https://datatracker.ietf.org/doc/html/rfc4648#section-5)
  */
 val String.base64UrlPadEncoded: String
-    get() = Base64.encode(this, Encoding.UrlSafePad)
+    get() = Base64.encodeToString(this.encodeToByteArray(), Encoding.UrlSafePad)
 
 /**
  * Decode a Base64 URL-safe encoded [String] to [String].
@@ -108,6 +88,4 @@ val String.base64UrlPadDecoded: String
  * RFC 4648 Section 5
  */
 val String.base64UrlPadDecodedBytes: ByteArray
-    get() = Base64.decode(this, Encoding.UrlSafePad).map {
-        it.toByte()
-    }.toList().dropLast(count { it == '=' }).toByteArray()
+    get() = Base64.decode(this, Encoding.UrlSafePad)
