@@ -85,7 +85,7 @@ internal final object Base64 {
      *
      * @see Encoder
      *
-     * @since   1.8
+     * @since 1.8
      */
     private class Decoder private constructor(private val isURL: Boolean, private val isMIME: Boolean) {
         /**
@@ -94,12 +94,12 @@ internal final object Base64 {
          * byte array. The returned byte array is of the length of the resulting
          * bytes.
          *
-         * @param   src
+         * @param src
          * the byte array to decode
          *
-         * @return  A newly-allocated byte array containing the decoded bytes.
+         * @return A newly-allocated byte array containing the decoded bytes.
          *
-         * @throws  IllegalArgumentException
+         * @throws IllegalArgumentException
          * if `src` is not in valid Base64 scheme
          */
         fun decode(src: ByteArray): ByteArray {
@@ -120,12 +120,12 @@ internal final object Base64 {
          *  An invocation of this method has exactly the same effect as invoking
          * `decode(src.getBytes(StandardCharsets.ISO_8859_1))`
          *
-         * @param   src
+         * @param src
          * the string to decode
          *
-         * @return  A newly-allocated byte array containing the decoded bytes.
+         * @return A newly-allocated byte array containing the decoded bytes.
          *
-         * @throws  IllegalArgumentException
+         * @throws IllegalArgumentException
          * if `src` is not in valid Base64 scheme
          */
         fun decode(src: String): ByteArray {
@@ -149,14 +149,14 @@ internal final object Base64 {
          * then some bytes may have been written to the output byte array before
          * [IllegalArgumentException] is thrown.
          *
-         * @param   src
+         * @param src
          * the byte array to decode
-         * @param   dst
+         * @param dst
          * the output byte array
          *
-         * @return  The number of bytes written to the output byte array
+         * @return The number of bytes written to the output byte array
          *
-         * @throws  IllegalArgumentException
+         * @throws IllegalArgumentException
          * if `src` is not in valid Base64 scheme, or `dst`
          * does not have enough space for decoding all input bytes.
          */
@@ -215,7 +215,7 @@ internal final object Base64 {
             while (sp < sl) {
                 var b = src[sp++].toInt() and 0xff
                 if (base64[b].also { b = it } < 0) {
-                    if (b == -2) {         // padding byte '='
+                    if (b == -2) { // padding byte '='
                         // =     shiftto==18 unnecessary padding
                         // x=    shiftto==12 a dangling single x
                         // x     to be handled together with non-padding case
@@ -326,7 +326,7 @@ internal final object Base64 {
      *
      * @see Decoder
      *
-     * @since   1.8
+     * @since 1.8
      */
     private class Encoder private constructor(
         private val isURL: Boolean,
@@ -352,9 +352,9 @@ internal final object Base64 {
          * byte array using the [Base64] encoding scheme. The returned byte
          * array is of the length of the resulting bytes.
          *
-         * @param   src
+         * @param src
          * the byte array to encode
-         * @return  A newly-allocated byte array containing the resulting
+         * @return A newly-allocated byte array containing the resulting
          * encoded bytes.
          */
         fun encode(src: ByteArray): ByteArray {
@@ -380,13 +380,13 @@ internal final object Base64 {
          * all bytes from the input byte array. No bytes will be written to the
          * output byte array if the output byte array is not big enough.
          *
-         * @param   src
+         * @param src
          * the byte array to encode
-         * @param   dst
+         * @param dst
          * the output byte array
-         * @return  The number of bytes written to the output byte array
+         * @return The number of bytes written to the output byte array
          *
-         * @throws  IllegalArgumentException if `dst` does not have enough
+         * @throws IllegalArgumentException if `dst` does not have enough
          * space for encoding all input bytes.
          */
         @Throws(IllegalArgumentException::class)
@@ -412,9 +412,9 @@ internal final object Base64 {
          * effect as invoking
          * `new String(encode(src), StandardCharsets.ISO_8859_1)`.
          *
-         * @param   src
+         * @param src
          * the byte array to encode
-         * @return  A String containing the resulting Base64 encoded characters
+         * @return A String containing the resulting Base64 encoded characters
          */
         fun encodeToString(src: ByteArray): String {
             val encoded: ByteArray = encode(src)
@@ -452,8 +452,9 @@ internal final object Base64 {
                 var dp0 = dp
                 while (sp0 < sl0) {
                     val bits = src[sp0++].toInt() and 0xff shl 16 or (
-                            src[sp0++].toInt() and 0xff shl 8) or
-                            (src[sp0++].toInt() and 0xff)
+                        src[sp0++].toInt() and 0xff shl 8
+                        ) or
+                        (src[sp0++].toInt() and 0xff)
                     dst[dp0++] = base64[bits ushr 18 and 0x3f].code.toByte()
                     dst[dp0++] = base64[bits ushr 12 and 0x3f].code.toByte()
                     dst[dp0++] = base64[bits ushr 6 and 0x3f].code.toByte()
@@ -468,7 +469,7 @@ internal final object Base64 {
                     }
                 }
             }
-            if (sp < end) {               // 1 or 2 leftover bytes
+            if (sp < end) { // 1 or 2 leftover bytes
                 val b0 = src[sp++].toInt() and 0xff
                 dst[dp++] = base64[b0 shr 2].code.toByte()
                 if (sp == end) {
