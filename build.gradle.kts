@@ -30,16 +30,22 @@ allprojects {
         mavenCentral()
     }
 
-    apply(plugin = "org.gradle.maven-publish")
+    val listOfModulesNotToPublish = listOf(
+        "utils"
+    )
 
-    publishing {
-        repositories {
-            maven {
-                this.name = "GitHubPackages"
-                this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-                credentials {
-                    this.username = System.getenv("ATALA_GITHUB_ACTOR")
-                    this.password = System.getenv("ATALA_GITHUB_TOKEN")
+    if (listOfModulesNotToPublish.contains(name).not()) {
+        apply(plugin = "org.gradle.maven-publish")
+
+        publishing {
+            repositories {
+                maven {
+                    this.name = "GitHubPackages"
+                    this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
+                    credentials {
+                        this.username = System.getenv("ATALA_GITHUB_ACTOR")
+                        this.password = System.getenv("ATALA_GITHUB_TOKEN")
+                    }
                 }
             }
         }
