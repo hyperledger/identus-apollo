@@ -104,7 +104,7 @@ jobs:
       - name: Build for JS, Linux, Android, JVM
         if: matrix.os-type == 'linux'
         run: |
-          ./gradlew clean build check allTests --stacktrace
+          ./gradlew build check allTests --stacktrace
 
       - name: Build for Windows
         if: matrix.os-type == 'windows'

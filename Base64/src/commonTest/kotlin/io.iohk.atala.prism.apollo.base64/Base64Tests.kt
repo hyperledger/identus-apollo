@@ -86,7 +86,7 @@ class Base64Tests {
     // Base64Url
     @Test
     fun byteArray_base64UrlDecoded() {
-        assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ==".encodeToByteArray().base64UrlPadDecoded)
+        assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ==".base64UrlPadDecoded)
         assertContentEquals(
             byteArrayOf(
                 -94, 124, -26, -112, -72, -84, 16, 11, 67, -45, 107, 38, -99, 79, 62, -49, 83, 26, -85, -70, -122, 53,
@@ -119,15 +119,15 @@ class Base64Tests {
         assertEquals("Word", "V29yZA==".base64UrlDecoded)
         assertEquals("Hello", "SGVsbG8=".base64UrlDecoded)
         assertEquals("World!", "V29ybGQh".base64UrlDecoded)
-        // assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ".base64UrlDecoded)
-        // assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ==".base64UrlPadDecoded)
+        assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ".base64UrlDecoded)
+        assertEquals("Hello, world!", "SGVsbG8sIHdvcmxkIQ==".base64UrlPadDecoded)
         assertEquals(
             Encoding.Standard.alphabet,
             "QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODkrLw==".base64UrlPadDecoded
         )
         assertEquals("Salt", "U2FsdA==".base64UrlPadDecoded)
         assertEquals("Pepper", "UGVwcGVy".base64UrlPadDecoded)
-        assertEquals("abcd", "YWJjZA".base64UrlDecoded)
+        assertEquals("abcd", "YWJjZA".base64UrlPadDecoded)
         assertEquals(
             "1234567890-=!@#\$%^&*()_+qwertyuiop[];'\\,./?><|\":}{P`~",
             "MTIzNDU2Nzg5MC09IUAjJCVeJiooKV8rcXdlcnR5dWlvcFtdOydcLC4vPz48fCI6fXtQYH4".base64UrlDecoded
