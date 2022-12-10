@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+
 version = "1.0.0-alpha"
 group = "io.iohk.atala.prism"
 
@@ -7,6 +10,7 @@ plugins {
     kotlin("multiplatform") version "1.7.22" apply false
     kotlin("native.cocoapods") version "1.7.22" apply false
     kotlin("plugin.serialization") version "1.7.22" apply false
+    id("dev.petuska.npm.publish") version "3.1.0" apply false
     id("org.jetbrains.dokka") version "1.7.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("maven-publish")
@@ -78,6 +82,10 @@ subprojects {
         verbose.set(true)
         outputToConsole.set(true)
     }
+}
+
+rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin::class.java) {
+    rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension::class.java).nodeVersion = "16.17.0"
 }
 
 tasks.dokkaGfmMultiModule.configure {

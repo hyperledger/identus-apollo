@@ -7,8 +7,6 @@ package io.iohk.atala.prism.apollo.externals
 import kotlin.js.*
 import org.khronos.webgl.*
 import io.iohk.atala.prism.apollo.externals.base.BasePoint
-import io.iohk.atala.prism.apollo.externals.PresetCurve
-import io.iohk.atala.prism.apollo.externals.edwards
 import io.iohk.atala.prism.apollo.externals.eddsa.Signature as _eddsa_Signature
 import io.iohk.atala.prism.apollo.externals.eddsa.KeyPair as _eddsa_KeyPair
 import io.iohk.atala.prism.apollo.externals.eddsa.KeyPairOptions as _eddsa_KeyPairOptions
@@ -32,8 +30,8 @@ internal external object curve {
             }
         }
 
-        open fun decodePoint(bytes: String): BasePoint;
-        open fun decodePoint(bytes: Uint8Array): BasePoint;
+        open fun decodePoint(bytes: String): BasePoint
+        open fun decodePoint(bytes: Uint8Array): BasePoint
     }
 }
 

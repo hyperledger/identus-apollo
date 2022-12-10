@@ -81,18 +81,26 @@ kotlin {
                 this.output.libraryTarget = Target.VAR
             }
             this.commonWebpackConfig {
-
+                this.cssSupport {
+                    this.enabled = true
+                }
             }
             this.testTask {
+                if (os.isWindows) {
+                    this.enabled = false
+                }
                 this.useKarma {
-                    this.useChrome()
+                    this.useChromeHeadless()
                 }
             }
         }
         nodejs {
             this.testTask {
+                if (os.isWindows) {
+                    this.enabled = false
+                }
                 this.useKarma {
-                    this.useChrome()
+                    this.useChromeHeadless()
                 }
             }
         }
@@ -177,7 +185,11 @@ kotlin {
                 implementation(npm("buffer", "6.0.3"))
             }
         }
-        val jsTest by getting
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
+        }
         if (os.isMacOsX) {
             val iosMain by getting {
                 dependencies {
