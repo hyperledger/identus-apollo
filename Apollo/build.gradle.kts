@@ -141,7 +141,7 @@ kotlin {
         val androidMain by getting {
             kotlin.srcDir("src/commonJvmAndroidMain/kotlin")
             dependencies {
-                implementation( "com.google.guava:guava:30.1-jre")
+                implementation("com.google.guava:guava:30.1-jre")
                 implementation("com.madgag.spongycastle:prov:1.58.0.0")
                 implementation("org.bitcoinj:bitcoinj-core:0.15.10") {
                     exclude("com.google.protobuf")
@@ -152,13 +152,13 @@ kotlin {
             kotlin.srcDir("src/commonJvmAndroidTest/kotlin")
             resources.srcDir("src/commonJvmAndroidTest/resources")
             dependencies {
-                implementation("junit:junit:4.13.2")
+                implementation("junit:junit:4.12")
             }
         }
         val jvmMain by getting {
             kotlin.srcDir("src/commonJvmAndroidMain/kotlin")
             dependencies {
-                implementation( "com.google.guava:guava:30.1-jre")
+                implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
                 implementation("org.bitcoinj:bitcoinj-core:0.15.10")
             }
@@ -167,7 +167,7 @@ kotlin {
             kotlin.srcDir("src/commonJvmAndroidTest/kotlin")
             resources.srcDir("src/commonJvmAndroidTest/resources")
             dependencies {
-                implementation("junit:junit:4.13.2")
+                implementation("junit:junit:4.12")
             }
         }
 
@@ -187,7 +187,6 @@ kotlin {
         }
         val jsTest by getting {
             dependencies {
-                implementation(kotlin("test-js"))
             }
         }
         if (os.isMacOsX) {
