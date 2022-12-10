@@ -1,5 +1,5 @@
 package io.iohk.atala.prism.apollo
 
-actual object Platform {
-    actual val OS: String = "JS"
+public actual object Platform {
+    public actual val OS: String = "JS"
 }

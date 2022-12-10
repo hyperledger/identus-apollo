@@ -1,5 +1,5 @@
 package io.iohk.atala.prism.apollo
 
-expect object Platform {
-    val OS: String
+public expect object Platform {
+    public val OS: String
 }

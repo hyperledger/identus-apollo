@@ -1,5 +1,6 @@
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
 version = rootProject.version
@@ -8,12 +9,15 @@ val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
+    kotlin("plugin.serialization")
     id("com.android.library")
     id("org.jetbrains.dokka")
 }
 
 kotlin {
+    explicitApi()
+    explicitApi = ExplicitApiMode.Strict
+
     android {
         publishAllLibraryVariants()
     }
@@ -28,19 +32,41 @@ kotlin {
         }
     }
     if (os.isMacOsX) {
-        ios()
-//        tvos()
-//        watchos()
-//        macosX64()
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            iosSimulatorArm64()
-//            tvosSimulatorArm64()
-//            watchosSimulatorArm64()
-//            macosArm64()
+
+        ios("ios") {
+
+            binaries.framework {
+                baseName = currentModuleName
+                embedBitcode("disable")
+            }
+
+            // Facade to SwiftCryptoKit
+            val platform = when (name) {
+                "ios" -> "iphonesimulator"
+                "iosX64" -> "iphonesimulator"
+                "iosArm64" -> "iphoneos"
+                else -> error("Unsupported target $name.")
+            }
+
+            compilations.getByName("main") {
+                cinterops.create("SwiftCryptoKit") {
+                    extraOpts = listOf("-compiler-option", "-DNS_FORMAT_ARGUMENT(A)=")
+                    val interopTask = tasks[interopProcessingTaskName]
+                    interopTask.dependsOn(":SwiftCryptoKit:build${platform.capitalize()}")
+                    includeDirs.headerFilterOnly("$rootDir/SwiftCryptoKit/build/Release-$platform/include")
+                }
+            }
+
+            compilations.getByName("main") {
+                cinterops.create("secp256k1") {
+                    val interopTask = tasks[interopProcessingTaskName]
+                    includeDirs.headerFilterOnly("$rootDir/Secp256k1/include")
+                }
+            }
         }
     }
     js(IR) {
-        this.moduleName = currentModuleName
+        this.moduleName = "apollo"
         this.binaries.library()
         this.useCommonJs()
         this.compilations["main"].packageJson {
@@ -55,51 +81,34 @@ kotlin {
                 this.output.libraryTarget = Target.VAR
             }
             this.commonWebpackConfig {
-                this.cssSupport {
-                    this.enabled = true
-                }
+
             }
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
-                    this.useChromeHeadless()
+                    this.useChrome()
                 }
             }
         }
         nodejs {
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
-                    this.useChromeHeadless()
+                    this.useChrome()
                 }
             }
         }
     }
 
-    if (os.isMacOsX) {
+    /*if (os.isMacOsX) {
         cocoapods {
-            this.summary = "Apollo is a collection of the cryptographic methods used all around Atala PRISM"
+            this.summary = "ApolloUtils is a Utils helper module"
             this.version = rootProject.version.toString()
             this.authors = "IOG"
-            this.ios.deploymentTarget = "13.0"
-            this.osx.deploymentTarget = "12.0"
-            this.tvos.deploymentTarget = "13.0"
-            this.watchos.deploymentTarget = "8.0"
             framework {
-                this.baseName = currentModuleName
-                export(project(":base16"))
-                export(project(":base32"))
-                export(project(":base58"))
-                export(project(":base64"))
-                export(project(":hashing"))
-                export(project(":multibase"))
+                baseName = currentModuleName
+                embedBitcode("marker")
             }
         }
-    }
+    }*/
 
     sourceSets {
         val commonMain by getting {
@@ -110,6 +119,10 @@ kotlin {
                 api(project(":base64"))
                 api(project(":hashing"))
                 api(project(":multibase"))
+                api("com.ionspin.kotlin:bignum:0.3.7")
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1-new-mm-dev2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+                implementation("com.soywiz.korlibs.krypto:krypto:3.4.0")
             }
         }
         val commonTest by getting {
@@ -117,29 +130,61 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val jvmMain by getting
-        val jvmTest by getting {
+        val androidMain by getting {
+            kotlin.srcDir("src/commonJvmAndroidMain/kotlin")
             dependencies {
-                implementation("junit:junit:4.13.2")
+                implementation( "com.google.guava:guava:30.1-jre")
+                implementation("com.madgag.spongycastle:prov:1.58.0.0")
+                implementation("org.bitcoinj:bitcoinj-core:0.15.10") {
+                    exclude("com.google.protobuf")
+                }
             }
         }
-        val androidMain by getting
         val androidTest by getting {
+            kotlin.srcDir("src/commonJvmAndroidTest/kotlin")
+            resources.srcDir("src/commonJvmAndroidTest/resources")
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
         }
-        val jsMain by getting
+        val jvmMain by getting {
+            kotlin.srcDir("src/commonJvmAndroidMain/kotlin")
+            dependencies {
+                implementation( "com.google.guava:guava:30.1-jre")
+                implementation("org.bouncycastle:bcprov-jdk15on:1.68")
+                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
+            }
+        }
+        val jvmTest by getting {
+            kotlin.srcDir("src/commonJvmAndroidTest/kotlin")
+            resources.srcDir("src/commonJvmAndroidTest/resources")
+            dependencies {
+                implementation("junit:junit:4.13.2")
+            }
+        }
+
+        val jsMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-nodejs:0.0.7")
+
+                implementation(npm("hash.js", "1.1.7"))
+                implementation(npm("elliptic", "6.5.3"))
+                implementation(npm("bip32", "2.0.6"))
+                implementation(npm("bip39", "3.0.3"))
+
+                // Polyfill dependencies
+                implementation(npm("stream-browserify", "3.0.0"))
+                implementation(npm("buffer", "6.0.3"))
+            }
+        }
         val jsTest by getting
         if (os.isMacOsX) {
-            val iosMain by getting
+            val iosMain by getting {
+                dependencies {
+                    implementation("fr.acinq.bitcoin:bitcoin-kmp:0.10.0")
+                }
+            }
             val iosTest by getting
-//            val tvosMain by getting
-//            val tvosTest by getting
-//            val watchosMain by getting
-//            val watchosTest by getting
-//            val macosX64Main by getting
-//            val macosX64Test by getting
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
                 val iosSimulatorArm64Main by getting {
                     this.dependsOn(iosMain)
@@ -147,28 +192,12 @@ kotlin {
                 val iosSimulatorArm64Test by getting {
                     this.dependsOn(iosTest)
                 }
-//                val tvosSimulatorArm64Main by getting {
-//                    this.dependsOn(tvosMain)
-//                }
-//                val tvosSimulatorArm64Test by getting {
-//                    this.dependsOn(tvosTest)
-//                }
-//                val watchosSimulatorArm64Main by getting {
-//                    this.dependsOn(watchosMain)
-//                }
-//                val watchosSimulatorArm64Test by getting {
-//                    this.dependsOn(watchosTest)
-//                }
-//                val macosArm64Main by getting {
-//                    this.dependsOn(macosX64Main)
-//                }
-//                val macosArm64Test by getting {
-//                    this.dependsOn(macosX64Test)
-//                }
             }
         }
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")
+            languageSettings.optIn("kotlin.ExperimentalUnsignedTypes")
+            languageSettings.optIn("kotlin.js.ExperimentalJsExport")
         }
     }
 }

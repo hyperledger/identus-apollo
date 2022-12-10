@@ -3,20 +3,17 @@ Pod::Spec.new do |spec|
     spec.version                  = '1.0.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
-    spec.authors                  = 'IOG'
+    spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Apollo is a collection of the cryptographic methods used all around Atala PRISM'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/Apollo.framework'
+    spec.summary                  = ''
+    spec.vendored_frameworks      = 'build/cocoapods/framework/apollo.framework'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target = '13.0'
-    spec.osx.deployment_target = '12.0'
-    spec.tvos.deployment_target = '13.0'
-    spec.watchos.deployment_target = '8.0'
+                
                 
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':apollo',
-        'PRODUCT_MODULE_NAME' => 'Apollo',
+        'PRODUCT_MODULE_NAME' => 'apollo',
     }
                 
     spec.script_phases = [
