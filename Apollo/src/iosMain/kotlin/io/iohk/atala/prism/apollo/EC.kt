@@ -18,7 +18,6 @@ import platform.posix.fclose
 import platform.posix.fopen
 import platform.posix.fread
 
-
 public actual object EC : ECAbstract() {
     // secp256k1 private key is just a sequence of random bytes, hence
     // we ask /dev/urandom to produce the necessary amount of random bytes

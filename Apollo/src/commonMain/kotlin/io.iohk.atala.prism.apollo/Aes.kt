@@ -36,7 +36,6 @@ public data class AesEncryptedData(val data: ByteArray, val iv: ByteArray, val s
         return result
     }
 
-
     public companion object {
         public fun fromCombined(bytes: ByteArray): AesEncryptedData {
             return AesEncryptedData(
