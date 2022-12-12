@@ -41,6 +41,7 @@ actual final class HMAC actual constructor(
         dataToHash += input
     }
 
+    @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
     override fun digest(): ByteArray {
         val localKey = key
         val localData = dataToHash
