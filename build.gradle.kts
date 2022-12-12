@@ -54,7 +54,8 @@ allprojects {
     }
 
     val listOfModulesNotToPublish = listOf(
-        "utils"
+        "utils",
+        "base-symmetric-encryption"
     )
 
     if (listOfModulesNotToPublish.contains(name).not()) {
