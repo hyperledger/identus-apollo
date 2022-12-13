@@ -4,4 +4,3 @@ import platform.Security.SecKeyRef
 
 actual open class KMMPrivateKey(val nativeType: SecKeyRef)
 actual open class KMMPublicKey(val nativeType: SecKeyRef)
-actual open class KMMSymmetricKey(val nativeType: ByteArray)

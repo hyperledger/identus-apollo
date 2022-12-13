@@ -3,3 +3,5 @@ da099bd8ef28f323839730a7aa2dd333e0b0a553:JWT/src/iosMain/kotlin/io.iohk.prism.ap
 da099bd8ef28f323839730a7aa2dd333e0b0a553:JWT/src/jvmMain/kotlin/io/iohk/prism/apollo/jwt/RSAPlatform.kt:private-key:14
 da099bd8ef28f323839730a7aa2dd333e0b0a553:JWT/src/jsMain/kotlin/io.iohk.prism.apollo.jwt/RSAPlatform.kt:private-key:12
 da099bd8ef28f323839730a7aa2dd333e0b0a553:iOSLibs/IOHKCrypto/IOHKCrypto/IOHKCrypto.swift:private-key:20
+3511094f0a8ce01ec70b668e342703dc8dd350cc:Apollo/src/commonTest/kotlin/io.iohk.atala.prism.apollo/ECTest.kt:generic-api-key:66
+3511094f0a8ce01ec70b668e342703dc8dd350cc:Apollo/src/commonTest/kotlin/io.iohk.atala.prism.apollo/ECTest.kt:generic-api-key:119
