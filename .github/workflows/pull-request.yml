@@ -55,8 +55,8 @@ jobs:
             os-type: linux
           - os: macos-latest
             os-type: macos
-          - os: windows-latest
-            os-type: windows
+#          - os: windows-latest
+#            os-type: windows
       fail-fast: false
     runs-on: ${{ matrix.os }}
     
@@ -109,7 +109,7 @@ jobs:
       - name: Build for Windows
         if: matrix.os-type == 'windows'
         run: |
-          ./gradlew clean build mingwX64Test --stacktrace
+          ./gradlew clean mingwX64Test --stacktrace
       
       - name: Upload the build report
         if: always()
