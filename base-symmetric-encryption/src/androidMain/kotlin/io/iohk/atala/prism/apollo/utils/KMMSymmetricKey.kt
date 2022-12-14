@@ -2,7 +2,6 @@ package io.iohk.atala.prism.apollo.utils
 
 import io.iohk.atala.prism.apollo.base64.base64PadDecodedBytes
 import io.iohk.atala.prism.apollo.base64.base64PadEncoded
-import java.security.SecureRandom
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
@@ -16,12 +15,6 @@ actual open class KMMSymmetricKey(val nativeType: SecretKey) : SymmetricKeyBase6
             val decodedKey = base64Encoded.base64PadDecodedBytes
             val originalKey: SecretKey = SecretKeySpec(decodedKey, 0, decodedKey.size, algorithm.value)
             return KMMSymmetricKey(originalKey)
-        }
-
-        override fun createRandomIV(size: Int): ByteArray {
-            val iv = ByteArray(size)
-            SecureRandom().nextBytes(iv)
-            return iv
         }
     }
 }
