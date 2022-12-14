@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     s.name             = 'IOHKSecureRandomGeneration'
     s.version          = '1.0.0'
-    s.summary          = 'IOHKSecureRandomGeneration contains Secure Random Generation for IV random generation.'
+    s.summary          = 'IOHKSecureRandomGeneration contains Secure Random.'
     
     # This description is used to generate tags and improve search results.
     #   * Think: What does it do? Why did you write it? What is the focus?
