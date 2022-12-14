@@ -1,4 +1,4 @@
-FILTER_REGEX_EXCLUDE: karma.config.js
+FILTER_REGEX_EXCLUDE: (karma.config.js|polyfill.js)
 VALIDATE_ALL_CODEBASE: true
 
 DISABLE_LINTERS:

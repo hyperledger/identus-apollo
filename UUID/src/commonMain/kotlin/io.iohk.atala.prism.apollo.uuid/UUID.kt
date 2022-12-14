@@ -2,6 +2,7 @@ package io.iohk.atala.prism.apollo.uuid
 
 import io.iohk.atala.prism.apollo.hashing.MD5
 import io.iohk.atala.prism.apollo.hashing.SHA1
+import io.iohk.atala.prism.apollo.securerandom.SecureRandom
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlin.jvm.JvmStatic
@@ -260,8 +261,7 @@ final class UUID {
          */
         @JvmStatic
         fun randomUUID4(): UUID {
-            var randomBytes = ByteArray(16)
-            randomBytes = Random.Default.nextBytes(randomBytes)
+            val randomBytes = SecureRandom().nextBytes(16)
             randomBytes[6] = (randomBytes[6].toInt() and 0x0f).toByte() // clear version
             randomBytes[6] = (randomBytes[6].toInt() or 0x40).toByte() // set to version 4
             randomBytes[8] = (randomBytes[8].toInt() and 0x3f).toByte() // clear variant
@@ -281,7 +281,7 @@ final class UUID {
             val hash = SHA1()
             val sha1Bytes = hash.digest(name).copyOfRange(0, 16)
             sha1Bytes[6] = (sha1Bytes[6].toInt() and 0x0f).toByte() // clear version
-            sha1Bytes[6] = (sha1Bytes[6].toInt() or 0x50).toByte() // set to version 3
+            sha1Bytes[6] = (sha1Bytes[6].toInt() or 0x50).toByte() // set to version 5
             sha1Bytes[8] = (sha1Bytes[8].toInt() and 0x3f).toByte() // clear variant
             sha1Bytes[8] = (sha1Bytes[8].toInt() or 0x80).toByte() // set to IETF variant
             return UUID(sha1Bytes)
