@@ -35,7 +35,7 @@ actual final class AES actual constructor(
         null
     }
 
-    override suspend  fun encrypt(data: ByteArray): ByteArray {
+    override suspend fun encrypt(data: ByteArray): ByteArray {
         if (ivSpec == null) {
             cipher.init(Cipher.ENCRYPT_MODE, key.nativeType)
         } else {
@@ -44,7 +44,7 @@ actual final class AES actual constructor(
         return cipher.doFinal(data)
     }
 
-    override suspend  fun decrypt(data: ByteArray): ByteArray {
+    override suspend fun decrypt(data: ByteArray): ByteArray {
         if (ivSpec == null) {
             cipher.init(Cipher.DECRYPT_MODE, key.nativeType)
         } else {
@@ -56,7 +56,7 @@ actual final class AES actual constructor(
     actual companion object : AESKeyGeneration {
         private const val AUTH_TAG_SIZE = 128
 
-        override suspend  fun createRandomAESKey(algorithm: KAESAlgorithm): KMMSymmetricKey {
+        override suspend fun createRandomAESKey(algorithm: KAESAlgorithm): KMMSymmetricKey {
             val keygen = KeyGenerator.getInstance("AES")
             keygen.init(algorithm.keySize())
             return KMMSymmetricKey(keygen.generateKey())

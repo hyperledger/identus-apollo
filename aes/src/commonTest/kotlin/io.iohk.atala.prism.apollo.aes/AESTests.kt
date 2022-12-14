@@ -17,7 +17,7 @@ class AESTests {
         val aes = AES(
             algo,
             KAESBlockMode.GCM,
-            KAESPadding.No_Padding,
+            KAESPadding.NO_PADDING,
             key,
             KMMSymmetricKey.createRandomIV(16)
         )
