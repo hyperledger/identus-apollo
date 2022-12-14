@@ -1,5 +1,5 @@
 # Apollo - Multibase
-[![Kotlin](https://img.shields.io/badge/kotlin-1.7.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.7.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 Apollo Multibase is Kotlin Multiplatform library of implementation of [multibase](https://github.com/multiformats/multibase) -self identifying base encodings- in KMM
 

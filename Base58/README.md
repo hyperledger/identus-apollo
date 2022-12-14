@@ -1,5 +1,5 @@
 # Apollo - Base58
-[![Kotlin](https://img.shields.io/badge/kotlin-1.7.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.7.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 Apollo Base58 is Kotlin Multiplatform library containing:
 
