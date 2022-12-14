@@ -102,7 +102,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":hashing"))
+                api(project(":hashing"))
+                api(project(":secure-random"))
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
         }
