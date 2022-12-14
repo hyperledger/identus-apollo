@@ -96,17 +96,13 @@ kotlin {
             framework {
                 this.baseName = currentModuleName
             }
-
-            pod("IOHKSecureRandomGeneration") {
-                version = "1.0.0"
-                source = path(project.file("../iOSLibs/IOHKSecureRandomGeneration"))
-            }
         }
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(project(":secure-random"))
                 api(project(":utils"))
                 api(project(":base64"))
             }
