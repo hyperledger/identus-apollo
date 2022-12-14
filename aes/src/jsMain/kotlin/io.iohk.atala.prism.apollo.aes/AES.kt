@@ -2,10 +2,7 @@ package io.iohk.atala.prism.apollo.aes
 
 import io.iohk.atala.prism.apollo.utils.KMMSymmetricKey
 import kotlinx.browser.window
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.asDeferred
-import kotlinx.coroutines.async
 import kotlinx.coroutines.await
 import kotlinx.coroutines.withContext
 import kotlin.js.Promise
