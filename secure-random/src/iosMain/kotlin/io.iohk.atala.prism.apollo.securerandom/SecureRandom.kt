@@ -1,6 +1,6 @@
 package io.iohk.atala.prism.apollo.securerandom
 
-import cocoapods.IOHKSecureRandomGeneration.KMMFunctions
+import cocoapods.IOHKSecureRandomGeneration.IOHKSecureRandomGeneration
 import io.iohk.atala.prism.apollo.utils.toByteArray
 
 actual class SecureRandom actual constructor(
@@ -8,12 +8,12 @@ actual class SecureRandom actual constructor(
 ) : SecureRandomInterface {
 
     override fun nextBytes(size: Int): ByteArray {
-        return KMMFunctions.randomDataWithLength(size.toLong()).toByteArray()
+        return IOHKSecureRandomGeneration.randomDataWithLength(size.toLong()).toByteArray()
     }
 
     actual companion object : SecureRandomStaticInterface {
         override fun generateSeed(numBytes: Int): ByteArray {
-            return KMMFunctions.randomDataWithLength(numBytes.toLong()).toByteArray()
+            return IOHKSecureRandomGeneration.randomDataWithLength(numBytes.toLong()).toByteArray()
         }
     }
 }

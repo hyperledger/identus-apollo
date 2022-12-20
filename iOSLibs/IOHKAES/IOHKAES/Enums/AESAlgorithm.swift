@@ -7,6 +7,7 @@
 
 import Foundation
 import CommonCrypto
+import CryptoKit
 
 ///
 /// Enumerates available algorithms
@@ -34,6 +35,18 @@ import CommonCrypto
             return kCCKeySizeAES192
         case .aes256:
             return kCCKeySizeAES256
+        }
+    }
+    
+    /// Key size for GCM
+    public var gcmKeySize: SymmetricKeySize {
+        switch self {
+        case .aes128:
+            return .bits128
+        case .aes192:
+            return .bits192
+        case .aes256:
+            return .bits256
         }
     }
     

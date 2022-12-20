@@ -107,7 +107,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":utils"))
+                api(project(":utils"))
             }
         }
         val commonTest by getting {

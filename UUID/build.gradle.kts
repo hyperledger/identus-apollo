@@ -96,6 +96,12 @@ kotlin {
             framework {
                 this.baseName = currentModuleName
             }
+            // workaround for KMM bug
+            pod("IOHKSecureRandomGeneration") {
+                version = "1.0.0"
+                packageName = "IOHKSecureRandomGeneration1"
+                source = path(project.file("../iOSLibs/IOHKSecureRandomGeneration"))
+            }
         }
     }
 

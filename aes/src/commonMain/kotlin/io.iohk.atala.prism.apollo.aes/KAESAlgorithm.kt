@@ -1,6 +1,8 @@
 package io.iohk.atala.prism.apollo.aes
 
 import io.iohk.atala.prism.apollo.utils.NativeTypeInterface
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 expect enum class KAESAlgorithm : NativeTypeInterface<KAESAlgorithmNativeType> {
     AES_128,
@@ -8,6 +10,8 @@ expect enum class KAESAlgorithm : NativeTypeInterface<KAESAlgorithmNativeType> {
     AES_256;
 }
 
+@OptIn(ExperimentalJsExport::class)
+@JsExport
 fun KAESAlgorithm.keySize(): Int {
     return when (this) {
         KAESAlgorithm.AES_128 -> 128

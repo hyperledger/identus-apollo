@@ -62,24 +62,26 @@ public class AESDecryptor: AESBase, Decryptor {
         
         super.init()
         
-        let rawStatus = CCCryptorCreateWithMode(
-            CCOperation(kCCDecrypt),
-            mode.rawValue,
-            algorithm.nativeValue(),
-            padding.nativeValue(),
-            iv,
-            key,
-            keyLength,
-            nil,
-            0,
-            0,
-            options.nativeValue,
-            context
-        )
-        
-        guard rawStatus == kCCSuccess else { throw Error.cryptoFailed(status: rawStatus) }
-        
-        self.haveContext = true
+        if mode != .gcm {
+            let rawStatus = CCCryptorCreateWithMode(
+                CCOperation(kCCDecrypt),
+                mode.rawValue,
+                algorithm.nativeValue(),
+                padding.nativeValue(),
+                iv,
+                key,
+                keyLength,
+                nil,
+                0,
+                0,
+                options.nativeValue,
+                context
+            )
+            
+            guard rawStatus == kCCSuccess else { throw Error.cryptoFailed(status: rawStatus) }
+            
+            self.haveContext = true
+        }
     }
     
     public convenience init(algorithm: AESAlgorithm, options: AESOptions, mode: BlockMode, padding: Padding, key: Data, iv: Data) throws {
@@ -174,9 +176,15 @@ public class AESDecryptor: AESBase, Decryptor {
     private func decryptAESGCM(input: Data) -> Data? {
         do {
             accumulator = []
-            let key = SymmetricKey(data: key)
-            let sealedBox = try CryptoKit.AES.GCM.SealedBox(nonce:  CryptoKit.AES.GCM.Nonce(data: ivData), ciphertext: input, tag: Data())
-            return try CryptoKit.AES.GCM.open(sealedBox, using: key)
+            let key = SymmetricKey(data: keyData)
+            let nonce = try CryptoKit.AES.GCM.Nonce(data: ivData)
+            
+            let tagIndex = input.endIndex - 16
+            let ciphertext = input[input.startIndex ..< tagIndex]
+            let tag = input[tagIndex ..< input.endIndex]
+            
+            let sealedBox = try AES.GCM.SealedBox(nonce: nonce, ciphertext :ciphertext, tag: tag)
+            return try AES.GCM.open(sealedBox, using: key)
         } catch {
             return nil
         }

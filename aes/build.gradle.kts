@@ -90,6 +90,12 @@ kotlin {
             framework {
                 this.baseName = currentModuleName
             }
+            // workaround for KMM bug
+            pod("IOHKSecureRandomGeneration") {
+                version = "1.0.0"
+                packageName = "IOHKSecureRandomGeneration1"
+                source = path(project.file("../iOSLibs/IOHKSecureRandomGeneration"))
+            }
 
             pod("IOHKAES") {
                 version = "1.0.0"
@@ -101,6 +107,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(project(":utils"))
                 api(project(":base-symmetric-encryption"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
             }
@@ -121,6 +128,9 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-web:1.0.0-pre.461")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-node:18.11.13-pre.461")
+
                 // Polyfill dependencies
                 implementation(npm("crypto-browserify", "3.12.0"))
                 implementation(npm("stream-browserify", "3.0.0"))

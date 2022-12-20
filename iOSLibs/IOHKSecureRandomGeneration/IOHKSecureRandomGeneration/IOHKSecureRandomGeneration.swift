@@ -1,13 +1,13 @@
 //
-//  KMMFunctions.swift
+//  IOHKSecureRandomGeneration.swift
 //  IOHKSecureRandomGeneration
 //
-//  Created by Ahmed Moussa on 12/12/2022.
+//  Created by Ahmed Moussa on 15/12/2022.
 //
 
 import Foundation
 
-@objc public class KMMFunctions: NSObject {
+@objc public class IOHKSecureRandomGeneration: NSObject {
     private override init() {}
     
     ///

@@ -56,7 +56,7 @@ actual final class AES actual constructor(
     actual companion object : AESKeyGeneration {
         private const val AUTH_TAG_SIZE = 128
 
-        override suspend fun createRandomAESKey(algorithm: KAESAlgorithm): KMMSymmetricKey {
+        override suspend fun createRandomAESKey(algorithm: KAESAlgorithm, blockMode: KAESBlockMode): KMMSymmetricKey {
             val keygen = KeyGenerator.getInstance("AES")
             keygen.init(algorithm.keySize())
             return KMMSymmetricKey(keygen.generateKey())

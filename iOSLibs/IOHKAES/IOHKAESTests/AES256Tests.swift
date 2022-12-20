@@ -26,9 +26,23 @@ class AES256Tests: XCTestCase {
             sourceData = sourcedString.data(using: .utf8)!
             // print(sourceData.base64EncodedData())
             iv = randomIv(length: kCCBlockSizeAES128)
-            key = KMMFunctions.generateAESKey(algorithm: .aes256)
+            key = IOHKAES.generateAESKey(algorithm: .aes256)
             aesEncryptor = try AESEncryptor(algorithm: .aes256, options: .pkcs7Padding, mode: .cbc, padding: .pkcs7Padding, key: key, iv: iv)
             aesDecryptor = try AESDecryptor(algorithm: .aes256, options: .pkcs7Padding, mode: .cbc, padding: .pkcs7Padding, key: key, iv: iv)
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func test_aes_gcm() {
+        do {
+            let keyGCM = IOHKAES.generateAESKey(algorithm: .aes256)
+            let ivGCM = randomIv(length: kCCBlockSizeAES128)
+            let aesGCMEncryptor = try AESEncryptor(algorithm: .aes256, options: .none, mode: .gcm, padding: .noPadding, key: keyGCM, iv: ivGCM)
+            let aesGCMDecryptor = try AESDecryptor(algorithm: .aes256, options: .none, mode: .gcm, padding: .noPadding, key: keyGCM, iv: ivGCM)
+            let encryptedData: Data? = aesGCMEncryptor.encrypt(data: sourceData)
+            let decryptedData: Data? = aesGCMDecryptor.decrypt(data: encryptedData!)
+            XCTAssertEqual(sourceData, decryptedData)
         } catch let error {
             XCTFail(error.localizedDescription)
         }
@@ -73,30 +87,11 @@ class AES256Tests: XCTestCase {
     // MARK: - Helper methods
     
     ///
-    /// Generate random string with provided length
-    /// - Parameter length: length to the generated string
-    /// - Returns: random generated String
-    ///
-    private func randomString(length: Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_ -/[]?.>,<)(*&^%$#@!~`+=\"'{}|:;"
-        return String((0..<length).map{ _ in letters.randomElement()! })
-    }
-    
-    ///
     /// Generate random IV with provided length
     /// - Parameter length: length to the generated iv
     /// - Returns: random generated IV
     ///
     private func randomIv(length: Int) -> Data {
-        return randomData(length: length)
-    }
-    
-    ///
-    /// Generate random Data with provided length
-    /// - Parameter length: length to the generated Data
-    /// - Returns: random generated Data
-    ///
-    private func randomData(length: Int) -> Data {
         var data = Data(count: length)
         let status = data.withUnsafeMutableBytes { rawBufferPointer in
             let mutableBytes = rawBufferPointer.baseAddress!
