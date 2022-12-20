@@ -5,7 +5,8 @@ import kotlin.test.assertTrue
 
 class SecureRandomTests {
     @Test
-    fun testExample() {
-        assertTrue(1 + 1 == 2)
+    fun testRandomSize() {
+        val random = SecureRandom().nextBytes(5)
+        assertTrue(random.size == 5)
     }
 }

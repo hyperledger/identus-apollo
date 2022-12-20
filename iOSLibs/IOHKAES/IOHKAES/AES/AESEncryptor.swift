@@ -62,23 +62,25 @@ public class AESEncryptor: AESBase, Encryptor {
         
         super.init()
         
-        let rawStatus = CCCryptorCreateWithMode(
-            CCOperation(kCCEncrypt),
-            mode.rawValue,
-            algorithm.nativeValue(),
-            padding.nativeValue(),
-            iv,
-            key,
-            keyLength,
-            nil,
-            0,
-            0,
-            options.nativeValue,
-            context
-        )
-        
-        guard rawStatus == kCCSuccess else { throw Error.cryptoFailed(status: rawStatus) }
-        self.haveContext = true
+        if self.mode != .gcm {
+            let rawStatus = CCCryptorCreateWithMode(
+                CCOperation(kCCEncrypt),
+                mode.rawValue,
+                algorithm.nativeValue(),
+                padding.nativeValue(),
+                iv,
+                key,
+                keyLength,
+                nil,
+                0,
+                0,
+                options.nativeValue,
+                context
+            )
+            
+            guard rawStatus == kCCSuccess else { throw Error.cryptoFailed(status: rawStatus) }
+            self.haveContext = true
+        }
     }
     
     public convenience init(algorithm: AESAlgorithm, options: AESOptions, mode: BlockMode, padding: Padding, key: Data, iv: Data) throws {
@@ -165,8 +167,9 @@ public class AESEncryptor: AESBase, Encryptor {
     private func encryptAESGCM(input: Data) -> Data? {
         do {
             accumulator = []
-            let key = SymmetricKey.init(data: key)
-            return try CryptoKit.AES.GCM.seal(input, using: key, nonce: CryptoKit.AES.GCM.Nonce(data: ivData)).combined
+            let key = SymmetricKey(data: keyData)
+            let sealedBox = try AES.GCM.seal(input, using: key, nonce: AES.GCM.Nonce(data: ivData))
+            return sealedBox.ciphertext + sealedBox.tag
         } catch {
             return nil
         }

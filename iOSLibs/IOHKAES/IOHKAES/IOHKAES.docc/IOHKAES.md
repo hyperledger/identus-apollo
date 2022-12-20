@@ -1,6 +1,6 @@
 # ``IOHKAES``
 
-<!--@START_MENU_TOKEN@-->Summary<!--@END_MENU_TOKEN@-->
+Summary
 
 ## Overview
 
@@ -8,6 +8,11 @@
 
 ## Topics
 
-### <!--@START_MENU_TOKEN@-->Group<!--@END_MENU_TOKEN@-->
+### Secure Random
 
-- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->
+#### Usage
+
+```swift
+let iv = IOHKAES.randomIV(8)
+let salt = IOHKAES.randomSalt(8)
+```

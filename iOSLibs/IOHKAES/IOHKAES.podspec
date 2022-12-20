@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     s.name             = 'IOHKAES'
     s.version          = '1.0.0'
-    s.summary          = 'IOHKAES contains AES Encryption'
+    s.summary          = 'IOHKAES contains AES for KMM'
     
     # This description is used to generate tags and improve search results.
     #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,9 +18,10 @@ Pod::Spec.new do |s|
     #   * Finally, don't worry about the indent, CocoaPods strips it!
     
     s.description      = <<-DESC
-    IOHKAES contains AES Encryption
+    IOHKAES contains AES Encryption & Decryption
     DESC
-    
+
+    s.license          = 'MIT'
     s.homepage         = 'https://github.com/input-output-hk/atala-prism-apollo'
     s.author           = { 'Ahmed Moussa' => 'moussa.ahmed95@gmail.com' }
     s.source           = { :git => 'https://github.com/input-output-hk/atala-prism-apollo.git', :tag => s.version.to_s }

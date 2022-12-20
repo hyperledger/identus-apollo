@@ -25,7 +25,7 @@
 		B512F80528F8E2CE0091C308 /* AESOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512F80428F8E2CE0091C308 /* AESOptions.swift */; };
 		B512F80728F8EDA10091C308 /* AESDecryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512F80628F8EDA10091C308 /* AESDecryptor.swift */; };
 		B5BAB7AC2947F76E007D8C84 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BAB7AB2947F76E007D8C84 /* Error.swift */; };
-		B5DAC446291BB5170045D5A7 /* KMMFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DAC445291BB5170045D5A7 /* KMMFunctions.swift */; };
+		B5D61767294BC350008EDB29 /* IOHKAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D61766294BC350008EDB29 /* IOHKAES.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +59,7 @@
 		B512F80428F8E2CE0091C308 /* AESOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESOptions.swift; sourceTree = "<group>"; };
 		B512F80628F8EDA10091C308 /* AESDecryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESDecryptor.swift; sourceTree = "<group>"; };
 		B5BAB7AB2947F76E007D8C84 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		B5DAC445291BB5170045D5A7 /* KMMFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMFunctions.swift; sourceTree = "<group>"; };
+		B5D61766294BC350008EDB29 /* IOHKAES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHKAES.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +109,8 @@
 				B512F7C228F8A6160091C308 /* IOHKAES.h */,
 				B512F7C328F8A6160091C308 /* IOHKAES.docc */,
 				B512F7E628F8A7450091C308 /* typealias.swift */,
-				B5DAC445291BB5170045D5A7 /* KMMFunctions.swift */,
 				B5BAB7AB2947F76E007D8C84 /* Error.swift */,
+				B5D61766294BC350008EDB29 /* IOHKAES.swift */,
 			);
 			path = IOHKAES;
 			sourceTree = "<group>";
@@ -279,9 +279,9 @@
 				B512F7F328F8A7AB0091C308 /* Encryptor.swift in Sources */,
 				B512F7C428F8A6160091C308 /* IOHKAES.docc in Sources */,
 				B512F7F528F8A7B70091C308 /* Cryptor.swift in Sources */,
+				B5D61767294BC350008EDB29 /* IOHKAES.swift in Sources */,
 				B512F7F128F8A79B0091C308 /* Decryptor.swift in Sources */,
 				B512F7ED28F8A7760091C308 /* Padding.swift in Sources */,
-				B5DAC446291BB5170045D5A7 /* KMMFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,13 +517,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.iohk.atala.prism.apollo.IOHKAESTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -545,13 +545,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.iohk.atala.prism.apollo.IOHKAESTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

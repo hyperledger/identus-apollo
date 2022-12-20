@@ -114,7 +114,12 @@ kotlin {
                 implementation("junit:junit:4.13.2")
             }
         }
-        val jsMain by getting
+        val jsMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-web:1.0.0-pre.461")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-node:18.11.13-pre.461")
+            }
+        }
         val jsTest by getting
         if (os.isMacOsX) {
             val iosMain by getting

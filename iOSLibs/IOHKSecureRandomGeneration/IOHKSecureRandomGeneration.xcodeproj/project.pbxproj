@@ -11,7 +11,7 @@
 		B512F7CA28F8A6170091C308 /* IOHKSecureRandomGeneration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B512F7BF28F8A6160091C308 /* IOHKSecureRandomGeneration.framework */; };
 		B512F7D028F8A6170091C308 /* IOHKSecureRandomGeneration.h in Headers */ = {isa = PBXBuildFile; fileRef = B512F7C228F8A6160091C308 /* IOHKSecureRandomGeneration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B512F7FF28F8A9D70091C308 /* IOHKSecureRandomGeneration.podspec in Resources */ = {isa = PBXBuildFile; fileRef = B512F7FE28F8A9D70091C308 /* IOHKSecureRandomGeneration.podspec */; };
-		B5DAC446291BB5170045D5A7 /* KMMFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DAC445291BB5170045D5A7 /* KMMFunctions.swift */; };
+		B5D61769294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D61768294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +31,7 @@
 		B512F7C928F8A6170091C308 /* IOHKSecureRandomGenerationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOHKSecureRandomGenerationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B512F7DB28F8A6C40091C308 /* IOHKSecureRandomGenerationTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOHKSecureRandomGenerationTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		B512F7FE28F8A9D70091C308 /* IOHKSecureRandomGeneration.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; fileEncoding = 4; path = IOHKSecureRandomGeneration.podspec; sourceTree = "<group>"; };
-		B5DAC445291BB5170045D5A7 /* KMMFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMFunctions.swift; sourceTree = "<group>"; };
+		B5D61768294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHKSecureRandomGeneration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +77,7 @@
 			children = (
 				B512F7C228F8A6160091C308 /* IOHKSecureRandomGeneration.h */,
 				B512F7C328F8A6160091C308 /* IOHKSecureRandomGeneration.docc */,
-				B5DAC445291BB5170045D5A7 /* KMMFunctions.swift */,
+				B5D61768294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift */,
 			);
 			path = IOHKSecureRandomGeneration;
 			sourceTree = "<group>";
@@ -201,8 +201,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D61769294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift in Sources */,
 				B512F7C428F8A6160091C308 /* IOHKSecureRandomGeneration.docc in Sources */,
-				B5DAC446291BB5170045D5A7 /* KMMFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,13 +437,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.iohk.atala.prism.apollo.IOHKSecureRandomGenerationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -465,13 +465,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.iohk.atala.prism.apollo.IOHKSecureRandomGenerationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

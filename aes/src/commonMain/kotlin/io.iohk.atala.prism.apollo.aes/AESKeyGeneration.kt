@@ -8,5 +8,5 @@ interface AESKeyGeneration {
      *
      * @param algorithm AES Key algorithm
      */
-    suspend fun createRandomAESKey(algorithm: KAESAlgorithm): KMMSymmetricKey
+    suspend fun createRandomAESKey(algorithm: KAESAlgorithm, blockMode: KAESBlockMode = KAESBlockMode.GCM): KMMSymmetricKey
 }
