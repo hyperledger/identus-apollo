@@ -107,8 +107,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":utils"))
-                api(project(":base-symmetric-encryption"))
+                implementation(project(":utils"))
+                implementation(project(":base-symmetric-encryption"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
             }
         }

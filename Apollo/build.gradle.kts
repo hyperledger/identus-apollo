@@ -127,10 +127,6 @@ kotlin {
                 api(project(":base64"))
                 api(project(":hashing"))
                 api(project(":multibase"))
-                api("com.ionspin.kotlin:bignum:0.3.7")
-                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1-new-mm-dev2")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
-                implementation("com.soywiz.korlibs.krypto:krypto:3.4.0")
             }
         }
         val commonTest by getting {
