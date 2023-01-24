@@ -10,7 +10,7 @@ actual final enum class RSASignatureType : NativeTypeInterface<RSASignatureTypeN
     RSASHA512,
     RSAPSSSHA256,
     RSAPSSSHA384,
-    RSAPSSSHA512,;
+    RSAPSSSHA512;
 
     override fun nativeValue(): String {
         return when (this) {
