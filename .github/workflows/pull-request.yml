@@ -3,20 +3,20 @@ name: Pull Request CI
 defaults:
   run:
     shell: bash
-    
+
 concurrency:
   group: ${{ github.head_ref }}${{ github.ref }}
   cancel-in-progress: true
-  
+
 env:
   JAVA_VERSION: 11
   NODEJS_VERSION: 16.17.0
   ATALA_GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
   ATALA_GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
-  
+
 on:
   pull_request:
-      
+
 jobs:
   
   lint:
@@ -55,8 +55,8 @@ jobs:
             os-type: linux
           - os: macos-latest
             os-type: macos
-#          - os: windows-latest
-#            os-type: windows
+      #          - os: windows-latest
+      #            os-type: windows
       fail-fast: false
     runs-on: ${{ matrix.os }}
     
@@ -77,13 +77,13 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-            
+
       - name: Install Java ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'zulu'
-          
+
       - name: Install NodeJS ${{ env.NODEJS_VERSION }}
         if: matrix.os-type == 'linux'
         uses: actions/setup-node@v3
@@ -100,7 +100,7 @@ jobs:
         # removed watchosX64Test as GitHub action gets Invalid device: Apple Watch Series 5 - 44mm
         # no longer supporting them => macosX64Test tvosX64Test
         # TODO: To be investigated
-        
+
       - name: Build for JS, Linux, Android, JVM
         if: matrix.os-type == 'linux'
         run: |
@@ -110,7 +110,7 @@ jobs:
         if: matrix.os-type == 'windows'
         run: |
           ./gradlew clean mingwX64Test --stacktrace
-      
+
       - name: Upload the build report
         if: always()
         uses: actions/upload-artifact@v3
