@@ -15,7 +15,6 @@ actual final enum class RSASignatureType : NativeTypeInterface<RSASignatureTypeN
     RSASHA256,
     RSASHA384,
     RSASHA512,
-
     RSAPSSSHA256,
     RSAPSSSHA384,
     RSAPSSSHA512;
