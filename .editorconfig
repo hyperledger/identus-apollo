@@ -1,2 +1,2 @@
 [*.{kt,kts}]
-ktlint_no-semi = disabled
+ktlint_standard_no_semi = disabled
