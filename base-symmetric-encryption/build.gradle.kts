@@ -102,8 +102,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":secure-random"))
-                api(project(":base64"))
+                implementation(project(":secure-random"))
+                implementation(project(":base64"))
             }
         }
         val commonTest by getting {

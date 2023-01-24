@@ -102,7 +102,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":base-asymmetric-encryption"))
+                implementation(project(":base-asymmetric-encryption"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
             }
         }
