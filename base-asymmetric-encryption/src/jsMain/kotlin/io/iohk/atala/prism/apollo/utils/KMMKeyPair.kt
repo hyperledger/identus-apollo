@@ -31,12 +31,7 @@ actual final class KMMKeyPair actual constructor(
             }.await()
         }
 
-        override suspend fun generateRSAKeyPairFrom(
-            seed: ByteArray,
-            algorithm: RSAAsymmetricAlgorithm,
-            hash: JsHashType,
-            keySize: Int
-        ): KMMKeyPair {
+        override suspend fun generateRSAKeyPairFrom(seed: ByteArray, algorithm: RSAAsymmetricAlgorithm, hash: JsHashType, keySize: Int): KMMKeyPair {
             return MainScope().promise {
                 val keyPair = crypto.subtle.generateKey(
                     getRsaHashedKeyGenParams(algorithm, hash, keySize),

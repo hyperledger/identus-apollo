@@ -2,7 +2,7 @@ package io.iohk.atala.prism.apollo.utils
 
 actual final enum class RSAAsymmetricAlgorithm : NativeTypeInterface<String> {
     RSA,
-    RSAPSS; // ktlint-disable no-semi
+    RSAPSS;
 
     override fun nativeValue(): String {
         return when (this) {

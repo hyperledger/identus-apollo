@@ -18,7 +18,7 @@ on:
   pull_request:
 
 jobs:
-  
+
   lint:
     name: Lint changes
     runs-on: ubuntu-latest
@@ -55,11 +55,8 @@ jobs:
             os-type: linux
           - os: macos-latest
             os-type: macos
-      #          - os: windows-latest
-      #            os-type: windows
       fail-fast: false
     runs-on: ${{ matrix.os }}
-    
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3

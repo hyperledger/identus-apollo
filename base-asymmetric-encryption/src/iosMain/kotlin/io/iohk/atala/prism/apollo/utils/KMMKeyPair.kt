@@ -13,11 +13,7 @@ actual final class KMMKeyPair actual constructor(val privateKey: KMMPrivateKey, 
             return KMMKeyPair(pair.privateKey()!!, pair.publicKey()!!)
         }
 
-        override suspend fun generateRSAKeyPairFrom(
-            seed: ByteArray,
-            algorithm: RSAAsymmetricAlgorithm,
-            keySize: Int
-        ): KMMKeyPair {
+        override suspend fun generateRSAKeyPairFrom(seed: ByteArray, algorithm: RSAAsymmetricAlgorithm, keySize: Int): KMMKeyPair {
             val pair = IOHKRSA.generateKeyPairWithKeySize(keySize.toLong())!!
             return KMMKeyPair(pair.privateKey()!!, pair.publicKey()!!)
         }
