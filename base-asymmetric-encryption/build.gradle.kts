@@ -111,10 +111,10 @@ kotlin {
                 this.baseName = currentModuleName
             }
 
-//            pod("IOHKRSA") {
-//                version = "1.0.0"
-//                source = path(project.file("../iOSLibs/IOHKRSA"))
-//            }
+            pod("IOHKRSA") {
+                version = "1.0.0"
+                source = path(project.file("../iOSLibs/IOHKRSA"))
+            }
         }
     }
 
@@ -252,6 +252,10 @@ tasks.withType<DokkaTask> {
 
 ktlint {
     filter {
-        exclude("**/external/**.kt")
+        exclude("**/external/*", "./src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*")
+        exclude {
+            it.file.toString().contains("external")
+        }
+        exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/external/") }
     }
 }

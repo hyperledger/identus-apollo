@@ -32,7 +32,8 @@ allprojects {
 
     val listOfModulesNotToPublish = listOf(
         "utils",
-        "base-symmetric-encryption"
+        "base-symmetric-encryption",
+        "base-asymmetric-encryption"
     )
 
     if (listOfModulesNotToPublish.contains(name).not()) {
@@ -59,6 +60,12 @@ subprojects {
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         verbose.set(true)
         outputToConsole.set(true)
+        filter {
+            exclude("/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**")
+            exclude {
+                it.file.toString().contains("external")
+            }
+        }
     }
 }
 
@@ -68,4 +75,14 @@ rootProject.plugins.withType(NodeJsRootPlugin::class.java) {
 
 tasks.dokkaGfmMultiModule.configure {
     outputDirectory.set(buildDir.resolve("dokkaCustomMultiModuleOutput"))
+}
+
+ktlint {
+    filter {
+        exclude("./base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*")
+        exclude {
+            it.file.toString().contains("external")
+        }
+        exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/external/") }
+    }
 }

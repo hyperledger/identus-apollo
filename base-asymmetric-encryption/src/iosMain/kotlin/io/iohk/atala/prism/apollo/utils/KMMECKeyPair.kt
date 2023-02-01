@@ -5,7 +5,7 @@ import kotlin.random.Random
 
 actual class KMMECKeyPair actual constructor(actual val privateKey: KMMECPrivateKey, actual val publicKey: KMMECPublicKey) {
 
-    internal constructor(privateNative: ByteArray, publicNative: ByteArray): this(KMMECPrivateKey(privateNative), KMMECPublicKey(publicNative))
+    internal constructor(privateNative: ByteArray, publicNative: ByteArray) : this(KMMECPrivateKey(privateNative), KMMECPublicKey(publicNative))
 
     actual companion object : ECKeyPairGeneration {
         private val random = Random.Default

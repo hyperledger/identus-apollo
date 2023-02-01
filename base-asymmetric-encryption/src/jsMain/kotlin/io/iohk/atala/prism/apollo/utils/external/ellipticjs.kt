@@ -3,11 +3,10 @@
 @file:JsModule("elliptic")
 package io.iohk.atala.prism.apollo.utils.external
 
-import io.iohk.atala.prism.apollo.utils.external.eddsa.Signature as _eddsa_Signature
 import io.iohk.atala.prism.apollo.utils.external.eddsa.KeyPair as _eddsa_KeyPair
 import io.iohk.atala.prism.apollo.utils.external.eddsa.KeyPairOptions as _eddsa_KeyPairOptions
-import kotlin.js.*
-import org.khronos.webgl.*
+import io.iohk.atala.prism.apollo.utils.external.eddsa.Signature as _eddsa_Signature
+import org.khronos.webgl.Uint8Array
 
 external var utils: Any
 
