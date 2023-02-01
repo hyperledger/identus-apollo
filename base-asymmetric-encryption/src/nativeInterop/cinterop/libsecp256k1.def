@@ -1,0 +1,14 @@
+package = io.iohk.atala.prism.apollo.kmmsecp256k1
+language = C
+
+headers = secp256k1.h secp256k1_ecdh.h secp256k1_recovery.h secp256k1_extrakeys.h secp256k1_schnorrsig.h
+headerFilter = secp256k1/** secp256k1_ecdh.h secp256k1_recovery.h secp256k1_extrakeys.h secp256k1_schnorrsig.h secp256k1.h
+staticLibraries = libsecp256k1.a
+
+libraryPaths.ios_simulator_arm64 = ../secp256k1/build/ios/arm64-sim/
+libraryPaths.ios_arm64 = ../secp256k1/build/ios/arm64-iphoneos/
+libraryPaths.ios_x64 = ../secp256k1/build/ios/x86_64-sim/
+
+linkerOpts.ios_simulator_arm64 = -L../secp256k1/build/ios/arm64-sim/
+linkerOpts.ios_arm64 = -L../secp256k1/build/ios/arm64-iphoneos/
+linkerOpts.ios_x64 = -L../secp256k1/build/ios/x86_64-sim/

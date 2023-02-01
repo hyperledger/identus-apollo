@@ -1,6 +1,5 @@
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
 version = rootProject.version
@@ -9,15 +8,12 @@ val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization")
+    kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.dokka")
 }
 
 kotlin {
-    explicitApi()
-    explicitApi = ExplicitApiMode.Strict
-
     android {
         publishAllLibraryVariants()
     }
@@ -32,41 +28,13 @@ kotlin {
         }
     }
     if (os.isMacOsX) {
-
-        ios("ios") {
-
-            binaries.framework {
-                baseName = currentModuleName
-                embedBitcode("disable")
-            }
-
-            // Facade to SwiftCryptoKit
-            val platform = when (name) {
-                "ios" -> "iphonesimulator"
-                "iosX64" -> "iphonesimulator"
-                "iosArm64" -> "iphoneos"
-                else -> error("Unsupported target $name.")
-            }
-
-            compilations.getByName("main") {
-                cinterops.create("SwiftCryptoKit") {
-                    extraOpts = listOf("-compiler-option", "-DNS_FORMAT_ARGUMENT(A)=")
-                    val interopTask = tasks[interopProcessingTaskName]
-                    interopTask.dependsOn(":SwiftCryptoKit:build${platform.capitalize()}")
-                    includeDirs.headerFilterOnly("$rootDir/SwiftCryptoKit/build/Release-$platform/include")
-                }
-            }
-
-            compilations.getByName("main") {
-                cinterops.create("secp256k1") {
-                    val interopTask = tasks[interopProcessingTaskName]
-                    includeDirs.headerFilterOnly("$rootDir/Secp256k1/include")
-                }
-            }
-        }
+        ios()
+//        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+//            iosSimulatorArm64()
+//        }
     }
     js(IR) {
-        this.moduleName = "apollo"
+        this.moduleName = currentModuleName
         this.binaries.library()
         this.useCommonJs()
         this.compilations["main"].packageJson {
@@ -86,9 +54,6 @@ kotlin {
                 }
             }
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -96,9 +61,6 @@ kotlin {
         }
         nodejs {
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -106,27 +68,27 @@ kotlin {
         }
     }
 
-    /*if (os.isMacOsX) {
+    if (os.isMacOsX) {
         cocoapods {
-            this.summary = "ApolloUtils is a Utils helper module"
+            this.summary = "Apollo"
             this.version = rootProject.version.toString()
             this.authors = "IOG"
+            this.ios.deploymentTarget = "13.0"
+            this.osx.deploymentTarget = "12.0"
+            this.tvos.deploymentTarget = "13.0"
+            this.watchos.deploymentTarget = "8.0"
             framework {
-                baseName = currentModuleName
-                embedBitcode("marker")
+                this.baseName = currentModuleName
             }
         }
-    }*/
+    }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":base16"))
-                api(project(":base32"))
-                api(project(":base58"))
-                api(project(":base64"))
+                api(project(":utils"))
                 api(project(":hashing"))
-                api(project(":multibase"))
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
         }
         val commonTest by getting {
@@ -134,77 +96,31 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting {
-            kotlin.srcDir("src/commonJvmAndroidMain/kotlin")
-            dependencies {
-                implementation("com.google.guava:guava:30.1-jre")
-                implementation("com.madgag.spongycastle:prov:1.58.0.0")
-                implementation("org.bitcoinj:bitcoinj-core:0.15.10") {
-                    exclude("com.google.protobuf")
-                }
-            }
-        }
+        val androidMain by getting
         val androidTest by getting {
-            kotlin.srcDir("src/commonJvmAndroidTest/kotlin")
-            resources.srcDir("src/commonJvmAndroidTest/resources")
             dependencies {
-                implementation("junit:junit:4.12")
+                implementation("junit:junit:4.13.2")
             }
         }
-        val jvmMain by getting {
-            kotlin.srcDir("src/commonJvmAndroidMain/kotlin")
-            dependencies {
-                implementation("com.google.guava:guava:30.1-jre")
-                implementation("org.bouncycastle:bcprov-jdk15on:1.68")
-                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
-            }
-        }
+        val jvmMain by getting
         val jvmTest by getting {
-            kotlin.srcDir("src/commonJvmAndroidTest/kotlin")
-            resources.srcDir("src/commonJvmAndroidTest/resources")
             dependencies {
-                implementation("junit:junit:4.12")
+                implementation("junit:junit:4.13.2")
             }
         }
-
-        val jsMain by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-nodejs:0.0.7")
-
-                implementation(npm("hash.js", "1.1.7"))
-                implementation(npm("elliptic", "6.5.3"))
-                implementation(npm("bip32", "2.0.6"))
-                implementation(npm("bip39", "3.0.3"))
-
-                // Polyfill dependencies
-                implementation(npm("stream-browserify", "3.0.0"))
-                implementation(npm("buffer", "6.0.3"))
-            }
-        }
-        val jsTest by getting {
-            dependencies {
-            }
-        }
+        val jsMain by getting
+        val jsTest by getting
         if (os.isMacOsX) {
-            val iosMain by getting {
-                dependencies {
-                    implementation("fr.acinq.bitcoin:bitcoin-kmp:0.10.0")
-                }
-            }
+            val iosMain by getting
             val iosTest by getting
-            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-                val iosSimulatorArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
-            }
-        }
-        all {
-            languageSettings.optIn("kotlin.RequiresOptIn")
-            languageSettings.optIn("kotlin.ExperimentalUnsignedTypes")
-            languageSettings.optIn("kotlin.js.ExperimentalJsExport")
+//            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+//                val iosSimulatorArm64Main by getting {
+//                    this.dependsOn(iosMain)
+//                }
+//                val iosSimulatorArm64Test by getting {
+//                    this.dependsOn(iosTest)
+//                }
+//            }
         }
     }
 }

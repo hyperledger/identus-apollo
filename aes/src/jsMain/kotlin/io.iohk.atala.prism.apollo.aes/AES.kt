@@ -30,28 +30,27 @@ actual final class AES actual constructor(
     private fun getAesKeyAlgorithm(): AesKeyAlgorithm {
         val algorithmString = "${algorithm.nativeValue()}-${blockMode.nativeValue()}"
         val length = this.algorithm.keySize()
-        return js("{name: algorithmString, length: length}") as AesKeyAlgorithm
+        return js("{name: algorithmString, length: length}").unsafeCast<AesKeyAlgorithm>()
     }
 
     private fun getAesParams(): Algorithm {
         val algorithmString = "${algorithm.nativeValue()}-${blockMode.nativeValue()}"
-        val tagSize = AUTH_TAG_SIZE
         return if (blockMode.needIV()) {
             val jsIV = this.iv!!.toArrayBuffer()
-            println(jsIV.byteLength)
             when (blockMode) {
                 KAESBlockMode.GCM -> {
-                    js("{name: algorithmString, iv: jsIV, tagLength: tagSize}") as AesGcmParams
+                    val tagSize = GCM_AUTH_TAG_SIZE
+                    js("{name: algorithmString, iv: jsIV, tagLength: tagSize}").unsafeCast<AesGcmParams>()
                 }
                 KAESBlockMode.CBC -> {
-                    js("{name: algorithmString, iv: jsIV}") as AesCbcParams
+                    js("{name: algorithmString, iv: jsIV}").unsafeCast<AesCbcParams>()
                 }
                 else -> {
                     throw NotImplementedError("Yet to be implemented")
                 }
             }
         } else {
-            js("{name: algorithmString}") as Algorithm
+            js("{name: algorithmString}").unsafeCast<Algorithm>()
         }
     }
 
@@ -97,12 +96,12 @@ actual final class AES actual constructor(
 
     actual companion object : AESKeyGeneration {
         // Because NITS recommends it to always be 128 or bigger https://csrc.nist.gov/publications/detail/sp/800-38d/final
-        private const val AUTH_TAG_SIZE = 128
+        private const val GCM_AUTH_TAG_SIZE = 128
 
         private fun getAesKeyGenParams(algorithm: KAESAlgorithm, blockMode: KAESBlockMode): AesKeyGenParams {
             val algorithmString = "${algorithm.nativeValue()}-${blockMode.nativeValue()}"
             val keyLength = algorithm.keySize()
-            return js("{name: algorithmString, length: keyLength}") as AesKeyGenParams
+            return js("{name: algorithmString, length: keyLength}").unsafeCast<AesKeyGenParams>()
         }
 
         override suspend fun createRandomAESKey(algorithm: KAESAlgorithm, blockMode: KAESBlockMode): KMMSymmetricKey {
