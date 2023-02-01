@@ -4,10 +4,10 @@
 @file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS")
 package io.iohk.atala.prism.apollo.utils.external
 
-import kotlin.js.*
 import org.khronos.webgl.*
+import kotlin.js.*
 
-external open class base(type: String, conf: BaseCurveOptions) {
+open external class base(type: String, conf: BaseCurveOptions) {
     open var p: Any
     open var type: String
     open var red: Any
@@ -64,7 +64,7 @@ external open class base(type: String, conf: BaseCurveOptions) {
     }
 }
 
-external open class edwards(conf: EdwardsConf) : base {
+open external class edwards(conf: EdwardsConf) : base {
     open var a: Any
     open var c: Any
     open var c2: Any
@@ -127,7 +127,7 @@ external open class edwards(conf: EdwardsConf) : base {
     }
 }
 
-external open class short(conf: ShortConf) : base {
+open external class short(conf: ShortConf) : base {
     open var a: dynamic /* String | BN | Number | Buffer | Uint8Array | ReadonlyArray<Number> */
     open var b: dynamic /* String | BN | Number | Buffer | Uint8Array | ReadonlyArray<Number> */
     override var g: BasePoint

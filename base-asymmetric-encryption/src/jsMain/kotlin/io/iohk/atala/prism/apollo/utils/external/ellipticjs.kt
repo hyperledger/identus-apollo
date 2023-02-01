@@ -28,12 +28,12 @@ external object curve {
             }
         }
 
-        open fun decodePoint(bytes: String): BasePoint;
-        open fun decodePoint(bytes: Uint8Array): BasePoint;
+        open fun decodePoint(bytes: String): BasePoint
+        open fun decodePoint(bytes: Uint8Array): BasePoint
     }
 }
 
-external open class ec {
+open external class ec {
     open var curve: curve.base
     open var n: BN
     open var nh: Any
@@ -214,7 +214,7 @@ external open class ec {
     }
 }
 
-external open class eddsa(name: String /* "ed25519" */) {
+open external class eddsa(name: String /* "ed25519" */) {
     open var curve: edwards
     open fun sign(message: String, secret: String): _eddsa_Signature
     open fun verify(message: String, sig: String, pub: Any /* String | Buffer | eddsa.Point | eddsa.KeyPair */): Boolean

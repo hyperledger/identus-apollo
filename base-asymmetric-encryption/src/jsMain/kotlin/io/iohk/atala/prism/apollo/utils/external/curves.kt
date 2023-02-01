@@ -6,7 +6,7 @@ package io.iohk.atala.prism.apollo.utils.external
 
 import kotlin.js.*
 
-external open class PresetCurve(options: Options) {
+open external class PresetCurve(options: Options) {
     open var type: String
     open var g: Any
     open var n: Any?

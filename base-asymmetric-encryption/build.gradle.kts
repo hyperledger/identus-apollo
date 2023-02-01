@@ -249,3 +249,9 @@ tasks.withType<DokkaTask> {
 //        }
 //    }
 // }
+
+ktlint {
+    filter {
+        exclude("**/external/**.kt")
+    }
+}
