@@ -123,6 +123,7 @@ final object MultiBase {
                 }
             }
 
+            @Throws(IllegalStateException::class)
             fun lookup(prefix: Char): Base {
                 return baseMap[prefix]
                     ?: throw IllegalStateException("Unknown Multibase type: $prefix")

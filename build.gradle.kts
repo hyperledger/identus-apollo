@@ -45,8 +45,8 @@ allprojects {
                     this.name = "GitHubPackages"
                     this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
                     credentials {
-                        this.username = System.getenv("ATALA_GITHUB_ACTOR")
-                        this.password = System.getenv("ATALA_GITHUB_TOKEN")
+                        this.username = getLocalProperty("username") ?: System.getenv("ATALA_GITHUB_ACTOR")
+                        this.password = getLocalProperty("token") ?: System.getenv("ATALA_GITHUB_TOKEN")
                     }
                 }
             }
@@ -85,4 +85,29 @@ ktlint {
         }
         exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/external/") }
     }
+}
+
+/**
+ * Read any properties file and return the value of the key passed
+ *
+ * @param key value to key that needs reading
+ * @param file file name in root folder that will be read with default value of "local.properties"
+ * @throws [IllegalStateException] in case of failing to read file
+ *
+ * @return value of the key if found
+ */
+@kotlin.jvm.Throws(IllegalStateException::class)
+fun Project.getLocalProperty(key: String, file: String = "local.properties"): String? {
+    require(file.endsWith(".properties"))
+    val properties = java.util.Properties()
+    val localProperties = File(file)
+    if (localProperties.isFile) {
+        java.io.InputStreamReader(java.io.FileInputStream(localProperties), Charsets.UTF_8).use { reader ->
+            properties.load(reader)
+        }
+    } else error("File from not found")
+
+    val value = properties.getProperty(key, "null")
+
+    return if (value == "null") null else value
 }
