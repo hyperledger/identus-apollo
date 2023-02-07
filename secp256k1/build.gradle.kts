@@ -3,7 +3,13 @@ import org.gradle.internal.os.OperatingSystem
 val currentOs: OperatingSystem = OperatingSystem.current()
 val bash = "bash"
 
-val buildSecp256k1 by tasks.creating { group = "build" }
+val buildSecp256k1 by tasks.creating {
+    group = "build"
+    
+    doFirst {
+        installRequirements
+    }
+}
 
 val installRequirements by tasks.creating(Exec::class) {
     group = "build"
