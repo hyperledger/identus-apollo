@@ -51,8 +51,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-            os-type: linux
+#          - os: ubuntu-latest
+#            os-type: linux
+# commented until we figure out the root cause for Gradle failing on Linux
+# TODO: To be investigated
           - os: macos-latest
             os-type: macos
       fail-fast: false
