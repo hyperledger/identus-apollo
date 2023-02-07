@@ -25,6 +25,18 @@ A cryptography lib built with Kotlin Multiplatform with support for the followin
 
 ## How to build Apollo
 
+### Install Homebrew (Mac Only)
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### Install autoconf, automake & libtool (Mac Only)
+
+```bash
+brew install autoconf automake libtool
+```
+
 ### Install JDK 11
 
 ```bash
