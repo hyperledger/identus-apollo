@@ -107,7 +107,14 @@ fun Project.getLocalProperty(key: String, file: String = "local.properties"): St
         java.io.InputStreamReader(java.io.FileInputStream(localProperties), Charsets.UTF_8).use { reader ->
             properties.load(reader)
         }
-    } else error("File from not found")
+    } else {
+        // Handle CI in GitHub doesn't have `local.properties` file
+        if (File(".").absolutePath.contains("github/workspace")) {
+            return "null"
+        } else {
+            error("$file File not found")
+        }
+    }
 
     val value = properties.getProperty(key, "null")
 
