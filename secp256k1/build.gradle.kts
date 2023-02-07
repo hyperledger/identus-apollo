@@ -10,6 +10,8 @@ val installRequirements by tasks.creating(Exec::class) {
 
     onlyIf { currentOs.isMacOsX }
 
+    inputs.files(projectDir.resolve("macos-install-requirements.sh"))
+
     workingDir = projectDir
     commandLine(bash, "macos-install-requirements.sh")
 }
