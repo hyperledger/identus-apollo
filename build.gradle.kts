@@ -79,6 +79,8 @@ tasks.dokkaGfmMultiModule.configure {
 
 ktlint {
     filter {
+        exclude("/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**")
+        exclude("/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*")
         exclude("./base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**")
         exclude {
             it.file.toString().contains("external")
