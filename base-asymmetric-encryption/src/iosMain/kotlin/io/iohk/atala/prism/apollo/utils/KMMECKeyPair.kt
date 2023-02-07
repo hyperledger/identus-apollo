@@ -20,7 +20,7 @@ actual class KMMECKeyPair actual constructor(actual val privateKey: KMMECPrivate
                 EllipticCurve.SECP256k1 -> {
                     val privateKey = randomBytes(32)
                     check(Secp256k1.secKeyVerify(privateKey))
-                    val publicKey = Secp256k1.pubkeyCreate(privateKey)
+                    val publicKey = Secp256k1.publicKeyCreate(privateKey)
                     return KMMECKeyPair(privateKey, publicKey)
                 }
                 EllipticCurve.SECP256r1 -> {

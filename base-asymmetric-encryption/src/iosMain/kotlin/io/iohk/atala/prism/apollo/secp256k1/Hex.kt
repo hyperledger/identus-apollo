@@ -3,7 +3,7 @@ package io.iohk.atala.prism.apollo.secp256k1
 internal object Hex {
     private val hexCode = arrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f')
 
-    public fun decode(hex: String): ByteArray {
+    fun decode(hex: String): ByteArray {
         val input = hex.filterNot { it.isWhitespace() }
         val offset = when {
             input.length >= 2 && input[0] == '0' && input[1] == 'x' -> 2
@@ -28,7 +28,7 @@ internal object Hex {
         return out
     }
 
-    public fun encode(input: ByteArray, offset: Int, len: Int): String {
+    fun encode(input: ByteArray, offset: Int, len: Int): String {
         val r = StringBuilder(len * 2)
         for (i in 0 until len) {
             val b = input[offset + i]
@@ -38,5 +38,5 @@ internal object Hex {
         return r.toString()
     }
 
-    public fun encode(input: ByteArray): String = encode(input, 0, input.size)
+    fun encode(input: ByteArray): String = encode(input, 0, input.size)
 }
