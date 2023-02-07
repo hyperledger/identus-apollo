@@ -5,7 +5,6 @@ val bash = "bash"
 
 val buildSecp256k1 by tasks.creating {
     group = "build"
-    
     doFirst {
         installRequirements
     }
