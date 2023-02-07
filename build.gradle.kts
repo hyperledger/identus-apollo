@@ -129,11 +129,8 @@ fun Project.getLocalProperty(key: String, file: String = "local.properties"): St
         }
     } else {
         // Handle CI in GitHub doesn't have `local.properties` file
-        if (File(".").absolutePath.contains("github/workspace")) {
-            return "null"
-        } else {
-            error("$file File not found. In path: ${File(".").absolutePath}")
-        }
+        logger.warn("$file File not found.")
+        return "null"
     }
 
     val value = properties.getProperty(key, "null")
