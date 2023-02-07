@@ -2,6 +2,7 @@
 @file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS")
 @file:JsModule("elliptic")
 
+/* ktlint-disable */
 package io.iohk.atala.prism.apollo.utils.external
 
 import io.iohk.atala.prism.apollo.utils.external.eddsa.KeyPair as _eddsa_KeyPair
@@ -256,3 +257,4 @@ open external class eddsa(name: String /* "ed25519" */) {
             set(value) = definedExternally
     }
 }
+/* ktlint-disable */

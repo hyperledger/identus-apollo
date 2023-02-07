@@ -3,6 +3,7 @@
 @file:JsQualifier("curves")
 @file:JsModule("elliptic")
 
+/* ktlint-disable */
 package io.iohk.atala.prism.apollo.utils.external
 
 open external class PresetCurve(options: Options) {
@@ -31,3 +32,4 @@ open external class PresetCurve(options: Options) {
             set(value) = definedExternally
     }
 }
+/* ktlint-disable */
