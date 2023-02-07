@@ -86,7 +86,6 @@ jobs:
           distribution: 'zulu'
 
       - name: Install NodeJS ${{ env.NODEJS_VERSION }}
-        if: matrix.os-type == 'linux'
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODEJS_VERSION }}
