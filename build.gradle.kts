@@ -132,7 +132,7 @@ fun Project.getLocalProperty(key: String, file: String = "local.properties"): St
         if (File(".").absolutePath.contains("github/workspace")) {
             return "null"
         } else {
-            error("$file File not found")
+            error("$file File not found. In path: ${File(".").absolutePath}")
         }
     }
 
