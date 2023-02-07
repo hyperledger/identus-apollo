@@ -106,7 +106,7 @@ jobs:
       - name: Build for iOS, macOS, tvOS, watchOS
         if: matrix.os-type == 'macos'
         run: |
-          ./gradlew :secp256k1:buildSecp256k1Ios --stacktrace
+          ./gradlew build check allTests --stacktrace
         # ./gradlew clean build iosX64Test --stacktrace
         # removed watchosX64Test as GitHub action gets Invalid device: Apple Watch Series 5 - 44mm
         # no longer supporting them => macosX64Test tvosX64Test
