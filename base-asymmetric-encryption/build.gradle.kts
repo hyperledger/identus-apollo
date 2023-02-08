@@ -1,5 +1,6 @@
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
 version = rootProject.version
@@ -11,6 +12,15 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.dokka")
+}
+
+fun KotlinNativeTarget.secp256k1CInterop(target: String) {
+    compilations["main"].cinterops {
+        val libsecp256k1 by creating {
+            includeDirs.headerFilterOnly(project.file("../secp256k1/secp256k1/include/"))
+            tasks[interopProcessingTaskName].dependsOn(":secp256k1:buildSecp256k1${target.capitalize()}")
+        }
+    }
 }
 
 kotlin {
@@ -28,12 +38,16 @@ kotlin {
         }
     }
     if (os.isMacOsX) {
-        ios()
+        ios {
+            secp256k1CInterop("ios")
+        }
 //        tvos()
 //        watchos()
 //        macosX64()
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            iosSimulatorArm64()
+            iosSimulatorArm64 {
+                secp256k1CInterop("ios")
+            }
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
 //            macosArm64()
@@ -107,8 +121,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":secure-random"))
                 implementation(project(":utils"))
+                implementation("com.ionspin.kotlin:bignum:0.3.7")
             }
         }
         val commonTest by getting {
@@ -126,6 +140,15 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
+                implementation(npm("elliptic", "6.5.4"))
+                implementation(npm("@types/elliptic", "6.4.14"))
+
+                // Polyfill dependencies
+                implementation(npm("stream-browserify", "3.0.0"))
+                implementation(npm("buffer", "6.0.3"))
+                // implementation(npm("bip32", "3.1.0", true))
+                // implementation(npm("bip39", "3.0.4", true))
+
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-web:1.0.0-pre.461")
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-node:18.11.13-pre.461")
             }
@@ -226,3 +249,13 @@ tasks.withType<DokkaTask> {
 //        }
 //    }
 // }
+
+ktlint {
+    filter {
+        exclude("**/external/*", "./src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*")
+        exclude {
+            it.file.toString().contains("external")
+        }
+        exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/external/") }
+    }
+}

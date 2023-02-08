@@ -11,16 +11,19 @@ Atala PRISM is a self-sovereign identity (SSI) platform and service suite for ve
 The complete platform is separated in multiple repositories:
 
 * [Apollo](https://github.com/input-output-hk/atala-prism-apollo) - Repo for the Apollo Building Block, this contains the collection of the cryptographic methods used all around Atala PRISM.
-* [atala-prism-building-blocks](https://github.com/input-output-hk/atala-prism-building-blocks) - Repo that contains the servers Building Blocks.
-* [atala-prism-kmm-sdk]() - Repo that represents the Kotlin Multiplatform SDK.
+* [Building Blocks](https://github.com/input-output-hk/atala-prism-building-blocks) - Repo that contains the servers Building Blocks.
+* [Wallet SDK](https://github.com/input-output-hk/atala-prism-wallet-sdk-kmm/) - Repo that represents the Kotlin Multiplatform Wallet SDK.
 
 ### What is Apollo
+
 A cryptography lib built with Kotlin Multiplatform with support for the following targets:
+
 - JS
 - iOS
 - Android
 - JVM
-  Future target might be supported in the future.
+
+Future target might be supported in the future.
 
 ### Your First Code Contribution
 
@@ -28,7 +31,7 @@ Unsure where to begin contributing to Apollo? You can start by looking through t
 
 ### Pull Requests
 
-The process described here has several goals:
+The getProcess described here has several goals:
 
 - Maintain the SDK quality
 - Fix problems that are important to users
@@ -146,25 +149,29 @@ Must be one of the following:
 * **docs**: Documentation only changes
 * **feat**: A new feature
 * **fix**: A bug fix
-* **perf**: A code change that improves performance
+* **perf**: A code change that improves getPerformance
 * **refactor**: A code change that neither fixes a bug nor adds a feature
 * **test**: Adding missing tests or correcting existing tests
 
 
 ##### Scope
-The scope should be the name of the affected module or building block  
-(as perceived by the person reading the changelog generated from commit messages).
+The scope should be the name of the affected Module (as perceived by the person reading the changelog generated from commit messages).
 
-The following is the list of supported scopes:  
+The following is the list of supported scopes aka (module name):
+
+* `Apollo`
+* `AES`
+* `Base16`
+* `Base32`
+* `Base58`
+* `Base64`
 * `Hashing`
-* `DigitalSignatures`
-* `SymmetricEncryption`
-* `PublicKeyEncryption`
-* `Accumulators`
-* `MAC`
-* `KeExchange`
-* `Experience`
-* `Domain`
+* `Multibase`
+* `RSA`
+* `Secp256k1`
+* `SecureRandom`
+* `Utils`
+* `UUID`
 
 ##### Summary
 
@@ -173,7 +180,6 @@ Use the summary field to provide a succinct description of the change:
 * use the imperative, present tense: "change" not "changed" nor "changes"
 * don't capitalize the first letter
 * no dot (.) at the end
-
 
 #### <a name="commit-body"></a>Commit Message Body
 
