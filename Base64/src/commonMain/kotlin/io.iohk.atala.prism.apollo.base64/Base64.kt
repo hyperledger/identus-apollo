@@ -169,6 +169,7 @@ internal final object Base64 {
             return decode0(src, 0, src.size, dst)
         }
 
+        @Suppress("NAME_SHADOWING")
         @Throws(IllegalArgumentException::class)
         private fun outLength(src: ByteArray, sp: Int, sl: Int): Int {
             var sp = sp
@@ -205,6 +206,7 @@ internal final object Base64 {
             return 3 * ((len + 3) / 4) - paddings
         }
 
+        @Suppress("NAME_SHADOWING")
         @Throws(IllegalArgumentException::class)
         private fun decode0(src: ByteArray, sp: Int, sl: Int, dst: ByteArray): Int {
             var sp = sp
@@ -335,8 +337,7 @@ internal final object Base64 {
         private val doPadding: Boolean
     ) {
         private fun outLength(srclen: Int): Int {
-            var len = 0
-            len = if (doPadding) {
+            var len = if (doPadding) {
                 4 * ((srclen + 2) / 3)
             } else {
                 val n = srclen % 3
@@ -439,6 +440,7 @@ internal final object Base64 {
             return if (!doPadding) this else Encoder(isURL, newline, linemax, false)
         }
 
+        @Suppress("UNUSED_CHANGED_VALUE")
         private fun encode0(src: ByteArray, off: Int, end: Int, dst: ByteArray): Int {
             val base64 = if (isURL) toBase64URL else toBase64
             var sp = off
