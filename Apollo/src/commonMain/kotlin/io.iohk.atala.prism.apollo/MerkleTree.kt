@@ -16,6 +16,7 @@ import kotlin.js.JsExport
 import kotlin.jvm.JvmStatic
 
 private typealias Hash = ByteArray
+
 // Bitmask index representing leaf position in a tree where unset i-th bit means that the leaf is
 // located in the left branch of the i-th node starting from the root and vice-versa
 private typealias Index = Int
@@ -57,15 +58,14 @@ data class MerkleInclusionProof(
     val siblings: List<Hash> // given hash's siblings at each level of the tree starting from the bottom
 ) {
     // merkle root of which this proof is for
-    public fun derivedRoot(): MerkleRoot {
+    fun derivedRoot(): MerkleRoot {
         val n = siblings.size
-        val root = siblings.indices.fold(
-            prefixHash(hash)
-        ) { currentHash, i ->
-            if (index and (1 shl (n - i - 1)) == 0)
+        val root = siblings.indices.fold(prefixHash(hash)) { currentHash, i ->
+            if (index and (1 shl (n - i - 1)) == 0) {
                 combineHashes(currentHash, siblings[i])
-            else
+            } else {
                 combineHashes(siblings[i], currentHash)
+            }
         }
 
         return MerkleRoot(root)
@@ -102,11 +102,8 @@ data class MerkleInclusionProof(
         fun decodeJson(encodedMerkleInclusionProof: JsonObject): Validated<MerkleInclusionProof, String> {
             val maybeHash = encodedMerkleInclusionProof[hashField]?.jsonPrimitive?.content?.decodeHex()
             val maybeIndex = encodedMerkleInclusionProof[indexField]?.jsonPrimitive?.int
-            val maybeSiblings =
-                encodedMerkleInclusionProof[siblingsField]
-                    ?.jsonArray
-                    ?.map { it.jsonPrimitive.content }
-                    ?.map { it.decodeHex() }
+            val maybeSiblings = encodedMerkleInclusionProof[siblingsField]?.jsonArray?.map { it.jsonPrimitive.content }
+                ?.map { it.decodeHex() }
 
             return Validated.Applicative.apply(
                 Validated.getOrError(
@@ -124,9 +121,7 @@ data class MerkleInclusionProof(
             ) { hash, index, siblings ->
                 Validated.Valid(
                     MerkleInclusionProof(
-                        hash,
-                        index,
-                        siblings
+                        hash, index, siblings
                     )
                 )
             }
@@ -146,7 +141,6 @@ data class MerkleProofs(val root: MerkleRoot, val proofs: List<MerkleInclusionPr
 
 @JsExport
 fun generateProofs(hashes: List<Hash>): MerkleProofs {
-
     tailrec fun buildMerkleTree(currentLevel: List<MerkleTree>, nextLevel: List<MerkleTree>): MerkleTree {
         return when {
             currentLevel.size >= 2 -> buildMerkleTree(
@@ -155,8 +149,7 @@ fun generateProofs(hashes: List<Hash>): MerkleProofs {
             )
 
             currentLevel.size == 1 -> buildMerkleTree(
-                currentLevel = emptyList(),
-                nextLevel = listOf(currentLevel[0]) + nextLevel
+                currentLevel = emptyList(), nextLevel = listOf(currentLevel[0]) + nextLevel
             )
 
             nextLevel.size == 1 -> nextLevel[0]
@@ -167,20 +160,22 @@ fun generateProofs(hashes: List<Hash>): MerkleProofs {
         }
     }
 
-    fun buildProofs(
-        tree: MerkleTree,
-        currentIndex: Index,
-        currentPath: List<Hash>
-    ): List<MerkleInclusionProof> {
+    fun buildProofs(tree: MerkleTree, currentIndex: Index, currentPath: List<Hash>): List<MerkleInclusionProof> {
         return when (tree) {
             is MerkleLeaf -> listOf(MerkleInclusionProof(tree.data, currentIndex, currentPath))
-            is MerkleNode ->
-                buildProofs(tree.left, currentIndex, listOf(tree.right.hash) + currentPath) +
-                        buildProofs(
-                            tree.right,
-                            currentIndex or (1 shl currentPath.size),
-                            listOf(tree.left.hash) + currentPath
-                        )
+            is MerkleNode -> {
+                val first = buildProofs(
+                    tree.left,
+                    currentIndex,
+                    listOf(tree.right.hash) + currentPath
+                )
+                val second = buildProofs(
+                    tree.right,
+                    currentIndex or (1 shl currentPath.size),
+                    listOf(tree.left.hash) + currentPath
+                )
+                first + second
+            }
         }
     }
 

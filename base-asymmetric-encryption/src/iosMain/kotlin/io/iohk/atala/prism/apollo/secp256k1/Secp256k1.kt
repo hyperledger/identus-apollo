@@ -1,5 +1,7 @@
 package io.iohk.atala.prism.apollo.secp256k1
 
+/* ktlint-disable */
+import kotlin.random.Random
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.DeferScope
 import kotlinx.cinterop.MemScope
@@ -15,8 +17,6 @@ import kotlinx.cinterop.readBytes
 import kotlinx.cinterop.toCValues
 import kotlinx.cinterop.value
 import platform.posix.size_tVar
-import kotlin.random.Random
-/* ktlint-disable */
 // import io.iohk.atala.prism.apollo.kmmsecp256k1.*
 import secp256k1.*
 /* ktlint-disable */

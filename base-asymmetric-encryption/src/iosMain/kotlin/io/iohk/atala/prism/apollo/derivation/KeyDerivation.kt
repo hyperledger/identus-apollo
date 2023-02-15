@@ -1,7 +1,6 @@
 package io.iohk.atala.prism.apollo.derivation
 
 import fr.acinq.bitcoin.DeterministicWallet
-import kotlinx.cinterop.memScoped
 import kotlin.random.Random
 
 actual object KeyDerivation {
@@ -52,8 +51,7 @@ actual object KeyDerivation {
                 e.message == "invalid checksum" -> {
                     throw MnemonicChecksumException(e.message, e)
                 }
-                e.message == "mnemonic code cannot be empty" ||
-                        e.message?.contains("invalid mnemonic word count") == true -> {
+                e.message == "mnemonic code cannot be empty" || e.message?.contains("invalid mnemonic word count") == true -> {
                     throw MnemonicLengthException(e.message, e)
                 }
                 e.message?.contains("invalid mnemonic word") == true -> {

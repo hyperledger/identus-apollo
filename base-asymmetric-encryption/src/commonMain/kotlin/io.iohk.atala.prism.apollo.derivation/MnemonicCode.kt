@@ -10,7 +10,9 @@ import kotlin.js.JsExport
  */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
-data class MnemonicCode @Throws(MnemonicLengthException::class)constructor(val words: List<String>) {
+data class MnemonicCode
+@Throws(MnemonicLengthException::class)
+constructor(val words: List<String>) {
     init {
         if (words.size % 3 != 0) {
             throw MnemonicLengthException("Can't create a DID from mnemonic that is not dividable by 3")
