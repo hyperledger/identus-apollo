@@ -12,6 +12,7 @@ import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.jvm.JvmStatic
 
@@ -46,11 +47,13 @@ private data class MerkleLeaf(val data: Hash) : MerkleTree() {
     override val hash: Hash = prefixHash(data)
 }
 
+@OptIn(ExperimentalJsExport::class)
 @JsExport
 data class MerkleRoot(val hash: Hash)
 
 // Cryptographic proof of the given hash's inclusion in the Merkle tree which can be verified
 // by anyone.
+@OptIn(ExperimentalJsExport::class)
 @JsExport
 data class MerkleInclusionProof(
     val hash: Hash, // hash inclusion of which this proof is for
@@ -137,6 +140,7 @@ private fun prefixHash(data: Hash): Hash {
 
 data class MerkleProofs(val root: MerkleRoot, val proofs: List<MerkleInclusionProof>)
 
+@OptIn(ExperimentalJsExport::class)
 @JsExport
 fun generateProofs(hashes: List<Hash>): MerkleProofs {
     tailrec fun buildMerkleTree(currentLevel: List<MerkleTree>, nextLevel: List<MerkleTree>): MerkleTree {
@@ -181,6 +185,7 @@ fun generateProofs(hashes: List<Hash>): MerkleProofs {
     return MerkleProofs(MerkleRoot(merkleTree.hash), merkleProofs)
 }
 
+@OptIn(ExperimentalJsExport::class)
 @JsExport
 fun verifyProof(root: MerkleRoot, proof: MerkleInclusionProof): Boolean {
     // Proof length should not exceed 31 as 2^31 is the maximum size of Merkle tree

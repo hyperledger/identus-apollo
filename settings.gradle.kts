@@ -25,7 +25,6 @@ buildscript {
 }
 
 rootProject.name = "apollo"
-include(":SwiftCryptoKit")
 include(":apollo")
 include(":hashing")
 include(":uuid")
@@ -40,5 +39,5 @@ include(":secure-random")
 include(":aes")
 include(":base-asymmetric-encryption")
 include(":rsa")
-include("secp256k1")
-include("ecdsa")
+include(":secp256k1")
+include(":ecdsa")
