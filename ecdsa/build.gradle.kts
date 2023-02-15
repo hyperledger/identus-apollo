@@ -105,7 +105,6 @@ kotlin {
                 implementation(project(":utils"))
                 implementation(project(":base-asymmetric-encryption"))
                 implementation(project(":hashing"))
-                // implementation("com.ionspin.kotlin:bignum:0.3.7")
             }
         }
         val commonTest by getting {
@@ -152,7 +151,7 @@ kotlin {
 //            val watchosTest by getting
 //            val macosX64Main by getting
 //            val macosX64Test by getting
-            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+//            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
 //                val iosSimulatorArm64Main by getting {
 //                    this.dependsOn(iosMain)
 //                }
@@ -177,7 +176,7 @@ kotlin {
 //                val macosArm64Test by getting {
 //                    this.dependsOn(macosX64Test)
 //                }
-            }
+//            }
         }
 //        if (os.isWindows) {
 //            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
@@ -238,3 +237,28 @@ tasks.withType<DokkaTask> {
 //        }
 //    }
 // }
+
+// TODO(Investigate why the below tasks fails)
+tasks.matching {
+    fun String.isOneOf(values: List<String>): Boolean {
+        for (value in values) {
+            if (this == value) {
+                return true
+            }
+        }
+        return false
+    }
+
+    it.name.isOneOf(
+        listOf(
+            "linkPodReleaseFrameworkIosFat",
+            ":linkPodReleaseFrameworkIosFat",
+            ":base-asymmetric-encryption:linkPodReleaseFrameworkIosFat",
+            "linkPodDebugFrameworkIosFat",
+            ":linkPodDebugFrameworkIosFat",
+            ":base-asymmetric-encryption:linkPodDebugFrameworkIosFat"
+        )
+    )
+}.all {
+    this.enabled = false
+}

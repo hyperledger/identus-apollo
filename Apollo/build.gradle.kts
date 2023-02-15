@@ -111,11 +111,7 @@ kotlin {
         val jsMain by getting
         val jsTest by getting
         if (os.isMacOsX) {
-            val iosMain by getting {
-                dependencies {
-                    implementation("fr.acinq.bitcoin:bitcoin-kmp:0.11.0")
-                }
-            }
+            val iosMain by getting
             val iosTest by getting
 //            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
 //                val iosSimulatorArm64Main by getting {
