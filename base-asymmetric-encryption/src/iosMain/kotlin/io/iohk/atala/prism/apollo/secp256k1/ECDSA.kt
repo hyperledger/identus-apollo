@@ -1,5 +1,6 @@
 package io.iohk.atala.prism.apollo.secp256k1
 
+/* ktlint-disable */
 import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.allocArray
@@ -9,7 +10,6 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.readBytes
 import kotlinx.cinterop.value
 import platform.posix.size_tVar
-/* ktlint-disable */
 // import io.iohk.atala.prism.apollo.kmmsecp256k1.*
 import secp256k1.*
 /* ktlint-disable */

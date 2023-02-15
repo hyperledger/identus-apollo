@@ -120,9 +120,7 @@ data class MerkleInclusionProof(
                 )
             ) { hash, index, siblings ->
                 Validated.Valid(
-                    MerkleInclusionProof(
-                        hash, index, siblings
-                    )
+                    MerkleInclusionProof(hash, index, siblings)
                 )
             }
         }
@@ -147,11 +145,7 @@ fun generateProofs(hashes: List<Hash>): MerkleProofs {
                 currentLevel = currentLevel.subList(2, currentLevel.size),
                 nextLevel = listOf(MerkleNode(currentLevel[0], currentLevel[1])) + nextLevel
             )
-
-            currentLevel.size == 1 -> buildMerkleTree(
-                currentLevel = emptyList(), nextLevel = listOf(currentLevel[0]) + nextLevel
-            )
-
+            currentLevel.size == 1 -> buildMerkleTree(currentLevel = emptyList(), nextLevel = listOf(currentLevel[0]) + nextLevel)
             nextLevel.size == 1 -> nextLevel[0]
 
             // We reverse `nextLevel` list so that it has the same order as the initial

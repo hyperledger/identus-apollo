@@ -1,5 +1,6 @@
 package io.iohk.atala.prism.apollo.utils
 
+/* ktlint-disable */
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
 import kotlinx.cinterop.MemScope
@@ -12,7 +13,6 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.set
 import kotlinx.cinterop.value
 import platform.posix.size_tVar
-/* ktlint-disable */
 // import io.iohk.atala.prism.apollo.kmmsecp256k1.*
 import secp256k1.*
 /* ktlint-disable */
