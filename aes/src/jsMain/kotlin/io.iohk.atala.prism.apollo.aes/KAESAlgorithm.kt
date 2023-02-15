@@ -15,18 +15,5 @@ actual enum class KAESAlgorithm : NativeTypeInterface<KAESAlgorithmNativeType> {
             AES_192 -> "AES"
             AES_256 -> "AES"
         }
-//        return if (jsTypeOf(window) != "undefined") { // Browser
-//            when (this) {
-//                AES_128 -> "AES"
-//                AES_192 -> "AES"
-//                AES_256 -> "AES"
-//            }
-//        } else { // NodeJS
-//            when (this) {
-//                AES_128 -> "aes-128"
-//                AES_192 -> "aes-192"
-//                AES_256 -> "aes-256"
-//            }
-//        }
     }
 }

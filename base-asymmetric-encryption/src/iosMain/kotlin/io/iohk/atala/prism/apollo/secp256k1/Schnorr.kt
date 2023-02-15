@@ -6,6 +6,10 @@ import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.readBytes
+/* ktlint-disable */
+// import io.iohk.atala.prism.apollo.kmmsecp256k1.*
+import secp256k1.*
+/* ktlint-disable */
 
 class Schnorr : Secp256k1() {
     /**

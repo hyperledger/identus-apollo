@@ -32,12 +32,12 @@ kotlin {
 //        tvos()
 //        watchos()
 //        macosX64()
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            iosSimulatorArm64()
+//        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+//            iosSimulatorArm64()
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
 //            macosArm64()
-        }
+//        }
     }
 //    if (os.isWindows) {
 //        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
@@ -150,12 +150,12 @@ kotlin {
 //            val macosX64Main by getting
 //            val macosX64Test by getting
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-                val iosSimulatorArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
+//                val iosSimulatorArm64Main by getting {
+//                    this.dependsOn(iosMain)
+//                }
+//                val iosSimulatorArm64Test by getting {
+//                    this.dependsOn(iosTest)
+//                }
 //                val tvosSimulatorArm64Main by getting {
 //                    this.dependsOn(tvosMain)
 //                }

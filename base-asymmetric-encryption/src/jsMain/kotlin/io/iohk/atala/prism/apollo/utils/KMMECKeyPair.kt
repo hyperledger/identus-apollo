@@ -8,20 +8,17 @@ actual class KMMECKeyPair actual constructor(actual val privateKey: KMMECPrivate
 
     internal constructor(privateNative: BN, publicNative: BasePoint) : this(KMMECPrivateKey(privateNative), KMMECPublicKey(publicNative))
 
-    actual companion object : ECKeyPairGeneration {
-        override fun generateECKeyPair(curve: EllipticCurve): KMMECKeyPair {
-            when (curve) {
-                EllipticCurve.SECP256k1 -> {
-                    val ecjs = ec("secp256k1")
-                    val keyPair = ecjs.genKeyPair()
-                    val bigNumber = keyPair.getPrivate()
-                    val basePoint = keyPair.getPublic()
-                    return KMMECKeyPair(bigNumber, basePoint)
-                }
-                EllipticCurve.SECP256r1 -> {
-                    throw NotImplementedError("It has not been develop")
-                }
-            }
+    actual companion object : ECKeyPairGeneration, Secp256k1KeyPairGeneration {
+        override fun generateECKeyPair(): KMMECKeyPair {
+            throw NotImplementedError("Yet to be decided on Default Curve. Please use `generateSecp256k1KeyPair`")
+        }
+
+        override fun generateSecp256k1KeyPair(): KMMECKeyPair {
+            val ecjs = ec("secp256k1")
+            val keyPair = ecjs.genKeyPair()
+            val bigNumber = keyPair.getPrivate()
+            val basePoint = keyPair.getPublic()
+            return KMMECKeyPair(bigNumber, basePoint)
         }
     }
 }

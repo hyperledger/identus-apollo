@@ -5,6 +5,11 @@ import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.readBytes
+import secp256k1.secp256k1_ecdh
+/* ktlint-disable */
+// import io.iohk.atala.prism.apollo.kmmsecp256k1.*
+import secp256k1.*
+/* ktlint-disable */
 
 class ECDH : Secp256k1() {
     /**

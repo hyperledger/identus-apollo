@@ -5,20 +5,20 @@ val bash = "bash"
 
 val buildSecp256k1 by tasks.creating {
     group = "build"
-    doFirst {
-        installRequirements
-    }
+//    doFirst {
+//        installRequirements
+//    }
 }
 
 val installRequirements by tasks.creating(Exec::class) {
     group = "build"
 
     onlyIf { currentOs.isMacOsX }
+    // TODO(Automate the installation of needed items through Gradle)
+    // inputs.files(projectDir.resolve("macos-install-requirements.sh"))
 
-    inputs.files(projectDir.resolve("macos-install-requirements.sh"))
-
-    workingDir = projectDir
-    commandLine(bash, "macos-install-requirements.sh")
+    // workingDir = projectDir
+    // commandLine(bash, "macos-install-requirements.sh")
 }
 
 val buildSecp256k1Ios by tasks.creating(Exec::class) {
@@ -33,9 +33,9 @@ val buildSecp256k1Ios by tasks.creating(Exec::class) {
     workingDir = projectDir
     commandLine(bash, "build-ios.sh")
 
-    doFirst {
-        installRequirements
-    }
+//    doFirst {
+//        installRequirements
+//    }
 }
 
 val clean by tasks.creating {

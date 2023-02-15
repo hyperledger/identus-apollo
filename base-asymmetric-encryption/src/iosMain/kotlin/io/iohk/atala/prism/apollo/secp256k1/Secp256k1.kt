@@ -16,10 +16,14 @@ import kotlinx.cinterop.toCValues
 import kotlinx.cinterop.value
 import platform.posix.size_tVar
 import kotlin.random.Random
+/* ktlint-disable */
+// import io.iohk.atala.prism.apollo.kmmsecp256k1.*
+import secp256k1.*
+/* ktlint-disable */
 
 open class Secp256k1 {
 
-    protected val ctx: CPointer<secp256k1_context> by lazy {
+    val ctx: CPointer<secp256k1_context> by lazy {
         secp256k1_context_create((SECP256K1_FLAGS_TYPE_CONTEXT or SECP256K1_FLAGS_BIT_CONTEXT_SIGN or SECP256K1_FLAGS_BIT_CONTEXT_VERIFY).toUInt())
             ?: error("Could not create secp256k1 context")
     }

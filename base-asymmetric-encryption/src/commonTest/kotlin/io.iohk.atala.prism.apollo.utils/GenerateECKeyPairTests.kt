@@ -6,7 +6,7 @@ import kotlin.test.assertTrue
 class GenerateECKeyPairTests {
     @Test
     fun testGenerateECKeyPairSecp256k1() {
-        val keyPair = KMMECKeyPair.generateECKeyPair(EllipticCurve.SECP256k1)
+        val keyPair = KMMECKeyPair.generateECKeyPair(KMMEllipticCurve.SECP256k1)
 
         if (keyPair.privateKey != null && keyPair.publicKey != null) {
             assertTrue(true)

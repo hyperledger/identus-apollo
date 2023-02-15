@@ -1,9 +1,0 @@
-package = io.iohk.atala.prism.c.secp256k1
-language = C
-
-headers = secp256k1.h
-headerFilter = *
-
-staticLibraries = libsecp256k1.a
-libraryPaths = ../Secp256k1/lib Secp256k1/lib
-linkerOpts = -L../Secp256k1/lib -LSecp256k1/lib
