@@ -235,3 +235,28 @@ tasks.withType<DokkaTask> {
 //        }
 //    }
 // }
+
+// TODO(Investigate why the below tasks fails)
+tasks.matching {
+    fun String.isOneOf(values: List<String>): Boolean {
+        for (value in values) {
+            if (this == value) {
+                return true
+            }
+        }
+        return false
+    }
+
+    it.name.isOneOf(
+        listOf(
+            "linkPodReleaseFrameworkIosFat",
+            ":linkPodReleaseFrameworkIosFat",
+            ":base-asymmetric-encryption:linkPodReleaseFrameworkIosFat",
+            "linkPodDebugFrameworkIosFat",
+            ":linkPodDebugFrameworkIosFat",
+            ":base-asymmetric-encryption:linkPodDebugFrameworkIosFat"
+        )
+    )
+}.all {
+    this.enabled = false
+}
