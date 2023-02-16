@@ -19,7 +19,7 @@ buildscript {
     }
 }
 
-version = "1.0.0-alpha"
+version = "1.0.0-alpha" // TODO: Remember to update the version name to 1.0.1-rc
 group = "io.iohk.atala.prism"
 
 allprojects {
@@ -28,30 +28,32 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        mavenLocal() // TODO: Add this line in the wallet SDK repo
     }
 
-    val listOfModulesNotToPublish = listOf(
-        "utils",
-        "base-symmetric-encryption",
-        "base-asymmetric-encryption"
-    )
+//    val listOfModulesNotToPublish = listOf(
+//        "utils",
+//        "base-symmetric-encryption",
+//        "base-asymmetric-encryption"
+//    )
 
-    if (listOfModulesNotToPublish.contains(name).not()) {
+//    if (listOfModulesNotToPublish.contains(name).not()) {
         apply(plugin = "org.gradle.maven-publish")
 
         publishing {
             repositories {
-                maven {
-                    this.name = "GitHubPackages"
-                    this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-                    credentials {
-                        this.username = getLocalProperty("username") ?: System.getenv("ATALA_GITHUB_ACTOR")
-                        this.password = getLocalProperty("token") ?: System.getenv("ATALA_GITHUB_TOKEN")
-                    }
-                }
+                mavenLocal() // TODO: This is a temp just to allow publish on maven local
+//                maven {
+//                    this.name = "GitHubPackages"
+//                    this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
+//                    credentials {
+//                        this.username = getLocalProperty("username") ?: System.getenv("ATALA_GITHUB_ACTOR")
+//                        this.password = getLocalProperty("token") ?: System.getenv("ATALA_GITHUB_TOKEN")
+//                    }
+//                }
             }
         }
-    }
+//    }
 }
 
 subprojects {
