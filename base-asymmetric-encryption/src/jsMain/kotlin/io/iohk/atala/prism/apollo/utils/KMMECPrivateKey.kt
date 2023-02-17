@@ -7,6 +7,12 @@ import io.iohk.atala.prism.apollo.utils.external.ec
 
 actual class KMMECPrivateKey(val nativeValue: BN) : KMMECPrivateKeyCommon(BigInteger.parseString(nativeValue.toString())) {
 
+    fun getEncoded(): ByteArray {
+        val byteList = nativeValue.toArray().map { it.toByte() }
+        val padding = ByteArray(ECConfig.PRIVATE_KEY_BYTE_SIZE - byteList.size) { 0 }
+        return padding + byteList
+    }
+
     fun secp256k1PublicKey(): KMMECPublicKey {
         val ecjs = ec("secp256k1")
         val keyPair = ecjs.keyFromPrivate(this.nativeValue.toString("hex"))

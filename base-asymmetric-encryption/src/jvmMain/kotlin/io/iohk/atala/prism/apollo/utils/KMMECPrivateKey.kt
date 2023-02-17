@@ -10,6 +10,13 @@ import java.security.spec.ECParameterSpec
 import java.security.spec.ECPrivateKeySpec
 
 actual class KMMECPrivateKey(val nativeValue: BCECPrivateKey) : KMMECPrivateKeyCommon(privateKeyD(nativeValue)) {
+
+    fun getEncoded(): ByteArray {
+        val byteList = this.d.toJavaBigInteger().toUnsignedByteArray()
+        val padding = ByteArray(ECConfig.PRIVATE_KEY_BYTE_SIZE - byteList.size) { 0 }
+        return padding + byteList
+    }
+
     companion object {
         fun secp256k1FromBigInteger(d: BigInteger): KMMECPrivateKey {
             val ecParameterSpec = ECNamedCurveTable.getParameterSpec(KMMEllipticCurve.SECP256k1.value)
