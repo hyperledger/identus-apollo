@@ -21,7 +21,7 @@ actual class KMMECPrivateKey(val nativeValue: BCECPrivateKey) : KMMECPrivateKeyC
 
     fun getPublicKey(): KMMECPublicKey {
         val ecParameterSpec = ECNamedCurveTable.getParameterSpec(KMMEllipticCurve.SECP256k1.value)
-        val q = ecParameterSpec.g.multiply( this.nativeValue.d)
+        val q = ecParameterSpec.g.multiply(this.nativeValue.d)
         val pupSpec = ECPublicKeySpec(q, ecParameterSpec)
         val provider = BouncyCastleProvider()
         val keyFactory = KeyFactory.getInstance("EC", provider)
