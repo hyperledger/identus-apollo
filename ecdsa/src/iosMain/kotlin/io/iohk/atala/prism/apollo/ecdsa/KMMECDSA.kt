@@ -21,7 +21,8 @@ actual object KMMECDSA {
         }
         val ecdsa = ECDSA()
         val compressedBytes = ecdsa.sign(hashedData, privateKey.nativeValue.toByteArray())
-        return ecdsa.compact2der(compressedBytes)
+        val signature = ecdsa.compact2der(compressedBytes)
+        return signature
     }
 
     @OptIn(ExperimentalUnsignedTypes::class)

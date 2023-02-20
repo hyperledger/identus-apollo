@@ -1,12 +1,12 @@
 package io.iohk.atala.prism.apollo.utils
 
+/* ktlint-disable */
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.ptr
-/* ktlint-disable */
 import secp256k1.*
 /* ktlint-disable */
 
@@ -41,7 +41,7 @@ actual class KMMECPrivateKey(val nativeValue: UByteArray) : KMMECPrivateKeyCommo
         
         @OptIn(ExperimentalUnsignedTypes::class)
         @Throws(ECPrivateKeyDecodingException::class)
-        fun secp256k1FromBytes(encoded: ByteArray): KMMECPrivateKey {
+        override fun secp256k1FromBytes(encoded: ByteArray): KMMECPrivateKey {
             if (encoded.size != ECConfig.PRIVATE_KEY_BYTE_SIZE) {
                 throw ECPrivateKeyDecodingException("Expected encoded byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}, but got ${encoded.size}")
             }

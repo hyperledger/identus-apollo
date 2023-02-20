@@ -24,7 +24,7 @@ actual class KMMECPrivateKey(val nativeValue: BN) : KMMECPrivateKeyCommon(BigInt
             return KMMECPrivateKey(BN(d.toString()))
         }
 
-        fun secp256k1FromBytes(encoded: ByteArray): KMMECPrivateKey {
+        override fun secp256k1FromBytes(encoded: ByteArray): KMMECPrivateKey {
             if (encoded.size != ECConfig.PRIVATE_KEY_BYTE_SIZE) {
                 throw ECPrivateKeyDecodingException("Expected encoded byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}, but got ${encoded.size}")
             }

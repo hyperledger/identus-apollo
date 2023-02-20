@@ -9,9 +9,9 @@ import kotlin.js.JsExport
 object ECConfig {
     val PRIVATE_KEY_BYTE_SIZE: Int = 32
     internal val PUBLIC_KEY_COORDINATE_BYTE_SIZE: Int = 32
-    internal val PUBLIC_KEY_BYTE_SIZE: Int = PUBLIC_KEY_COORDINATE_BYTE_SIZE * 2 + 1
     internal val PUBLIC_KEY_COMPRESSED_BYTE_SIZE: Int = PUBLIC_KEY_COORDINATE_BYTE_SIZE + 1
-    internal val SIGNATURE_MAX_BYTE_SIZE: Int = 72
+    val SIGNATURE_MAX_BYTE_SIZE: Int = 72
+    val PUBLIC_KEY_BYTE_SIZE: Int = PUBLIC_KEY_COORDINATE_BYTE_SIZE * 2 + 1
 
     // Field characteristic p (prime) is equal to 2^256 - 2^32 - 2^9 - 2^8 - 2^7 - 2^6 - 2^4 - 1
     internal val p = BigInteger.parseString("115792089237316195423570985008687907853269984665640564039457584007908834671663", 10)
