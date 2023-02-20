@@ -19,7 +19,29 @@ import secp256k1.*
 
 @OptIn(ExperimentalUnsignedTypes::class)
 actual class KMMECPublicKey(val nativeValue: UByteArray) : KMMECPublicKeyCommon(computeCurvePoint(nativeValue)) {
-    actual companion object : KMMECPublicKeyCommonStatic {
+    actual companion object : KMMECPublicKeyCommonStaticInterface {
+
+        override fun secp256k1FromBigIntegerCoordinates(x: BigInteger, y: BigInteger): KMMECPublicKey {
+            return secp256k1FromCompressed(byteArrayOf(0x04) + KMMECCoordinate(x).bytes() + KMMECCoordinate(y).bytes())
+        }
+
+        override fun secp256k1FromCompressed(compressed: ByteArray): KMMECPublicKey {
+            return memScoped {
+                val context = secp256k1_context_create((SECP256K1_CONTEXT_SIGN or SECP256K1_CONTEXT_VERIFY).convert())
+                defer {
+                    secp256k1_context_destroy(context)
+                }
+                val pubkey = alloc<secp256k1_pubkey>()
+                val input = compressed.toUByteArray().toCArrayPointer(this)
+                val result = secp256k1_ec_pubkey_parse(context, pubkey.ptr, input, compressed.size.convert())
+                if (result != 1) {
+                    error("Could not parse public key")
+                }
+
+                val publicKeyBytes = pubkey.data.toUByteArray(ECConfig.PUBLIC_KEY_BYTE_SIZE)
+                KMMECPublicKey(publicKeyBytes)
+            }
+        }
 
         fun secp256k1FromBytes(encoded: ByteArray): KMMECPublicKey {
             val expectedLength = 1 + 2 * ECConfig.PRIVATE_KEY_BYTE_SIZE
@@ -46,28 +68,6 @@ actual class KMMECPublicKey(val nativeValue: UByteArray) : KMMECPublicKeyCommon(
             val xInteger = BigInteger.fromByteArray(xTrimmed, Sign.POSITIVE)
             val yInteger = BigInteger.fromByteArray(yTrimmed, Sign.POSITIVE)
             return secp256k1FromBigIntegerCoordinates(xInteger, yInteger)
-        }
-
-        fun secp256k1FromBigIntegerCoordinates(x: BigInteger, y: BigInteger): KMMECPublicKey {
-            return parsePublicKey(byteArrayOf(0x04) + KMMECCoordinate(x).bytes() + KMMECCoordinate(y).bytes())
-        }
-
-        private fun parsePublicKey(encoded: ByteArray): KMMECPublicKey {
-            return memScoped {
-                val context = secp256k1_context_create((SECP256K1_CONTEXT_SIGN or SECP256K1_CONTEXT_VERIFY).convert())
-                defer {
-                    secp256k1_context_destroy(context)
-                }
-                val pubkey = alloc<secp256k1_pubkey>()
-                val input = encoded.toUByteArray().toCArrayPointer(this)
-                val result = secp256k1_ec_pubkey_parse(context, pubkey.ptr, input, encoded.size.convert())
-                if (result != 1) {
-                    error("Could not parse public key")
-                }
-
-                val publicKeyBytes = pubkey.data.toUByteArray(ECConfig.PUBLIC_KEY_BYTE_SIZE)
-                KMMECPublicKey(publicKeyBytes)
-            }
         }
 
         private fun toSecpPubkey(memScope: MemScope, key: UByteArray): secp256k1_pubkey {

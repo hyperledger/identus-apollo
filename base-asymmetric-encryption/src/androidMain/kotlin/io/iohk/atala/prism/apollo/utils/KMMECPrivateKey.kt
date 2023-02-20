@@ -19,7 +19,7 @@ actual class KMMECPrivateKey(val nativeValue: BCECPrivateKey) : KMMECPrivateKeyC
         return padding + byteList
     }
 
-    fun getPublicKey(): KMMECPublicKey {
+    override fun getPublicKey(): KMMECPublicKey {
         val ecParameterSpec = ECNamedCurveTable.getParameterSpec(KMMEllipticCurve.SECP256k1.value)
         val q = ecParameterSpec.g.multiply(this.nativeValue.d)
         val pupSpec = ECPublicKeySpec(q, ecParameterSpec)
@@ -28,8 +28,8 @@ actual class KMMECPrivateKey(val nativeValue: BCECPrivateKey) : KMMECPrivateKeyC
         return KMMECPublicKey(keyFactory.generatePublic(pupSpec) as BCECPublicKey)
     }
 
-    companion object {
-        fun secp256k1FromBigInteger(d: BigInteger): KMMECPrivateKey {
+    actual companion object : KMMECPrivateKeyCommonStaticInterface {
+        override fun secp256k1FromBigInteger(d: BigInteger): KMMECPrivateKey {
             val ecParameterSpec = ECNamedCurveTable.getParameterSpec(KMMEllipticCurve.SECP256k1.value)
             val ecNamedCurveSpec: ECParameterSpec = ECNamedCurveSpec(
                 ecParameterSpec.name,
