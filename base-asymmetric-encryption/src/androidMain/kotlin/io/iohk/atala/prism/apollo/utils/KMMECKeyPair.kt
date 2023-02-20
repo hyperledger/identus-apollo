@@ -6,7 +6,6 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.KeyPair
 import java.security.KeyPairGenerator
 import java.security.SecureRandom
-import java.security.Security
 import java.security.spec.ECGenParameterSpec
 
 actual class KMMECKeyPair actual constructor(actual val privateKey: KMMECPrivateKey, actual val publicKey: KMMECPublicKey) {
@@ -14,7 +13,6 @@ actual class KMMECKeyPair actual constructor(actual val privateKey: KMMECPrivate
     private constructor(privateKey: BCECPrivateKey, publicKey: BCECPublicKey) : this(KMMECPrivateKey(privateKey), KMMECPublicKey(publicKey))
 
     actual companion object : ECKeyPairGeneration, Secp256k1KeyPairGeneration {
-        
         @JvmStatic
         override fun generateECKeyPair(): KMMECKeyPair {
             val provider = BouncyCastleProvider()

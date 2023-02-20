@@ -6,7 +6,9 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.ptr
+/* ktlint-disable */
 import secp256k1.*
+/* ktlint-disable */
 
 @OptIn(ExperimentalUnsignedTypes::class)
 actual class KMMECPrivateKey(val nativeValue: UByteArray) : KMMECPrivateKeyCommon(BigInteger.fromUByteArray(nativeValue, Sign.POSITIVE)) {
