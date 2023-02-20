@@ -6,7 +6,7 @@ import com.ionspin.kotlin.bignum.integer.Sign
 @OptIn(ExperimentalUnsignedTypes::class)
 actual class KMMECPrivateKey(val nativeValue: UByteArray) : KMMECPrivateKeyCommon(BigInteger.fromUByteArray(nativeValue, Sign.POSITIVE)) {
 
-    fun getEncoded(): ByteArray {
+    override fun getEncoded(): ByteArray {
         return nativeValue.toByteArray()
     }
 

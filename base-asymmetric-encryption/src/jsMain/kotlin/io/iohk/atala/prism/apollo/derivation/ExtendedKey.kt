@@ -18,7 +18,7 @@ actual class ExtendedKey internal constructor(private val bip32: BIP32Interface,
      * Public key for this extended key
      */
     actual fun publicKey(): KMMECPublicKey {
-        return privateKey().secp256k1PublicKey()
+        return privateKey().getPublicKey()
     }
 
     /**

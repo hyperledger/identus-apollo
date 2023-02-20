@@ -4,7 +4,7 @@ import com.ionspin.kotlin.bignum.integer.BigInteger
 import kotlin.experimental.and
 
 // TODO(Create KMMSecp256k1PublicKey to contains all below implementation to better separate responsibilities)
-abstract class KMMECPublicKeyCommon(internal val KMMECPoint: KMMECPoint) {
+abstract class KMMECPublicKeyCommon(internal val KMMECPoint: KMMECPoint) : Encodable {
     /**
      * Guarantees to return a list of 65 bytes in the following form:
      *
@@ -17,7 +17,7 @@ abstract class KMMECPublicKeyCommon(internal val KMMECPoint: KMMECPoint) {
      *
      * @return a list of 65 bytes that represent uncompressed public key
      */
-    fun getEncoded(): ByteArray {
+    override fun getEncoded(): ByteArray {
         val size = ECConfig.PRIVATE_KEY_BYTE_SIZE
         val basePoint = getCurvePoint()
         val xArr = basePoint.x.bytes()
