@@ -51,7 +51,7 @@ abstract class KMMECPublicKeyCommon(internal val KMMECPoint: KMMECPoint) : Encod
     fun getCurvePoint(): KMMECPoint = KMMECPoint
 }
 
-interface KMMECPublicKeyCommonStatic {
+interface KMMECPublicKeyCommonStaticInterface {
     fun isPointOnSecp256k1Curve(point: KMMECPoint): Boolean {
         val x = point.x.coordinate
         val y = point.y.coordinate
@@ -59,8 +59,10 @@ interface KMMECPublicKeyCommonStatic {
         // Elliptic curve equation for Secp256k1
         return ((y * y - x * x * x - ECConfig.b) mod ECConfig.p) == BigInteger.ZERO
     }
+    fun secp256k1FromBigIntegerCoordinates(x: BigInteger, y: BigInteger): KMMECPublicKey
+    fun secp256k1FromCompressed(compressed: ByteArray): KMMECPublicKey
 }
 
 expect class KMMECPublicKey : KMMECPublicKeyCommon {
-    companion object : KMMECPublicKeyCommonStatic
+    companion object : KMMECPublicKeyCommonStaticInterface
 }

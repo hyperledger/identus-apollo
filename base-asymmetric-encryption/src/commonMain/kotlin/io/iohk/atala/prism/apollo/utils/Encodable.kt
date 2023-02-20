@@ -4,5 +4,5 @@ interface Encodable {
     /**
      * @return encoded version of the entity
      */
-    public fun getEncoded(): ByteArray
+    fun getEncoded(): ByteArray
 }

@@ -11,8 +11,8 @@ import java.security.spec.ECPoint
 import java.security.spec.ECPublicKeySpec
 
 actual class KMMECPublicKey(val nativeValue: BCECPublicKey) : KMMECPublicKeyCommon(computeCurvePoint(nativeValue)) {
-    actual companion object : KMMECPublicKeyCommonStatic {
-        fun secp256k1FromBigIntegerCoordinates(x: BigInteger, y: BigInteger): KMMECPublicKey {
+    actual companion object : KMMECPublicKeyCommonStaticInterface {
+        override fun secp256k1FromBigIntegerCoordinates(x: BigInteger, y: BigInteger): KMMECPublicKey {
             val ecPoint = ECPoint(x.toJavaBigInteger(), y.toJavaBigInteger())
             if (!KMMECPublicKey.isPointOnSecp256k1Curve(KMMECPoint(x, y))) {
                 throw ECPublicKeyInitializationException("ECPoint corresponding to a public key doesn't belong to Secp256k1 curve")
@@ -30,7 +30,7 @@ actual class KMMECPublicKey(val nativeValue: BCECPublicKey) : KMMECPublicKeyComm
             return KMMECPublicKey(keyFactory.generatePublic(spec) as BCECPublicKey)
         }
 
-        fun secp256k1FromCompressed(compressed: ByteArray): KMMECPublicKey {
+        override fun secp256k1FromCompressed(compressed: ByteArray): KMMECPublicKey {
             require(compressed.size == ECConfig.PUBLIC_KEY_COMPRESSED_BYTE_SIZE) {
                 "Compressed byte array's expected length is ${ECConfig.PUBLIC_KEY_COMPRESSED_BYTE_SIZE}, but got ${compressed.size}"
             }
