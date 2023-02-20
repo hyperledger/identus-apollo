@@ -44,6 +44,20 @@ actual class KMMECPublicKey(val nativeValue: BCECPublicKey) : KMMECPublicKeyComm
             return secp256k1FromBigIntegerCoordinates(point.affineX.toKotlinBigInteger(), point.affineY.toKotlinBigInteger())
         }
 
+        override fun secp256k1FromBytes(encoded: ByteArray): KMMECPublicKey {
+            val expectedLength = 1 + 2 * ECConfig.PRIVATE_KEY_BYTE_SIZE
+            require(encoded.size == expectedLength) {
+                "Encoded byte array's expected length is $expectedLength, but got ${encoded.size} bytes"
+            }
+            require(encoded[0].toInt() == 0x04) {
+                "First byte was expected to be 0x04, but got ${encoded[0]}"
+            }
+
+            val xBytes = encoded.copyOfRange(1, 1 + ECConfig.PRIVATE_KEY_BYTE_SIZE)
+            val yBytes = encoded.copyOfRange(1 + ECConfig.PRIVATE_KEY_BYTE_SIZE, encoded.size)
+            return secp256k1FromByteCoordinates(xBytes, yBytes)
+        }
+
         private fun computeCurvePoint(key: BCECPublicKey): KMMECPoint {
             val javaPoint = key.w
             return KMMECPoint(javaPoint.affineX.toKotlinBigInteger(), javaPoint.affineY.toKotlinBigInteger())

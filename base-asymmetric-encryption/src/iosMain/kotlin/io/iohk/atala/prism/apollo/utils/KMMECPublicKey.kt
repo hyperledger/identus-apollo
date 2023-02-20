@@ -43,7 +43,7 @@ actual class KMMECPublicKey(val nativeValue: UByteArray) : KMMECPublicKeyCommon(
             }
         }
 
-        fun secp256k1FromBytes(encoded: ByteArray): KMMECPublicKey {
+        override fun secp256k1FromBytes(encoded: ByteArray): KMMECPublicKey {
             val expectedLength = 1 + 2 * ECConfig.PRIVATE_KEY_BYTE_SIZE
             require(encoded.size == expectedLength) {
                 "Encoded byte array's expected length is $expectedLength, but got ${encoded.size} bytes"
