@@ -122,6 +122,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":utils"))
+                implementation(project(":secure-random"))
                 implementation("com.ionspin.kotlin:bignum:0.3.7")
             }
         }
