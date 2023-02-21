@@ -8,6 +8,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class GenerateECKeyPairTests {
@@ -145,7 +146,7 @@ class GenerateECKeyPairTests {
             data = wrongText.encodeToByteArray()
         )
 
-        assertTrue(
+        assertFalse(
             KMMECDSA.verify(
                 type = type,
                 data = wrongText.encodeToByteArray(),
@@ -153,7 +154,7 @@ class GenerateECKeyPairTests {
                 signature = signature
             )
         )
-        assertTrue(
+        assertFalse(
             KMMECDSA.verify(
                 type = type,
                 data = text.encodeToByteArray(),
@@ -161,7 +162,7 @@ class GenerateECKeyPairTests {
                 signature = signature
             )
         )
-        assertTrue(
+        assertFalse(
             KMMECDSA.verify(
                 type = type,
                 data = text.encodeToByteArray(),
