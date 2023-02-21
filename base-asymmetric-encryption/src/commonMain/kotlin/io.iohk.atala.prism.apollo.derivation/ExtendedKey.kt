@@ -1,8 +1,8 @@
 package io.iohk.atala.prism.apollo.derivation
 
 import io.iohk.atala.prism.apollo.utils.KMMECKeyPair
-import io.iohk.atala.prism.apollo.utils.KMMECPrivateKey
-import io.iohk.atala.prism.apollo.utils.KMMECPublicKey
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PrivateKey
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PublicKey
 
 expect class ExtendedKey {
     /**
@@ -13,12 +13,12 @@ expect class ExtendedKey {
     /**
      * Public key for this extended key
      */
-    fun publicKey(): KMMECPublicKey
+    fun publicKey(): KMMECSecp256k1PublicKey
 
     /**
      * Private key for this extended key
      */
-    fun privateKey(): KMMECPrivateKey
+    fun privateKey(): KMMECSecp256k1PrivateKey
 
     /**
      * KeyPair for this extended key

@@ -2,22 +2,17 @@ package io.iohk.atala.prism.apollo.utils
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
-import io.iohk.atala.prism.apollo.ecdsa.ECDSAType
-import io.iohk.atala.prism.apollo.ecdsa.KMMECDSA
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class GenerateECKeyPairTests {
-    val testData =
-        byteArrayOf(-107, 101, 68, 118, 27, 74, 29, 50, -32, 72, 47, -127, -49, 3, -8, -55, -63, -66, 46, 125)
 
     @Test
     fun testGenerateECKeyPairSecp256k1() {
-        val keyPair = KMMECKeyPair.generateSecp256k1KeyPair()
+        val keyPair = KMMECSecp256k1KeyPair.generateSecp256k1KeyPair()
 
         if (keyPair.privateKey != null && keyPair.publicKey != null) {
             assertTrue(true)
@@ -28,7 +23,7 @@ class GenerateECKeyPairTests {
 
     @Test
     fun testGeneration() {
-        val keyPair = KMMECKeyPair.generateSecp256k1KeyPair()
+        val keyPair = KMMECSecp256k1KeyPair.generateSecp256k1KeyPair()
         assertEquals(keyPair.privateKey.getEncoded().size, ECConfig.PRIVATE_KEY_BYTE_SIZE)
         assertEquals(keyPair.privateKey.getEncoded().toHex().length, ECConfig.PRIVATE_KEY_BYTE_SIZE * 2)
         assertEquals(keyPair.publicKey.getEncoded().size, ECConfig.PUBLIC_KEY_BYTE_SIZE)
@@ -37,18 +32,18 @@ class GenerateECKeyPairTests {
 
     @Test
     fun testPrivateKeyFromEncoded() {
-        val keyPair = KMMECKeyPair.generateSecp256k1KeyPair()
+        val keyPair = KMMECSecp256k1KeyPair.generateSecp256k1KeyPair()
         val encodedPrivateKey = keyPair.privateKey.getEncoded()
         val d = BigInteger.fromByteArray(encodedPrivateKey, Sign.POSITIVE)
 
-        assertEquals(keyPair.privateKey, KMMECPrivateKey.secp256k1FromBytes(encodedPrivateKey))
-        assertEquals(keyPair.privateKey, KMMECPrivateKey.secp256k1FromBigInteger(d))
+        assertEquals(keyPair.privateKey, KMMECSecp256k1PrivateKey.secp256k1FromBytes(encodedPrivateKey))
+        assertEquals(keyPair.privateKey, KMMECSecp256k1PrivateKey.secp256k1FromBigInteger(d))
     }
 
     @OptIn(ExperimentalUnsignedTypes::class)
     @Test
     fun testPublicKeyFromEncoded() {
-        val keyPair = KMMECKeyPair.generateSecp256k1KeyPair()
+        val keyPair = KMMECSecp256k1KeyPair.generateSecp256k1KeyPair()
         val encodedPublicKey = keyPair.publicKey.getEncoded()
         val curvePoint = keyPair.publicKey.getCurvePoint()
 
@@ -61,16 +56,16 @@ class GenerateECKeyPairTests {
         val y = curvePoint.y.coordinate
         assertEquals((y * y).mod(modulus), (x * x * x + 7).mod(modulus), "Public key point should follow the elliptic curve equation")
 
-        assertEquals(keyPair.publicKey, KMMECPublicKey.secp256k1FromBytes(encodedPublicKey))
-        assertEquals(keyPair.publicKey, KMMECPublicKey.secp256k1FromBigIntegerCoordinates(x, y))
-        assertEquals(keyPair.publicKey, KMMECPublicKey.secp256k1FromByteCoordinates(x.toByteArray(), y.toByteArray()))
+        assertEquals(keyPair.publicKey, KMMECSecp256k1PublicKey.secp256k1FromBytes(encodedPublicKey))
+        assertEquals(keyPair.publicKey, KMMECSecp256k1PublicKey.secp256k1FromBigIntegerCoordinates(x, y))
+        assertEquals(keyPair.publicKey, KMMECSecp256k1PublicKey.secp256k1FromByteCoordinates(x.toByteArray(), y.toByteArray()))
     }
 
     @Test
     fun testGenerateSamePrivateKeyAcrossAllImplementations() {
         val hexEncodedPrivateKey = "933c25b9e0b10b0618517edeb389b1b5ba5e781f377af6f573a1af354d008034"
 
-        val privateKey = KMMECPrivateKey.secp256k1FromBytes(hexEncodedPrivateKey.decodeHex())
+        val privateKey = KMMECSecp256k1PrivateKey.secp256k1FromBytes(hexEncodedPrivateKey.decodeHex())
 
         assertEquals(hexEncodedPrivateKey, privateKey.getEncoded().toHex())
     }
@@ -80,115 +75,9 @@ class GenerateECKeyPairTests {
         val hexEncodedPublicKey =
             "0477d650217424671208f06ed816dab6c09e6b08c4da0f2f46ead049dd5fbd1c82cd23343346003d4c7faf24ed6314bf340e7882941fd69929526cc889a0f93a1c"
 
-        val publicKey = KMMECPublicKey.secp256k1FromBytes(hexEncodedPublicKey.decodeHex())
+        val publicKey = KMMECSecp256k1PublicKey.secp256k1FromBytes(hexEncodedPublicKey.decodeHex())
 
         assertEquals(hexEncodedPublicKey, publicKey.getEncoded().toHex())
-    }
-
-    @Test
-    fun testSignAndVerifyText() {
-        val keyPair = KMMECKeyPair.generateSecp256k1KeyPair()
-        val text = "The quick brown fox jumps over the lazy dog"
-
-        val signature = KMMECDSA.sign(
-            type = ECDSAType.ECDSA_SHA256,
-            privateKey = keyPair.privateKey,
-            data = text.encodeToByteArray()
-        )
-
-        assertTrue(
-            KMMECDSA.verify(
-                type = ECDSAType.ECDSA_SHA256,
-                data = text.encodeToByteArray(),
-                publicKey = keyPair.publicKey,
-                signature = signature
-            )
-        )
-    }
-
-    @Test
-    fun testSignAndVerifyData() {
-        val keyPair = KMMECKeyPair.generateSecp256k1KeyPair()
-
-        val signature = KMMECDSA.sign(
-            type = ECDSAType.ECDSA_SHA256,
-            privateKey = keyPair.privateKey,
-            data = testData
-        )
-
-        assertTrue(
-            KMMECDSA.verify(
-                type = ECDSAType.ECDSA_SHA256,
-                data = testData,
-                publicKey = keyPair.publicKey,
-                signature = signature
-            )
-        )
-    }
-
-    @Test
-    fun testNotVerifyWrongInput() {
-        val type = ECDSAType.ECDSA_SHA256
-        val keyPair = KMMECKeyPair.generateSecp256k1KeyPair()
-        val wrongKeyPair = KMMECKeyPair.generateSecp256k1KeyPair()
-
-        val text = "The quick brown fox jumps over the lazy dog"
-        val wrongText = "Wrong text"
-
-        val signature = KMMECDSA.sign(
-            type = type,
-            privateKey = keyPair.privateKey,
-            data = text.encodeToByteArray()
-        )
-        val wrongSignature = KMMECDSA.sign(
-            type = type,
-            privateKey = keyPair.privateKey,
-            data = wrongText.encodeToByteArray()
-        )
-
-        assertFalse(
-            KMMECDSA.verify(
-                type = type,
-                data = wrongText.encodeToByteArray(),
-                publicKey = keyPair.publicKey,
-                signature = signature
-            )
-        )
-        assertFalse(
-            KMMECDSA.verify(
-                type = type,
-                data = text.encodeToByteArray(),
-                publicKey = wrongKeyPair.publicKey,
-                signature = signature
-            )
-        )
-        assertFalse(
-            KMMECDSA.verify(
-                type = type,
-                data = text.encodeToByteArray(),
-                publicKey = keyPair.publicKey,
-                signature = wrongSignature
-            )
-        )
-    }
-
-    @Test
-    fun testVerifySameSignatureInAllImplementations() {
-        val type = ECDSAType.ECDSA_SHA256
-        val hexEncodedPrivateKey = "0123fbf1050c3fc060b709fdcf240e766a41190c40afc5ac7a702961df8313c0"
-        val hexEncodedSignature =
-            "30450221008a78c557dfc18275b5c800281ef8d26d2b40572b9c1442d708c610f50f797bd302207e44e340f787df7ab1299dabfc988e4c02fcaca0f68dbe813050f4b8641fa739"
-        val privateKey = KMMECPrivateKey.secp256k1FromBytes(hexEncodedPrivateKey.decodeHex())
-        val signature = hexEncodedSignature.decodeHex()
-
-        assertTrue(
-            KMMECDSA.verify(
-                type = type,
-                data = testData,
-                publicKey = privateKey.getPublicKey(),
-                signature = signature
-            )
-        )
     }
 
     @Test
@@ -262,7 +151,7 @@ class GenerateECKeyPairTests {
             -58,
             -22
         )
-        val publicKey = KMMECPublicKey.secp256k1FromByteCoordinates(x, y)
+        val publicKey = KMMECSecp256k1PublicKey.secp256k1FromByteCoordinates(x, y)
 
         assertTrue { publicKey.getCurvePoint().x.bytes().size == 32 }
         assertTrue { publicKey.getCurvePoint().y.bytes().size == 32 }
@@ -275,7 +164,7 @@ class GenerateECKeyPairTests {
         for (publicKey in Secp256k1TestVectors.publicKeysFromSecp256k1TestVectors()) {
             val compressedPublicKey = publicKey.getEncodedCompressed()
 
-            val uncompressedKey = KMMECPublicKey.secp256k1FromCompressed(compressedPublicKey)
+            val uncompressedKey = KMMECSecp256k1PublicKey.secp256k1FromCompressed(compressedPublicKey)
 
             assertEquals(compressedPublicKey.size, 33)
             assertEquals(uncompressedKey, publicKey)
@@ -304,16 +193,16 @@ class GenerateECKeyPairTests {
 
         for (d in invalidDWithHexEncodings) {
             assertFailsWith<ECPrivateKeyInitializationException> {
-                KMMECPrivateKey.secp256k1FromBigInteger(d.first)
+                KMMECSecp256k1PrivateKey.secp256k1FromBigInteger(d.first)
             }
 
             if (d.second.length == 64) {
                 assertFailsWith<ECPrivateKeyInitializationException> {
-                    KMMECPrivateKey.secp256k1FromBytes(d.second.decodeHex())
+                    KMMECSecp256k1PrivateKey.secp256k1FromBytes(d.second.decodeHex())
                 }
             } else {
                 assertFailsWith<ECPrivateKeyDecodingException> {
-                    KMMECPrivateKey.secp256k1FromBytes(d.second.decodeHex())
+                    KMMECSecp256k1PrivateKey.secp256k1FromBytes(d.second.decodeHex())
                 }
             }
         }
@@ -334,12 +223,12 @@ class GenerateECKeyPairTests {
         */
 
         assertFailsWith<ECPrivateKeyInitializationException> {
-            val private = KMMECPrivateKey.secp256k1FromBigInteger(BigInteger.ZERO)
+            val private = KMMECSecp256k1PrivateKey.secp256k1FromBigInteger(BigInteger.ZERO)
             private.getPublicKey()
         }
 
         assertFailsWith<ECPrivateKeyInitializationException> {
-            val private = KMMECPrivateKey.secp256k1FromBytes("0000000000000000000000000000000000000000000000000000000000000000".decodeHex())
+            val private = KMMECSecp256k1PrivateKey.secp256k1FromBytes("0000000000000000000000000000000000000000000000000000000000000000".decodeHex())
             private.getPublicKey()
         }
     }
@@ -370,19 +259,19 @@ class GenerateECKeyPairTests {
 
         for (tv in pointsOutOfCurve) {
             assertFails("Expected toPublicKeyFromBytes to throw exception on point ${tv.point} which is out of Secp256k1") {
-                KMMECPublicKey.secp256k1FromBytes(tv.hexEncoded.decodeHex())
+                KMMECSecp256k1PublicKey.secp256k1FromBytes(tv.hexEncoded.decodeHex())
             }
 
             assertFails("Expected toPublicKeyFromCompressed to throw exception on point ${tv.point} which is out of Secp256k1") {
-                KMMECPublicKey.secp256k1FromCompressed(tv.hexEncodedCompressed.decodeHex())
+                KMMECSecp256k1PublicKey.secp256k1FromCompressed(tv.hexEncodedCompressed.decodeHex())
             }
 
             assertFails("Expected toPublicKeyFromByteCoordinates to throw exception on point ${tv.point} which is out of Secp256k1") {
-                KMMECPublicKey.secp256k1FromByteCoordinates(tv.point.x.bytes(), tv.point.y.bytes())
+                KMMECSecp256k1PublicKey.secp256k1FromByteCoordinates(tv.point.x.bytes(), tv.point.y.bytes())
             }
 
             assertFails("Expected toPublicKeyFromBigIntegerCoordinates to throw exception on point ${tv.point} which is out of Secp256k1") {
-                KMMECPublicKey.secp256k1FromBigIntegerCoordinates(tv.point.x.coordinate, tv.point.y.coordinate)
+                KMMECSecp256k1PublicKey.secp256k1FromBigIntegerCoordinates(tv.point.x.coordinate, tv.point.y.coordinate)
             }
         }
     }

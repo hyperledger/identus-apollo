@@ -1,8 +1,8 @@
 package io.iohk.atala.prism.apollo.derivation
 
 import io.iohk.atala.prism.apollo.utils.KMMECKeyPair
-import io.iohk.atala.prism.apollo.utils.KMMECPrivateKey
-import io.iohk.atala.prism.apollo.utils.KMMECPublicKey
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PrivateKey
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PublicKey
 import io.iohk.atala.prism.apollo.utils.external.BIP32Interface
 import io.iohk.atala.prism.apollo.utils.toByteArray
 
@@ -17,15 +17,15 @@ actual class ExtendedKey internal constructor(private val bip32: BIP32Interface,
     /**
      * Public key for this extended key
      */
-    actual fun publicKey(): KMMECPublicKey {
+    actual fun publicKey(): KMMECSecp256k1PublicKey {
         return privateKey().getPublicKey()
     }
 
     /**
      * Private key for this extended key
      */
-    actual fun privateKey(): KMMECPrivateKey {
-        return KMMECPrivateKey.secp256k1FromBytes(bip32.privateKey!!.toByteArray())
+    actual fun privateKey(): KMMECSecp256k1PrivateKey {
+        return KMMECSecp256k1PrivateKey.secp256k1FromBytes(bip32.privateKey!!.toByteArray())
     }
 
     /**

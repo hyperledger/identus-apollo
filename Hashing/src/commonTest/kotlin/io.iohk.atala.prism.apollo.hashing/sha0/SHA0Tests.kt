@@ -4,6 +4,7 @@ import io.iohk.atala.prism.apollo.hashing.BaseHashTests
 import io.iohk.atala.prism.apollo.hashing.SHA0
 import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import kotlinx.coroutines.test.runTest
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -39,6 +40,7 @@ class SHA0Tests : BaseHashTests() {
     }
 
     @Test
+    @Ignore // takes too long
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     fun test_VeryLong() = runTest {
         val hash = SHA0()

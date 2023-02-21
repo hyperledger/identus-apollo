@@ -1,7 +1,10 @@
 package io.iohk.atala.prism.apollo.secp256k1
 
 /* ktlint-disable */
-import kotlin.random.Random
+import com.ionspin.kotlin.bignum.integer.BigInteger
+import com.ionspin.kotlin.bignum.integer.Sign
+import io.iohk.atala.prism.apollo.securerandom.SecureRandom
+import io.iohk.atala.prism.apollo.utils.ECConfig
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.DeferScope
 import kotlinx.cinterop.MemScope
@@ -34,12 +37,11 @@ open class Secp256k1 {
      * @return pair where first is PrivateKey and second is PublicKey
      */
     fun generateKeyPair(): Pair<ByteArray, ByteArray> {
-        fun randomBytes(length: Int): ByteArray {
-            val buffer = ByteArray(length)
-            Random.Default.nextBytes(buffer)
-            return buffer
-        }
-        val privateKey = randomBytes(32)
+        var privateKey: ByteArray
+        do {
+            privateKey = SecureRandom.generateSeed(32)
+            val privateKeyInt = BigInteger.fromByteArray(privateKey, Sign.POSITIVE)
+        } while (privateKeyInt >= ECConfig.n)
         val publicKey = publicKeyCreate(privateKey)
         return Pair(privateKey, publicKey)
     }

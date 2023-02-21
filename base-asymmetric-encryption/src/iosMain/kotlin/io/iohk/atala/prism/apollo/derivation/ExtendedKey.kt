@@ -3,8 +3,8 @@ package io.iohk.atala.prism.apollo.derivation
 import fr.acinq.bitcoin.DeterministicWallet
 import fr.acinq.bitcoin.DeterministicWallet.ExtendedPrivateKey
 import io.iohk.atala.prism.apollo.utils.KMMECKeyPair
-import io.iohk.atala.prism.apollo.utils.KMMECPrivateKey
-import io.iohk.atala.prism.apollo.utils.KMMECPublicKey
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PrivateKey
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PublicKey
 
 actual class ExtendedKey(private val key: ExtendedPrivateKey) {
     /**
@@ -17,15 +17,15 @@ actual class ExtendedKey(private val key: ExtendedPrivateKey) {
     /**
      * Public key for this extended key
      */
-    actual fun publicKey(): KMMECPublicKey {
-        return KMMECPublicKey.secp256k1FromBytes(key.publicKey.toUncompressedBin())
+    actual fun publicKey(): KMMECSecp256k1PublicKey {
+        return KMMECSecp256k1PublicKey.secp256k1FromBytes(key.publicKey.toUncompressedBin())
     }
 
     /**
      * Private key for this extended key
      */
-    actual fun privateKey(): KMMECPrivateKey {
-        return KMMECPrivateKey.secp256k1FromBytes(key.privateKey.value.toByteArray())
+    actual fun privateKey(): KMMECSecp256k1PrivateKey {
+        return KMMECSecp256k1PrivateKey.secp256k1FromBytes(key.privateKey.value.toByteArray())
     }
 
     /**
