@@ -1,6 +1,5 @@
 package io.iohk.atala.prism.apollo.ecdsa
 
-import io.iohk.atala.prism.apollo.utils.ECConfig
 import io.iohk.atala.prism.apollo.utils.KMMECPrivateKey
 import io.iohk.atala.prism.apollo.utils.KMMECPublicKey
 import org.bouncycastle.jce.provider.BouncyCastleProvider
