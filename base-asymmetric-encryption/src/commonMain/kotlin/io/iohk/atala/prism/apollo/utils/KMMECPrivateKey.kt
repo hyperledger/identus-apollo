@@ -6,6 +6,7 @@ import com.ionspin.kotlin.bignum.integer.Sign
 // TODO(Create KMMSecp256k1PrivateKey to contains all below implementation to better separate responsibilities)
 
 interface KMMECPrivateKeyCommonStaticInterface {
+
     fun secp256k1FromBigInteger(d: BigInteger): KMMECPrivateKey
 
     @Throws(ECPrivateKeyDecodingException::class)
@@ -19,6 +20,16 @@ interface KMMECPrivateKeyCommonStaticInterface {
 }
 
 abstract class KMMECPrivateKeyCommon(val d: BigInteger) : Encodable {
+    override fun hashCode(): Int {
+        return getEncoded().hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return when (other) {
+            is KMMECPrivateKeyCommon -> getEncoded().contentEquals(other.getEncoded())
+            else -> false
+        }
+    }
     abstract fun getPublicKey(): KMMECPublicKey
 }
 

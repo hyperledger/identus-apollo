@@ -6,6 +6,17 @@ import kotlin.experimental.and
 
 // TODO(Create KMMSecp256k1PublicKey to contains all below implementation to better separate responsibilities)
 abstract class KMMECPublicKeyCommon(internal val KMMECPoint: KMMECPoint) : Encodable {
+    override fun hashCode(): Int {
+        return getEncoded().hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return when (other) {
+            is KMMECPublicKeyCommon -> getEncoded().contentEquals(other.getEncoded())
+            else -> false
+        }
+    }
+
     /**
      * Guarantees to return a list of 65 bytes in the following form:
      *
