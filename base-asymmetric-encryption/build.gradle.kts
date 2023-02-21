@@ -128,6 +128,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation(project(":ecdsa"))
             }
         }
         val jvmMain by getting {

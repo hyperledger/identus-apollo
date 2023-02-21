@@ -15,7 +15,7 @@ actual object KMMECDSA {
         type: ECDSAType,
         data: ByteArray,
         privateKey: KMMECPrivateKey
-    ): KMMECDSASignature {
+    ): ByteArray {
         val hashedData = when (type) {
             ECDSAType.ECDSA_SHA256 -> SHA256().digest(data)
             ECDSAType.ECDSA_SHA384 -> SHA384().digest(data)
@@ -29,14 +29,14 @@ actual object KMMECDSA {
         val ecjs = ec("secp256k1")
         val signature = ecjs.sign(hashedData, privateKeyBytes, enc = "hex")
         val value = signature.toDER(enc = "hex").unsafeCast<String>()
-        return KMMECDSASignature(value.decodeHex())
+        return value.decodeHex()
     }
 
     actual fun verify(
         type: ECDSAType,
         data: ByteArray,
         publicKey: KMMECPublicKey,
-        signature: KMMECDSASignature
+        signature: ByteArray
     ): Boolean {
         val hashedData = when (type) {
             ECDSAType.ECDSA_SHA256 -> SHA256().digest(data)
@@ -45,6 +45,6 @@ actual object KMMECDSA {
         }.toHexString()
 
         val ecjs = ec("secp256k1")
-        return ecjs.verify(hashedData, signature.getEncoded().toHexString(), publicKey.getEncoded().toHexString(), enc = "hex")
+        return ecjs.verify(hashedData, signature.toHexString(), publicKey.getEncoded().toHexString(), enc = "hex")
     }
 }

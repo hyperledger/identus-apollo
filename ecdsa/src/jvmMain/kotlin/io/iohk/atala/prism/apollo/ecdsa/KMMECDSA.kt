@@ -12,7 +12,7 @@ actual object KMMECDSA {
         type: ECDSAType,
         data: ByteArray,
         privateKey: KMMECPrivateKey
-    ): KMMECDSASignature {
+    ): ByteArray {
         val signatureAlgorithm = when (type) {
             ECDSAType.ECDSA_SHA256 -> "SHA256withECDSA"
             ECDSAType.ECDSA_SHA384 -> "SHA384withECDSA"
@@ -22,14 +22,14 @@ actual object KMMECDSA {
         signer.initSign(privateKey.nativeValue)
         signer.update(data)
         val signature = signer.sign()
-        return KMMECDSASignature(signature)
+        return signature
     }
 
     actual fun verify(
         type: ECDSAType,
         data: ByteArray,
         publicKey: KMMECPublicKey,
-        signature: KMMECDSASignature
+        signature: ByteArray
     ): Boolean {
         val signatureAlgorithm = when (type) {
             ECDSAType.ECDSA_SHA256 -> "SHA256withECDSA"
@@ -39,6 +39,6 @@ actual object KMMECDSA {
         val verifier = Signature.getInstance(signatureAlgorithm, provider)
         verifier.initVerify(publicKey.nativeValue)
         verifier.update(data)
-        return verifier.verify(signature.getEncoded())
+        return verifier.verify(signature)
     }
 }

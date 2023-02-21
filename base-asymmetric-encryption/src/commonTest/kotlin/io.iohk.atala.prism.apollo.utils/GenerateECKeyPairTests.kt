@@ -4,12 +4,10 @@ import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
 import io.iohk.atala.prism.apollo.ecdsa.ECDSAType
 import io.iohk.atala.prism.apollo.ecdsa.KMMECDSA
-import io.iohk.atala.prism.apollo.ecdsa.KMMECDSASignature
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class GenerateECKeyPairTests {
@@ -180,7 +178,7 @@ class GenerateECKeyPairTests {
         val hexEncodedSignature =
             "30450221008a78c557dfc18275b5c800281ef8d26d2b40572b9c1442d708c610f50f797bd302207e44e340f787df7ab1299dabfc988e4c02fcaca0f68dbe813050f4b8641fa739"
         val privateKey = KMMECPrivateKey.secp256k1FromBytes(hexEncodedPrivateKey.decodeHex())
-        val signature = KMMECDSASignature.toKMMECDSASignatureFromBytes(hexEncodedSignature.decodeHex())
+        val signature = hexEncodedSignature.decodeHex()
 
         assertTrue(
             KMMECDSA.verify(
@@ -385,20 +383,6 @@ class GenerateECKeyPairTests {
             assertFails("Expected toPublicKeyFromBigIntegerCoordinates to throw exception on point ${tv.point} which is out of Secp256k1") {
                 KMMECPublicKey.secp256k1FromBigIntegerCoordinates(tv.point.x.coordinate, tv.point.y.coordinate)
             }
-        }
-    }
-
-    @Test
-    fun testZeroSignatureVerificationFails() {
-        /* "3006020100020100" is a signature corresponding to (r, s) = (0, 0)
-
-         "3006020100020100" hex received as
-         bytesToHex(sun.security.util.ECUtil.encodeSignature(hexToBytes("00"))).
-         ECUtil.encodeSignature encodes raw bytes representing
-         concatenation of r bytes with s bytes to DerValue,
-         what a ECDSA signature is*/
-        assertFailsWith<IllegalArgumentException> {
-            KMMECDSASignature.toKMMECDSASignatureFromBytes("3006020100020100".decodeHex())
         }
     }
 }
