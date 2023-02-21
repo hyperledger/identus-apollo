@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.value
 // import io.iohk.atala.prism.apollo.kmmsecp256k1.*
 import secp256k1.*
 /* ktlint-disable */
