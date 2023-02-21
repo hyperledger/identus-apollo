@@ -45,6 +45,6 @@ actual object KMMECDSA {
         }.toHexString()
 
         val ecjs = ec("secp256k1")
-        return ecjs.verify(hashedData, signature.toHexString(), publicKey.getEncoded().toHexString())
+        return ecjs.verify(hashedData, signature.toHexString(), publicKey.getEncoded().toHexString(), enc = "hex")
     }
 }
