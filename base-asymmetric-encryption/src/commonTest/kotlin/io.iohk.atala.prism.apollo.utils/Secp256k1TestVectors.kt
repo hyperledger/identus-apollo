@@ -183,6 +183,6 @@ object Secp256k1TestVectors {
         )
     )
 
-    fun publicKeysFromSecp256k1TestVectors(): List<KMMECPublicKey> =
-        vectors.map { KMMECPublicKey.secp256k1FromByteCoordinates(it.x, it.y) }
+    fun publicKeysFromSecp256k1TestVectors(): List<KMMECSecp256k1PublicKey> =
+        vectors.map { KMMECSecp256k1PublicKey.secp256k1FromByteCoordinates(it.x, it.y) }
 }

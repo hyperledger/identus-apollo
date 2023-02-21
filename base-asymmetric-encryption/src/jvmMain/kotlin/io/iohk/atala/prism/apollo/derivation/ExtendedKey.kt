@@ -1,8 +1,8 @@
 package io.iohk.atala.prism.apollo.derivation
 
 import io.iohk.atala.prism.apollo.utils.KMMECKeyPair
-import io.iohk.atala.prism.apollo.utils.KMMECPrivateKey
-import io.iohk.atala.prism.apollo.utils.KMMECPublicKey
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PrivateKey
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PublicKey
 import io.iohk.atala.prism.apollo.utils.toKotlinBigInteger
 import org.bitcoinj.crypto.ChildNumber
 import org.bitcoinj.crypto.DeterministicKey
@@ -19,10 +19,10 @@ actual class ExtendedKey(private val key: DeterministicKey) {
     /**
      * Public key for this extended key
      */
-    actual fun publicKey(): KMMECPublicKey {
+    actual fun publicKey(): KMMECSecp256k1PublicKey {
         val ecPoint = key.pubKeyPoint
         ecPoint.xCoord.toBigInteger()
-        return KMMECPublicKey.secp256k1FromBigIntegerCoordinates(
+        return KMMECSecp256k1PublicKey.secp256k1FromBigIntegerCoordinates(
             ecPoint.xCoord.toBigInteger().toKotlinBigInteger(),
             ecPoint.yCoord.toBigInteger().toKotlinBigInteger()
         )
@@ -31,8 +31,8 @@ actual class ExtendedKey(private val key: DeterministicKey) {
     /**
      * Private key for this extended key
      */
-    actual fun privateKey(): KMMECPrivateKey {
-        return KMMECPrivateKey.secp256k1FromBigInteger(key.privKey.toKotlinBigInteger())
+    actual fun privateKey(): KMMECSecp256k1PrivateKey {
+        return KMMECSecp256k1PrivateKey.secp256k1FromBigInteger(key.privKey.toKotlinBigInteger())
     }
 
     /**

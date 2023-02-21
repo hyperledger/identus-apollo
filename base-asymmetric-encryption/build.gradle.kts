@@ -122,13 +122,13 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":utils"))
+                implementation(project(":secure-random"))
                 implementation("com.ionspin.kotlin:bignum:0.3.7")
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(project(":ecdsa"))
             }
         }
         val jvmMain by getting {
