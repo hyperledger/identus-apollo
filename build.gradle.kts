@@ -19,7 +19,7 @@ buildscript {
     }
 }
 
-version = "1.0.0-alpha"
+version = "1.5.0-alpha"
 group = "io.iohk.atala.prism"
 
 allprojects {
