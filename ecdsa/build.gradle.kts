@@ -96,6 +96,18 @@ kotlin {
             framework {
                 this.baseName = currentModuleName
             }
+
+            pod("IOHKRSA") {
+                version = "1.0.0"
+                packageName = "IOHKRSA1"
+                source = path(project.file("../iOSLibs/IOHKRSA"))
+            }
+
+            pod("IOHKSecureRandomGeneration") {
+                version = "1.0.0"
+                packageName = "IOHKSecureRandomGeneration2"
+                source = path(project.file("../iOSLibs/IOHKSecureRandomGeneration"))
+            }
         }
     }
 
