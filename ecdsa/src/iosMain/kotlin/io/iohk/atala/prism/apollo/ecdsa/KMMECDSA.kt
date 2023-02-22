@@ -78,7 +78,7 @@ actual object KMMECDSA {
             val context = secp256k1_context_create((SECP256K1_CONTEXT_SIGN or SECP256K1_CONTEXT_VERIFY).convert())
 
             // Public Key Alloc
-            val publicKeyPinned = publicKey.nativeValue.pin()
+            val publicKeyPinned = publicKey.getEncoded().asUByteArray().pin()
             val natPub = publicKeyPinned.addressOf(0)
             val nPublicKey = alloc<secp256k1_pubkey>()
 
