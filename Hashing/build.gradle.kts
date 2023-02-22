@@ -243,10 +243,3 @@ tasks.withType<DokkaTask> {
 //        }
 //    }
 // }
-
-// TODO(Just to make CI take less time as Hashing module is taking too much time)
-tasks.whenTaskAdded {
-    if (this.name.contains("test") || this.name.contains("Test")) {
-        this.enabled = false
-    }
-}
