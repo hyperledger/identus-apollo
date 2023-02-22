@@ -5,7 +5,6 @@ import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
 import io.iohk.atala.prism.apollo.securerandom.SecureRandom
 import io.iohk.atala.prism.apollo.utils.ECConfig
-import kotlin.random.Random
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.DeferScope
 import kotlinx.cinterop.MemScope

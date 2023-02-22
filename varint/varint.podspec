@@ -1,28 +1,27 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'aes'
+    spec.name                     = 'varint'
     spec.version                  = '1.6.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = 'IOG'
     spec.license                  = ''
-    spec.summary                  = 'ApolloAES is an AES lib'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/ApolloAES.framework'
+    spec.summary                  = 'ApolloVarInt is VarInt'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/ApolloVarInt.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '13.0'
     spec.osx.deployment_target = '12.0'
     spec.tvos.deployment_target = '13.0'
     spec.watchos.deployment_target = '8.0'
-    spec.dependency 'IOHKAES', '1.0.0'
-    spec.dependency 'IOHKSecureRandomGeneration', '1.0.0'
+                
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':aes',
-        'PRODUCT_MODULE_NAME' => 'ApolloAES',
+        'KOTLIN_PROJECT_PATH' => ':varint',
+        'PRODUCT_MODULE_NAME' => 'ApolloVarInt',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build aes',
+            :name => 'Build varint',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT

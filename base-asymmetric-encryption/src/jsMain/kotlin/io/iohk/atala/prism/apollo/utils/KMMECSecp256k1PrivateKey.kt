@@ -10,10 +10,11 @@ actual class KMMECSecp256k1PrivateKey(nativeValue: BN) : KMMECPrivateKey(nativeV
         get() = privateKeyD(nativeValue)
 
     init {
-        if (d < BigInteger.TWO || d >= ECConfig.n)
+        if (d < BigInteger.TWO || d >= ECConfig.n) {
             throw ECPrivateKeyInitializationException(
                 "Private key D should be in range [2; ${ECConfig.n})"
             )
+        }
     }
 
     actual fun getPublicKey(): KMMECSecp256k1PublicKey {

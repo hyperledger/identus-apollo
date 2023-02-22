@@ -3,7 +3,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
 version = rootProject.version
-val currentModuleName = "ApolloHashing"
+val currentModuleName = "ApolloVarInt"
 val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
@@ -39,10 +39,10 @@ kotlin {
 //            macosArm64()
         }
     }
-    if (os.isWindows) {
-        mingwX86()
-        mingwX64()
-    }
+//    if (os.isWindows) {
+//        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
+//        mingwX64()
+//    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
@@ -58,10 +58,12 @@ kotlin {
                 this.output.library = currentModuleName
                 this.output.libraryTarget = Target.VAR
             }
-            this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
+            this.commonWebpackConfig {
+                this.cssSupport {
+                    this.enabled = true
                 }
+            }
+            this.testTask {
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -69,9 +71,6 @@ kotlin {
         }
         nodejs {
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -81,7 +80,7 @@ kotlin {
 
     if (os.isMacOsX) {
         cocoapods {
-            this.summary = "Apollo Hashing is a Hashing library containing MD2, MD4, MD5, SHA, SHA-2, SHA-3, Blake, Blake2b, Blake2s and Blake3"
+            this.summary = "ApolloVarInt is VarInt"
             this.version = rootProject.version.toString()
             this.authors = "IOG"
             this.ios.deploymentTarget = "13.0"
@@ -95,51 +94,33 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("com.squareup.okio:okio:3.2.0")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
             }
         }
-        val allButJSMain by creating {
-            this.dependsOn(commonMain)
-        }
-        val allButJSTest by creating {
-            this.dependsOn(commonTest)
-        }
-        val jvmMain by getting {
-            this.dependsOn(allButJSMain)
-        }
+        val jvmMain by getting
         val jvmTest by getting {
-            this.dependsOn(allButJSTest)
-        }
-        val androidMain by getting {
-            this.dependsOn(allButJSMain)
-        }
-        val androidTest by getting {
-            this.dependsOn(allButJSTest)
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
         }
-        val jsMain by getting {
+        val androidMain by getting
+        val androidTest by getting {
             dependencies {
-                implementation(npm("hash.js", "1.1.7"))
-
-                // Polyfill dependencies
-                implementation(npm("stream-browserify", "3.0.0"))
-                implementation(npm("buffer", "6.0.3"))
+                implementation("junit:junit:4.13.2")
             }
         }
+        val jsMain by getting
         val jsTest by getting
         if (os.isMacOsX) {
-            val iosMain by getting {
-                this.dependsOn(allButJSMain)
-            }
-            val iosTest by getting {
-                this.dependsOn(allButJSTest)
-            }
+            val iosMain by getting
+            val iosTest by getting
 //            val tvosMain by getting
 //            val tvosTest by getting
 //            val watchosMain by getting
@@ -173,23 +154,12 @@ kotlin {
 //                }
             }
         }
-        if (os.isWindows) {
-            val mingwX86Main by getting {
-                this.dependsOn(allButJSMain)
-            }
-            val mingwX86Test by getting {
-                this.dependsOn(allButJSTest)
-            }
-            val mingwX64Main by getting {
-                this.dependsOn(allButJSMain)
-            }
-            val mingwX64Test by getting {
-                this.dependsOn(allButJSTest)
-            }
-        }
-        all {
-            languageSettings.optIn("kotlin.RequiresOptIn")
-        }
+//        if (os.isWindows) {
+//            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
+//            // val mingwX86Test by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
+//            val mingwX64Main by getting
+//            val mingwX64Test by getting
+//        }
     }
 }
 
@@ -224,7 +194,7 @@ tasks.withType<DokkaTask> {
     moduleName.set(project.name)
     moduleVersion.set(rootProject.version.toString())
     description = """
-        This is a Kotlin Multiplatform Library for Hashing in cryptography
+        This is a Kotlin Multiplatform Library for ECDSA
     """.trimIndent()
     dokkaSourceSets {
         // TODO: Figure out how to include files to the documentations
