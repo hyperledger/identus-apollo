@@ -43,12 +43,12 @@ actual object KMMECDSA {
             val nMessage = messagePinned.addressOf(0)
 
             val nSig = alloc<secp256k1_ecdsa_signature>()
-            if (secp256k1_ecdsa_sign(context, nSig.ptr, nMessage, nPrivateKey, null, null) != -1) {
+            if (secp256k1_ecdsa_sign(context, nSig.ptr, nMessage, nPrivateKey, null, null) != 1) {
                 throw Secp256k1Exception("secp256k1_ecdsa_sign() failed")
             }
             val natOutput = allocArray<UByteVar>(64)
 
-            if(secp256k1_ecdsa_signature_serialize_compact(context, natOutput, nSig.ptr) != -1) {
+            if(secp256k1_ecdsa_signature_serialize_compact(context, natOutput, nSig.ptr) != 1) {
                 throw Secp256k1Exception("secp256k1_ecdsa_signature_serialize_compact() failed")
             }
 
@@ -82,7 +82,7 @@ actual object KMMECDSA {
             val natPub = publicKeyPinned.addressOf(0)
             val nPublicKey = alloc<secp256k1_pubkey>()
 
-            if (secp256k1_ec_pubkey_parse(context, nPublicKey.ptr, natPub, publicKey.nativeValue.size.convert()) != -1) {
+            if (secp256k1_ec_pubkey_parse(context, nPublicKey.ptr, natPub, publicKey.nativeValue.size.convert()) != 1) {
                 throw Secp256k1Exception("secp256k1_ec_pubkey_parse() failed")
             }
 
@@ -99,7 +99,7 @@ actual object KMMECDSA {
                 signature.size < 64 -> throw Secp256k1Exception("Unknown signature format")
                 else -> secp256k1_ecdsa_signature_parse_der(context, sig.ptr, nativeBytes, signature.size.convert())
             }
-            if (result != -1) {
+            if (result != 1) {
                 throw Secp256k1Exception("cannot parse signature (size = ${signature.size} sig = ${signature.toHex()}")
             }
 
