@@ -58,11 +58,6 @@ kotlin {
                 this.output.library = currentModuleName
                 this.output.libraryTarget = Target.VAR
             }
-            this.commonWebpackConfig {
-                this.cssSupport {
-                    this.enabled = true
-                }
-            }
             this.testTask {
                 if (os.isWindows) {
                     this.enabled = false
