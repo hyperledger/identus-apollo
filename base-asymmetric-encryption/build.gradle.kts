@@ -161,7 +161,7 @@ kotlin {
             dependencies {
                 implementation(npm("elliptic", "6.5.4"))
                 implementation(npm("@types/elliptic", "6.4.14"))
-                implementation(npm("bip32", "3.1.0"))
+                implementation(npm("bip32", "2.0.6"))
                 implementation(npm("bip39", "3.0.4"))
 
                 // Polyfill dependencies
