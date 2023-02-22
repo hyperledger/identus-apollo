@@ -25,7 +25,7 @@ actual class KMMECSecp256k1KeyPair actual constructor(actual val privateKey: KMM
             return memScoped {
                 // Context
                 val context = secp256k1_context_create((SECP256K1_CONTEXT_SIGN or SECP256K1_CONTEXT_VERIFY).convert())
-                memScope.defer {
+                this.defer {
                     secp256k1_context_destroy(context)
                 }
 
