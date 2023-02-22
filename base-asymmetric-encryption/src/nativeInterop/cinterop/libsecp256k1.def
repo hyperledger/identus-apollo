@@ -1,4 +1,4 @@
-package = io.iohk.atala.prism.apollo.secp256k1
+package = io.iohk.atala.prism.apollo.kmmsecp256k1
 language = C
 
 headers = secp256k1.h secp256k1_ecdh.h secp256k1_recovery.h secp256k1_extrakeys.h secp256k1_schnorrsig.h

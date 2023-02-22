@@ -42,13 +42,16 @@ brew install autoconf automake libtool
 ```bash
 cs java --jvm adopt:1.11.0-11 --setup
 ```
-after that `java -version` should yield
+after that `java -version` should yield something like that
 
 ```text
 openjdk version "11.0.11" 2021-04-20
 OpenJDK Runtime Environment (build 11.0.11+9)
 OpenJDK 64-Bit Server VM (build 11.0.11+9, mixed mode)
 ```
+
+In case of using macOS with M chip, make sure to install the arch64 version of Java
+
 ### Install XCode (Mac Only)
 
 Install XCode from App Store. 
@@ -95,8 +98,12 @@ $ export ANDROID_HOME='/Users/{{YOUR USER}}/Library/Android/sdk
 You should be able to import and build the project in IntelliJ IDEA now. 
 
 #### Troubleshooting
-If you get error:
 
+Here is a list of common issues you might face and its solutions.
+
+##### No binary for ChromeHeadless browser on your platform
+
+If you get error:
 ```log
 No binary for ChromeHeadless browser on your platform.
 Please, set "CHROME_BIN" env variable.
@@ -104,12 +111,25 @@ java.lang.IllegalStateException: Errors occurred during launch of browser for te
 - ChromeHeadless
 ```
 
-Solution:
-- Install headless chrome or just Chrome browser
+**Solution**
 
-In case IntelliJ was building but was still showing syntax error in Gradle Script. 
-Solution:
-- Go to preference/settings and make sure to select the correct Java version 11.
+* Install headless chrome or just Chrome browser
+
+##### In case IntelliJ was building but was still showing syntax error in Gradle Script
+
+**Solution**
+
+* Go to preference/settings and make sure to select the correct Java version 11.
+
+##### Could not find JNA native support
+
+if you get this error on macOS with M chip:
+```log
+Could not find JNA native support
+```
+**Solution**
+
+* Make sure that you are using Java version that is arch64.
 
 ## How to use for JVM/Android app
 TBD
@@ -163,7 +183,9 @@ You need to do the following:
 | minGW X86 32                             | :x:                | 
 
 **For the first, second & third point** we have two cases using Groovy and using Kotlin DSL
+
 ### Using Groovy
+
 In the project `build.gradle`
 ```groovy
 allprojects {
@@ -199,7 +221,9 @@ kotlin {
     }
 }
 ```
+
 ### Using Kotlin DSL
+
 In the project `build.gradle.kts`
 ```kotlin
 allprojects {
@@ -238,9 +262,11 @@ kotlin {
 You need to use Kotlin version `1.7.21`.
 
 ## Usage
+
 Please have a look at unit tests, more samples will be added soon.
 
 ## Cryptography Notice
+
 This distribution includes cryptographic software. The country in which you currently reside may 
 have restrictions on the import, possession, use, and/or re-export to another country, of encryption 
 software. BEFORE using any encryption software, please check your country's laws, regulations and policies 
@@ -248,6 +274,7 @@ concerning the import, possession, or use, and re-export of encryption software,
 See [http://www.wassenaar.org/](http://www.wassenaar.org/) for more information.
 
 ## License
+
 This software is provided 'as-is', without any express or implied warranty. In no event will the
 authors be held liable for any damages arising from the use of this software. Permission is granted
 to anyone to use this software for any purpose, including commercial applications, and to alter it

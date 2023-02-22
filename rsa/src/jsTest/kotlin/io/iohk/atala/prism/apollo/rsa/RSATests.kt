@@ -1,7 +1,7 @@
 package io.iohk.atala.prism.apollo.rsa
 
 import io.iohk.atala.prism.apollo.utils.JsHashType
-import io.iohk.atala.prism.apollo.utils.KMMKeyPair
+import io.iohk.atala.prism.apollo.utils.KMMRSAKeyPair
 import io.iohk.atala.prism.apollo.utils.RSAAsymmetricAlgorithm
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -13,7 +13,7 @@ actual class RSATests {
     @Test
     actual fun testRSA() = runTest {
         val msgToSign = "Hello IOG!"
-        val keyPair = KMMKeyPair.generateRSAKeyPair(RSAAsymmetricAlgorithm.RSAPSS, JsHashType.SHA256, 2048)
+        val keyPair = KMMRSAKeyPair.generateRSAKeyPair(RSAAsymmetricAlgorithm.RSAPSS, JsHashType.SHA256, 2048)
         val rsa = RSA()
         val signature = rsa.sign(keyPair.privateKey, msgToSign.encodeToByteArray(), RSASignatureType.RSAPSSSHA256)
 
@@ -23,7 +23,7 @@ actual class RSATests {
     @Test
     actual fun testRSAPSS() = runTest {
         val msgToSign = "Hello IOG!"
-        val keyPair = KMMKeyPair.generateRSAKeyPair(RSAAsymmetricAlgorithm.RSAPSS, JsHashType.SHA256, 2048)
+        val keyPair = KMMRSAKeyPair.generateRSAKeyPair(RSAAsymmetricAlgorithm.RSAPSS, JsHashType.SHA256, 2048)
         val rsa = RSA()
         val signature = rsa.sign(keyPair.privateKey, msgToSign.encodeToByteArray(), RSASignatureType.RSAPSSSHA256)
 

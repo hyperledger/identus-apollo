@@ -1,6 +1,6 @@
 package io.iohk.atala.prism.apollo.rsa
 
-import io.iohk.atala.prism.apollo.utils.KMMPublicKey
+import io.iohk.atala.prism.apollo.utils.KMMRSAPublicKey
 
 interface RSAVerifier {
     /**
@@ -11,5 +11,5 @@ interface RSAVerifier {
      * @param signedData data that has already been signed
      * @return boolean value representing if the verifying was correct or not
      */
-    suspend fun verify(publicKey: KMMPublicKey, data: ByteArray, signedData: ByteArray, type: RSASignatureType): Boolean
+    suspend fun verify(publicKey: KMMRSAPublicKey, data: ByteArray, signedData: ByteArray, type: RSASignatureType): Boolean
 }

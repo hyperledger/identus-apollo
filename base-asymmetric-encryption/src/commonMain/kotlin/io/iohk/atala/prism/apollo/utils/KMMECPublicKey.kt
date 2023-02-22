@@ -1,3 +1,3 @@
 package io.iohk.atala.prism.apollo.utils
 
-expect class KMMECPublicKey
+expect open class KMMECPublicKey : Encodable

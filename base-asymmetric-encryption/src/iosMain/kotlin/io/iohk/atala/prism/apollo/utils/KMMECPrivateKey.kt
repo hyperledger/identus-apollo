@@ -1,3 +1,4 @@
 package io.iohk.atala.prism.apollo.utils
 
-actual class KMMECPrivateKey(val nativeValue: ByteArray)
+@OptIn(ExperimentalUnsignedTypes::class)
+actual open class KMMECPrivateKey(val nativeValue: UByteArray)

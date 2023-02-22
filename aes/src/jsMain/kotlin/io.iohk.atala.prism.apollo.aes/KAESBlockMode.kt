@@ -25,28 +25,5 @@ actual enum class KAESBlockMode : NativeTypeInterface<KAESBlockModeNativeType> {
             OFB -> throw NotImplementedError()
             RC4 -> throw NotImplementedError()
         }
-//        return if (jsTypeOf(window) != "undefined") { // Browser
-//            when (this) {
-//                ECB -> throw NotImplementedError()
-//                CBC -> "CBC"
-//                CFB -> throw NotImplementedError()
-//                CFB8 -> throw NotImplementedError()
-//                CTR -> "CTR"
-//                GCM -> "GCM"
-//                OFB -> throw NotImplementedError()
-//                RC4 -> throw NotImplementedError()
-//            }
-//        } else { // NodeJS
-//            when (this) {
-//                ECB -> "ecb"
-//                CBC -> "cbc"
-//                CFB -> "cfb"
-//                CFB8 -> "cfb8"
-//                CTR -> "ctr"
-//                GCM -> "gcm"
-//                OFB -> "ofb"
-//                RC4 -> "rc4"
-//            }
-//        }
     }
 }

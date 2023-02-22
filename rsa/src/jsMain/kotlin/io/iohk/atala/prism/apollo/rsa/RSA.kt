@@ -1,7 +1,7 @@
 package io.iohk.atala.prism.apollo.rsa
 
-import io.iohk.atala.prism.apollo.utils.KMMPrivateKey
-import io.iohk.atala.prism.apollo.utils.KMMPublicKey
+import io.iohk.atala.prism.apollo.utils.KMMRSAPrivateKey
+import io.iohk.atala.prism.apollo.utils.KMMRSAPublicKey
 import io.iohk.atala.prism.apollo.utils.toArrayBuffer
 import io.iohk.atala.prism.apollo.utils.toByteArray
 import kotlinx.coroutines.MainScope
@@ -17,7 +17,7 @@ actual final class RSA : RSASigner, RSAVerifier {
         return js("{name: algorithm, saltLength: 32}") as RsaPssParams
     }
 
-    override suspend fun sign(privateKey: KMMPrivateKey, data: ByteArray, type: RSASignatureType): ByteArray {
+    override suspend fun sign(privateKey: KMMRSAPrivateKey, data: ByteArray, type: RSASignatureType): ByteArray {
         return when (type) {
             RSASignatureType.RSASHA256, RSASignatureType.RSASHA384, RSASignatureType.RSASHA512 -> {
                 MainScope().promise {
@@ -40,7 +40,7 @@ actual final class RSA : RSASigner, RSAVerifier {
         }
     }
 
-    override suspend fun verify(publicKey: KMMPublicKey, data: ByteArray, signedData: ByteArray, type: RSASignatureType): Boolean {
+    override suspend fun verify(publicKey: KMMRSAPublicKey, data: ByteArray, signedData: ByteArray, type: RSASignatureType): Boolean {
         return when (type) {
             RSASignatureType.RSASHA256, RSASignatureType.RSASHA384, RSASignatureType.RSASHA512 -> {
                 MainScope().promise {

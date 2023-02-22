@@ -1,13 +1,13 @@
 package io.iohk.atala.prism.apollo.rsa
 
 import cocoapods.IOHKRSA.IOHKRSA
-import io.iohk.atala.prism.apollo.utils.KMMPrivateKey
-import io.iohk.atala.prism.apollo.utils.KMMPublicKey
+import io.iohk.atala.prism.apollo.utils.KMMRSAPrivateKey
+import io.iohk.atala.prism.apollo.utils.KMMRSAPublicKey
 import io.iohk.atala.prism.apollo.utils.toByteArray
 import io.iohk.atala.prism.apollo.utils.toNSData
 
 actual final class RSA : RSASigner, RSAVerifier {
-    override suspend fun sign(privateKey: KMMPrivateKey, data: ByteArray, type: RSASignatureType): ByteArray {
+    override suspend fun sign(privateKey: KMMRSAPrivateKey, data: ByteArray, type: RSASignatureType): ByteArray {
         return IOHKRSA.signRSAWithKey(
             privateKey.nativeType,
             type.nativeValue(),
@@ -15,7 +15,7 @@ actual final class RSA : RSASigner, RSAVerifier {
         )!!.toByteArray()
     }
 
-    override suspend fun verify(publicKey: KMMPublicKey, data: ByteArray, signedData: ByteArray, type: RSASignatureType): Boolean {
+    override suspend fun verify(publicKey: KMMRSAPublicKey, data: ByteArray, signedData: ByteArray, type: RSASignatureType): Boolean {
         return IOHKRSA.verifyRSAWithKey(
             publicKey.nativeType,
             type.nativeValue(),

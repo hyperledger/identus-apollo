@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
     spec.source                   = { :http=> ''}
     spec.authors                  = 'IOG'
     spec.license                  = ''
-    spec.summary                  = 'Apollo is a collection of the cryptographic methods used all around Atala PRISM'
+    spec.summary                  = 'Apollo'
     spec.vendored_frameworks      = 'build/cocoapods/framework/Apollo.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '13.0'

@@ -29,15 +29,9 @@ kotlin {
     }
     if (os.isMacOsX) {
         ios()
-//        tvos()
-//        watchos()
-//        macosX64()
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            iosSimulatorArm64()
-//            tvosSimulatorArm64()
-//            watchosSimulatorArm64()
-//            macosArm64()
-        }
+//        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+//            iosSimulatorArm64()
+//        }
     }
     js(IR) {
         this.moduleName = currentModuleName
@@ -60,9 +54,6 @@ kotlin {
                 }
             }
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -70,9 +61,6 @@ kotlin {
         }
         nodejs {
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -82,7 +70,7 @@ kotlin {
 
     if (os.isMacOsX) {
         cocoapods {
-            this.summary = "Apollo is a collection of the cryptographic methods used all around Atala PRISM"
+            this.summary = "Apollo"
             this.version = rootProject.version.toString()
             this.authors = "IOG"
             this.ios.deploymentTarget = "13.0"
@@ -91,12 +79,6 @@ kotlin {
             this.watchos.deploymentTarget = "8.0"
             framework {
                 this.baseName = currentModuleName
-                export(project(":base16"))
-                export(project(":base32"))
-                export(project(":base58"))
-                export(project(":base64"))
-                export(project(":hashing"))
-                export(project(":multibase"))
             }
         }
     }
@@ -104,12 +86,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":base16"))
-                api(project(":base32"))
-                api(project(":base58"))
-                api(project(":base64"))
+                api(project(":utils"))
                 api(project(":hashing"))
-                api(project(":multibase"))
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
         }
         val commonTest by getting {
@@ -117,14 +96,14 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val jvmMain by getting
-        val jvmTest by getting {
+        val androidMain by getting
+        val androidTest by getting {
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
         }
-        val androidMain by getting
-        val androidTest by getting {
+        val jvmMain by getting
+        val jvmTest by getting {
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
@@ -134,41 +113,14 @@ kotlin {
         if (os.isMacOsX) {
             val iosMain by getting
             val iosTest by getting
-//            val tvosMain by getting
-//            val tvosTest by getting
-//            val watchosMain by getting
-//            val watchosTest by getting
-//            val macosX64Main by getting
-//            val macosX64Test by getting
-            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-                val iosSimulatorArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
-//                val tvosSimulatorArm64Main by getting {
-//                    this.dependsOn(tvosMain)
+//            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+//                val iosSimulatorArm64Main by getting {
+//                    this.dependsOn(iosMain)
 //                }
-//                val tvosSimulatorArm64Test by getting {
-//                    this.dependsOn(tvosTest)
+//                val iosSimulatorArm64Test by getting {
+//                    this.dependsOn(iosTest)
 //                }
-//                val watchosSimulatorArm64Main by getting {
-//                    this.dependsOn(watchosMain)
-//                }
-//                val watchosSimulatorArm64Test by getting {
-//                    this.dependsOn(watchosTest)
-//                }
-//                val macosArm64Main by getting {
-//                    this.dependsOn(macosX64Main)
-//                }
-//                val macosArm64Test by getting {
-//                    this.dependsOn(macosX64Test)
-//                }
-            }
-        }
-        all {
-            languageSettings.optIn("kotlin.RequiresOptIn")
+//            }
         }
     }
 }

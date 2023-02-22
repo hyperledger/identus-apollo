@@ -1,5 +1,5 @@
 package io.iohk.atala.prism.apollo.utils
 
-import java.security.interfaces.ECPrivateKey
+import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey
 
-actual class KMMECPrivateKey(val nativeValue: ECPrivateKey)
+actual open class KMMECPrivateKey(val nativeValue: BCECPrivateKey)
