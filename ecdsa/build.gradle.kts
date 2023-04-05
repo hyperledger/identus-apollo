@@ -132,6 +132,8 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation("org.bitcoinj:bitcoinj-core:0.15.10")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp:0.8.0")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.8.0")
             }
         }
         val androidMain by getting {

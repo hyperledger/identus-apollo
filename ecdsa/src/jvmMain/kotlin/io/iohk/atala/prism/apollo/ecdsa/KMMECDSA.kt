@@ -21,8 +21,7 @@ actual object KMMECDSA {
         val signer = Signature.getInstance(signatureAlgorithm, provider)
         signer.initSign(privateKey.nativeValue)
         signer.update(data)
-        val signature = signer.sign()
-        return signature
+        return signer.sign()
     }
 
     actual fun verify(
