@@ -122,6 +122,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
             }
         }
         val jvmMain by getting {
