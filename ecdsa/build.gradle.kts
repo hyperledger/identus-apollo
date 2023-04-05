@@ -122,7 +122,6 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
             }
         }
         val jvmMain by getting {
@@ -130,7 +129,11 @@ kotlin {
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
             }
         }
-        val jvmTest by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
+            }
+        }
         val androidMain by getting {
             dependencies {
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
