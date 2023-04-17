@@ -1,8 +1,5 @@
 package io.iohk.atala.prism.apollo.ecdsa
 
-import io.iohk.atala.prism.apollo.hashing.SHA256
-import io.iohk.atala.prism.apollo.hashing.SHA384
-import io.iohk.atala.prism.apollo.hashing.SHA512
 import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import io.iohk.atala.prism.apollo.utils.ECConfig
 import io.iohk.atala.prism.apollo.utils.KMMECPrivateKey
@@ -16,18 +13,18 @@ actual object KMMECDSA {
         data: ByteArray,
         privateKey: KMMECPrivateKey
     ): ByteArray {
-        val hashedData = when (type) {
-            ECDSAType.ECDSA_SHA256 -> SHA256().digest(data)
-            ECDSAType.ECDSA_SHA384 -> SHA384().digest(data)
-            ECDSAType.ECDSA_SHA512 -> SHA512().digest(data)
-        }.toHexString()
-
+        when (type) {
+            ECDSAType.ECDSA_SHA256 -> {}
+            ECDSAType.ECDSA_SHA384, ECDSAType.ECDSA_SHA512 -> {
+                throw NotImplementedError("Only ECDSA with SHA256 is supported")
+            }
+        }
         val byteList = privateKey.nativeValue.toArray().map { it.toByte() }
         val padding = ByteArray(ECConfig.PRIVATE_KEY_BYTE_SIZE - byteList.size) { 0 }
         val privateKeyBytes = (padding + byteList).toHexString()
 
         val ecjs = ec("secp256k1")
-        val signature = ecjs.sign(hashedData, privateKeyBytes, enc = "hex")
+        val signature = ecjs.sign(data.toHexString(), privateKeyBytes, enc = "hex")
         val value = signature.toDER(enc = "hex").unsafeCast<String>()
         return value.decodeHex()
     }
@@ -38,13 +35,13 @@ actual object KMMECDSA {
         publicKey: KMMECPublicKey,
         signature: ByteArray
     ): Boolean {
-        val hashedData = when (type) {
-            ECDSAType.ECDSA_SHA256 -> SHA256().digest(data)
-            ECDSAType.ECDSA_SHA384 -> SHA384().digest(data)
-            ECDSAType.ECDSA_SHA512 -> SHA512().digest(data)
-        }.toHexString()
-
+        when (type) {
+            ECDSAType.ECDSA_SHA256 -> {}
+            ECDSAType.ECDSA_SHA384, ECDSAType.ECDSA_SHA512 -> {
+                throw NotImplementedError("Only ECDSA with SHA256 is supported")
+            }
+        }
         val ecjs = ec("secp256k1")
-        return ecjs.verify(hashedData, signature.toHexString(), publicKey.getEncoded().toHexString(), enc = "hex")
+        return ecjs.verify(data.toHexString(), signature.toHexString(), publicKey.getEncoded().toHexString(), enc = "hex")
     }
 }
