@@ -115,8 +115,9 @@ object JWS {
         }
 
         try {
-            if (!signature.verify(verifier))
+            if (!signature.verify(verifier)) {
                 throw NotImplementedError("Invalid signature")
+            }
         } catch (e: JOSEException) {
             // this can be thrown if the signature type is not supported
             // example: curve256k1 is not supported in JDK >= 15
