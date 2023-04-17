@@ -163,9 +163,9 @@ internal final object Base64 {
         @Throws(IllegalArgumentException::class)
         fun decode(src: ByteArray, dst: ByteArray): Int {
             val len = outLength(src, 0, src.size)
-            if (dst.size < len) throw IllegalArgumentException(
-                "Output byte array is too small for decoding all input bytes"
-            )
+            if (dst.size < len) {
+                throw IllegalArgumentException("Output byte array is too small for decoding all input bytes")
+            }
             return decode0(src, 0, src.size, dst)
         }
 
@@ -173,15 +173,21 @@ internal final object Base64 {
         @Throws(IllegalArgumentException::class)
         private fun outLength(src: ByteArray, sp: Int, sl: Int): Int {
             var sp = sp
-            val base64 = if (isURL) fromBase64URL else fromBase64
+            val base64 = if (isURL) {
+                fromBase64URL
+            } else {
+                fromBase64
+            }
             var paddings = 0
             var len = sl - sp
-            if (len == 0) return 0
+            if (len == 0) {
+                return 0
+            }
             if (len < 2) {
-                if (isMIME && base64[0] == -1) return 0
-                throw IllegalArgumentException(
-                    "Input byte[] should at least have 2 bytes for base64 bytes"
-                )
+                if (isMIME && base64[0] == -1) {
+                    return 0
+                }
+                throw IllegalArgumentException("Input byte[] should at least have 2 bytes for base64 bytes")
             }
             if (isMIME) {
                 // scan all bytes to fill out all non-alphabet. a performance
@@ -193,13 +199,17 @@ internal final object Base64 {
                         len -= sl - sp + 1
                         break
                     }
-                    if (base64[b].also { b = it } == -1) n++
+                    if (base64[b].also { b = it } == -1) {
+                        n++
+                    }
                 }
                 len -= n
             } else {
                 if (src[sl - 1] == '='.code.toByte()) {
                     paddings++
-                    if (src[sl - 2] == '='.code.toByte()) paddings++
+                    if (src[sl - 2] == '='.code.toByte()) {
+                        paddings++
+                    }
                 }
             }
             if (paddings == 0 && len and 0x3 != 0) paddings = 4 - (len and 0x3)
@@ -226,16 +236,15 @@ internal final object Base64 {
                         if (shiftto == 6 && (sp == sl || src[sp++] != '='.code.toByte()) ||
                             shiftto == 18
                         ) {
-                            throw IllegalArgumentException(
-                                "Input byte array has wrong 4-byte ending unit"
-                            )
+                            throw IllegalArgumentException("Input byte array has wrong 4-byte ending unit")
                         }
                         break
                     }
-                    if (isMIME) // skip if for rfc2045
-                        continue else throw IllegalArgumentException(
-                        "Illegal base64 character ${src[sp - 1].toInt().toString(16)}"
-                    )
+                    if (isMIME) { // skip if for rfc2045
+                        continue
+                    } else {
+                        throw IllegalArgumentException("Illegal base64 character ${src[sp - 1].toInt().toString(16)}")
+                    }
                 }
                 bits = bits or (b shl shiftto)
                 shiftto -= 6
@@ -258,18 +267,16 @@ internal final object Base64 {
                 }
                 12 -> {
                     // dangling single "x", incorrectly encoded.
-                    throw IllegalArgumentException(
-                        "Last unit does not have enough valid bits"
-                    )
+                    throw IllegalArgumentException("Last unit does not have enough valid bits")
                 }
             }
             // anything left is invalid, if is not MIME.
             // if MIME, ignore all non-base64 character
             while (sp < sl) {
-                if (isMIME && base64[src[sp++].toInt()] < 0) continue
-                throw IllegalArgumentException(
-                    "Input byte array has incorrect ending byte at $sp"
-                )
+                if (isMIME && base64[src[sp++].toInt()] < 0) {
+                    continue
+                }
+                throw IllegalArgumentException("Input byte array has incorrect ending byte at $sp")
             }
             return dp
         }
@@ -343,8 +350,9 @@ internal final object Base64 {
                 val n = srclen % 3
                 4 * (srclen / 3) + if (n == 0) 0 else n + 1
             }
-            if (linemax > 0) // line separators
+            if (linemax > 0) { // line separators
                 len += (len - 1) / linemax * newline!!.size
+            }
             return len
         }
 
@@ -393,9 +401,9 @@ internal final object Base64 {
         @Throws(IllegalArgumentException::class)
         fun encode(src: ByteArray, dst: ByteArray): Int {
             val len = outLength(src.size) // dst array size
-            if (dst.size < len) throw IllegalArgumentException(
-                "Output byte array is too small for encoding all input bytes"
-            )
+            if (dst.size < len) {
+                throw IllegalArgumentException("Output byte array is too small for encoding all input bytes")
+            }
             return encode0(src, 0, src.size, dst)
         }
 
