@@ -1,12 +1,12 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'base_symmetric_encryption'
+    spec.name                     = 'ed25519'
     spec.version                  = '1.7.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = 'IOG'
     spec.license                  = ''
-    spec.summary                  = 'ApolloBaseSymmetricEncryption is a base for symmetric encryption libs'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/ApolloBaseSymmetricEncryption.framework'
+    spec.summary                  = 'Ed25519 is Key generation for Ed25519'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/Ed25519.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '13.0'
     spec.osx.deployment_target = '12.0'
@@ -15,13 +15,13 @@ Pod::Spec.new do |spec|
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':base-symmetric-encryption',
-        'PRODUCT_MODULE_NAME' => 'ApolloBaseSymmetricEncryption',
+        'KOTLIN_PROJECT_PATH' => ':ed25519',
+        'PRODUCT_MODULE_NAME' => 'Ed25519',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build base_symmetric_encryption',
+            :name => 'Build ed25519',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
