@@ -10,7 +10,7 @@ expect enum class KAESBlockMode : NativeTypeInterface<KAESBlockModeNativeType> {
     CTR,
     GCM,
     OFB,
-    RC4;
+    RC4
 }
 
 fun KAESBlockMode.needIV(): Boolean {
