@@ -7,7 +7,7 @@ import kotlin.js.JsExport
 expect enum class KAESAlgorithm : NativeTypeInterface<KAESAlgorithmNativeType> {
     AES_128,
     AES_192,
-    AES_256;
+    AES_256
 }
 
 @OptIn(ExperimentalJsExport::class)

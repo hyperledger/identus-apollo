@@ -6,18 +6,10 @@ fun Long.Companion.parseLong(s: String, beginIndex: Int, endIndex: Int, radix: I
         throw IndexOutOfBoundsException()
     }
     if (radix < Char.MIN_RADIX) {
-        throw NumberFormatException(
-            "radix " + radix +
-                " less than Character.MIN_RADIX"
-        )
+        throw NumberFormatException("radix $radix less than Character.MIN_RADIX")
     }
     if (radix > Char.MAX_RADIX) {
-        throw NumberFormatException(
-            (
-                "radix " + radix +
-                    " greater than Character.MAX_RADIX"
-                )
-        )
+        throw NumberFormatException("radix $radix greater than Character.MAX_RADIX")
     }
     var negative = false
     var i = beginIndex
@@ -29,17 +21,13 @@ fun Long.Companion.parseLong(s: String, beginIndex: Int, endIndex: Int, radix: I
                 negative = true
                 limit = Long.MIN_VALUE
             } else if (firstChar != '+') {
-                throw NumberFormatException().forCharSequence(
-                    s, beginIndex,
-                    endIndex, i
-                )
+                throw NumberFormatException().forCharSequence(s, beginIndex, endIndex, i)
             }
             i++
         }
         if (i >= endIndex) { // Cannot have lone "+", "-" or ""
             throw NumberFormatException().forCharSequence(
-                s, beginIndex,
-                endIndex, i
+                s, beginIndex, endIndex, i
             )
         }
         val multmin = limit / radix
@@ -48,17 +36,11 @@ fun Long.Companion.parseLong(s: String, beginIndex: Int, endIndex: Int, radix: I
             // Accumulating negatively avoids surprises near MAX_VALUE
             val digit = s[i].digitToIntOrNull(radix) ?: -1
             if (digit < 0 || result < multmin) {
-                throw NumberFormatException().forCharSequence(
-                    s, beginIndex,
-                    endIndex, i
-                )
+                throw NumberFormatException().forCharSequence(s, beginIndex, endIndex, i)
             }
             result *= radix.toLong()
             if (result < limit + digit) {
-                throw NumberFormatException().forCharSequence(
-                    s, beginIndex,
-                    endIndex, i
-                )
+                throw NumberFormatException().forCharSequence(s, beginIndex, endIndex, i)
             }
             i++
             result -= digit.toLong()
