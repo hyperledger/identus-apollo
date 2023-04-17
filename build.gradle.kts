@@ -20,10 +20,10 @@ buildscript {
 }
 
 version = "1.6.1-alpha"
-group = "io.iohk.atala.prism"
+group = "io.iohk.atala.prism.apollo"
 
 allprojects {
-    group = "io.iohk.atala.prism"
+    group = "io.iohk.atala.prism.apollo"
 
     repositories {
         google()
