@@ -26,9 +26,7 @@ fun Long.Companion.parseLong(s: String, beginIndex: Int, endIndex: Int, radix: I
             i++
         }
         if (i >= endIndex) { // Cannot have lone "+", "-" or ""
-            throw NumberFormatException().forCharSequence(
-                s, beginIndex, endIndex, i
-            )
+            throw NumberFormatException().forCharSequence(s, beginIndex, endIndex, i)
         }
         val multmin = limit / radix
         var result: Long = 0

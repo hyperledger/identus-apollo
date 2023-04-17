@@ -350,8 +350,9 @@ internal final object Base64 {
                 val n = srclen % 3
                 4 * (srclen / 3) + if (n == 0) 0 else n + 1
             }
-            if (linemax > 0) // line separators
+            if (linemax > 0) {// line separators
                 len += (len - 1) / linemax * newline!!.size
+            }
             return len
         }
 
