@@ -27,7 +27,7 @@ kotlin {
         }
     }
     if (os.isMacOsX) {
-        ios()
+        // ios()
 //        tvos()
 //        watchos()
 //        macosX64()
@@ -42,46 +42,46 @@ kotlin {
 //        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
 //        mingwX64()
 //    }
-    js(IR) {
-        this.moduleName = currentModuleName
-        this.binaries.library()
-        this.useCommonJs()
-        this.compilations["main"].packageJson {
-            this.version = rootProject.version.toString()
-        }
-        this.compilations["test"].packageJson {
-            this.version = rootProject.version.toString()
-        }
-        browser {
-            this.webpackTask {
-                this.output.library = currentModuleName
-                this.output.libraryTarget = Target.VAR
-            }
-            this.commonWebpackConfig {
-                this.cssSupport {
-                    this.enabled = true
-                }
-            }
-            this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
-                this.useKarma {
-                    this.useChromeHeadless()
-                }
-            }
-        }
-        nodejs {
-            this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
-                this.useKarma {
-                    this.useChromeHeadless()
-                }
-            }
-        }
-    }
+//    js(IR) {
+//        this.moduleName = currentModuleName
+//        this.binaries.library()
+//        this.useCommonJs()
+//        this.compilations["main"].packageJson {
+//            this.version = rootProject.version.toString()
+//        }
+//        this.compilations["test"].packageJson {
+//            this.version = rootProject.version.toString()
+//        }
+//        browser {
+//            this.webpackTask {
+//                this.output.library = currentModuleName
+//                this.output.libraryTarget = Target.VAR
+//            }
+//            this.commonWebpackConfig {
+//                this.cssSupport {
+//                    this.enabled = true
+//                }
+//            }
+//            this.testTask {
+//                if (os.isWindows) {
+//                    this.enabled = false
+//                }
+//                this.useKarma {
+//                    this.useChromeHeadless()
+//                }
+//            }
+//        }
+//        nodejs {
+//            this.testTask {
+//                if (os.isWindows) {
+//                    this.enabled = false
+//                }
+//                this.useKarma {
+//                    this.useChromeHeadless()
+//                }
+//            }
+//        }
+//    }
 
     if (os.isMacOsX) {
         cocoapods {
@@ -121,11 +121,11 @@ kotlin {
                 implementation("junit:junit:4.13.2")
             }
         }
-        val jsMain by getting
-        val jsTest by getting
+//        val jsMain by getting
+//        val jsTest by getting
         if (os.isMacOsX) {
-            val iosMain by getting
-            val iosTest by getting
+//            val iosMain by getting
+//            val iosTest by getting
 //            val tvosMain by getting
 //            val tvosTest by getting
 //            val watchosMain by getting
