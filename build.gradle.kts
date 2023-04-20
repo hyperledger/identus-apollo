@@ -23,6 +23,7 @@ version = "1.7.0-alpha"
 group = "io.iohk.atala.prism.apollo"
 
 allprojects {
+    version = "1.7.0-alpha"
     group = "io.iohk.atala.prism.apollo"
 
     repositories {
