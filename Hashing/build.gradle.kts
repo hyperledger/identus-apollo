@@ -2,7 +2,6 @@ import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
-version = rootProject.version
 val currentModuleName = "ApolloHashing"
 val os: OperatingSystem = OperatingSystem.current()
 
