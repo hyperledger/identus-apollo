@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
     spec.authors                  = 'IOG'
     spec.license                  = ''
     spec.summary                  = 'JOSE is JSON Object Signing and Encryption'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/JOSE.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/jose.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '13.0'
     spec.osx.deployment_target = '12.0'
@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':jose',
-        'PRODUCT_MODULE_NAME' => 'JOSE',
+        'PRODUCT_MODULE_NAME' => 'jose',
     }
                 
     spec.script_phases = [
