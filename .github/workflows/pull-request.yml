@@ -88,11 +88,11 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: "zulu"
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+      # - name: Setup Android SDK
+      #   uses: android-actions/setup-android@v2
 
-      - name: Setup chrome
-        uses: browser-actions/setup-chrome@v1
+      # - name: Setup chrome
+      #   uses: browser-actions/setup-chrome@v1
 
       - name: Install NodeJS ${{ env.NODEJS_VERSION }}
         uses: actions/setup-node@v3
