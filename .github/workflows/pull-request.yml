@@ -30,6 +30,7 @@ jobs:
       DISABLE: COPYPASTE,SPELL
       DISABLE_LINTERS: REPOSITORY_CHECKOV
       GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
+      CHROME_BIN: /usr/bin/google-chrome
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -52,15 +53,17 @@ jobs:
     strategy:
       matrix:
         include:
-#          - os: ubuntu-latest
-#            os-type: linux
+         - os: ubuntu-latest
+           os-type: linux
 # commented until we figure out the root cause for Gradle failing on Linux
 # TODO: To be investigated
-          - os: macos-latest
-            os-type: macos
+          # - os: macos-latest
+          #   os-type: macos
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Validate Gradle Wrapper
+        run: pwd
       - name: Checkout the repo
         uses: actions/checkout@v3
         with:
@@ -85,6 +88,13 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'zulu'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Setup chrome    
+        uses: browser-actions/setup-chrome@v1
+ 
 
       - name: Install NodeJS ${{ env.NODEJS_VERSION }}
         uses: actions/setup-node@v3
@@ -116,8 +126,11 @@ jobs:
       - name: Build for JS, Linux, Android, JVM
         if: matrix.os-type == 'linux'
         run: |
+          chrome --version
           ./gradlew build check allTests --stacktrace
-
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+          CI: true
       - name: Build for Windows
         if: matrix.os-type == 'windows'
         run: |

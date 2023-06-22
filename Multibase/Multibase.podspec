@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':multibase',
+        'KOTLIN_PROJECT_PATH' => ':Multibase',
         'PRODUCT_MODULE_NAME' => 'ApolloMultibase',
     }
                 

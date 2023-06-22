@@ -86,7 +86,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":utils"))
-                api(project(":hashing"))
+                api(project(":Hashing"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
         }

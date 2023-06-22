@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
     spec.dependency 'IOHKSecureRandomGeneration', '1.0.0'
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':uuid',
+        'KOTLIN_PROJECT_PATH' => ':UUID',
         'PRODUCT_MODULE_NAME' => 'ApolloUUID',
     }
                 

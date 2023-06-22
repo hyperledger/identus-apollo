@@ -1,6 +1,6 @@
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
+// import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
 val currentModuleName = "JOSE"
 val os: OperatingSystem = OperatingSystem.current()

@@ -101,10 +101,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":base16"))
-                implementation(project(":base32"))
-                implementation(project(":base58"))
-                implementation(project(":base64"))
+                implementation(project(":Base16"))
+                implementation(project(":Base32"))
+                implementation(project(":Base58"))
+                implementation(project(":Base64"))
             }
         }
         val commonTest by getting {
