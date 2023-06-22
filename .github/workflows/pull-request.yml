@@ -18,7 +18,6 @@ on:
   pull_request:
 
 jobs:
-
   lint:
     name: Lint changes
     runs-on: ubuntu-latest
@@ -53,12 +52,12 @@ jobs:
     strategy:
       matrix:
         include:
-         - os: ubuntu-latest
-           os-type: linux
-# commented until we figure out the root cause for Gradle failing on Linux
-# TODO: To be investigated
-          # - os: macos-latest
-          #   os-type: macos
+          - os: ubuntu-latest
+            os-type: linux
+      # commented until we figure out the root cause for Gradle failing on Linux
+      # TODO: To be investigated
+      # - os: macos-latest
+      #   os-type: macos
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -87,14 +86,13 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'zulu'
+          distribution: "zulu"
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
-      - name: Setup chrome    
+      - name: Setup chrome
         uses: browser-actions/setup-chrome@v1
- 
 
       - name: Install NodeJS ${{ env.NODEJS_VERSION }}
         uses: actions/setup-node@v3
