@@ -118,7 +118,6 @@ jobs:
       - name: Build for JS, Linux, Android, JVM
         if: matrix.os-type == 'linux'
         run: |
-          chrome --version
           ./gradlew build check allTests --stacktrace
         env:
           CHROME_BIN: /usr/bin/google-chrome
