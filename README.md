@@ -215,7 +215,7 @@ kotlin {
         commonMain {
             dependencies {
                 // This following is just an example you can import it as per you needs
-                implementation 'io.iohk.atala.prism:apollo:${latest version}'
+                implementation 'io.iohk.atala.prism.apollo:apollo:${latest version}'
             }
         }
     }
@@ -252,7 +252,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // This following is just an example you can import it as per you needs
-                implementation("io.iohk.atala.prism:apollo:<latest version>")
+                implementation("io.iohk.atala.prism.apollo:apollo:<latest version>")
             }
         }
     }

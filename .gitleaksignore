@@ -12,3 +12,4 @@ a3cb543f5569a83597a4fcada367914beb55ed70:base-asymmetric-encryption/src/commonTe
 88e085a38001a26caf05d151761801430452c137:base-asymmetric-encryption/src/commonMain/kotlin/io/iohk/atala/prism/apollo/utils/KMMX25519KeyPair.kt:generic-api-key:4
 c8e0b0e540e5b35e2b87be63d3866895afc2e709:base-asymmetric-encryption/src/commonMain/kotlin/io/iohk/atala/prism/apollo/utils/KMMECSecp256k1KeyPair.kt:generic-api-key:4
 c8e0b0e540e5b35e2b87be63d3866895afc2e709:ecdsa/src/commonTest/kotlin/io/iohk/atala/prism/apollo/ecdsa/KMMECDSATests.kt:generic-api-key:125
+4227c2c7612f2f209438746185751419f9e52efc:base-asymmetric-encryption/src/commonMain/kotlin/io/iohk/atala/prism/apollo/utils/KMMX25519KeyPair.kt:generic-api-key:4
