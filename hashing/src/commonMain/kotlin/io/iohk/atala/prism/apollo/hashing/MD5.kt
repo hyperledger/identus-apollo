@@ -33,7 +33,8 @@ final class MD5 : MDHelper(true, 8), HMACInterface {
         makeMDPadding()
         for (i in 0..3) MathHelper.encodeLEInt(
             currentVal[i],
-            output, outputOffset + 4 * i
+            output,
+            outputOffset + 4 * i
         )
     }
 

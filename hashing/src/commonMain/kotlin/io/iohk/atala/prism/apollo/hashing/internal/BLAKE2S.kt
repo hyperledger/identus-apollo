@@ -12,31 +12,38 @@ open class BLAKE2S : Digest {
     private var nodeOffset = 0L
     private var nodeDepth = 0
     private var innerHashLength = 0
+
     /**
      * Whenever this buffer overflows, it will be processed in the compress()
      * function. For performance issues, long messages will not use this buffer.
      */
     private var buffer: ByteArray? = null
+
     /**
      * Position of last inserted byte
      */
     private var bufferPos = 0 // a value from 0 up to BLOCK_LENGTH_BYTES
+
     /**
      * Internal state, in the BLAKE2 paper it is called v
      */
     private var internalState = IntArray(16)
+
     /**
      * State vector, in the BLAKE2 paper it is called h
      */
     private var chainValue: IntArray? = null
+
     /**
      * holds least significant bits of counter
      */
     private var t0 = 0
+
     /**
      * holds most significant bits of counter
      */
     private var t1 = 0
+
     /**
      * finalization flag, for last block: ~0
      */
@@ -372,7 +379,6 @@ open class BLAKE2S : Digest {
             m[j] = MathHelper.decodeLEInt(message!!, messagePos + j * 4)
         }
         for (round in 0 until ROUNDS) {
-
             // G apply to columns of internalState:m[blake2s_sigma[round][2 *
             // blockPos]] /+1
             g(m[blake2s_sigma[round][0].toInt()], m[blake2s_sigma[round][1].toInt()], 0, 4, 8, 12)
@@ -408,13 +414,19 @@ open class BLAKE2S : Digest {
     }
 
     companion object {
+
         /**
          * BLAKE2s Initialization Vector
          */
         private val blake2s_IV = intArrayOf(
-            0x6a09e667, -0x4498517b, 0x3c6ef372,
-            -0x5ab00ac6, 0x510e527f, -0x64fa9774,
-            0x1f83d9ab, 0x5be0cd19
+            0x6a09e667,
+            -0x4498517b,
+            0x3c6ef372,
+            -0x5ab00ac6,
+            0x510e527f,
+            -0x64fa9774,
+            0x1f83d9ab,
+            0x5be0cd19
         )
 
         /**

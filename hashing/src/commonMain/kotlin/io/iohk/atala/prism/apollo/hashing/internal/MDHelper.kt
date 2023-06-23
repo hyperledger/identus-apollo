@@ -23,11 +23,13 @@ abstract class MDHelper(
         } else {
             MathHelper.encodeBEInt(
                 (currentLength ushr 32).toInt(),
-                countBuf, lenlen - 8
+                countBuf,
+                lenlen - 8
             )
             MathHelper.encodeBEInt(
                 currentLength.toInt(),
-                countBuf, lenlen - 4
+                countBuf,
+                lenlen - 4
             )
         }
         val endLen = dataLen + lenlen + blen and (blen - 1).inv()
