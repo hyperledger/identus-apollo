@@ -8,6 +8,7 @@ abstract class HashingBase : Digest {
     private val blockLen: Int
     private var inputLen: Int
     private var outputBuf: ByteArray
+
     /**
      * Get the "block count": this is the number of times the
      * [.processBlock] method has been invoked for the
@@ -18,6 +19,7 @@ abstract class HashingBase : Digest {
      */
     protected var blockCount: Long
         private set
+
     /**
      * Get a reference to an internal buffer with the same size
      * than a block. The contents of that buffer are defined only

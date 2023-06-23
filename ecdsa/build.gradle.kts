@@ -115,7 +115,7 @@ kotlin {
             dependencies {
                 implementation(project(":utils"))
                 implementation(project(":base-asymmetric-encryption"))
-                implementation(project(":Hashing"))
+                implementation(project(":hashing"))
             }
         }
         val commonTest by getting {

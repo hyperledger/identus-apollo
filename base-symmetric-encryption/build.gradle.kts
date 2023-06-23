@@ -102,7 +102,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":secure-random"))
-                implementation(project(":Base64"))
+                implementation(project(":base64"))
             }
         }
         val commonTest by getting {

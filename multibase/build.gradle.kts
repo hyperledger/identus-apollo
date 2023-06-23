@@ -2,7 +2,7 @@ import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 
-val currentModuleName = "ApolloUUID"
+val currentModuleName = "ApolloMultibase"
 val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
@@ -85,7 +85,7 @@ kotlin {
 
     if (os.isMacOsX) {
         cocoapods {
-            this.summary = "ApolloUUID is a UUID generation lib"
+            this.summary = "ApolloMultibase is a Multibase lib"
             this.version = rootProject.version.toString()
             this.authors = "IOG"
             this.ios.deploymentTarget = "13.0"
@@ -95,21 +95,16 @@ kotlin {
             framework {
                 this.baseName = currentModuleName
             }
-            // workaround for KMM bug
-            pod("IOHKSecureRandomGeneration") {
-                version = "1.0.0"
-                packageName = "IOHKSecureRandomGeneration1"
-                source = path(project.file("../iOSLibs/IOHKSecureRandomGeneration"))
-            }
         }
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":Hashing"))
-                implementation(project(":secure-random"))
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                implementation(project(":base16"))
+                implementation(project(":base32"))
+                implementation(project(":base58"))
+                implementation(project(":base64"))
             }
         }
         val commonTest by getting {
@@ -203,7 +198,7 @@ tasks.withType<DokkaTask> {
     moduleName.set(project.name)
     moduleVersion.set(rootProject.version.toString())
     description = """
-        This is a Kotlin Multiplatform Library for UUID generation
+        This is a Kotlin Multiplatform Library for Multibase
     """.trimIndent()
     dokkaSourceSets {
         // TODO: Figure out how to include files to the documentations

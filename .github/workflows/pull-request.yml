@@ -29,16 +29,17 @@ jobs:
       DISABLE: COPYPASTE,SPELL
       DISABLE_LINTERS: REPOSITORY_CHECKOV
       GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
-      CHROME_BIN: /usr/bin/google-chrome
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.ATALA_GITHUB_TOKEN }}
           fetch-depth: 0
+
       - name: Mega-Linter
         id: ml
         uses: megalinter/megalinter@v6
+
       - name: Archive production artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v3
@@ -54,8 +55,6 @@ jobs:
         include:
           - os: ubuntu-latest
             os-type: linux
-      # commented until we figure out the root cause for Gradle failing on Linux
-      # TODO: To be investigated
           - os: macos-latest
             os-type: macos
       fail-fast: false
@@ -63,6 +62,7 @@ jobs:
     steps:
       - name: Validate Gradle Wrapper
         run: pwd
+
       - name: Checkout the repo
         uses: actions/checkout@v3
         with:
@@ -106,22 +106,10 @@ jobs:
       - name: Test Kotlin code is properly formatted
         run: ./gradlew ktlintCheck
 
-      - name: Build for iOS, macOS, tvOS, watchOS
-        if: matrix.os-type == 'macos'
+      - name: Build Check All tests
         run: |
           ./gradlew build check allTests --stacktrace
-        # ./gradlew clean build iosX64Test --stacktrace
-        # removed watchosX64Test as GitHub action gets Invalid device: Apple Watch Series 5 - 44mm
-        # no longer supporting them => macosX64Test tvosX64Test
-        # TODO: To be investigated
 
-      - name: Build for JS, Linux, Android, JVM
-        if: matrix.os-type == 'linux'
-        run: |
-          ./gradlew build check allTests --stacktrace
-        env:
-          CHROME_BIN: /usr/bin/google-chrome
-          CI: true
       - name: Build for Windows
         if: matrix.os-type == 'windows'
         run: |

@@ -1,7 +1,8 @@
 APPLY_FIXES: none
-FILTER_REGEX_EXCLUDE: (karma.config.js|polyfill.js|timeout.js|KMMX25519KeyPair.kt)
+FILTER_REGEX_EXCLUDE: (karma.config.js|polyfill.js|timeout.js)
 VALIDATE_ALL_CODEBASE: true
 REPOSITORY_DEVSKIM_DISABLE_ERRORS: true
+MARKDOWN_MARKDOWN_LINK_CHECK_FILTER_REGEX_EXCLUDE: (pull-request.yml|Deployment.yml|badge.svg)
 
 DISABLE_LINTERS:
   - MARKDOWN_MARKDOWN_LINK_CHECK

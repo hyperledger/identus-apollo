@@ -359,9 +359,7 @@ open class BLAKE2B : Digest {
             m[j] = MathHelper.decodeLELong(message, messagePos + j * 8)
         }
         for (round in 0 until ROUNDS) {
-
-            // G apply to columns of internalState:m[blake2b_sigma[round][2 *
-            // blockPos]] /+1
+            // G apply to columns of internalState:m[blake2b_sigma[round][2 * blockPos]] /+1
             g(m[blake2b_sigma[round][0].toInt()], m[blake2b_sigma[round][1].toInt()], 0, 4, 8, 12)
             g(m[blake2b_sigma[round][2].toInt()], m[blake2b_sigma[round][3].toInt()], 1, 5, 9, 13)
             g(m[blake2b_sigma[round][4].toInt()], m[blake2b_sigma[round][5].toInt()], 2, 6, 10, 14)
@@ -389,9 +387,14 @@ open class BLAKE2B : Digest {
     companion object {
         // Blake2b Initialization Vector:
         private val blake2b_IV = longArrayOf(
-            0x6a09e667f3bcc908L, -0x4498517a7b3558c5L, 0x3c6ef372fe94f82bL,
-            -0x5ab00ac5a0e2c90fL, 0x510e527fade682d1L, -0x64fa9773d4c193e1L,
-            0x1f83d9abfb41bd6bL, 0x5be0cd19137e2179L
+            0x6a09e667f3bcc908L,
+            -0x4498517a7b3558c5L,
+            0x3c6ef372fe94f82bL,
+            -0x5ab00ac5a0e2c90fL,
+            0x510e527fade682d1L,
+            -0x64fa9773d4c193e1L,
+            0x1f83d9abfb41bd6bL,
+            0x5be0cd19137e2179L
         )
 
         // Message word permutations:

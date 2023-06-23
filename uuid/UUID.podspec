@@ -1,27 +1,27 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'multibase'
+    spec.name                     = 'uuid'
     spec.version                  = '1.7.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = 'IOG'
     spec.license                  = ''
-    spec.summary                  = 'ApolloMultibase is a Multibase lib'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/ApolloMultibase.framework'
+    spec.summary                  = 'ApolloUUID is a UUID generation lib'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/ApolloUUID.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '13.0'
     spec.osx.deployment_target = '12.0'
     spec.tvos.deployment_target = '13.0'
     spec.watchos.deployment_target = '8.0'
-                
+    spec.dependency 'IOHKSecureRandomGeneration', '1.0.0'
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':Multibase',
-        'PRODUCT_MODULE_NAME' => 'ApolloMultibase',
+        'KOTLIN_PROJECT_PATH' => ':uuid',
+        'PRODUCT_MODULE_NAME' => 'ApolloUUID',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build multibase',
+            :name => 'Build uuid',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
