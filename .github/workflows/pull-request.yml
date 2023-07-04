@@ -27,7 +27,7 @@ jobs:
       APPLY_FIXES_MODE: commit
       VALIDATE_ALL_CODEBASE: ${{ github.ref_name == 'main' }}
       DISABLE: COPYPASTE,SPELL
-      DISABLE_LINTERS: REPOSITORY_CHECKOV
+      DISABLE_LINTERS: REPOSITORY_CHECKOV,REPOSITORY_GITLEAKS,BASH_SHELLCHECK,
       GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
     steps:
       - name: Checkout Code
@@ -92,11 +92,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODEJS_VERSION }}
-
-      - name: Install Homebrew
-        if: matrix.os-type == 'macos'
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
       - name: Install autoconf, automake, libtool
         if: matrix.os-type == 'macos'

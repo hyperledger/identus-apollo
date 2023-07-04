@@ -1,26 +1,49 @@
 package io.iohk.atala.prism.apollo.utils
 
-import com.ionspin.kotlin.bignum.integer.BigInteger
-import com.ionspin.kotlin.bignum.integer.Sign
+import io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
+import kotlin.js.JsName
 
 interface KMMECSecp256k1PrivateKeyCommonStaticInterface {
 
-    fun secp256k1FromBigInteger(d: BigInteger): KMMECSecp256k1PrivateKey
+    fun secp256k1FromByteArray(d: ByteArray): KMMECSecp256k1PrivateKey
 
     @Throws(ECPrivateKeyDecodingException::class)
-    fun secp256k1FromBytes(encoded: ByteArray): KMMECSecp256k1PrivateKey {
-        if (encoded.size != ECConfig.PRIVATE_KEY_BYTE_SIZE) {
-            throw ECPrivateKeyDecodingException("Expected encoded byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}, but got ${encoded.size}")
-        }
-
-        return secp256k1FromBigInteger(BigInteger.fromByteArray(encoded, Sign.POSITIVE))
-    }
+    fun tweak(privateKeyData: ByteArray, derivationPrivateKeyData: ByteArray): KMMECSecp256k1PrivateKey
 }
 
-expect class KMMECSecp256k1PrivateKey : KMMECPrivateKey, Encodable {
-    val d: BigInteger
+@OptIn(ExperimentalJsExport::class)
+@JsExport
+class KMMECSecp256k1PrivateKey : Encodable {
+    val raw: ByteArray
 
-    fun getPublicKey(): KMMECSecp256k1PublicKey
+    @JsName("fromByteArray")
+    constructor(raw: ByteArray) {
+        this.raw = raw
+    }
 
-    companion object : KMMECSecp256k1PrivateKeyCommonStaticInterface
+    fun getPublicKey(): KMMECSecp256k1PublicKey {
+        val pubKeyBytes = Secp256k1Lib().createPublicKey(raw, false)
+        return KMMECSecp256k1PublicKey(pubKeyBytes)
+    }
+
+    override fun getEncoded(): ByteArray {
+        return raw
+    }
+
+    companion object : KMMECSecp256k1PrivateKeyCommonStaticInterface {
+        override fun secp256k1FromByteArray(d: ByteArray): KMMECSecp256k1PrivateKey {
+            return KMMECSecp256k1PrivateKey(d)
+        }
+
+        override fun tweak(
+            privateKeyData: ByteArray,
+            derivationPrivateKeyData: ByteArray
+        ): KMMECSecp256k1PrivateKey {
+            val derivedKey = Secp256k1Lib().derivePrivateKey(privateKeyData, derivationPrivateKeyData)
+            return derivedKey?.let { KMMECSecp256k1PrivateKey(derivedKey) }
+                ?: run { throw ECPrivateKeyDecodingException("Error while tweaking") }
+        }
+    }
 }

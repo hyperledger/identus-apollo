@@ -1,16 +1,26 @@
 package io.iohk.atala.prism.apollo.utils
 
-import com.ionspin.kotlin.bignum.integer.BigInteger
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
-import kotlin.js.JsName
 
 @OptIn(ExperimentalJsExport::class)
 @JsExport
-data class KMMECPoint(val x: KMMECCoordinate, val y: KMMECCoordinate) {
-    @JsName("fromBigIntegersStrings")
-    constructor(x: String, y: String) : this(KMMECCoordinate(BigInteger.parseString(x)), KMMECCoordinate(BigInteger.parseString(y)))
+data class KMMECPoint(val x: ByteArray, val y: ByteArray) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
 
-    @JsName("fromBigIntegers")
-    constructor(x: BigInteger, y: BigInteger) : this(KMMECCoordinate(x), KMMECCoordinate(y))
+        other as KMMECPoint
+
+        if (!x.contentEquals(other.x)) return false
+        if (!y.contentEquals(other.y)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = x.contentHashCode()
+        result = 31 * result + y.contentHashCode()
+        return result
+    }
 }

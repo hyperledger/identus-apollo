@@ -30,12 +30,12 @@ kotlin {
         ios()
 //        tvos()
 //        watchos()
-//        macosX64()
+        macosX64()
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
             iosSimulatorArm64()
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-//            macosArm64()
+            macosArm64()
         }
     }
 //    if (os.isWindows) {
@@ -122,8 +122,8 @@ kotlin {
 //            val tvosTest by getting
 //            val watchosMain by getting
 //            val watchosTest by getting
-//            val macosX64Main by getting
-//            val macosX64Test by getting
+            val macosX64Main by getting
+            val macosX64Test by getting
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
                 val iosSimulatorArm64Main by getting {
                     this.dependsOn(iosMain)
@@ -143,12 +143,12 @@ kotlin {
 //                val watchosSimulatorArm64Test by getting {
 //                    this.dependsOn(watchosTest)
 //                }
-//                val macosArm64Main by getting {
-//                    this.dependsOn(macosX64Main)
-//                }
-//                val macosArm64Test by getting {
-//                    this.dependsOn(macosX64Test)
-//                }
+                val macosArm64Main by getting {
+                    this.dependsOn(macosX64Main)
+                }
+                val macosArm64Test by getting {
+                    this.dependsOn(macosX64Test)
+                }
             }
         }
 //        if (os.isWindows) {
@@ -157,6 +157,17 @@ kotlin {
 //            val mingwX64Main by getting
 //            val mingwX64Test by getting
 //        }
+    }
+
+    if (os.isMacOsX) {
+        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
+            deviceId = "iPhone 14 Plus"
+        }
+        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+                deviceId = "iPhone 14 Plus"
+            }
+        }
     }
 }
 
