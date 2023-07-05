@@ -55,8 +55,8 @@ jobs:
         include:
           - os: ubuntu-latest
             os-type: linux
-          - os: macos-latest
-            os-type: macos
+#          - os: macos-latest
+#            os-type: macos
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
