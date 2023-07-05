@@ -128,6 +128,7 @@ kotlin {
             dependencies {
                 implementation(project(":utils"))
                 implementation(project(":secure-random"))
+                implementation(project(":hashing"))
                 implementation("com.ionspin.kotlin:bignum:0.3.7")
             }
         }
