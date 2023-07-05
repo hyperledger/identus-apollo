@@ -109,12 +109,18 @@ kotlin {
         }
         val jvmMain by getting {
             this.dependsOn(allButJSMain)
+            dependencies {
+                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
+            }
         }
         val jvmTest by getting {
             this.dependsOn(allButJSTest)
         }
         val androidMain by getting {
             this.dependsOn(allButJSMain)
+            dependencies {
+                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
+            }
         }
         val androidTest by getting {
             this.dependsOn(allButJSTest)
@@ -125,6 +131,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(npm("hash.js", "1.1.7"))
+                implementation(npm("@noble/hashes", "1.3.1", true))
 
                 // Polyfill dependencies
                 implementation(npm("stream-browserify", "3.0.0"))
@@ -140,10 +147,10 @@ kotlin {
                 this.dependsOn(allButJSTest)
             }
             val macosX64Main by getting {
-                this.dependsOn(allButJSMain)
+                this.dependsOn(iosMain)
             }
             val macosX64Test by getting {
-                this.dependsOn(allButJSTest)
+                this.dependsOn(iosTest)
             }
 //            val tvosMain by getting
 //            val tvosTest by getting
@@ -151,10 +158,10 @@ kotlin {
 //            val watchosTest by getting
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
                 val iosSimulatorArm64Main by getting {
-                    this.dependsOn(allButJSMain)
+                    this.dependsOn(iosMain)
                 }
                 val iosSimulatorArm64Test by getting {
-                    this.dependsOn(allButJSTest)
+                    this.dependsOn(iosTest)
                 }
 //                val tvosSimulatorArm64Main by getting {
 //                    this.dependsOn(tvosMain)
