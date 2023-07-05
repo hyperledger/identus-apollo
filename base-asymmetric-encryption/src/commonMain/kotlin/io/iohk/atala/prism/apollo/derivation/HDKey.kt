@@ -8,6 +8,9 @@ import io.iohk.atala.prism.apollo.utils.ECConfig
 import io.iohk.atala.prism.apollo.utils.ECPrivateKeyDecodingException
 import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PrivateKey
 
+/**
+ * Represents and HDKey with its derive methods
+ */
 class HDKey(
     val privateKey: ByteArray? = null,
     val publicKey: ByteArray? = null,
@@ -18,11 +21,20 @@ class HDKey(
 
     constructor(seed: ByteArray, depth: Int, childIndex: BigInteger) : this(
         privateKey = seed.sliceArray(IntRange(0, 31)),
-        chainCode = seed.sliceArray(listOf(32)),
+        chainCode = seed.sliceArray(32 until seed.size),
         depth = depth,
         childIndex = childIndex
-    )
+    ) {
+        require(seed.size == 64) {
+            "Seed expected byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}"
+        }
+    }
 
+    /**
+     * Method to derive an HDKey by a path
+     *
+     * @param path value used to derive a key
+     */
     fun derive(path: String): HDKey {
         if (!path.matches(Regex("^[mM].*"))) {
             throw Error("Path must start with \"m\" or \"M\"")
@@ -37,7 +49,6 @@ class HDKey(
             if (m == null || m.size != 3) {
                 throw Error("Invalid child index: $c")
             }
-            // TODO: Null check??
             val idx = m[1].toBigInteger()
             if (idx >= HARDENED_OFFSET) {
                 throw Error("Invalid index")
@@ -48,9 +59,14 @@ class HDKey(
         return child
     }
 
+    /**
+     * Method to derive an HDKey child by index
+     *
+     * @param index value used to derive a key
+     */
     fun deriveChild(index: BigInteger): HDKey {
         if (chainCode == null) {
-            throw Error("No chainCode set")
+            throw Exception("No chainCode set")
         }
         val data = if (index >= HARDENED_OFFSET) {
             val priv = privateKey ?: throw Error("Could not derive hardened child key")
@@ -93,11 +109,11 @@ class HDKey(
     fun getKMMSecp256k1PrivateKey(): KMMECSecp256k1PrivateKey {
         privateKey?.let {
             return KMMECSecp256k1PrivateKey.secp256k1FromBytes(privateKey)
-        } ?: throw Exception("")
+        } ?: throw Exception("Private key not available")
     }
 
     private fun isValidPrivateKey(data: ByteArray): Boolean {
-        return (data.size != ECConfig.PRIVATE_KEY_BYTE_SIZE)
+        return (data.size == ECConfig.PRIVATE_KEY_BYTE_SIZE)
     }
 
     companion object {
