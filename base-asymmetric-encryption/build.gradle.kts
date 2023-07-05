@@ -134,6 +134,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation(project(":base64"))
             }
         }
         val jvmMain by getting {
@@ -160,8 +161,7 @@ kotlin {
             dependencies {
                 implementation(npm("elliptic", "6.5.4"))
                 implementation(npm("@types/elliptic", "6.4.14"))
-                implementation(npm("bip32", "2.0.6"))
-                implementation(npm("bip39", "3.0.4"))
+                implementation(npm("@noble/secp256k1", "2.0.0"))
 
                 // Polyfill dependencies
                 implementation(npm("stream-browserify", "3.0.0"))
