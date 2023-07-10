@@ -1,5 +1,10 @@
 package io.iohk.atala.prism.apollo.utils
 
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
+
+@ExperimentalJsExport
+@JsExport
 interface Ed25519KeyPairGeneration {
-    fun generateEd25519KeyPair(): KMMEdKeyPair
+    fun generateKeyPair(): KMMEdKeyPair
 }

@@ -11,10 +11,10 @@ import platform.Foundation.NSError
 public actual class KMMEdPublicKey(val raw: ByteArray) {
 
     @Throws(RuntimeException::class)
-    public fun verify(data: ByteArray, sig: ByteArray): Boolean {
+    actual fun verify(message: ByteArray, sig: ByteArray): Boolean {
         memScoped {
             val errorRef = alloc<ObjCObjectVar<NSError?>>()
-            val result = Ed25519.verifyWithPublicKey(raw.toNSData(), sig.toNSData(), data.toNSData(), errorRef.ptr)
+            val result = Ed25519.verifyWithPublicKey(raw.toNSData(), sig.toNSData(), message.toNSData(), errorRef.ptr)
             errorRef.value?.let { throw RuntimeException(it.localizedDescription()) }
             return result?.boolValue ?: throw RuntimeException("Null result")
         }

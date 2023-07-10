@@ -11,10 +11,10 @@ import platform.Foundation.NSError
 public actual class KMMEdPrivateKey(val raw: ByteArray = Ed25519.createPrivateKey().toByteArray()) {
 
     @Throws(RuntimeException::class)
-    public fun sign(data: ByteArray): ByteArray {
+    actual fun sign(message: ByteArray): ByteArray {
         memScoped {
             val errorRef = alloc<ObjCObjectVar<NSError?>>()
-            val result = Ed25519.signWithPrivateKey(raw.toNSData(), data.toNSData(), errorRef.ptr)
+            val result = Ed25519.signWithPrivateKey(raw.toNSData(), message.toNSData(), errorRef.ptr)
             errorRef.value?.let { throw RuntimeException(it.localizedDescription()) }
             return result?.toByteArray() ?: throw RuntimeException("Null result")
         }

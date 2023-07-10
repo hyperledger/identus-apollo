@@ -6,9 +6,19 @@ actual class KMMEdKeyPair actual constructor(
 ) {
 
     actual companion object : Ed25519KeyPairGeneration {
-        override fun generateEd25519KeyPair(): KMMEdKeyPair {
+        override fun generateKeyPair(): KMMEdKeyPair {
             val privateKey = KMMEdPrivateKey()
             return KMMEdKeyPair(privateKey, privateKey.publicKey())
         }
+    }
+
+    @Throws(RuntimeException::class)
+    actual fun sign(message: ByteArray): ByteArray {
+        return privateKey.sign(message)
+    }
+
+    @Throws(RuntimeException::class)
+    actual fun verify(message: ByteArray, sig: ByteArray): Boolean {
+        return publicKey.verify(message, sig)
     }
 }
