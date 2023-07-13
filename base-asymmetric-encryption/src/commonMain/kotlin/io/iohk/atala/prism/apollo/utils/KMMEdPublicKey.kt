@@ -1,3 +1,3 @@
 package io.iohk.atala.prism.apollo.utils
 
-expect class KMMEdPublicKey
+public expect class KMMEdPublicKey

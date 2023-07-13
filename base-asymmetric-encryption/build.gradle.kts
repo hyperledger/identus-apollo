@@ -123,6 +123,11 @@ kotlin {
                 packageName = "IOHKSecureRandomGeneration1"
                 source = path(project.file("../iOSLibs/IOHKSecureRandomGeneration"))
             }
+
+            pod("IOHKCryptoKit") {
+                version = "1.0.0"
+                source = path(project.file("../iOSLibs/IOHKCryptoKit"))
+            }
         }
     }
 
