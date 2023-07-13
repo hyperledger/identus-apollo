@@ -190,6 +190,7 @@ open external class ec {
         }
     }
     open class Signature {
+        constructor(r: BN, s: BN)
         open var r: BN
         open var s: BN
         open var recoveryParam: Number?

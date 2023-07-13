@@ -1,10 +1,6 @@
 package io.iohk.atala.prism.apollo.secp256k1
 
 /* ktlint-disable */
-import com.ionspin.kotlin.bignum.integer.BigInteger
-import com.ionspin.kotlin.bignum.integer.Sign
-import io.iohk.atala.prism.apollo.securerandom.SecureRandom
-import io.iohk.atala.prism.apollo.utils.ECConfig
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.DeferScope
 import kotlinx.cinterop.MemScope
@@ -17,11 +13,9 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pin
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.readBytes
-import kotlinx.cinterop.toCValues
-import kotlinx.cinterop.value
-import platform.posix.size_tVar
-// import io.iohk.atala.prism.apollo.kmmsecp256k1.*
+import io.iohk.atala.prism.apollo.utils.toHex
 import secp256k1.*
+
 /* ktlint-disable */
 
 open class Secp256k1 {
@@ -31,20 +25,6 @@ open class Secp256k1 {
             ?: error("Could not create secp256k1 context")
     }
 
-    /**
-     * Generate Secp256k1 KeyPair
-     *
-     * @return pair where first is PrivateKey and second is PublicKey
-     */
-    fun generateKeyPair(): Pair<ByteArray, ByteArray> {
-        var privateKey: ByteArray
-        do {
-            privateKey = SecureRandom.generateSeed(32)
-            val privateKeyInt = BigInteger.fromByteArray(privateKey, Sign.POSITIVE)
-        } while (privateKeyInt >= ECConfig.n)
-        val publicKey = publicKeyCreate(privateKey)
-        return Pair(privateKey, publicKey)
-    }
 
     /**
      * Convert an ECDSA signature to a normalized lower-S form (bitcoin standardness rule).
@@ -69,32 +49,6 @@ open class Secp256k1 {
         memScoped {
             val nPrivkey = toNat(privateKey)
             return secp256k1_ec_seckey_verify(ctx, nPrivkey) == 1
-        }
-    }
-
-    /**
-     * Get the public key corresponding to the given private key.
-     * Returns the uncompressed public key (65 bytes).
-     */
-    fun publicKeyCreate(privateKey: ByteArray): ByteArray {
-        require(privateKey.size == 32)
-        memScoped {
-            val nPrivkey = toNat(privateKey)
-            val nPubkey = alloc<secp256k1_pubkey>()
-            secp256k1_ec_pubkey_create(ctx, nPubkey.ptr, nPrivkey).requireSuccess("secp256k1_ec_pubkey_create() failed")
-            return serializePubkey(nPubkey)
-        }
-    }
-
-    /**
-     * Parse a serialized public key.
-     * Returns the uncompressed public key (65 bytes).
-     */
-    fun publicKeyParse(publicKey: ByteArray): ByteArray {
-        require(publicKey.size == 33 || publicKey.size == 65)
-        memScoped {
-            val nPubkey = allocPublicKey(publicKey)
-            return serializePubkey(nPubkey)
         }
     }
 
@@ -148,71 +102,6 @@ open class Secp256k1 {
     }
 
     /**
-     * Negate the given public key.
-     * Returns the uncompressed public key (65 bytes).
-     */
-    fun publicKeyNegate(publicKey: ByteArray): ByteArray {
-        require(publicKey.size == 33 || publicKey.size == 65)
-        memScoped {
-            val nPubkey = allocPublicKey(publicKey)
-            secp256k1_ec_pubkey_negate(ctx, nPubkey.ptr).requireSuccess("secp256k1_ec_pubkey_negate() failed")
-            return serializePubkey(nPubkey)
-        }
-    }
-
-    /**
-     * Tweak a public key by adding tweak times the generator to it.
-     * Returns the uncompressed public key (65 bytes).
-     */
-    fun publicKeyTweakAdd(publicKey: ByteArray, tweak: ByteArray): ByteArray {
-        require(publicKey.size == 33 || publicKey.size == 65)
-        memScoped {
-            val nPubkey = allocPublicKey(publicKey)
-            val nTweak = toNat(tweak)
-            secp256k1_ec_pubkey_tweak_add(
-                ctx,
-                nPubkey.ptr,
-                nTweak
-            ).requireSuccess("secp256k1_ec_pubkey_tweak_add() failed")
-            return serializePubkey(nPubkey)
-        }
-    }
-
-    /**
-     * Tweak a public key by multiplying it by a tweak value.
-     * Returns the uncompressed public key (65 bytes).
-     */
-    fun publicKeyTweakMul(publicKey: ByteArray, tweak: ByteArray): ByteArray {
-        require(publicKey.size == 33 || publicKey.size == 65)
-        memScoped {
-            val nPubkey = allocPublicKey(publicKey)
-            val nTweak = toNat(tweak)
-            secp256k1_ec_pubkey_tweak_mul(
-                ctx,
-                nPubkey.ptr,
-                nTweak
-            ).requireSuccess("secp256k1_ec_pubkey_tweak_mul() failed")
-            return serializePubkey(nPubkey)
-        }
-    }
-
-    /**
-     * Add a number of public keys together.
-     * Returns the uncompressed public key (65 bytes).
-     */
-    fun publicKeyCombine(publicKeys: Array<ByteArray>): ByteArray {
-        publicKeys.forEach { require(it.size == 33 || it.size == 65) }
-        memScoped {
-            val nPubkeys = publicKeys.map { allocPublicKey(it).ptr }
-            val combined = alloc<secp256k1_pubkey>()
-            secp256k1_ec_pubkey_combine(ctx, combined.ptr, nPubkeys.toCValues(), publicKeys.size.convert()).requireSuccess(
-                "secp256k1_ec_pubkey_combine() failed"
-            )
-            return serializePubkey(combined)
-        }
-    }
-
-    /**
      * Serialize a public key to compact form (33 bytes).
      */
     fun publicKeyCompress(publicKey: ByteArray): ByteArray {
@@ -224,6 +113,50 @@ open class Secp256k1 {
                 compressed
             }
             else -> throw Secp256k1Exception("invalid public key")
+        }
+    }
+
+    /**
+     * Serialize a public key to compact form (33 bytes).
+     */
+    fun verify(publicKey: ByteArray, signature: ByteArray, data: ByteArray): Boolean {
+        return memScoped {
+            // Context
+            val context = secp256k1_context_create((SECP256K1_CONTEXT_SIGN or SECP256K1_CONTEXT_VERIFY).convert())
+
+            // Public Key Alloc
+            val publicKeyPinned = publicKey.asUByteArray().pin()
+            val natPub = publicKeyPinned.addressOf(0)
+            val nPublicKey = alloc<secp256k1_pubkey>()
+
+            if (secp256k1_ec_pubkey_parse(context, nPublicKey.ptr, natPub, publicKey.size.convert()) != 1) {
+                throw Secp256k1Exception("secp256k1_ec_pubkey_parse() failed")
+            }
+
+            // Message
+            val messagePinned = data.toUByteArray().pin()
+            val nMessage = messagePinned.addressOf(0)
+
+            // Signature
+            val sig = alloc<secp256k1_ecdsa_signature>()
+            val sigPinned = signature.toUByteArray().pin()
+            val nativeBytes = sigPinned.addressOf(0)
+            val result = when {
+                signature.size == 64 -> secp256k1_ecdsa_signature_parse_compact(context, sig.ptr, nativeBytes)
+                signature.size < 64 -> throw Secp256k1Exception("Unknown signature format")
+                else -> secp256k1_ecdsa_signature_parse_der(context, sig.ptr, nativeBytes, signature.size.convert())
+            }
+            if (result != 1) {
+                throw Secp256k1Exception("cannot parse signature (size = ${signature.size} sig = ${signature.toHex()}")
+            }
+
+            this.defer {
+                secp256k1_context_destroy(context)
+                publicKeyPinned.unpin()
+                messagePinned.unpin()
+                sigPinned.unpin()
+            }
+            return secp256k1_ecdsa_verify(context, sig.ptr, nMessage, nPublicKey.ptr) == 1
         }
     }
 
@@ -279,20 +212,6 @@ open class Secp256k1 {
             pubkey.size.convert()
         ).requireSuccess("secp256k1_ec_pubkey_parse() failed")
         return pub
-    }
-
-    protected fun MemScope.serializePubkey(pubkey: secp256k1_pubkey): ByteArray {
-        val serialized = allocArray<UByteVar>(65)
-        val outputLen = alloc<size_tVar>()
-        outputLen.value = 65.convert()
-        secp256k1_ec_pubkey_serialize(
-            ctx,
-            serialized,
-            outputLen.ptr,
-            pubkey.ptr,
-            SECP256K1_EC_UNCOMPRESSED.convert()
-        ).requireSuccess("secp256k1_ec_pubkey_serialize() failed")
-        return serialized.readBytes(outputLen.value.convert())
     }
 
     @OptIn(ExperimentalUnsignedTypes::class)

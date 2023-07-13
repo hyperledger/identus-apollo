@@ -28,9 +28,11 @@ kotlin {
     }
     if (os.isMacOsX) {
         ios()
-//        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-//            iosSimulatorArm64()
-//        }
+        macosX64()
+        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+            iosSimulatorArm64()
+            macosArm64()
+        }
     }
     js(IR) {
         this.moduleName = currentModuleName
@@ -48,9 +50,9 @@ kotlin {
                 this.output.libraryTarget = Target.VAR
             }
             this.commonWebpackConfig {
-                this.cssSupport {
-                    this.enabled = true
-                }
+//                this.cssSupport {
+//                    enabled(true)
+//                }
             }
             this.testTask {
                 this.useKarma {
@@ -112,14 +114,35 @@ kotlin {
         if (os.isMacOsX) {
             val iosMain by getting
             val iosTest by getting
-//            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-//                val iosSimulatorArm64Main by getting {
-//                    this.dependsOn(iosMain)
-//                }
-//                val iosSimulatorArm64Test by getting {
-//                    this.dependsOn(iosTest)
-//                }
-//            }
+
+            val macosX64Main by getting
+            val macosX64Test by getting
+
+            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+                val iosSimulatorArm64Main by getting {
+                    this.dependsOn(iosMain)
+                }
+                val iosSimulatorArm64Test by getting {
+                    this.dependsOn(iosTest)
+                }
+                val macosArm64Main by getting {
+                    this.dependsOn(macosX64Main)
+                }
+                val macosArm64Test by getting {
+                    this.dependsOn(macosX64Test)
+                }
+            }
+        }
+    }
+
+    if (os.isMacOsX) {
+        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
+            deviceId = "iPhone 14 Plus"
+        }
+        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+                deviceId = "iPhone 14 Plus"
+            }
         }
     }
 }
