@@ -8,6 +8,7 @@ val os: OperatingSystem = OperatingSystem.current()
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
     id("com.android.library")
     id("org.jetbrains.dokka")
 }
@@ -28,37 +29,15 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    if (os.isMacOsX) {
-        ios()
-        macosX64()
+    ios()
+    macosX64()
 
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            iosSimulatorArm64()
+    if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+        iosSimulatorArm64()
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-            macosArm64()
-        }
+        macosArm64()
     }
-//    if (os.isMacOsX) {
-//        ios {
-//            // secp256k1CInterop("ios")
-//        }
-// //        tvos()
-// //        watchos()
-// //        macosX64()
-// //        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-// //            iosSimulatorArm64 {
-// //                secp256k1CInterop("ios")
-// //            }
-// //            tvosSimulatorArm64()
-// //            watchosSimulatorArm64()
-// //            macosArm64()
-// //        }
-//    }
-//    if (os.isWindows) {
-//        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
-//        mingwX64()
-//    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
@@ -98,6 +77,16 @@ kotlin {
                 }
             }
         }
+    }
+
+    multiplatformSwiftPackage {
+        packageName("Apollo")
+        swiftToolsVersion("5.3")
+        targetPlatforms {
+            iOS { v("13") }
+            macOS { v("11") }
+        }
+        outputDirectory(File(rootDir, "base-asymmetric-encryption/build/packages/ApolloSwift"))
     }
 
     if (os.isMacOsX) {
@@ -191,32 +180,30 @@ kotlin {
         }
         val jsTest by getting
 
-        if (os.isMacOsX) {
-            val iosMain by getting {
-                dependencies {
-                    implementation(project(":secp256k1-kmp"))
-                }
+        val iosMain by getting {
+            dependencies {
+                implementation(project(":secp256k1-kmp"))
             }
+        }
 
-            val iosTest by getting {
-                this.dependsOn(commonTest)
-            }
-            val macosX64Main by getting {
+        val iosTest by getting {
+            this.dependsOn(commonTest)
+        }
+        val macosX64Main by getting {
+            this.dependsOn(iosMain)
+        }
+        val macosX64Test by getting {
+            this.dependsOn(iosTest)
+        }
+        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+            val iosSimulatorArm64Main by getting {
                 this.dependsOn(iosMain)
             }
-            val macosX64Test by getting {
+            val iosSimulatorArm64Test by getting {
                 this.dependsOn(iosTest)
             }
-            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-                val iosSimulatorArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
-                val macosArm64Main by getting { this.dependsOn(macosX64Main) }
-                val macosArm64Test by getting { this.dependsOn(macosX64Test) }
-            }
+            val macosArm64Main by getting { this.dependsOn(macosX64Main) }
+            val macosArm64Test by getting { this.dependsOn(macosX64Test) }
         }
 //        if (os.isWindows) {
 //            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
