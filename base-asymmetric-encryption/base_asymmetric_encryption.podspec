@@ -12,6 +12,7 @@ Pod::Spec.new do |spec|
     spec.osx.deployment_target = '12.0'
     spec.tvos.deployment_target = '13.0'
     spec.watchos.deployment_target = '8.0'
+    spec.dependency 'IOHKCryptoKit', '1.0.0'
     spec.dependency 'IOHKRSA', '1.0.0'
     spec.dependency 'IOHKSecureRandomGeneration', '1.0.0'
                 
