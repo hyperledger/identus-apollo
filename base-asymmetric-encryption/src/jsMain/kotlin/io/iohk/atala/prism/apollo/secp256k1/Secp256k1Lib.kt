@@ -1,7 +1,6 @@
 package io.iohk.atala.prism.apollo.secp256k1
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
-import com.ionspin.kotlin.bignum.integer.Sign
 import io.iohk.atala.prism.apollo.hashing.SHA256
 import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import io.iohk.atala.prism.apollo.utils.ECConfig
@@ -17,8 +16,10 @@ actual class Secp256k1Lib actual constructor() {
     }
 
     actual fun derivePrivateKey(privateKeyBytes: ByteArray, derivedPrivateKeyBytes: ByteArray): ByteArray? {
-        val privKey = BigInteger.fromByteArray(privateKeyBytes, Sign.POSITIVE)
-        val derivedPrivKey = BigInteger.fromByteArray(derivedPrivateKeyBytes, Sign.POSITIVE)
+        val privKeyString = privateKeyBytes.toHexString()
+        val derivedPrivKeyString = derivedPrivateKeyBytes.toHexString()
+        val privKey = BigInteger.parseString(privKeyString, 16)
+        val derivedPrivKey = BigInteger.parseString(derivedPrivKeyString, 16)
 
         val added = (privKey + derivedPrivKey) % ECConfig.n
 
