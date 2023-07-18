@@ -30,8 +30,7 @@ final class MD4 : MDHelper(true, 8), HMACInterface {
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         for (i in 0..3) MathHelper.encodeLEInt(
-            currentVal[i],
-            output,
+            currentVal[i], output,
             outputOffset + 4 * i
         )
     }

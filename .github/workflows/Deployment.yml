@@ -1,22 +1,17 @@
 name: Deployment
-
 defaults:
   run:
     shell: bash
-
 concurrency:
-  group: ${{ github.head_ref }}${{ github.ref }}
+  group: '${{ github.head_ref }}${{ github.ref }}'
   cancel-in-progress: true
-
 env:
   JAVA_VERSION: 11
   NODEJS_VERSION: 16.17.0
-  ATALA_GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
-  ATALA_GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
-
-on:
+  ATALA_GITHUB_ACTOR: '${{ secrets.ATALA_GITHUB_ACTOR }}'
+  ATALA_GITHUB_TOKEN: '${{ secrets.ATALA_GITHUB_TOKEN }}'
+'on':
   workflow_dispatch: null
-
 jobs:
   deployment:
     strategy:
@@ -24,16 +19,14 @@ jobs:
         include:
           - os: macos-latest
             os-type: macos
-    runs-on: ${{ matrix.os }}
+    runs-on: '${{ matrix.os }}'
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
         with:
           submodules: recursive
-
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
-
       - name: Cache gradle
         uses: actions/cache@v3
         with:
@@ -41,33 +34,28 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
             ~/.konan
-          key: "${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}"
+          key: '${{ runner.os }}-gradle-${{ hashFiles(''**/*.gradle*'') }}'
           restore-keys: |
             ${{ runner.os }}-gradle-
-
-      - name: "Install Java ${{ env.JAVA_VERSION }}"
+      - name: 'Install Java ${{ env.JAVA_VERSION }}'
         uses: actions/setup-java@v3
         with:
-          java-version: "${{ env.JAVA_VERSION }}"
+          java-version: '${{ env.JAVA_VERSION }}'
           distribution: zulu
-
-      - name: "Install NodeJS ${{ env.NODEJS_VERSION }}"
+      - name: 'Install NodeJS ${{ env.NODEJS_VERSION }}'
         if: matrix.os-type == 'linux'
         uses: actions/setup-node@v3
         with:
-          node-version: "${{ env.NODEJS_VERSION }}"
-
+          node-version: '${{ env.NODEJS_VERSION }}'
       - name: Install Homebrew
         if: matrix.os-type == 'macos'
         run: >
           /bin/bash -c "$(curl -fsSL
           https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-      - name: "Install autoconf, automake, libtool"
+      - name: 'Install autoconf, automake, libtool'
         if: matrix.os-type == 'macos'
         run: |
           brew install autoconf automake libtool
-
       - name: Publish Maven artifacts to Github Packages
         id: publish
         run: |
