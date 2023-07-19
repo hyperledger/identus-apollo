@@ -5,7 +5,6 @@ import io.iohk.atala.prism.apollo.base64.base64PadDecodedBytes
 import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
 import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
 import io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib
-import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -30,7 +29,7 @@ class Secp256k1LibTests {
     }
 
     @Test
-    fun testSignature() = runTest {
+    fun testSignature() {
         val privKeyBase64 = "N_JFgvYaReyRXwassz5FHg33A4I6dczzdXrjdHGksmg"
         val message = "Test"
 

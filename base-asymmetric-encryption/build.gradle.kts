@@ -136,9 +136,10 @@ kotlin {
             dependencies {
                 implementation(project(":utils"))
                 implementation(project(":secure-random"))
+                implementation(project(":hashing"))
                 implementation("com.ionspin.kotlin:bignum:0.3.7")
                 implementation(project(":base64"))
-                implementation(project(":hashing"))
+                implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
             }
         }
         val commonTest by getting {
