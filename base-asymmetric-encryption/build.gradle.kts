@@ -172,9 +172,12 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
+                implementation(project(":base64"))
+
                 implementation(npm("elliptic", "6.5.4"))
                 implementation(npm("@types/elliptic", "6.4.14"))
                 implementation(npm("@noble/secp256k1", "2.0.0"))
+                implementation(npm("@stablelib/x25519", "1.0.3"))
 
                 // Polyfill dependencies
                 implementation(npm("stream-browserify", "3.0.0"))
