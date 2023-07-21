@@ -9,7 +9,7 @@ actual class KMMX25519KeyPair actual constructor(
     actual val publicKey: KMMX25519PublicKey
 ) {
     actual companion object : X25519KeyPairGeneration {
-        override fun generateX25519KeyPair(): KMMX25519KeyPair {
+        override fun generateKeyPair(): KMMX25519KeyPair {
             val provider = BouncyCastleProvider()
             val kpg = KeyPairGenerator.getInstance("X25519", provider)
             kpg.initialize(XDHParameterSpec(XDHParameterSpec.X25519))
