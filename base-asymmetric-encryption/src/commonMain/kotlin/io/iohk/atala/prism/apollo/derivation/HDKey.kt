@@ -6,12 +6,14 @@ import io.iohk.atala.prism.apollo.utils.ECConfig
 import io.iohk.atala.prism.apollo.utils.ECPrivateKeyDecodingException
 import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PrivateKey
 import org.kotlincrypto.macs.hmac.sha2.HmacSHA512
+import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
 /**
  * Represents and HDKey with its derive methods
  */
+@OptIn(ExperimentalJsExport::class)
 @JsExport
 class HDKey(
     val privateKey: ByteArray? = null,
