@@ -1,8 +1,20 @@
 package io.iohk.atala.prism.apollo.utils
 
-actual class KMMEdPublicKey {
+import io.iohk.atala.prism.apollo.utils.external.eddsa
+import node.buffer.Buffer
+
+@ExperimentalJsExport
+@JsExport
+actual class KMMEdPublicKey(val raw: ByteArray) {
+    private val keyPair: eddsa.KeyPair
+
     init {
-        // TODO: we will use this lib for JS https://github.com/indutny/elliptic
-        throw NotImplementedError("Ed25519 is yet to be implemented in JS")
+        val ed25519 = eddsa("ed25519")
+
+        keyPair = ed25519.keyFromPublic(raw)
+    }
+
+    actual fun verify(message: ByteArray, sig: ByteArray): Boolean {
+        return keyPair.verify(Buffer.from(message), sig.decodeToString())
     }
 }

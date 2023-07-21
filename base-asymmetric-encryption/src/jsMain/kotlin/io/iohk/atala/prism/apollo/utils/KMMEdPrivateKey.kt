@@ -1,8 +1,22 @@
 package io.iohk.atala.prism.apollo.utils
 
-actual class KMMEdPrivateKey {
+import io.iohk.atala.prism.apollo.utils.external.eddsa
+import node.buffer.Buffer
+
+@ExperimentalJsExport
+@JsExport
+actual class KMMEdPrivateKey(val raw: ByteArray) {
+    private val keyPair: eddsa.KeyPair
+
     init {
-        // TODO: we will use this lib for JS https://github.com/indutny/elliptic
-        throw NotImplementedError("Ed25519 is yet to be implemented in JS")
+        val ed25519 = eddsa("ed25519")
+
+        keyPair = ed25519.keyFromSecret(raw)
+    }
+
+    actual fun sign(message: ByteArray): ByteArray {
+        val sig = keyPair.sign(Buffer.from(message))
+
+        return sig.toHex().encodeToByteArray()
     }
 }
