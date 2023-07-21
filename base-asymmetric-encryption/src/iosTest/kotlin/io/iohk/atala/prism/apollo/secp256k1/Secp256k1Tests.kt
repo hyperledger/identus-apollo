@@ -253,7 +253,6 @@ class Secp256k1Tests {
 
     @Test
     fun multiplyPublicKeyWithTweak() {
-        val secp256k1 = Secp256k1()
         val pub = Hex.decode("040A629506E1B65CD9D2E0BA9C75DF9C4FED0DB16DC9625ED14397F0AFC836FAE595DC53F8B0EFE61E703075BD9B143BAC75EC0E19F82A2208CAEB32BE53414C40".lowercase())
         val tweak = Hex.decode("3982F19BEF1615BCCFBB05E321C10E1D4CBA3DF0E841C2E41EEB6016347653C3".lowercase())
         val tweakedPub = Secp256k1Native.pubKeyTweakMul(pub, tweak)
