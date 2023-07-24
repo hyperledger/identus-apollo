@@ -1,9 +1,14 @@
 package io.iohk.atala.prism.apollo.utils
 
-import java.security.PrivateKey
+import org.bouncycastle.crypto.params.Ed25519PrivateKeyParameters
+import org.bouncycastle.crypto.signers.Ed25519Signer
 
-actual class KMMEdPrivateKey(val nativeValue: PrivateKey) {
+actual class KMMEdPrivateKey(val raw: ByteArray) {
     actual fun sign(message: ByteArray): ByteArray {
-        throw NotImplementedError("Not implemented")
+        val privateKeyParameters = Ed25519PrivateKeyParameters(raw, 0)
+        val signer = Ed25519Signer()
+        signer.init(true, privateKeyParameters)
+        signer.update(message, 0, message.size)
+        return signer.generateSignature()
     }
 }
