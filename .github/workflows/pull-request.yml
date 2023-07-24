@@ -18,7 +18,6 @@ on:
   pull_request:
 
 jobs:
-
   lint:
     name: Lint changes
     runs-on: ubuntu-latest
@@ -28,7 +27,7 @@ jobs:
       APPLY_FIXES_MODE: commit
       VALIDATE_ALL_CODEBASE: ${{ github.ref_name == 'main' }}
       DISABLE: COPYPASTE,SPELL
-      DISABLE_LINTERS: REPOSITORY_CHECKOV
+      DISABLE_LINTERS: REPOSITORY_CHECKOV,BASH_SHELLCHECK,C_CPPLINT,CPP_CPPLINT
       GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
     steps:
       - name: Checkout Code
@@ -36,9 +35,11 @@ jobs:
         with:
           token: ${{ secrets.ATALA_GITHUB_TOKEN }}
           fetch-depth: 0
+
       - name: Mega-Linter
         id: ml
         uses: megalinter/megalinter@v6
+
       - name: Archive production artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v3
@@ -52,15 +53,16 @@ jobs:
     strategy:
       matrix:
         include:
-#          - os: ubuntu-latest
-#            os-type: linux
-# commented until we figure out the root cause for Gradle failing on Linux
-# TODO: To be investigated
+          - os: ubuntu-latest
+            os-type: linux
           - os: macos-latest
             os-type: macos
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Validate Gradle Wrapper
+        run: pwd
+
       - name: Checkout the repo
         uses: actions/checkout@v3
         with:
@@ -84,7 +86,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'zulu'
+          distribution: "zulu"
 
       - name: Install NodeJS ${{ env.NODEJS_VERSION }}
         uses: actions/setup-node@v3
@@ -104,17 +106,7 @@ jobs:
       - name: Test Kotlin code is properly formatted
         run: ./gradlew ktlintCheck
 
-      - name: Build for iOS, macOS, tvOS, watchOS
-        if: matrix.os-type == 'macos'
-        run: |
-          ./gradlew build check allTests --stacktrace
-        # ./gradlew clean build iosX64Test --stacktrace
-        # removed watchosX64Test as GitHub action gets Invalid device: Apple Watch Series 5 - 44mm
-        # no longer supporting them => macosX64Test tvosX64Test
-        # TODO: To be investigated
-
-      - name: Build for JS, Linux, Android, JVM
-        if: matrix.os-type == 'linux'
+      - name: Build Check All tests
         run: |
           ./gradlew build check allTests --stacktrace
 

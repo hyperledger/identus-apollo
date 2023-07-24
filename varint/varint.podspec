@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'varint'
-    spec.version                  = '1.6.0-alpha'
+    spec.version                  = '1.7.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = 'IOG'

@@ -6,14 +6,15 @@
 /* ktlint-disable */
 package io.iohk.atala.prism.apollo.utils.external
 
+import node.buffer.Buffer
+import org.khronos.webgl.Uint8Array
 import io.iohk.atala.prism.apollo.utils.external.eddsa.KeyPair as _eddsa_KeyPair
 import io.iohk.atala.prism.apollo.utils.external.eddsa.KeyPairOptions as _eddsa_KeyPairOptions
 import io.iohk.atala.prism.apollo.utils.external.eddsa.Signature as _eddsa_Signature
-import org.khronos.webgl.Uint8Array
 
 external var utils: Any
 
-external var rand: Any
+external fun rand(len: Number): Uint8Array
 
 external var version: Number
 
@@ -190,6 +191,7 @@ open external class ec {
         }
     }
     open class Signature {
+        constructor(r: BN, s: BN)
         open var r: BN
         open var s: BN
         open var recoveryParam: Number?
@@ -223,9 +225,11 @@ open external class eddsa(name: String /* "ed25519" */) {
     open fun verify(message: String, sig: _eddsa_Signature, pub: Any /* String | Buffer | eddsa.Point | eddsa.KeyPair */): Boolean
     open fun hashInt(): BN
     open fun keyFromPublic(pub: String): _eddsa_KeyPair
+    open fun keyFromPublic(pub: Any): _eddsa_KeyPair
     open fun keyFromPublic(pub: _eddsa_KeyPair): _eddsa_KeyPair
     open fun keyFromPublic(pub: base.BasePoint): _eddsa_KeyPair
     open fun keyFromSecret(secret: String): _eddsa_KeyPair
+    open fun keyFromSecret(secret: ByteArray): _eddsa_KeyPair
     open fun makeSignature(sig: _eddsa_Signature): _eddsa_Signature
     open fun makeSignature(sig: String): _eddsa_Signature
     open fun decodePoint(bytes: String): base.BasePoint
@@ -238,14 +242,17 @@ open external class eddsa(name: String /* "ed25519" */) {
     open class Signature {
         constructor(eddsa: eddsa, sig: _eddsa_Signature)
         constructor(eddsa: eddsa, sig: String)
+        open fun toBytes(): Buffer
         open fun toHex(): String
     }
     open class KeyPair(eddsa: eddsa, params: _eddsa_KeyPairOptions) {
         open fun sign(message: String): _eddsa_Signature
+        open fun sign(message: Buffer): _eddsa_Signature
         open fun verify(message: String, sig: _eddsa_Signature): Boolean
         open fun verify(message: String, sig: String): Boolean
-        open fun getSecret(enc: String /* "hex" */): String
-        open fun getPublic(enc: String /* "hex" */): String
+        open fun verify(message: Buffer, sig: Any): Boolean
+        open fun getSecret(enc: String? = definedExternally /* "hex" */): String
+        open fun getPublic(enc: String? = definedExternally /* "hex" */): ByteArray
 
         companion object {
             fun fromPublic(eddsa: eddsa, pub: String): _eddsa_KeyPair
