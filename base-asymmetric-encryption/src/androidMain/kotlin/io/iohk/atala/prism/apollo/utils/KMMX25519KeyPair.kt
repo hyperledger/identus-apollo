@@ -15,8 +15,8 @@ actual class KMMX25519KeyPair actual constructor(
             kpg.initialize(XDHParameterSpec(XDHParameterSpec.X25519))
             val javaKeyPair = kpg.generateKeyPair()
             return KMMX25519KeyPair(
-                KMMX25519PrivateKey(javaKeyPair.private),
-                KMMX25519PublicKey(javaKeyPair.public)
+                KMMX25519PrivateKey(javaKeyPair.private.encoded),
+                KMMX25519PublicKey(javaKeyPair.public.encoded)
             )
         }
     }
