@@ -1,33 +1,21 @@
 package io.iohk.atala.prism.apollo.utils
 
-import cocoapods.IOHKCryptoKit.Ed25519
-import kotlinx.cinterop.ObjCObjectVar
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.ptr
-import kotlinx.cinterop.value
-import platform.Foundation.NSError
+import swift.cryptoKit.Ed25519
 
-public actual class KMMEdPrivateKey(val raw: ByteArray = Ed25519.createPrivateKey().toByteArray()) {
+public actual class KMMEdPrivateKey(val raw: ByteArray = ByteArray(0)) {
 
     @Throws(RuntimeException::class)
     actual fun sign(message: ByteArray): ByteArray {
-        memScoped {
-            val errorRef = alloc<ObjCObjectVar<NSError?>>()
-            val result = Ed25519.signWithPrivateKey(raw.toNSData(), message.toNSData(), errorRef.ptr)
-            errorRef.value?.let { throw RuntimeException(it.localizedDescription()) }
-            return result?.toByteArray() ?: throw RuntimeException("Null result")
-        }
+        val result = Ed25519.signWithPrivateKey(raw.toNSData(), message.toNSData())
+        result.failure()?.let { throw RuntimeException(it.localizedDescription()) }
+        return result.success()?.toByteArray() ?: throw RuntimeException("Null result")
     }
 
     @Throws(RuntimeException::class)
     public fun publicKey(): KMMEdPublicKey {
-        memScoped {
-            val errorRef = alloc<ObjCObjectVar<NSError?>>()
-            val result = Ed25519.publicKeyWithPrivateKey(raw.toNSData(), errorRef.ptr)
-            errorRef.value?.let { throw RuntimeException(it.localizedDescription()) }
-            val publicRaw = result?.toByteArray() ?: throw RuntimeException("Null result")
-            return KMMEdPublicKey(publicRaw)
-        }
+        val result = Ed25519.publicKeyWithPrivateKey(raw.toNSData())
+        result.failure()?.let { throw RuntimeException(it.localizedDescription()) }
+        val publicRaw = result.success()?.toByteArray() ?: throw RuntimeException("Null result")
+        return KMMEdPublicKey(publicRaw)
     }
 }

@@ -7,7 +7,6 @@ val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.dokka")
 }
@@ -58,9 +57,9 @@ kotlin {
                 this.output.libraryTarget = Target.VAR
             }
             this.commonWebpackConfig {
-                this.cssSupport {
-                    this.enabled = true
-                }
+//                this.cssSupport {
+//                    this.enabled = true
+//                }
             }
             this.testTask {
                 this.useKarma {
@@ -73,21 +72,6 @@ kotlin {
                 this.useKarma {
                     this.useChromeHeadless()
                 }
-            }
-        }
-    }
-
-    if (os.isMacOsX) {
-        cocoapods {
-            this.summary = "ApolloVarInt is VarInt"
-            this.version = rootProject.version.toString()
-            this.authors = "IOG"
-            this.ios.deploymentTarget = "13.0"
-            this.osx.deploymentTarget = "12.0"
-            this.tvos.deploymentTarget = "13.0"
-            this.watchos.deploymentTarget = "8.0"
-            framework {
-                this.baseName = currentModuleName
             }
         }
     }
@@ -124,12 +108,6 @@ kotlin {
 //            val tvosTest by getting
 //            val watchosMain by getting
 //            val watchosTest by getting
-            val macosX64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val macosX64Test by getting {
-                this.dependsOn(iosTest)
-            }
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
                 val iosSimulatorArm64Main by getting {
                     this.dependsOn(iosMain)
@@ -150,10 +128,10 @@ kotlin {
 //                    this.dependsOn(watchosTest)
 //                }
                 val macosArm64Main by getting {
-                    this.dependsOn(macosX64Main)
+                    this.dependsOn(iosMain)
                 }
                 val macosArm64Test by getting {
-                    this.dependsOn(macosX64Test)
+                    this.dependsOn(iosTest)
                 }
             }
         }

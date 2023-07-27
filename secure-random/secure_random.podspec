@@ -3,20 +3,17 @@ Pod::Spec.new do |spec|
     spec.version                  = '1.7.0-alpha'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
-    spec.authors                  = 'IOG'
+    spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'ApolloSecureRandom is a secure random generation module'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/ApolloSecureRandom.framework'
+    spec.summary                  = ''
+    spec.vendored_frameworks      = 'build/cocoapods/framework/secure_random.framework'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target = '13.0'
-    spec.osx.deployment_target = '12.0'
-    spec.tvos.deployment_target = '13.0'
-    spec.watchos.deployment_target = '8.0'
-    spec.dependency 'IOHKSecureRandomGeneration', '1.0.0'
+                
+                
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':secure-random',
-        'PRODUCT_MODULE_NAME' => 'ApolloSecureRandom',
+        'PRODUCT_MODULE_NAME' => 'secure_random',
     }
                 
     spec.script_phases = [

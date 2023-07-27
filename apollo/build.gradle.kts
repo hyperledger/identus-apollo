@@ -7,7 +7,6 @@ val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.dokka")
 }
@@ -28,7 +27,6 @@ kotlin {
     }
     if (os.isMacOsX) {
         ios()
-        macosX64()
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
             iosSimulatorArm64()
             macosArm64()
@@ -69,21 +67,6 @@ kotlin {
         }
     }
 
-    if (os.isMacOsX) {
-        cocoapods {
-            this.summary = "Apollo"
-            this.version = rootProject.version.toString()
-            this.authors = "IOG"
-            this.ios.deploymentTarget = "13.0"
-            this.osx.deploymentTarget = "12.0"
-            this.tvos.deploymentTarget = "13.0"
-            this.watchos.deploymentTarget = "8.0"
-            framework {
-                this.baseName = currentModuleName
-            }
-        }
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -115,9 +98,6 @@ kotlin {
             val iosMain by getting
             val iosTest by getting
 
-            val macosX64Main by getting
-            val macosX64Test by getting
-
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
                 val iosSimulatorArm64Main by getting {
                     this.dependsOn(iosMain)
@@ -125,12 +105,8 @@ kotlin {
                 val iosSimulatorArm64Test by getting {
                     this.dependsOn(iosTest)
                 }
-                val macosArm64Main by getting {
-                    this.dependsOn(macosX64Main)
-                }
-                val macosArm64Test by getting {
-                    this.dependsOn(macosX64Test)
-                }
+                val macosArm64Main by getting
+                val macosArm64Test by getting
             }
         }
     }
