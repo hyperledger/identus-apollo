@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.7.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("maven-publish")
+    id("org.jetbrains.kotlinx.kover") version "0.7.2"
 }
 
 buildscript {
@@ -22,6 +23,28 @@ buildscript {
 
 version = "1.7.0-alpha"
 group = "io.iohk.atala.prism.apollo"
+
+dependencies {
+    kover(project(":apollo"))
+    kover(project(":hashing"))
+    kover(project(":uuid"))
+    kover(project(":base16"))
+    kover(project(":base32"))
+    kover(project(":base58"))
+    kover(project(":base64"))
+    kover(project(":multibase"))
+    kover(project(":utils"))
+    kover(project(":base-symmetric-encryption"))
+    kover(project(":secure-random"))
+    kover(project(":aes"))
+    kover(project(":base-asymmetric-encryption"))
+//    kover(project(":rsa"))
+//    kover(project(":ecdsa"))
+    kover(project(":varint"))
+//    kover(project(":jose"))
+    kover(project("secp256k1-kmp"))
+    kover(project("secp256k1-kmp:native"))
+}
 
 allprojects {
     version = "1.7.0-alpha"
@@ -51,6 +74,7 @@ allprojects {
 
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = "org.jetbrains.kotlinx.kover")
 
     ktlint {
         verbose.set(true)
@@ -132,4 +156,12 @@ fun Project.getLocalProperty(key: String, file: String = "local.properties"): St
     val value = properties.getProperty(key, "null")
 
     return if (value == "null") null else value
+}
+
+koverReport {
+    filters {
+        excludes {
+            classes("io.iohk.atala.prism.apollo.utils.bip39.wordlists.*")
+        }
+    }
 }
