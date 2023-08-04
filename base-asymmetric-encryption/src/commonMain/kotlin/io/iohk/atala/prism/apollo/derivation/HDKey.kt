@@ -10,6 +10,55 @@ import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
+@OptIn(ExperimentalJsExport::class)
+@JsExport
+class BigIntegerWrapper {
+    internal val value: BigInteger
+
+    @JsName("initFromInt")
+    constructor(int: Int) {
+        value = BigInteger(int)
+    }
+
+    @JsName("initFromLong")
+    constructor(long: Long) {
+        value = BigInteger(long)
+    }
+
+    @JsName("initFromShort")
+    constructor(short: Short) {
+        value = BigInteger(short)
+    }
+
+    @JsName("initFromByte")
+    constructor(byte: Byte) {
+        value = BigInteger(byte)
+    }
+
+    @JsName("initFromString")
+    constructor(string: String) {
+        value = BigInteger.parseString(string)
+    }
+
+    @JsName("initFromBigInteger")
+    constructor(bigInteger: BigInteger) {
+        value = bigInteger
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as BigIntegerWrapper
+
+        return value == other.value
+    }
+
+    override fun hashCode(): Int {
+        return value.hashCode()
+    }
+}
+
 /**
  * Represents and HDKey with its derive methods
  */
@@ -20,15 +69,27 @@ class HDKey(
     val publicKey: ByteArray? = null,
     val chainCode: ByteArray? = null,
     val depth: Int = 0,
-    val childIndex: BigInteger = BigInteger(0),
+    val childIndex: BigIntegerWrapper = BigIntegerWrapper(0)
 ) {
 
     @JsName("InitFromSeed")
-    constructor(seed: ByteArray, depth: Int, childIndex: BigInteger) : this(
+    constructor(seed: ByteArray, depth: Int, childIndex: BigIntegerWrapper) : this(
         privateKey = sha512(key = "Bitcoin seed".encodeToByteArray(), input = seed).sliceArray(IntRange(0, 31)),
         chainCode = sha512("Bitcoin seed".encodeToByteArray(), seed).sliceArray(32 until seed.size),
         depth = depth,
         childIndex = childIndex
+    ) {
+        require(seed.size == 64) {
+            "Seed expected byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}"
+        }
+    }
+
+    @JsName("InitFromSeedFromBigIntegerString")
+    constructor(seed: ByteArray, depth: Int, childIndex: Int) : this(
+        privateKey = sha512(key = "Bitcoin seed".encodeToByteArray(), input = seed).sliceArray(IntRange(0, 31)),
+        chainCode = sha512("Bitcoin seed".encodeToByteArray(), seed).sliceArray(32 until seed.size),
+        depth = depth,
+        childIndex = BigIntegerWrapper(childIndex)
     ) {
         require(seed.size == 64) {
             "Seed expected byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}"
@@ -59,7 +120,7 @@ class HDKey(
                 throw Error("Invalid index")
             }
             val finalIdx = if (m[2] == "'") idx + HARDENED_OFFSET else idx
-            child = child.deriveChild(finalIdx)
+            child = child.deriveChild(BigIntegerWrapper(finalIdx))
         }
         return child
     }
@@ -69,7 +130,8 @@ class HDKey(
      *
      * @param index value used to derive a key
      */
-    fun deriveChild(index: BigInteger): HDKey {
+    fun deriveChild(index: BigIntegerWrapper): HDKey {
+        val index = index.value
         if (chainCode == null) {
             throw Exception("No chainCode set")
         }
@@ -103,11 +165,21 @@ class HDKey(
                 privateKey = opt.privateKey,
                 chainCode = opt.chainCode,
                 depth = opt.depth,
-                childIndex = opt.index
+                childIndex = BigIntegerWrapper(opt.index)
             )
         } catch (err: Error) {
-            this.deriveChild(index + 1)
+            this.deriveChild(BigIntegerWrapper(index + 1))
         }
+    }
+
+    /**
+     * Method to derive an HDKey child by index
+     *
+     * @param index value used to derive a key as Int
+     */
+    @JsName("deriveFromInt")
+    fun deriveChild(index: Int): HDKey {
+        return this.deriveChild(BigIntegerWrapper(BigInteger(index)))
     }
 
     fun getKMMSecp256k1PrivateKey(): KMMECSecp256k1PrivateKey {
