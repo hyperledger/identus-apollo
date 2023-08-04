@@ -33,7 +33,7 @@ class HDKeyTest {
         seed = seed.sliceArray(IntRange(0, 60))
 
         assertFailsWith(IllegalArgumentException::class) {
-            HDKey(seed, depth, childIndex)
+            HDKey(seed, depth, BigIntegerWrapper(childIndex))
         }
     }
 
@@ -41,19 +41,19 @@ class HDKeyTest {
     fun testConstructorWithSeed_thenRightPrivateKey() {
         val depth = 0
 
-        val hdKey = HDKey(seed = seed, depth = depth, childIndex = childIndex)
+        val hdKey = HDKey(seed = seed, depth = depth, childIndex = BigIntegerWrapper(childIndex))
 
         assertNotNull(hdKey.privateKey)
         assertTrue(privateKey.base64UrlDecodedBytes.contentEquals(hdKey.privateKey!!))
         assertNotNull(hdKey.chainCode)
         assertEquals(depth, hdKey.depth)
-        assertEquals(childIndex, hdKey.childIndex)
+        assertEquals(BigIntegerWrapper(childIndex), hdKey.childIndex)
     }
 
     @Test
     fun testDerive_whenIncorrectPath_thenThrowException() {
         val depth = 1
-        val hdKey = HDKey(seed, depth, childIndex)
+        val hdKey = HDKey(seed, depth, BigIntegerWrapper(childIndex))
         val path = "x/0"
 
         assertFailsWith(Error::class) {
@@ -65,7 +65,7 @@ class HDKeyTest {
     fun testDerive_whenCorrectPath_thenDeriveOk() {
         val depth = 1
 
-        val hdKey = HDKey(seed, depth, childIndex)
+        val hdKey = HDKey(seed, depth, BigIntegerWrapper(childIndex))
         val path = "m/0'/0'/0'"
 
         val derPrivateKey = hdKey.derive(path)
@@ -78,11 +78,11 @@ class HDKeyTest {
         val hdKey = HDKey(
             privateKey = privateKey.encodeToByteArray(),
             depth = depth,
-            childIndex = childIndex
+            childIndex = BigIntegerWrapper(childIndex)
         )
 
         assertFailsWith(Exception::class) {
-            hdKey.deriveChild(childIndex)
+            hdKey.deriveChild(BigIntegerWrapper(childIndex))
         }
     }
 
@@ -92,11 +92,11 @@ class HDKeyTest {
         val hdKey = HDKey(
             privateKey = privateKey.encodeToByteArray(),
             depth = depth,
-            childIndex = childIndex
+            childIndex = BigIntegerWrapper(childIndex)
         )
 
         assertFailsWith(Exception::class) {
-            hdKey.deriveChild(childIndex)
+            hdKey.deriveChild(BigIntegerWrapper(childIndex))
         }
     }
 
@@ -108,11 +108,11 @@ class HDKeyTest {
         val hdKey = HDKey(
             privateKey = Random.Default.nextBytes(33),
             depth = depth,
-            childIndex = childIndex
+            childIndex = BigIntegerWrapper(childIndex)
         )
 
         assertFailsWith(Exception::class) {
-            hdKey.deriveChild(childIndex)
+            hdKey.deriveChild(BigIntegerWrapper(childIndex))
         }
     }
 
@@ -120,7 +120,7 @@ class HDKeyTest {
     fun testGetKMMSecp256k1PrivateKey_thenPrivateKeyNonNull() {
         val depth = 1
 
-        val hdKey = HDKey(seed, depth, childIndex)
+        val hdKey = HDKey(seed, depth, BigIntegerWrapper(childIndex))
         val key = hdKey.getKMMSecp256k1PrivateKey()
         assertNotNull(key)
     }
