@@ -88,6 +88,11 @@ do
             Build "$@"
 
             mkdir -p "${UNIVERSAL}/arm64-x86_x64-macosx" &> /dev/null
+            mkdir -p "${UNIVERSAL}/x86_x64-macosx" &> /dev/null
+            mkdir -p "${UNIVERSAL}/arm64-macosx" &> /dev/null
+
+            cp "${PLATFORMS}/${PLATFORM_MACOS_X86}/lib/libsecp256k1.a" "${UNIVERSAL}/x86_x64-macosx/libsecp256k1.a"
+            cp "${PLATFORMS}/${PLATFORM_MACOS}/lib/libsecp256k1.a" "${UNIVERSAL}/arm64-macosx/libsecp256k1.a"
 
             lipo -create -output "${UNIVERSAL}/arm64-x86_x64-macosx/libsecp256k1.a" "${PLATFORMS}/${PLATFORM_MACOS_X86}/lib/libsecp256k1.a" "${PLATFORMS}/${PLATFORM_MACOS}/lib/libsecp256k1.a"
         ;;
@@ -124,6 +129,11 @@ do
             Build "$@"
 
             mkdir -p "${UNIVERSAL}/arm64_x86_x64-iphonesimulator" &> /dev/null
+            mkdir -p "${UNIVERSAL}/x86_x64-iphonesimulator" &> /dev/null
+            mkdir -p "${UNIVERSAL}/arm64-iphonesimulator" &> /dev/null
+
+            cp "${PLATFORMS}/${PLATFORM_SIM_X86}/lib/libsecp256k1.a" "${UNIVERSAL}/x86_x64-iphonesimulator/libsecp256k1.a"
+            cp "${PLATFORMS}/${PLATFORM_SIM_ARM}/lib/libsecp256k1.a" "${UNIVERSAL}/arm64-iphonesimulator/libsecp256k1.a"
 
             lipo -create -output "${UNIVERSAL}/arm64_x86_x64-iphonesimulator/libsecp256k1.a" "${PLATFORMS}/${PLATFORM_SIM_ARM}/lib/libsecp256k1.a" "${PLATFORMS}/${PLATFORM_SIM_X86}/lib/libsecp256k1.a"
         ;;

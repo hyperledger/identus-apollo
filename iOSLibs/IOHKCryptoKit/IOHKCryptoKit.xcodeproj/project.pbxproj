@@ -11,7 +11,23 @@
 		EE2C94522A5B539E0021E9B6 /* Ed25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C94512A5B539E0021E9B6 /* Ed25519.swift */; };
 		EE2C94542A5B57580021E9B6 /* X25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C94532A5B57580021E9B6 /* X25519.swift */; };
 		EE2C94562A5B5A4E0021E9B6 /* IOHKCryptoKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = EE2C94552A5B5A4E0021E9B6 /* IOHKCryptoKit.podspec */; };
+		EEE3FB502A72927B000D39B9 /* Ed25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C94512A5B539E0021E9B6 /* Ed25519.swift */; };
+		EEE3FB512A72927B000D39B9 /* Ed25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C94512A5B539E0021E9B6 /* Ed25519.swift */; };
+		EEE3FB522A72927E000D39B9 /* X25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C94532A5B57580021E9B6 /* X25519.swift */; };
+		EEE3FB532A72927F000D39B9 /* X25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C94532A5B57580021E9B6 /* X25519.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EEE3FB372A7291DE000D39B9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EE2C94472A5B530B0021E9B6 /* IOHKCryptoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IOHKCryptoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -19,10 +35,28 @@
 		EE2C94512A5B539E0021E9B6 /* Ed25519.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ed25519.swift; sourceTree = "<group>"; };
 		EE2C94532A5B57580021E9B6 /* X25519.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X25519.swift; sourceTree = "<group>"; };
 		EE2C94552A5B5A4E0021E9B6 /* IOHKCryptoKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; fileEncoding = 4; path = IOHKCryptoKit.podspec; sourceTree = "<group>"; };
+		EEE3FB392A7291DE000D39B9 /* libIOHKCryptoKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIOHKCryptoKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEE3FB442A72924C000D39B9 /* libIOHKCryptoKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIOHKCryptoKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEE3FB4D2A729261000D39B9 /* IOHKCryptoKitMacos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOHKCryptoKitMacos-Bridging-Header.h"; sourceTree = "<group>"; };
+		EEE3FB542A7292A0000D39B9 /* IOHKCryptoKitIphoneos-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IOHKCryptoKitIphoneos-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		EE2C94442A5B530B0021E9B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE3FB362A7291DE000D39B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE3FB422A72924C000D39B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -37,6 +71,8 @@
 			children = (
 				EE2C94552A5B5A4E0021E9B6 /* IOHKCryptoKit.podspec */,
 				EE2C94492A5B530B0021E9B6 /* IOHKCryptoKit */,
+				EEE3FB3A2A7291DE000D39B9 /* IOHKCryptoKitIphoneos */,
+				EEE3FB452A72924C000D39B9 /* IOHKCryptoKitMacos */,
 				EE2C94482A5B530B0021E9B6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,6 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				EE2C94472A5B530B0021E9B6 /* IOHKCryptoKit.framework */,
+				EEE3FB392A7291DE000D39B9 /* libIOHKCryptoKit.a */,
+				EEE3FB442A72924C000D39B9 /* libIOHKCryptoKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -59,6 +97,22 @@
 			path = IOHKCryptoKit;
 			sourceTree = "<group>";
 		};
+		EEE3FB3A2A7291DE000D39B9 /* IOHKCryptoKitIphoneos */ = {
+			isa = PBXGroup;
+			children = (
+				EEE3FB542A7292A0000D39B9 /* IOHKCryptoKitIphoneos-Bridging-Header.h */,
+			);
+			path = IOHKCryptoKitIphoneos;
+			sourceTree = "<group>";
+		};
+		EEE3FB452A72924C000D39B9 /* IOHKCryptoKitMacos */ = {
+			isa = PBXGroup;
+			children = (
+				EEE3FB4D2A729261000D39B9 /* IOHKCryptoKitMacos-Bridging-Header.h */,
+			);
+			path = IOHKCryptoKitMacos;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -67,6 +121,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE2C944B2A5B530B0021E9B6 /* IOHKCryptoKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE3FB402A72924C000D39B9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +152,42 @@
 			productReference = EE2C94472A5B530B0021E9B6 /* IOHKCryptoKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		EEE3FB382A7291DE000D39B9 /* IOHKCryptoKitIphoneos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEE3FB3F2A7291DE000D39B9 /* Build configuration list for PBXNativeTarget "IOHKCryptoKitIphoneos" */;
+			buildPhases = (
+				EEE3FB352A7291DE000D39B9 /* Sources */,
+				EEE3FB362A7291DE000D39B9 /* Frameworks */,
+				EEE3FB372A7291DE000D39B9 /* CopyFiles */,
+				EEE3FB752A72AA64000D39B9 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IOHKCryptoKitIphoneos;
+			productName = IOHKCryptoKitStaticIphoneos;
+			productReference = EEE3FB392A7291DE000D39B9 /* libIOHKCryptoKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EEE3FB432A72924C000D39B9 /* IOHKCryptoKitMacos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEE3FB4A2A72924C000D39B9 /* Build configuration list for PBXNativeTarget "IOHKCryptoKitMacos" */;
+			buildPhases = (
+				EEE3FB402A72924C000D39B9 /* Headers */,
+				EEE3FB412A72924C000D39B9 /* Sources */,
+				EEE3FB422A72924C000D39B9 /* Frameworks */,
+				EEE3FB762A72AA86000D39B9 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IOHKCryptoKitMacos;
+			productName = IOHKCryptoKitMacos;
+			productReference = EEE3FB442A72924C000D39B9 /* libIOHKCryptoKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -98,9 +195,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					EE2C94462A5B530B0021E9B6 = {
+						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
+					};
+					EEE3FB382A7291DE000D39B9 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					EEE3FB432A72924C000D39B9 = {
 						CreatedOnToolsVersion = 14.2;
 						LastSwiftMigration = 1420;
 					};
@@ -120,6 +225,8 @@
 			projectRoot = "";
 			targets = (
 				EE2C94462A5B530B0021E9B6 /* IOHKCryptoKit */,
+				EEE3FB382A7291DE000D39B9 /* IOHKCryptoKitIphoneos */,
+				EEE3FB432A72924C000D39B9 /* IOHKCryptoKitMacos */,
 			);
 		};
 /* End PBXProject section */
@@ -135,6 +242,43 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		EEE3FB752A72AA64000D39B9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "targetDir=${BUILT_PRODUCTS_DIR}/include/IOHKCryptoKit/\nmkdir -p $targetDir\ncp ${DERIVED_SOURCES_DIR}/*-Swift.h $targetDir/IOHKCryptoKit-Swift.h\n";
+		};
+		EEE3FB762A72AA86000D39B9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "targetDir=${BUILT_PRODUCTS_DIR}/include/IOHKCryptoKit/\nmkdir -p $targetDir\ncp ${DERIVED_SOURCES_DIR}/*-Swift.h $targetDir/IOHKCryptoKit-Swift.h\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EE2C94432A5B530B0021E9B6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -142,6 +286,24 @@
 			files = (
 				EE2C94522A5B539E0021E9B6 /* Ed25519.swift in Sources */,
 				EE2C94542A5B57580021E9B6 /* X25519.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE3FB352A7291DE000D39B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEE3FB502A72927B000D39B9 /* Ed25519.swift in Sources */,
+				EEE3FB522A72927E000D39B9 /* X25519.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE3FB412A72924C000D39B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEE3FB512A72927B000D39B9 /* Ed25519.swift in Sources */,
+				EEE3FB532A72927F000D39B9 /* X25519.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +506,82 @@
 			};
 			name = Release;
 		};
+		EEE3FB3D2A7291DE000D39B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = IOHKCryptoKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKCryptoKitIphoneos/IOHKCryptoKitIphoneos-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EEE3FB3E2A7291DE000D39B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = IOHKCryptoKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKCryptoKitIphoneos/IOHKCryptoKitIphoneos-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EEE3FB4B2A72924C000D39B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				PRODUCT_NAME = IOHKCryptoKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKCryptoKitMacos/IOHKCryptoKitMacos-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EEE3FB4C2A72924C000D39B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				PRODUCT_NAME = IOHKCryptoKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKCryptoKitMacos/IOHKCryptoKitMacos-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -361,6 +599,24 @@
 			buildConfigurations = (
 				EE2C944F2A5B530B0021E9B6 /* Debug */,
 				EE2C94502A5B530B0021E9B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEE3FB3F2A7291DE000D39B9 /* Build configuration list for PBXNativeTarget "IOHKCryptoKitIphoneos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEE3FB3D2A7291DE000D39B9 /* Debug */,
+				EEE3FB3E2A7291DE000D39B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEE3FB4A2A72924C000D39B9 /* Build configuration list for PBXNativeTarget "IOHKCryptoKitMacos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEE3FB4B2A72924C000D39B9 /* Debug */,
+				EEE3FB4C2A72924C000D39B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

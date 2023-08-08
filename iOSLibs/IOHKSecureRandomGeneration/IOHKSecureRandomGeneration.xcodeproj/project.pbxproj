@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		B512F7C428F8A6160091C308 /* IOHKSecureRandomGeneration.docc in Sources */ = {isa = PBXBuildFile; fileRef = B512F7C328F8A6160091C308 /* IOHKSecureRandomGeneration.docc */; };
-		B512F7CA28F8A6170091C308 /* IOHKSecureRandomGeneration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B512F7BF28F8A6160091C308 /* IOHKSecureRandomGeneration.framework */; };
+		B512F7CA28F8A6170091C308 /* IOHKSecureRandomGenerationFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B512F7BF28F8A6160091C308 /* IOHKSecureRandomGenerationFramework.framework */; };
 		B512F7D028F8A6170091C308 /* IOHKSecureRandomGeneration.h in Headers */ = {isa = PBXBuildFile; fileRef = B512F7C228F8A6160091C308 /* IOHKSecureRandomGeneration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B512F7FF28F8A9D70091C308 /* IOHKSecureRandomGeneration.podspec in Resources */ = {isa = PBXBuildFile; fileRef = B512F7FE28F8A9D70091C308 /* IOHKSecureRandomGeneration.podspec */; };
 		B5D61769294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D61768294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift */; };
+		EEE3FB732A729B6C000D39B9 /* IOHKSecureRandomGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D61768294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift */; };
+		EEE3FB742A729B6D000D39B9 /* IOHKSecureRandomGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D61768294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,14 +26,30 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		EEE3FB572A729A85000D39B9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		B512F7BF28F8A6160091C308 /* IOHKSecureRandomGeneration.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IOHKSecureRandomGeneration.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B512F7BF28F8A6160091C308 /* IOHKSecureRandomGenerationFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IOHKSecureRandomGenerationFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B512F7C228F8A6160091C308 /* IOHKSecureRandomGeneration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOHKSecureRandomGeneration.h; sourceTree = "<group>"; };
 		B512F7C328F8A6160091C308 /* IOHKSecureRandomGeneration.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = IOHKSecureRandomGeneration.docc; sourceTree = "<group>"; };
 		B512F7C928F8A6170091C308 /* IOHKSecureRandomGenerationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOHKSecureRandomGenerationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B512F7DB28F8A6C40091C308 /* IOHKSecureRandomGenerationTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOHKSecureRandomGenerationTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		B512F7FE28F8A9D70091C308 /* IOHKSecureRandomGeneration.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; fileEncoding = 4; path = IOHKSecureRandomGeneration.podspec; sourceTree = "<group>"; };
 		B5D61768294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHKSecureRandomGeneration.swift; sourceTree = "<group>"; };
+		EEE3FB592A729A85000D39B9 /* libIOHKSecureRandomGeneration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIOHKSecureRandomGeneration.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEE3FB662A729AE7000D39B9 /* libIOHKSecureRandomGeneration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIOHKSecureRandomGeneration.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEE3FB6F2A729AFE000D39B9 /* IOHKSecureRandomGenerationMacos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOHKSecureRandomGenerationMacos-Bridging-Header.h"; sourceTree = "<group>"; };
+		EEE3FB722A729B1B000D39B9 /* IOHKSecureRandomGenerationIphoneos-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IOHKSecureRandomGenerationIphoneos-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +64,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B512F7CA28F8A6170091C308 /* IOHKSecureRandomGeneration.framework in Frameworks */,
+				B512F7CA28F8A6170091C308 /* IOHKSecureRandomGenerationFramework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE3FB562A729A85000D39B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE3FB642A729AE7000D39B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +91,8 @@
 				B512F7FE28F8A9D70091C308 /* IOHKSecureRandomGeneration.podspec */,
 				B512F7C128F8A6160091C308 /* IOHKSecureRandomGeneration */,
 				B512F7CD28F8A6170091C308 /* IOHKSecureRandomGenerationTests */,
+				EEE3FB5A2A729A85000D39B9 /* IOHKSecureRandomGenerationIphoneos */,
+				EEE3FB672A729AE7000D39B9 /* IOHKSecureRandomGenerationMacos */,
 				B512F7C028F8A6160091C308 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,8 +100,10 @@
 		B512F7C028F8A6160091C308 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B512F7BF28F8A6160091C308 /* IOHKSecureRandomGeneration.framework */,
+				B512F7BF28F8A6160091C308 /* IOHKSecureRandomGenerationFramework.framework */,
 				B512F7C928F8A6170091C308 /* IOHKSecureRandomGenerationTests.xctest */,
+				EEE3FB592A729A85000D39B9 /* libIOHKSecureRandomGeneration.a */,
+				EEE3FB662A729AE7000D39B9 /* libIOHKSecureRandomGeneration.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +126,22 @@
 			path = IOHKSecureRandomGenerationTests;
 			sourceTree = "<group>";
 		};
+		EEE3FB5A2A729A85000D39B9 /* IOHKSecureRandomGenerationIphoneos */ = {
+			isa = PBXGroup;
+			children = (
+				EEE3FB722A729B1B000D39B9 /* IOHKSecureRandomGenerationIphoneos-Bridging-Header.h */,
+			);
+			path = IOHKSecureRandomGenerationIphoneos;
+			sourceTree = "<group>";
+		};
+		EEE3FB672A729AE7000D39B9 /* IOHKSecureRandomGenerationMacos */ = {
+			isa = PBXGroup;
+			children = (
+				EEE3FB6F2A729AFE000D39B9 /* IOHKSecureRandomGenerationMacos-Bridging-Header.h */,
+			);
+			path = IOHKSecureRandomGenerationMacos;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -101,12 +153,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EEE3FB622A729AE7000D39B9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B512F7BE28F8A6160091C308 /* IOHKSecureRandomGeneration */ = {
+		B512F7BE28F8A6160091C308 /* IOHKSecureRandomGenerationFramework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B512F7D328F8A6170091C308 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGeneration" */;
+			buildConfigurationList = B512F7D328F8A6170091C308 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationFramework" */;
 			buildPhases = (
 				B512F7BA28F8A6160091C308 /* Headers */,
 				B512F7BB28F8A6160091C308 /* Sources */,
@@ -117,9 +176,9 @@
 			);
 			dependencies = (
 			);
-			name = IOHKSecureRandomGeneration;
+			name = IOHKSecureRandomGenerationFramework;
 			productName = IOHKSecureRandomGeneration;
-			productReference = B512F7BF28F8A6160091C308 /* IOHKSecureRandomGeneration.framework */;
+			productReference = B512F7BF28F8A6160091C308 /* IOHKSecureRandomGenerationFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		B512F7C828F8A6170091C308 /* IOHKSecureRandomGenerationTests */ = {
@@ -140,6 +199,42 @@
 			productReference = B512F7C928F8A6170091C308 /* IOHKSecureRandomGenerationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		EEE3FB582A729A85000D39B9 /* IOHKSecureRandomGenerationIphoneos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEE3FB5F2A729A85000D39B9 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationIphoneos" */;
+			buildPhases = (
+				EEE3FB552A729A85000D39B9 /* Sources */,
+				EEE3FB562A729A85000D39B9 /* Frameworks */,
+				EEE3FB572A729A85000D39B9 /* CopyFiles */,
+				EEE3FB772A72AADA000D39B9 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IOHKSecureRandomGenerationIphoneos;
+			productName = IOHKSecureRandomGenerationIphoneos;
+			productReference = EEE3FB592A729A85000D39B9 /* libIOHKSecureRandomGeneration.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EEE3FB652A729AE7000D39B9 /* IOHKSecureRandomGenerationMacos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEE3FB6C2A729AE7000D39B9 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationMacos" */;
+			buildPhases = (
+				EEE3FB622A729AE7000D39B9 /* Headers */,
+				EEE3FB632A729AE7000D39B9 /* Sources */,
+				EEE3FB642A729AE7000D39B9 /* Frameworks */,
+				EEE3FB782A72AAE5000D39B9 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IOHKSecureRandomGenerationMacos;
+			productName = IOHKSecureRandomGenerationMacos;
+			productReference = EEE3FB662A729AE7000D39B9 /* libIOHKSecureRandomGeneration.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -147,7 +242,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					B512F7BE28F8A6160091C308 = {
@@ -156,6 +251,13 @@
 					B512F7C828F8A6170091C308 = {
 						CreatedOnToolsVersion = 14.0.1;
 						LastSwiftMigration = 1400;
+					};
+					EEE3FB582A729A85000D39B9 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					EEE3FB652A729AE7000D39B9 = {
+						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
@@ -172,8 +274,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B512F7BE28F8A6160091C308 /* IOHKSecureRandomGeneration */,
+				B512F7BE28F8A6160091C308 /* IOHKSecureRandomGenerationFramework */,
 				B512F7C828F8A6170091C308 /* IOHKSecureRandomGenerationTests */,
+				EEE3FB582A729A85000D39B9 /* IOHKSecureRandomGenerationIphoneos */,
+				EEE3FB652A729AE7000D39B9 /* IOHKSecureRandomGenerationMacos */,
 			);
 		};
 /* End PBXProject section */
@@ -196,6 +300,43 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		EEE3FB772A72AADA000D39B9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "targetDir=${BUILT_PRODUCTS_DIR}/include/IOHKSecureRandomGeneration/\nmkdir -p $targetDir\ncp ${DERIVED_SOURCES_DIR}/*-Swift.h $targetDir/IOHKSecureRandomGeneration-Swift.h\n";
+		};
+		EEE3FB782A72AAE5000D39B9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "targetDir=${BUILT_PRODUCTS_DIR}/include/IOHKSecureRandomGeneration/\nmkdir -p $targetDir\ncp ${DERIVED_SOURCES_DIR}/*-Swift.h $targetDir/IOHKSecureRandomGeneration-Swift.h\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B512F7BB28F8A6160091C308 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -213,12 +354,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EEE3FB552A729A85000D39B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEE3FB732A729B6C000D39B9 /* IOHKSecureRandomGeneration.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEE3FB632A729AE7000D39B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEE3FB742A729B6D000D39B9 /* IOHKSecureRandomGeneration.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		B512F7CC28F8A6170091C308 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B512F7BE28F8A6160091C308 /* IOHKSecureRandomGeneration */;
+			target = B512F7BE28F8A6160091C308 /* IOHKSecureRandomGenerationFramework */;
 			targetProxy = B512F7CB28F8A6170091C308 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -484,6 +641,92 @@
 			};
 			name = Release;
 		};
+		EEE3FB5D2A729A85000D39B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = IOHKSecureRandomGeneration;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKSecureRandomGenerationIphoneos/IOHKSecureRandomGenerationIphoneos-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 16.1;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Debug;
+		};
+		EEE3FB5E2A729A85000D39B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = IOHKSecureRandomGeneration;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKSecureRandomGenerationIphoneos/IOHKSecureRandomGenerationIphoneos-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 16.1;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Release;
+		};
+		EEE3FB6D2A729AE7000D39B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				PRODUCT_NAME = IOHKSecureRandomGeneration;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKSecureRandomGenerationMacos/IOHKSecureRandomGenerationMacos-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EEE3FB6E2A729AE7000D39B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				PRODUCT_NAME = IOHKSecureRandomGeneration;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKSecureRandomGenerationMacos/IOHKSecureRandomGenerationMacos-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -496,7 +739,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B512F7D328F8A6170091C308 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGeneration" */ = {
+		B512F7D328F8A6170091C308 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B512F7D428F8A6170091C308 /* Debug */,
@@ -510,6 +753,24 @@
 			buildConfigurations = (
 				B512F7D728F8A6170091C308 /* Debug */,
 				B512F7D828F8A6170091C308 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEE3FB5F2A729A85000D39B9 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationIphoneos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEE3FB5D2A729A85000D39B9 /* Debug */,
+				EEE3FB5E2A729A85000D39B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEE3FB6C2A729AE7000D39B9 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationMacos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEE3FB6D2A729AE7000D39B9 /* Debug */,
+				EEE3FB6E2A729AE7000D39B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

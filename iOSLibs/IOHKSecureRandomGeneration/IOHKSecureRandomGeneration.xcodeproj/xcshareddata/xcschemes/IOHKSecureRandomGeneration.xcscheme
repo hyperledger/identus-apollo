@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B512F7BE28F8A6160091C308"
-               BuildableName = "IOHKSecureRandomGeneration.framework"
-               BlueprintName = "IOHKSecureRandomGeneration"
+               BuildableName = "IOHKSecureRandomGenerationFramework.framework"
+               BlueprintName = "IOHKSecureRandomGenerationFramework"
                ReferencedContainer = "container:IOHKSecureRandomGeneration.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B512F7BE28F8A6160091C308"
-            BuildableName = "IOHKSecureRandomGeneration.framework"
-            BlueprintName = "IOHKSecureRandomGeneration"
+            BuildableName = "IOHKSecureRandomGenerationFramework.framework"
+            BlueprintName = "IOHKSecureRandomGenerationFramework"
             ReferencedContainer = "container:IOHKSecureRandomGeneration.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
