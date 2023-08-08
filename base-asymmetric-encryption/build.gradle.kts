@@ -7,8 +7,7 @@ val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
+    id("io.github.luca992.multiplatform-swiftpackage") version "2.0.5-arm64"
     id("com.android.library")
     id("org.jetbrains.dokka")
 }
@@ -29,14 +28,60 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    ios()
-    macosX64()
+
+    fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.swiftCinterop(library: String, platform: String) {
+        compilations.getByName("main") {
+            cinterops.create(library) {
+                extraOpts = listOf("-compiler-option", "-DNS_FORMAT_ARGUMENT(A)=")
+                when (platform) {
+                    "iosX64", "iosSimulatorArm64" -> {
+                        includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphonesimulator/include/")
+                        tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphonesimulator")
+                    }
+                    "iosArm64" -> {
+                        includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphoneos/include/")
+                        tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphoneos")
+                    }
+                    "macosX64", "macosArm64" -> {
+                        includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release/include/")
+                        tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Macosx")
+                    }
+                }
+            }
+        }
+    }
+
+    ios {
+        swiftCinterop("IOHKCryptoKit", name)
+        swiftCinterop("IOHKSecureRandomGeneration", name)
+
+        binaries.framework {
+            baseName = currentModuleName
+            embedBitcode("disable")
+        }
+    }
 
     if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-        iosSimulatorArm64()
+        iosSimulatorArm64 {
+            binaries.framework {
+                baseName = currentModuleName
+                embedBitcode("disable")
+            }
+
+            swiftCinterop("IOHKCryptoKit", name)
+            swiftCinterop("IOHKSecureRandomGeneration", name)
+        }
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-        macosArm64()
+        macosArm64 {
+            binaries.framework {
+                baseName = currentModuleName
+                embedBitcode("disable")
+            }
+
+            swiftCinterop("IOHKCryptoKit", name)
+            swiftCinterop("IOHKSecureRandomGeneration", name)
+        }
     }
     js(IR) {
         this.moduleName = currentModuleName
@@ -54,14 +99,8 @@ kotlin {
                 this.output.libraryTarget = Target.VAR
             }
             this.commonWebpackConfig {
-                this.cssSupport {
-                    this.enabled = true
-                }
             }
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -69,9 +108,6 @@ kotlin {
         }
         nodejs {
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -87,37 +123,6 @@ kotlin {
             macOS { v("11") }
         }
         outputDirectory(File(rootDir, "base-asymmetric-encryption/build/packages/ApolloSwift"))
-    }
-
-    if (os.isMacOsX) {
-        cocoapods {
-            this.summary = "ApolloBaseAsymmetricEncryption is a base for symmetric encryption libs"
-            this.version = rootProject.version.toString()
-            this.authors = "IOG"
-            this.ios.deploymentTarget = "13.0"
-            this.osx.deploymentTarget = "12.0"
-            this.tvos.deploymentTarget = "13.0"
-            this.watchos.deploymentTarget = "8.0"
-            framework {
-                this.baseName = currentModuleName
-            }
-
-            pod("IOHKRSA") {
-                version = "1.0.0"
-                source = path(project.file("../iOSLibs/IOHKRSA"))
-            }
-
-            pod("IOHKSecureRandomGeneration") {
-                version = "1.0.0"
-                packageName = "IOHKSecureRandomGeneration1"
-                source = path(project.file("../iOSLibs/IOHKSecureRandomGeneration"))
-            }
-
-            pod("IOHKCryptoKit") {
-                version = "1.0.0"
-                source = path(project.file("../iOSLibs/IOHKCryptoKit"))
-            }
-        }
     }
 
     sourceSets {
@@ -198,12 +203,6 @@ kotlin {
         val iosTest by getting {
             this.dependsOn(commonTest)
         }
-        val macosX64Main by getting {
-            this.dependsOn(iosMain)
-        }
-        val macosX64Test by getting {
-            this.dependsOn(iosTest)
-        }
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
             val iosSimulatorArm64Main by getting {
                 this.dependsOn(iosMain)
@@ -211,8 +210,8 @@ kotlin {
             val iosSimulatorArm64Test by getting {
                 this.dependsOn(iosTest)
             }
-            val macosArm64Main by getting { this.dependsOn(macosX64Main) }
-            val macosArm64Test by getting { this.dependsOn(macosX64Test) }
+            val macosArm64Main by getting { this.dependsOn(iosMain) }
+            val macosArm64Test by getting { this.dependsOn(iosTest) }
         }
 //        if (os.isWindows) {
 //            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
@@ -275,15 +274,15 @@ tasks.withType<DokkaTask> {
     }
 }
 
-// afterEvaluate {
-//    tasks.withType<AbstractTestTask> {
-//        testLogging {
-//            events("passed", "skipped", "failed", "standard_out", "standard_error")
-//            showExceptions = true
-//            showStackTraces = true
-//        }
-//    }
-// }
+afterEvaluate {
+    tasks.withType<AbstractTestTask> {
+        testLogging {
+            events("passed", "skipped", "failed", "standard_out", "standard_error")
+            showExceptions = true
+            showStackTraces = true
+        }
+    }
+}
 
 ktlint {
     filter {
@@ -293,29 +292,4 @@ ktlint {
         }
         exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/external/") }
     }
-}
-
-// TODO(Investigate why the below tasks fails)
-tasks.matching {
-    fun String.isOneOf(values: List<String>): Boolean {
-        for (value in values) {
-            if (this == value) {
-                return true
-            }
-        }
-        return false
-    }
-
-    it.name.isOneOf(
-        listOf(
-            "linkPodReleaseFrameworkIosFat",
-            ":linkPodReleaseFrameworkIosFat",
-            ":base-asymmetric-encryption:linkPodReleaseFrameworkIosFat",
-            "linkPodDebugFrameworkIosFat",
-            ":linkPodDebugFrameworkIosFat",
-            ":base-asymmetric-encryption:linkPodDebugFrameworkIosFat"
-        )
-    )
-}.all {
-    this.enabled = false
 }

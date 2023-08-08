@@ -7,7 +7,6 @@ val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.dokka")
 }
@@ -26,16 +25,44 @@ kotlin {
             useJUnitPlatform()
         }
     }
+
+    fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.swiftCinterop(library: String, platform: String) {
+        compilations.getByName("main") {
+            cinterops.create(library) {
+                extraOpts = listOf("-compiler-option", "-DNS_FORMAT_ARGUMENT(A)=")
+                when (platform) {
+                    "iosX64", "iosSimulatorArm64" -> {
+                        includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphonesimulator/include/")
+                        tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphonesimulator")
+                    }
+                    "iosArm64" -> {
+                        includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphoneos/include/")
+                        tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphoneos")
+                    }
+                    "macosX64", "macosArm64" -> {
+                        includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release/include/")
+                        tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Macosx")
+                    }
+                }
+            }
+        }
+    }
+
     if (os.isMacOsX) {
-        ios()
+        ios() {
+            swiftCinterop("IOHKSecureRandomGeneration", name)
+        }
 //        tvos()
 //        watchos()
-        macosX64()
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            iosSimulatorArm64()
+            iosSimulatorArm64() {
+                swiftCinterop("IOHKSecureRandomGeneration", name)
+            }
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-            macosArm64()
+            macosArm64() {
+                swiftCinterop("IOHKSecureRandomGeneration", name)
+            }
         }
     }
 //    if (os.isWindows) {
@@ -58,9 +85,9 @@ kotlin {
                 this.output.libraryTarget = Target.VAR
             }
             this.commonWebpackConfig {
-                this.cssSupport {
-                    this.enabled = true
-                }
+//                this.cssSupport {
+//                    this.enabled = true
+//                }
             }
             this.testTask {
                 if (os.isWindows) {
@@ -79,26 +106,6 @@ kotlin {
                 this.useKarma {
                     this.useChromeHeadless()
                 }
-            }
-        }
-    }
-
-    if (os.isMacOsX) {
-        cocoapods {
-            this.summary = "ApolloSecureRandom is a secure random generation module"
-            this.version = rootProject.version.toString()
-            this.authors = "IOG"
-            this.ios.deploymentTarget = "13.0"
-            this.osx.deploymentTarget = "12.0"
-            this.tvos.deploymentTarget = "13.0"
-            this.watchos.deploymentTarget = "8.0"
-            framework {
-                this.baseName = currentModuleName
-            }
-
-            pod("IOHKSecureRandomGeneration") {
-                version = "1.0.0"
-                source = path(project.file("../iOSLibs/IOHKSecureRandomGeneration"))
             }
         }
     }
@@ -131,12 +138,6 @@ kotlin {
 //            val tvosTest by getting
 //            val watchosMain by getting
 //            val watchosTest by getting
-            val macosX64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val macosX64Test by getting {
-                this.dependsOn(iosTest)
-            }
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
                 val iosSimulatorArm64Main by getting {
                     this.dependsOn(iosMain)
@@ -157,10 +158,10 @@ kotlin {
 //                    this.dependsOn(watchosTest)
 //                }
                 val macosArm64Main by getting {
-                    this.dependsOn(macosX64Main)
+                    this.dependsOn(iosMain)
                 }
                 val macosArm64Test by getting {
-                    this.dependsOn(macosX64Test)
+                    this.dependsOn(iosTest)
                 }
             }
         }

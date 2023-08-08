@@ -1,7 +1,7 @@
 package io.iohk.atala.prism.apollo.securerandom
 
-import cocoapods.IOHKSecureRandomGeneration.IOHKSecureRandomGeneration
 import io.iohk.atala.prism.apollo.utils.toByteArray
+import swift.secureRandomGeneration.IOHKSecureRandomGeneration
 
 actual class SecureRandom actual constructor(
     actual val seed: ByteArray

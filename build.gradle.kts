@@ -36,7 +36,7 @@ dependencies {
     kover(project(":utils"))
     kover(project(":base-symmetric-encryption"))
     kover(project(":secure-random"))
-    kover(project(":aes"))
+//    kover(project(":aes"))
     kover(project(":base-asymmetric-encryption"))
 //    kover(project(":rsa"))
 //    kover(project(":ecdsa"))
