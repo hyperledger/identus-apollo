@@ -32,6 +32,27 @@ class KMMECSecp256k1PrivateKey : Encodable {
         return raw
     }
 
+    /**
+     * Sign the provided data with EC Secp256K1
+     * @param data data that you want to sign
+     * @return signature
+     */
+    fun sign(data: ByteArray): ByteArray {
+        val secp256k1Lib = Secp256k1Lib()
+        return secp256k1Lib.sign(raw, data)
+    }
+
+    /**
+     * Verify provided signature with the public key that is generated using the private key
+     * @param signature that we need to verify
+     * @param data that was used in signature
+     * @return true when valid, false when invalid
+     */
+    fun verify(signature: ByteArray, data: ByteArray): Boolean {
+        val secp256k1Lib = Secp256k1Lib()
+        return secp256k1Lib.verify(getPublicKey().raw, signature, data)
+    }
+
     companion object : KMMECSecp256k1PrivateKeyCommonStaticInterface {
         override fun secp256k1FromByteArray(d: ByteArray): KMMECSecp256k1PrivateKey {
             return KMMECSecp256k1PrivateKey(d)

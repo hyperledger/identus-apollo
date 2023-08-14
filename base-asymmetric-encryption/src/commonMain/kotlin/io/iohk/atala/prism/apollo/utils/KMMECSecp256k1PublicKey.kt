@@ -2,11 +2,20 @@ package io.iohk.atala.prism.apollo.utils
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
+import io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
+@OptIn(ExperimentalJsExport::class)
+@JsExport
 interface KMMECSecp256k1PublicKeyCommonStaticInterface {
+    /**
+     * Check if key point is on the Secp256k1 curve or not
+     * @param point public key point
+     * @return true if point on curve, false if not.
+     * @exception ClassCastException This method fails in JS. To be further investigated.
+     */
     fun isPointOnSecp256k1Curve(point: KMMECPoint): Boolean {
         val x = BigInteger.fromByteArray(point.x, Sign.POSITIVE)
         val y = BigInteger.fromByteArray(point.y, Sign.POSITIVE)
@@ -55,8 +64,6 @@ class KMMECSecp256k1PublicKey {
         this.raw = raw
     }
 
-    companion object : KMMECSecp256k1PublicKeyCommonStaticInterface
-
     fun getCurvePoint(): KMMECPoint {
         if (raw.size != 65) {
             throw IllegalArgumentException("Public key should be 65 bytes long")
@@ -69,4 +76,17 @@ class KMMECSecp256k1PublicKey {
 
         return KMMECPoint(x, y)
     }
+
+    /**
+     * Verify provided signature
+     * @param signature that we need to verify
+     * @param data that was used in signature
+     * @return true when valid, false when invalid
+     */
+    fun verify(signature: ByteArray, data: ByteArray): Boolean {
+        val secp256k1Lib = Secp256k1Lib()
+        return secp256k1Lib.verify(raw, signature, data)
+    }
+
+    companion object : KMMECSecp256k1PublicKeyCommonStaticInterface
 }
