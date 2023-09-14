@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B50173352AB0E6CB0022CBA5 /* IOHKSecureRandomGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D61768294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift */; };
+		B501733F2AB0E6E40022CBA5 /* IOHKSecureRandomGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D61768294BC3CB008EDB29 /* IOHKSecureRandomGeneration.swift */; };
 		B512F7C428F8A6160091C308 /* IOHKSecureRandomGeneration.docc in Sources */ = {isa = PBXBuildFile; fileRef = B512F7C328F8A6160091C308 /* IOHKSecureRandomGeneration.docc */; };
 		B512F7CA28F8A6170091C308 /* IOHKSecureRandomGenerationFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B512F7BF28F8A6160091C308 /* IOHKSecureRandomGenerationFramework.framework */; };
 		B512F7D028F8A6170091C308 /* IOHKSecureRandomGeneration.h in Headers */ = {isa = PBXBuildFile; fileRef = B512F7C228F8A6160091C308 /* IOHKSecureRandomGeneration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -39,6 +41,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B501733B2AB0E6CB0022CBA5 /* libIOHKSecureRandomGeneration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIOHKSecureRandomGeneration.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50173452AB0E6E40022CBA5 /* libIOHKSecureRandomGeneration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIOHKSecureRandomGeneration.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50173472AB0E7910022CBA5 /* IOHKSecureRandomGenerationWatchos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOHKSecureRandomGenerationWatchos-Bridging-Header.h"; sourceTree = "<group>"; };
+		B50173492AB0E7C60022CBA5 /* IOHKSecureRandomGenerationTvos-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOHKSecureRandomGenerationTvos-Bridging-Header.h"; sourceTree = "<group>"; };
 		B512F7BF28F8A6160091C308 /* IOHKSecureRandomGenerationFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IOHKSecureRandomGenerationFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B512F7C228F8A6160091C308 /* IOHKSecureRandomGeneration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOHKSecureRandomGeneration.h; sourceTree = "<group>"; };
 		B512F7C328F8A6160091C308 /* IOHKSecureRandomGeneration.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = IOHKSecureRandomGeneration.docc; sourceTree = "<group>"; };
@@ -53,6 +59,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B50173362AB0E6CB0022CBA5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50173402AB0E6E40022CBA5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B512F7BC28F8A6160091C308 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,6 +105,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B50173462AB0E7060022CBA5 /* IOHKSecureRandomGenerationWatchos */ = {
+			isa = PBXGroup;
+			children = (
+				B50173472AB0E7910022CBA5 /* IOHKSecureRandomGenerationWatchos-Bridging-Header.h */,
+			);
+			path = IOHKSecureRandomGenerationWatchos;
+			sourceTree = "<group>";
+		};
+		B50173482AB0E7A70022CBA5 /* IOHKSecureRandomGenerationTvos */ = {
+			isa = PBXGroup;
+			children = (
+				B50173492AB0E7C60022CBA5 /* IOHKSecureRandomGenerationTvos-Bridging-Header.h */,
+			);
+			path = IOHKSecureRandomGenerationTvos;
+			sourceTree = "<group>";
+		};
 		B512F7B528F8A6160091C308 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +129,8 @@
 				B512F7CD28F8A6170091C308 /* IOHKSecureRandomGenerationTests */,
 				EEE3FB5A2A729A85000D39B9 /* IOHKSecureRandomGenerationIphoneos */,
 				EEE3FB672A729AE7000D39B9 /* IOHKSecureRandomGenerationMacos */,
+				B50173482AB0E7A70022CBA5 /* IOHKSecureRandomGenerationTvos */,
+				B50173462AB0E7060022CBA5 /* IOHKSecureRandomGenerationWatchos */,
 				B512F7C028F8A6160091C308 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -104,6 +142,8 @@
 				B512F7C928F8A6170091C308 /* IOHKSecureRandomGenerationTests.xctest */,
 				EEE3FB592A729A85000D39B9 /* libIOHKSecureRandomGeneration.a */,
 				EEE3FB662A729AE7000D39B9 /* libIOHKSecureRandomGeneration.a */,
+				B501733B2AB0E6CB0022CBA5 /* libIOHKSecureRandomGeneration.a */,
+				B50173452AB0E6E40022CBA5 /* libIOHKSecureRandomGeneration.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,6 +185,20 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		B50173332AB0E6CB0022CBA5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B501733D2AB0E6E40022CBA5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B512F7BA28F8A6160091C308 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -163,6 +217,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		B50173322AB0E6CB0022CBA5 /* IOHKSecureRandomGenerationWatchos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B50173382AB0E6CB0022CBA5 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationWatchos" */;
+			buildPhases = (
+				B50173332AB0E6CB0022CBA5 /* Headers */,
+				B50173342AB0E6CB0022CBA5 /* Sources */,
+				B50173362AB0E6CB0022CBA5 /* Frameworks */,
+				B50173372AB0E6CB0022CBA5 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IOHKSecureRandomGenerationWatchos;
+			productName = IOHKSecureRandomGenerationMacos;
+			productReference = B501733B2AB0E6CB0022CBA5 /* libIOHKSecureRandomGeneration.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B501733C2AB0E6E40022CBA5 /* IOHKSecureRandomGenerationTvos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B50173422AB0E6E40022CBA5 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationTvos" */;
+			buildPhases = (
+				B501733D2AB0E6E40022CBA5 /* Headers */,
+				B501733E2AB0E6E40022CBA5 /* Sources */,
+				B50173402AB0E6E40022CBA5 /* Frameworks */,
+				B50173412AB0E6E40022CBA5 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IOHKSecureRandomGenerationTvos;
+			productName = IOHKSecureRandomGenerationMacos;
+			productReference = B50173452AB0E6E40022CBA5 /* libIOHKSecureRandomGeneration.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		B512F7BE28F8A6160091C308 /* IOHKSecureRandomGenerationFramework */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B512F7D328F8A6170091C308 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationFramework" */;
@@ -278,6 +368,8 @@
 				B512F7C828F8A6170091C308 /* IOHKSecureRandomGenerationTests */,
 				EEE3FB582A729A85000D39B9 /* IOHKSecureRandomGenerationIphoneos */,
 				EEE3FB652A729AE7000D39B9 /* IOHKSecureRandomGenerationMacos */,
+				B50173322AB0E6CB0022CBA5 /* IOHKSecureRandomGenerationWatchos */,
+				B501733C2AB0E6E40022CBA5 /* IOHKSecureRandomGenerationTvos */,
 			);
 		};
 /* End PBXProject section */
@@ -301,6 +393,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		B50173372AB0E6CB0022CBA5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "targetDir=${BUILT_PRODUCTS_DIR}/include/IOHKSecureRandomGeneration/\nmkdir -p $targetDir\ncp ${DERIVED_SOURCES_DIR}/*-Swift.h $targetDir/IOHKSecureRandomGeneration-Swift.h\n";
+		};
+		B50173412AB0E6E40022CBA5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "targetDir=${BUILT_PRODUCTS_DIR}/include/IOHKSecureRandomGeneration/\nmkdir -p $targetDir\ncp ${DERIVED_SOURCES_DIR}/*-Swift.h $targetDir/IOHKSecureRandomGeneration-Swift.h\n";
+		};
 		EEE3FB772A72AADA000D39B9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -338,6 +464,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B50173342AB0E6CB0022CBA5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50173352AB0E6CB0022CBA5 /* IOHKSecureRandomGeneration.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B501733E2AB0E6E40022CBA5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B501733F2AB0E6E40022CBA5 /* IOHKSecureRandomGeneration.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B512F7BB28F8A6160091C308 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +523,100 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		B50173392AB0E6CB0022CBA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = IOHKSecureRandomGeneration;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKSecureRandomGenerationWatchos/IOHKSecureRandomGenerationWatchos-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B501733A2AB0E6CB0022CBA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				PRODUCT_NAME = IOHKSecureRandomGeneration;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKSecureRandomGenerationWatchos/IOHKSecureRandomGenerationWatchos-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B50173432AB0E6E40022CBA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = IOHKSecureRandomGeneration;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKSecureRandomGenerationTvos/IOHKSecureRandomGenerationTvos-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B50173442AB0E6E40022CBA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 89TW38X994;
+				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				PRODUCT_NAME = IOHKSecureRandomGeneration;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IOHKSecureRandomGenerationTvos/IOHKSecureRandomGenerationTvos-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		B512F7D128F8A6170091C308 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -730,6 +966,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B50173382AB0E6CB0022CBA5 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationWatchos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50173392AB0E6CB0022CBA5 /* Debug */,
+				B501733A2AB0E6CB0022CBA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B50173422AB0E6E40022CBA5 /* Build configuration list for PBXNativeTarget "IOHKSecureRandomGenerationTvos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50173432AB0E6E40022CBA5 /* Debug */,
+				B50173442AB0E6E40022CBA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B512F7B928F8A6160091C308 /* Build configuration list for PBXProject "IOHKSecureRandomGeneration" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

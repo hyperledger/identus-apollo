@@ -1,6 +1,6 @@
 # Apollo - Base32
 
-[![Kotlin](https://img.shields.io/badge/kotlin-1.7.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.8.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 ![android](https://camo.githubusercontent.com/b1d9ad56ab51c4ad1417e9a5ad2a8fe63bcc4755e584ec7defef83755c23f923/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d616e64726f69642d3645444238442e7376673f7374796c653d666c6174)
 ![apple-silicon](https://camo.githubusercontent.com/a92c841ffd377756a144d5723ff04ecec886953d40ac03baa738590514714921/687474703a2f2f696d672e736869656c64732e696f2f62616467652f737570706f72742d2535424170706c6553696c69636f6e2535442d3433424246462e7376673f7374796c653d666c6174)
@@ -11,6 +11,8 @@
 ![macos](https://camo.githubusercontent.com/1b8313498db244646b38a4480186ae2b25464e5e8d71a1920c52b2be5212b909/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d6d61636f732d3131313131312e7376673f7374796c653d666c6174)
 ![tvos](https://camo.githubusercontent.com/4ac08d7fb1bcb8ef26388cd2bf53b49626e1ab7cbda581162a946dd43e6a2726/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d74766f732d3830383038302e7376673f7374796c653d666c6174)
 ![watchos](https://camo.githubusercontent.com/135dbadae40f9cabe7a3a040f9380fb485cff36c90909f3c1ae36b81c304426b/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d77617463686f732d4330433043302e7376673f7374796c653d666c6174)
+
+![Atala Prism Logo](../Logo.png)
 
 Apollo Base32 is Kotlin Multiplatform library containing:
 
@@ -25,7 +27,6 @@ Apollo Base32 is Kotlin Multiplatform library containing:
 |------------------------------------------|--------------------|
 | iOS x86 64                               | :heavy_check_mark: |
 | iOS Arm 64                               | :heavy_check_mark: |
-| iOS Arm 32                               | :heavy_check_mark: |
 | iOS Simulator Arm 64 (Apple Silicon)     | :heavy_check_mark: |
 | JVM                                      | :heavy_check_mark: | 
 | Android                                  | :heavy_check_mark: |
@@ -33,18 +34,12 @@ Apollo Base32 is Kotlin Multiplatform library containing:
 | NodeJS Browser                           | :heavy_check_mark: |
 | macOS X86 64                             | :heavy_check_mark: |
 | macOS Arm 64 (Apple Silicon)             | :heavy_check_mark: |
-| minGW X86 64                             | :heavy_check_mark: |
-| minGW X86 32                             | :heavy_check_mark: | 
 | watchOS X86 32                           | :heavy_check_mark: |
 | watchOS Arm 64(_32)                      | :heavy_check_mark: |
 | watchOS Arm 32                           | :heavy_check_mark: |
 | watchOS Simulator Arm 64 (Apple Silicon) | :heavy_check_mark: |
-| tvOS X86 64                              | :heavy_check_mark: |
 | tvOS Arm 64                              | :heavy_check_mark: |
 | tvOS Simulator Arm 64 (Apple Silicon)    | :heavy_check_mark: |
-| Linux X86 64                             | :x:                |
-| Linux Arm 64                             | :x:                |
-| Linux Arm 32                             | :x:                |
 
 ## Usage
 

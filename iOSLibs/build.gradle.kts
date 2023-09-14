@@ -2,12 +2,12 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 val os: OperatingSystem = DefaultNativePlatform.getCurrentOperatingSystem()
 val libraries = listOf("IOHKSecureRandomGeneration", "IOHKCryptoKit")
-val sdks = listOf("iphoneos", "iphonesimulator", "macosx")
+val sdks = listOf("iphoneos", "iphonesimulator", "macosx", "watchos", "watchsimulator", "appletvos", "appletvsimulator")
 
 libraries.forEach { library ->
     sdks.forEach { sdk ->
         tasks.create<Exec>("build${library.capitalize()}${sdk.capitalize()}") {
-            group = "build"
+            group = "build${library.capitalize()}"
 
             if (os.isMacOsX) {
                 when (sdk) {
@@ -19,7 +19,7 @@ libraries.forEach { library ->
                             "-target",
                             "${library}Iphoneos",
                             "-sdk",
-                            sdk,
+                            sdk
                         )
                     }
                     "macosx" -> {
@@ -30,7 +30,51 @@ libraries.forEach { library ->
                             "-target",
                             "${library}Macos",
                             "-sdk",
-                            sdk,
+                            sdk
+                        )
+                    }
+                    "watchos" -> {
+                        commandLine(
+                            "xcodebuild",
+                            "-project",
+                            "$library/$library.xcodeproj",
+                            "-target",
+                            "${library}Watchos",
+                            "-sdk",
+                            sdk
+                        )
+                    }
+                    "watchsimulator" -> {
+                        commandLine(
+                            "xcodebuild",
+                            "-project",
+                            "$library/$library.xcodeproj",
+                            "-target",
+                            "${library}Watchos",
+                            "-sdk",
+                            sdk
+                        )
+                    }
+                    "appletvos" -> {
+                        commandLine(
+                            "xcodebuild",
+                            "-project",
+                            "$library/$library.xcodeproj",
+                            "-target",
+                            "${library}Tvos",
+                            "-sdk",
+                            sdk
+                        )
+                    }
+                    "appletvsimulator" -> {
+                        commandLine(
+                            "xcodebuild",
+                            "-project",
+                            "$library/$library.xcodeproj",
+                            "-target",
+                            "${library}Tvos",
+                            "-sdk",
+                            sdk
                         )
                     }
                 }
@@ -42,155 +86,47 @@ libraries.forEach { library ->
 
             inputs.files(
                 fileTree("$projectDir/$library.xcodeproj") { exclude("**/xcuserdata") },
-                fileTree("$projectDir/$library"),
+                fileTree("$projectDir/$library")
             )
             when (sdk) {
                 "iphoneos" -> {
                     outputs.files(
-                        fileTree("$projectDir/$library/build/Release-iphoneos"),
+                        fileTree("$projectDir/$library/build/Release-iphoneos")
                     )
                 }
                 "iphonesimulator" -> {
                     outputs.files(
-                        fileTree("$projectDir/$library/build/Release-iphonesimulator"),
+                        fileTree("$projectDir/$library/build/Release-iphonesimulator")
                     )
                 }
                 "macosx" -> {
                     outputs.files(
-                        fileTree("$projectDir/$library/build/Release"),
+                        fileTree("$projectDir/$library/build/Release")
+                    )
+                }
+                "watchos" -> {
+                    outputs.files(
+                        fileTree("$projectDir/$library/build/Release-watchos")
+                    )
+                }
+                "watchsimulator" -> {
+                    outputs.files(
+                        fileTree("$projectDir/$library/build/Release-watchsimulator")
+                    )
+                }
+                "appletvos" -> {
+                    outputs.files(
+                        fileTree("$projectDir/$library/build/Release-appletvos")
+                    )
+                }
+                "appletvsimulator" -> {
+                    outputs.files(
+                        fileTree("$projectDir/$library/build/Release-appletvsimulator")
                     )
                 }
             }
         }
     }
-//
-//    tasks.create<Exec>("build${library.capitalize()}IosX64") {
-//        group = "build"
-//
-//        if (os.isMacOsX) {
-//            commandLine(
-//                "xcodebuild",
-//                "-project",
-//                "$library/$library.xcodeproj",
-//                "-target",
-//                "$library",
-//                "-sdk",
-//                "iphonesimulator",
-// //                "-arch",
-// //                "x86_64",
-// //                "CONFIGURATION_BUILD_DIR=$projectDir/$library/build/x86_64-iphonesimulator",
-//            )
-//        } else {
-//            commandLine("echo", "Unsupported platform.")
-//        }
-//
-//        workingDir(projectDir)
-//
-//        inputs.files(
-//            fileTree("$projectDir/$library.xcodeproj") { exclude("**/xcuserdata") },
-//            fileTree("$projectDir/$library"),
-//        )
-//
-//        outputs.files(
-//            fileTree("$projectDir/$library/build/x86_64-iphonesimulator"),
-//        )
-//    }
-//
-//    tasks.create<Exec>("build${library.capitalize()}IosSimulatorArm64") {
-//        group = "build"
-//
-//        if (os.isMacOsX) {
-//            commandLine(
-//                "xcodebuild",
-//                "-project",
-//                "$library/$library.xcodeproj",
-//                "-target",
-//                "$library",
-//                "-sdk",
-//                "iphonesimulator",
-// //                "-arch",
-// //                "arm64",
-// //                "CONFIGURATION_BUILD_DIR=$projectDir/$library/build/arm64-iphonesimulator",
-//            )
-//        } else {
-//            commandLine("echo", "Unsupported platform.")
-//        }
-//
-//        workingDir(projectDir)
-//
-//        inputs.files(
-//            fileTree("$projectDir/$library.xcodeproj") { exclude("**/xcuserdata") },
-//            fileTree("$projectDir/$library"),
-//        )
-//
-//        outputs.files(
-//            fileTree("$projectDir/$library/build/arm64-iphonesimulator"),
-//        )
-//    }
-//
-//    tasks.create<Exec>("build${library.capitalize()}MacosX64") {
-//        group = "build"
-//
-//        if (os.isMacOsX) {
-//            commandLine(
-//                "xcodebuild",
-//                "-project",
-//                "$library/$library.xcodeproj",
-//                "-target",
-//                "${library}Macos",
-//                "-sdk",
-//                "macosx",
-// //                "-arch",
-// //                "x86_64",
-//                "CONFIGURATION_BUILD_DIR=$projectDir/$library/build/x86_64-macos",
-//            )
-//        } else {
-//            commandLine("echo", "Unsupported platform.")
-//        }
-//
-//        workingDir(projectDir)
-//
-//        inputs.files(
-//            fileTree("$projectDir/$library.xcodeproj") { exclude("**/xcuserdata") },
-//            fileTree("$projectDir/$library"),
-//        )
-//
-//        outputs.files(
-//            fileTree("$projectDir/$library/build/x86_64-macos"),
-//        )
-//    }
-//
-//    tasks.create<Exec>("build${library.capitalize()}MacosArm64") {
-//        group = "build"
-//
-//        if (os.isMacOsX) {
-//            commandLine(
-//                "xcodebuild",
-//                "-project",
-//                "$library/$library.xcodeproj",
-//                "-target",
-//                "${library}Macos",
-//                "-sdk",
-//                "macosx",
-//                "-arch",
-//                "arm64",
-//                "CONFIGURATION_BUILD_DIR=$projectDir/$library/build/arm64-macos",
-//            )
-//        } else {
-//            commandLine("echo", "Unsupported platform.")
-//        }
-//
-//        workingDir(projectDir)
-//
-//        inputs.files(
-//            fileTree("$projectDir/$library.xcodeproj") { exclude("**/xcuserdata") },
-//            fileTree("$projectDir/$library"),
-//        )
-//
-//        outputs.files(
-//            fileTree("$projectDir/$library/build/arm64-macos"),
-//        )
-//    }
 }
 
 tasks.create<Delete>("clean") {

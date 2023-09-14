@@ -1,6 +1,6 @@
 # Apollo - VarInt
 
-[![Kotlin](https://img.shields.io/badge/kotlin-1.7.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.8.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![Build](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml)
 [![Deployment](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/Deployment.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/Deployment.yml)
 
@@ -14,9 +14,29 @@
 ![tvos](https://camo.githubusercontent.com/4ac08d7fb1bcb8ef26388cd2bf53b49626e1ab7cbda581162a946dd43e6a2726/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d74766f732d3830383038302e7376673f7374796c653d666c6174)
 ![watchos](https://camo.githubusercontent.com/135dbadae40f9cabe7a3a040f9380fb485cff36c90909f3c1ae36b81c304426b/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d77617463686f732d4330433043302e7376673f7374796c653d666c6174)
 
-![Atala Prism Logo](Logo.png)
+![Atala Prism Logo](../Logo.png)
 
 Apollo VarInt is Kotlin Multiplatform library implementation of [VarInt](https://github.com/multiformats/unsigned-varint) unsigned varint (VARiable INTeger) format.
+
+## Supported Targets
+
+| Platform                                 | Supported          |
+|------------------------------------------|--------------------|
+| iOS x86 64                               | :heavy_check_mark: |
+| iOS Arm 64                               | :heavy_check_mark: |
+| iOS Simulator Arm 64 (Apple Silicon)     | :heavy_check_mark: |
+| JVM                                      | :heavy_check_mark: | 
+| Android                                  | :heavy_check_mark: |
+| JS Browser                               | :heavy_check_mark: |
+| NodeJS Browser                           | :heavy_check_mark: |
+| macOS X86 64                             | :heavy_check_mark: |
+| macOS Arm 64 (Apple Silicon)             | :heavy_check_mark: |
+| watchOS X86 32                           | :heavy_check_mark: |
+| watchOS Arm 64(_32)                      | :heavy_check_mark: |
+| watchOS Arm 32                           | :heavy_check_mark: |
+| watchOS Simulator Arm 64 (Apple Silicon) | :heavy_check_mark: |
+| tvOS Arm 64                              | :heavy_check_mark: |
+| tvOS Simulator Arm 64 (Apple Silicon)    | :heavy_check_mark: |
 
 ## Usage
 

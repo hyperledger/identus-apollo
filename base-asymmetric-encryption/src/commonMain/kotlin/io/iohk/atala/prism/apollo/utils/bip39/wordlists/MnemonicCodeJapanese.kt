@@ -2054,6 +2054,6 @@ internal object MnemonicCodeJapanese {
         "わじまし",
         "わすれもの",
         "わらう",
-        "われる",
+        "われる"
     )
 }

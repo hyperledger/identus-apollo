@@ -1,5 +1,5 @@
 package io.iohk.atala.prism.apollo.utils
-
+/*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.await
 import kotlinx.coroutines.promise
@@ -43,3 +43,4 @@ actual final class KMMRSAKeyPair actual constructor(
         }
     }
 }
+*/

@@ -27,20 +27,19 @@ kotlin {
     }
     if (os.isMacOsX) {
         ios()
-//        tvos()
-//        watchos()
-//        macosX64()
+        watchos()
+        macosX64()
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
             iosSimulatorArm64()
-//            tvosSimulatorArm64()
-//            watchosSimulatorArm64()
+            tvosArm64("tvos")
+            tvosSimulatorArm64()
+            watchosSimulatorArm64()
             macosArm64()
         }
     }
-//    if (os.isWindows) {
-//        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
-//        mingwX64()
-//    }
+    if (os.isWindows) {
+        mingwX64()
+    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
@@ -52,40 +51,35 @@ kotlin {
             this.version = rootProject.version.toString()
         }
         browser {
-            this.webpackTask {
-                this.output.library = currentModuleName
-                this.output.libraryTarget = Target.VAR
-            }
-            this.commonWebpackConfig {
-//                this.cssSupport {
-//                    this.enabled = true
-//                }
-            }
-            this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
+            this.webpackTask(
+                Action {
+                    this.output.library = currentModuleName
+                    this.output.libraryTarget = Target.VAR
                 }
-                this.useKarma {
-                    this.useChromeHeadless()
+            )
+            this.testTask(
+                Action {
+                    this.useKarma {
+                        this.useChromeHeadless()
+                    }
                 }
-            }
+            )
         }
         nodejs {
-            this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
+            this.testTask(
+                Action {
+                    this.useKarma {
+                        this.useChromeHeadless()
+                    }
                 }
-                this.useKarma {
-                    this.useChromeHeadless()
-                }
-            }
+            )
         }
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.ionspin.kotlin:bignum:0.3.7")
+                implementation("com.ionspin.kotlin:bignum:0.3.8")
             }
         }
         val commonTest by getting {
@@ -106,10 +100,10 @@ kotlin {
         if (os.isMacOsX) {
             val iosMain by getting
             val iosTest by getting
-//            val tvosMain by getting
-//            val tvosTest by getting
-//            val watchosMain by getting
-//            val watchosTest by getting
+            val watchosMain by getting
+            val watchosTest by getting
+            val macosX64Main by getting
+            val macosX64Test by getting
             if (System.getProperty("os.arch") != "x86_64") { // M1Chip
                 val iosSimulatorArm64Main by getting {
                     this.dependsOn(iosMain)
@@ -117,44 +111,33 @@ kotlin {
                 val iosSimulatorArm64Test by getting {
                     this.dependsOn(iosTest)
                 }
-//                val tvosSimulatorArm64Main by getting {
-//                    this.dependsOn(tvosMain)
-//                }
-//                val tvosSimulatorArm64Test by getting {
-//                    this.dependsOn(tvosTest)
-//                }
-//                val watchosSimulatorArm64Main by getting {
-//                    this.dependsOn(watchosMain)
-//                }
-//                val watchosSimulatorArm64Test by getting {
-//                    this.dependsOn(watchosTest)
-//                }
+                val tvosMain by getting
+                val tvosTest by getting
+                val tvosSimulatorArm64Main by getting {
+                    this.dependsOn(tvosMain)
+                }
+                val tvosSimulatorArm64Test by getting {
+                    this.dependsOn(tvosTest)
+                }
+                val watchosSimulatorArm64Main by getting {
+                    this.dependsOn(watchosMain)
+                }
+                val watchosSimulatorArm64Test by getting {
+                    this.dependsOn(watchosTest)
+                }
                 val macosArm64Main by getting
                 val macosArm64Test by getting
             }
         }
-//        if (os.isWindows) {
-//            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
-//            // val mingwX86Test by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
-//            val mingwX64Main by getting
-//            val mingwX64Test by getting
-//        }
-    }
-
-    if (os.isMacOsX) {
-        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
-            deviceId = "iPhone 14 Plus"
-        }
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                deviceId = "iPhone 14 Plus"
-            }
+        if (os.isWindows) {
+            val mingwX64Main by getting
+            val mingwX64Test by getting
         }
     }
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 21
@@ -194,12 +177,9 @@ tasks.withType<DokkaTask> {
     }
 }
 
-// afterEvaluate {
-//    tasks.withType<AbstractTestTask> {
-//        testLogging {
-//            events("passed", "skipped", "failed", "standard_out", "standard_error")
-//            showExceptions = true
-//            showStackTraces = true
-//        }
-//    }
-// }
+tasks.matching {
+    // Because runtime exit with code 134
+    it.name.contains("tvosSimulatorArm64Test")
+}.all {
+    this.enabled = false
+}

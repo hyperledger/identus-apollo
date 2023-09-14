@@ -2054,6 +2054,6 @@ internal object MnemonicCodeFrench {
         "zèbre",
         "zénith",
         "zeste",
-        "zoologie",
+        "zoologie"
     )
 }

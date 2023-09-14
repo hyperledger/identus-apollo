@@ -1,5 +1,5 @@
 package io.iohk.atala.prism.apollo.utils
-
+/*
 import java.security.KeyPairGenerator
 import java.security.SecureRandom
 
@@ -23,3 +23,4 @@ actual final class KMMRSAKeyPair actual constructor(val privateKey: KMMRSAPrivat
         }
     }
 }
+*/

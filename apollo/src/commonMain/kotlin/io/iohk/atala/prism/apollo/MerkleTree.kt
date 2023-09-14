@@ -58,7 +58,7 @@ data class MerkleRoot(val hash: Hash)
 data class MerkleInclusionProof(
     val hash: Hash, // hash inclusion of which this proof is for
     val index: Index, // index for the given hash's position in the tree
-    val siblings: List<Hash> // given hash's siblings at each level of the tree starting from the bottom
+    val siblings: Array<Hash> // given hash's siblings at each level of the tree starting from the bottom
 ) {
     // merkle root of which this proof is for
     fun derivedRoot(): MerkleRoot {
@@ -79,13 +79,33 @@ data class MerkleInclusionProof(
             mapOf(
                 Pair(hashField, JsonPrimitive(hash.toHexString())),
                 Pair(indexField, JsonPrimitive(index)),
-                Pair(siblingsField, JsonArray(siblings.map { JsonPrimitive(it.toHexString()) })),
+                Pair(siblingsField, JsonArray(siblings.map { JsonPrimitive(it.toHexString()) }))
             )
         )
     }
 
     fun encode(): String {
         return toJson().toString()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as MerkleInclusionProof
+
+        if (!hash.contentEquals(other.hash)) return false
+        if (index != other.index) return false
+        if (!siblings.contentDeepEquals(other.siblings)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = hash.contentHashCode()
+        result = 31 * result + index
+        result = 31 * result + siblings.contentDeepHashCode()
+        return result
     }
 
     companion object {
@@ -123,7 +143,7 @@ data class MerkleInclusionProof(
                 )
             ) { hash, index, siblings ->
                 Validated.Valid(
-                    MerkleInclusionProof(hash, index, siblings)
+                    MerkleInclusionProof(hash, index, siblings.toTypedArray())
                 )
             }
         }
@@ -140,8 +160,6 @@ private fun prefixHash(data: Hash): Hash {
 
 data class MerkleProofs(val root: MerkleRoot, val proofs: List<MerkleInclusionProof>)
 
-@OptIn(ExperimentalJsExport::class)
-@JsExport
 fun generateProofs(hashes: List<Hash>): MerkleProofs {
     tailrec fun buildMerkleTree(currentLevel: List<MerkleTree>, nextLevel: List<MerkleTree>): MerkleTree {
         return when {
@@ -160,7 +178,7 @@ fun generateProofs(hashes: List<Hash>): MerkleProofs {
 
     fun buildProofs(tree: MerkleTree, currentIndex: Index, currentPath: List<Hash>): List<MerkleInclusionProof> {
         return when (tree) {
-            is MerkleLeaf -> listOf(MerkleInclusionProof(tree.data, currentIndex, currentPath))
+            is MerkleLeaf -> listOf(MerkleInclusionProof(tree.data, currentIndex, currentPath.toTypedArray()))
             is MerkleNode -> {
                 val first = buildProofs(
                     tree.left,

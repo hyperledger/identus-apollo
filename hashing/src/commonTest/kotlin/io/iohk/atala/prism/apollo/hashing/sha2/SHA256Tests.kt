@@ -2,7 +2,6 @@ package io.iohk.atala.prism.apollo.hashing.sha2
 
 import io.iohk.atala.prism.apollo.hashing.BaseHashTests
 import io.iohk.atala.prism.apollo.hashing.SHA256
-import io.iohk.atala.prism.apollo.hashing.internal.JsIgnore
 import io.iohk.atala.prism.apollo.hashing.internal.toBinary
 import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import kotlinx.coroutines.test.runTest
@@ -42,7 +41,7 @@ class SHA256Tests : BaseHashTests() {
     }
 
     @Test
-    @JsIgnore
+    @Ignore
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     fun test_VeryLong() = runTest {
         val hash = SHA256()

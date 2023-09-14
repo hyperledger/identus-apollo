@@ -2054,6 +2054,6 @@ internal object MnemonicCodeSimplifiedChinese {
         "韦",
         "怨",
         "矮",
-        "歇",
+        "歇"
     )
 }

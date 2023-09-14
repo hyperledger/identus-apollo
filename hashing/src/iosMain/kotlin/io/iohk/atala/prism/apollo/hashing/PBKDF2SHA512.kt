@@ -1,5 +1,6 @@
 package io.iohk.atala.prism.apollo.hashing
 
+import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.usePinned
@@ -11,7 +12,7 @@ import platform.CoreCrypto.kCCPRFHmacAlgSHA512
 actual class PBKDF2SHA512 {
     actual companion object {
 
-        @OptIn(ExperimentalUnsignedTypes::class)
+        @OptIn(UnsafeNumber::class)
         actual fun derive(
             p: String,
             s: String,

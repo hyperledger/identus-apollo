@@ -5,7 +5,7 @@ import io.iohk.atala.prism.apollo.base64.base64PadEncoded
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
-actual open class KMMSymmetricKey(val nativeType: SecretKey) : SymmetricKeyBase64Export {
+actual final class KMMSymmetricKey(val nativeType: SecretKey) : SymmetricKeyBase64Export {
     override fun exportToBase64(): String {
         return nativeType.encoded.base64PadEncoded
     }

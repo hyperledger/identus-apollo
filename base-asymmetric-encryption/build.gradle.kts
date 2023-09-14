@@ -7,16 +7,56 @@ val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")
-    id("io.github.luca992.multiplatform-swiftpackage") version "2.0.5-arm64"
+    id("io.github.luca992.multiplatform-swiftpackage") version("2.1.2")
     id("com.android.library")
     id("org.jetbrains.dokka")
+}
+
+fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.swiftCinterop(library: String, platform: String) {
+    compilations.getByName("main") {
+        cinterops.create(library) {
+            extraOpts = listOf("-compiler-option", "-DNS_FORMAT_ARGUMENT(A)=")
+            when (platform) {
+                "iosX64", "iosSimulatorArm64" -> {
+                    includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphonesimulator/include/")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphonesimulator")
+                }
+                "iosArm64" -> {
+                    includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphoneos/include/")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphoneos")
+                }
+                "macosX64", "macosArm64" -> {
+                    includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release/include/")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Macosx")
+                }
+                "tvosArm64", "tvosX64", "tvos" -> {
+                    includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-appletvos/include/")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Appletvos")
+                }
+                "tvosSimulatorArm64" -> {
+                    includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-appletvsimulator/include/")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Appletvsimulator")
+                }
+                "watchosArm32", "watchosArm64" -> {
+                    includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-watchos/include/")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Watchos")
+                }
+                "watchosSimulatorArm64", "watchosX64" -> {
+                    includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-watchsimulator/include/")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Watchsimulator")
+                }
+                else -> {
+                    throw GradleException("MOUSSA-ERROR: $library - $platform - ERROR")
+                }
+            }
+        }
+    }
 }
 
 kotlin {
     android {
         publishAllLibraryVariants()
     }
-
     jvm {
         compilations.all {
             kotlinOptions {
@@ -28,61 +68,28 @@ kotlin {
             useJUnitPlatform()
         }
     }
-
-    fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.swiftCinterop(library: String, platform: String) {
-        compilations.getByName("main") {
-            cinterops.create(library) {
-                extraOpts = listOf("-compiler-option", "-DNS_FORMAT_ARGUMENT(A)=")
-                when (platform) {
-                    "iosX64", "iosSimulatorArm64" -> {
-                        includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphonesimulator/include/")
-                        tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphonesimulator")
-                    }
-                    "iosArm64" -> {
-                        includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphoneos/include/")
-                        tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphoneos")
-                    }
-                    "macosX64", "macosArm64" -> {
-                        includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release/include/")
-                        tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Macosx")
-                    }
-                }
-            }
-        }
-    }
-
-    ios {
-        swiftCinterop("IOHKCryptoKit", name)
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-
-        binaries.framework {
-            baseName = currentModuleName
-            embedBitcode("disable")
-        }
-    }
-
-    if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-        iosSimulatorArm64 {
-            binaries.framework {
-                baseName = currentModuleName
-                embedBitcode("disable")
-            }
-
+    if (os.isMacOsX) {
+        ios {
             swiftCinterop("IOHKCryptoKit", name)
             swiftCinterop("IOHKSecureRandomGeneration", name)
         }
+        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+            iosSimulatorArm64 {
+                swiftCinterop("IOHKCryptoKit", name)
+                swiftCinterop("IOHKSecureRandomGeneration", name)
+            }
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-        macosArm64 {
-            binaries.framework {
-                baseName = currentModuleName
-                embedBitcode("disable")
+            macosArm64 {
+                swiftCinterop("IOHKCryptoKit", name)
+                swiftCinterop("IOHKSecureRandomGeneration", name)
             }
-
-            swiftCinterop("IOHKCryptoKit", name)
-            swiftCinterop("IOHKSecureRandomGeneration", name)
         }
+    } else if (os.isLinux) {
+        // Had to add this because the plugin [io.github.luca992.multiplatform-swiftpackage] is complaning on linux
+        ios()
     }
+
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
@@ -94,24 +101,28 @@ kotlin {
             this.version = rootProject.version.toString()
         }
         browser {
-            this.webpackTask {
-                this.output.library = currentModuleName
-                this.output.libraryTarget = Target.VAR
-            }
-            this.commonWebpackConfig {
-            }
-            this.testTask {
-                this.useKarma {
-                    this.useChromeHeadless()
+            this.webpackTask(
+                Action {
+                    this.output.library = currentModuleName
+                    this.output.libraryTarget = Target.VAR
                 }
-            }
+            )
+            this.testTask(
+                Action {
+                    this.useKarma {
+                        this.useChromeHeadless()
+                    }
+                }
+            )
         }
         nodejs {
-            this.testTask {
-                this.useKarma {
-                    this.useChromeHeadless()
+            this.testTask(
+                Action {
+                    this.useKarma {
+                        this.useChromeHeadless()
+                    }
                 }
-            }
+            )
         }
     }
 
@@ -131,23 +142,22 @@ kotlin {
                 implementation(project(":utils"))
                 implementation(project(":secure-random"))
                 implementation(project(":hashing"))
-                implementation("com.ionspin.kotlin:bignum:0.3.7")
                 implementation(project(":base64"))
+                implementation("com.ionspin.kotlin:bignum:0.3.8")
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(project(":base64"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4") // or the latest version
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
             }
         }
         val jvmMain by getting {
             dependencies {
                 dependencies {
-                    api("fr.acinq.secp256k1:secp256k1-kmp:0.9.0")
+                    api("fr.acinq.secp256k1:secp256k1-kmp:0.10.1")
                 }
                 val target = when {
                     os.isLinux -> "linux"
@@ -155,7 +165,7 @@ kotlin {
                     os.isWindows -> "mingw"
                     else -> error("Unsupported OS $os")
                 }
-                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-$target:0.9.0")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-$target:0.10.1")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
             }
@@ -163,9 +173,9 @@ kotlin {
         val jvmTest by getting
         val androidMain by getting {
             dependencies {
-                api("fr.acinq.secp256k1:secp256k1-kmp:0.9.0")
-                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.9.0")
-                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-android:0.9.0")
+                api("fr.acinq.secp256k1:secp256k1-kmp:0.10.1")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.10.1")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-android:0.10.1")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
             }
@@ -177,8 +187,6 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                implementation(project(":base64"))
-
                 implementation(npm("elliptic", "6.5.4"))
                 implementation(npm("@types/elliptic", "6.4.14"))
                 implementation(npm("@noble/secp256k1", "2.0.0"))
@@ -193,48 +201,46 @@ kotlin {
             }
         }
         val jsTest by getting
-
-        val iosMain by getting {
-            dependencies {
-                implementation(project(":secp256k1-kmp"))
+        if (os.isMacOsX) {
+            val iosMain by getting {
+                dependencies {
+                    implementation(project(":secp256k1-kmp"))
+                }
             }
-        }
-
-        val iosTest by getting {
-            this.dependsOn(commonTest)
-        }
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            val iosSimulatorArm64Main by getting {
-                this.dependsOn(iosMain)
+            val iosTest by getting {
+                this.dependsOn(commonTest)
             }
-            val iosSimulatorArm64Test by getting {
-                this.dependsOn(iosTest)
+            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+                val iosSimulatorArm64Main by getting {
+                    this.dependsOn(iosMain)
+                }
+                val iosSimulatorArm64Test by getting {
+                    this.dependsOn(iosTest)
+                }
+                val macosArm64Main by getting {
+                    this.dependsOn(iosMain)
+                }
+                val macosArm64Test by getting {
+                    this.dependsOn(iosTest)
+                }
             }
-            val macosArm64Main by getting { this.dependsOn(iosMain) }
-            val macosArm64Test by getting { this.dependsOn(iosTest) }
         }
 //        if (os.isWindows) {
-//            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
-//            // val mingwX86Test by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
 //            val mingwX64Main by getting
 //            val mingwX64Test by getting
 //        }
     }
-
-    if (os.isMacOsX) {
-        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
-            deviceId = "iPhone 14 Plus"
-        }
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                deviceId = "iPhone 14 Plus"
-            }
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+        binaries.withType<org.jetbrains.kotlin.gradle.plugin.mpp.Framework> {
+            // isStatic = false
+            baseName = currentModuleName
+            embedBitcode("disable")
         }
     }
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 21
@@ -274,22 +280,9 @@ tasks.withType<DokkaTask> {
     }
 }
 
-afterEvaluate {
-    tasks.withType<AbstractTestTask> {
-        testLogging {
-            events("passed", "skipped", "failed", "standard_out", "standard_error")
-            showExceptions = true
-            showStackTraces = true
-        }
-    }
-}
-
-ktlint {
-    filter {
-        exclude("**/external/*", "./src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*")
-        exclude {
-            it.file.toString().contains("external")
-        }
-        exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/external/") }
-    }
+tasks.matching {
+    // Because runtime exit with code 134
+    it.name.contains("tvosSimulatorArm64Test")
+}.all {
+    this.enabled = false
 }

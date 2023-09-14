@@ -5,7 +5,7 @@ import kotlinx.cinterop.*
 import platform.posix.size_tVar
 import secp256k1.*
 
-@OptIn(ExperimentalUnsignedTypes::class, kotlinx.cinterop.UnsafeNumber::class)
+@OptIn(ExperimentalUnsignedTypes::class, UnsafeNumber::class)
 public object Secp256k1Native : Secp256k1 {
 
     private val ctx: CPointer<secp256k1_context> by lazy {
@@ -233,7 +233,7 @@ public object Secp256k1Native : Secp256k1 {
             secp256k1_xonly_pubkey_parse(ctx, pubkey.ptr, nPub).requireSuccess("secp256k1_xonly_pubkey_parse() failed")
             val nData = toNat(data)
             val nSig = toNat(signature)
-            return secp256k1_schnorrsig_verify(ctx, nSig, nData, 32, pubkey.ptr) == 1
+            return secp256k1_schnorrsig_verify(ctx, nSig, nData, 32u, pubkey.ptr) == 1
         }
     }
 
@@ -256,8 +256,6 @@ public object Secp256k1Native : Secp256k1 {
     public override fun cleanup() {
         secp256k1_context_destroy(ctx)
     }
-
-
 }
 
 internal actual fun getSecpk256k1(): Secp256k1 = Secp256k1Native

@@ -52,27 +52,28 @@ kotlin {
             this.version = rootProject.version.toString()
         }
         browser {
-            this.webpackTask {
-                this.output.library = currentModuleName
-                this.output.libraryTarget = Target.VAR
-            }
-            this.commonWebpackConfig {
-                this.cssSupport {
-                    this.enabled = true
+            this.webpackTask(
+                Action {
+                    this.output.library = currentModuleName
+                    this.output.libraryTarget = Target.VAR
                 }
-            }
-            this.testTask {
-                this.useKarma {
-                    this.useChromeHeadless()
+            )
+            this.testTask(
+                Action {
+                    this.useKarma {
+                        this.useChromeHeadless()
+                    }
                 }
-            }
+            )
         }
         nodejs {
-            this.testTask {
-                this.useKarma {
-                    this.useChromeHeadless()
+            this.testTask(
+                Action {
+                    this.useKarma {
+                        this.useChromeHeadless()
+                    }
                 }
-            }
+            )
         }
     }
 

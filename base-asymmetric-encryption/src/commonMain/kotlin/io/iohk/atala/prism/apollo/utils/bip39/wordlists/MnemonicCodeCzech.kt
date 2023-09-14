@@ -2054,7 +2054,6 @@ internal object MnemonicCodeCzech {
         "zvon",
         "zvrat",
         "zvukovod",
-        "zvyk",
-
+        "zvyk"
     )
 }

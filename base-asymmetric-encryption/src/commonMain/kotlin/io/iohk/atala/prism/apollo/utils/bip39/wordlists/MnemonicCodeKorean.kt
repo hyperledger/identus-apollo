@@ -2054,6 +2054,6 @@ internal object MnemonicCodeKorean {
         "희망",
         "희생",
         "흰색",
-        "힘껏",
+        "힘껏"
     )
 }

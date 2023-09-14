@@ -1,6 +1,6 @@
 # Apollo
 
-[![Kotlin](https://img.shields.io/badge/kotlin-1.7.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.8.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![Build](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml)
 [![Deployment](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/Deployment.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/Deployment.yml)
 
@@ -132,7 +132,13 @@ Could not find JNA native support
 * Make sure that you are using Java version that is arch64.
 
 ## How to use for JVM/Android app
-TBD
+
+Just import the package that you want from Apollo into your dependencies
+```kotlin
+val apolloVersion = "....."
+// This is an example of adding base64 module
+implementation("io.iohk.atala.prism.apollo:base64:$apolloVersion")
+```
 
 ## How to use for iOS app
 TBD
@@ -140,7 +146,7 @@ TBD
 ## How to use for JS app
 TBD
 
-## How to use for NodeJS app
+## How to use for Node.js app
 TBD
 
 ## How to use for Python
@@ -150,7 +156,9 @@ TBD
 TBD
 
 ## How to use for another KMM project
+
 You need to do the following:
+
 1. You need to let Gradle know where to search for the Apollo package
 2. Import the packages in the common target as per your project needs
     1. Once you insert the import in the common target, it will automatically retrieve each supported target knowing that the currently only available targets are:
@@ -161,7 +169,6 @@ You need to do the following:
 |------------------------------------------|--------------------|
 | iOS x86 64                               | :heavy_check_mark: |
 | iOS Arm 64                               | :heavy_check_mark: |
-| iOS Arm 32                               | :heavy_check_mark: |
 | iOS Simulator Arm 64 (Apple Silicon)     | :heavy_check_mark: |
 | JVM                                      | :heavy_check_mark: | 
 | Android                                  | :heavy_check_mark: |
@@ -173,14 +180,8 @@ You need to do the following:
 | watchOS Arm 64(_32)                      | :heavy_check_mark: |
 | watchOS Arm 32                           | :heavy_check_mark: |
 | watchOS Simulator Arm 64 (Apple Silicon) | :heavy_check_mark: |
-| tvOS X86 64                              | :heavy_check_mark: |
 | tvOS Arm 64                              | :heavy_check_mark: |
-| tvOS Simulator Arm 64 (Apple Silicon)    | :heavy_check_mark: |
-| Linux X86 64                             | :x:                |
-| Linux Arm 64                             | :x:                |
-| Linux Arm 32                             | :x:                |
-| minGW X86 64                             | :x:                |
-| minGW X86 32                             | :x:                | 
+| tvOS Simulator Arm 64 (Apple Silicon)    | :heavy_check_mark: | 
 
 **For the first, second & third point** we have two cases using Groovy and using Kotlin DSL
 

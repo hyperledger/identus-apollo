@@ -2054,7 +2054,6 @@ internal object MnemonicCodeItalian {
         "zucchero",
         "zufolo",
         "zulu",
-        "zuppa",
-        "",
+        "zuppa"
     )
 }

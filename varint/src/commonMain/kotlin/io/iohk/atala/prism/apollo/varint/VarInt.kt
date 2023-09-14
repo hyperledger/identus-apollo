@@ -3,6 +3,7 @@ package io.iohk.atala.prism.apollo.varint
 import okio.Buffer
 
 object VarInt : VarIntInterface {
+    @Suppress("NAME_SHADOWING")
     override fun write(value: Int, byteBuffer: Buffer) {
         var value = value
         while ((value and -0x80).toLong() != 0L) {

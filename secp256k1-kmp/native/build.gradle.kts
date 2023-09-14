@@ -3,10 +3,10 @@ import org.gradle.internal.os.OperatingSystem
 val currentOs = OperatingSystem.current()
 val bash = "bash"
 
-val buildSecp256k1 by tasks.creating { group = "build" }
+val buildSecp256k1 by tasks.creating { group = "buildSecp256k1" }
 
 val buildSecp256k1Host by tasks.creating(Exec::class) {
-    group = "build"
+    group = "buildSecp256k1"
     buildSecp256k1.dependsOn(this)
 
     val target = when {
@@ -25,7 +25,7 @@ val buildSecp256k1Host by tasks.creating(Exec::class) {
 }
 
 val buildSecp256k1Ios by tasks.creating(Exec::class) {
-    group = "build"
+    group = "buildSecp256k1"
     buildSecp256k1.dependsOn(this)
 
     onlyIf { currentOs.isMacOsX }
@@ -42,7 +42,7 @@ val buildSecp256k1Ios by tasks.creating(Exec::class) {
 }
 
 val buildSecp256k1IosSimulatorArm64 by tasks.creating(Exec::class) {
-    group = "build"
+    group = "buildSecp256k1"
     buildSecp256k1.dependsOn(this)
 
     onlyIf { currentOs.isMacOsX }
@@ -59,7 +59,7 @@ val buildSecp256k1IosSimulatorArm64 by tasks.creating(Exec::class) {
 }
 
 val buildSecp256k1MacosArm64 by tasks.creating(Exec::class) {
-    group = "build"
+    group = "buildSecp256k1"
     buildSecp256k1.dependsOn(this)
 
     onlyIf { currentOs.isMacOsX }
@@ -76,7 +76,7 @@ val buildSecp256k1MacosArm64 by tasks.creating(Exec::class) {
 }
 
 val buildSecp256k1MacosX64 by tasks.creating(Exec::class) {
-    group = "build"
+    group = "buildSecp256k1"
     buildSecp256k1.dependsOn(this)
 
     onlyIf { currentOs.isMacOsX }
@@ -93,7 +93,7 @@ val buildSecp256k1MacosX64 by tasks.creating(Exec::class) {
 }
 
 val buildSecp256k1WatchOSArm64 by tasks.creating(Exec::class) {
-    group = "build"
+    group = "buildSecp256k1"
     buildSecp256k1.dependsOn(this)
 
     onlyIf { currentOs.isMacOsX }
@@ -110,7 +110,7 @@ val buildSecp256k1WatchOSArm64 by tasks.creating(Exec::class) {
 }
 
 val buildSecp256k1TvOSArm64 by tasks.creating(Exec::class) {
-    group = "build"
+    group = "buildSecp256k1"
     buildSecp256k1.dependsOn(this)
 
     onlyIf { currentOs.isMacOsX }
@@ -127,7 +127,7 @@ val buildSecp256k1TvOSArm64 by tasks.creating(Exec::class) {
 }
 
 val clean by tasks.creating {
-    group = "build"
+    group = "buildSecp256k1"
     doLast {
         delete(projectDir.resolve("build"))
     }

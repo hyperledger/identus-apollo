@@ -2,10 +2,10 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 
 plugins {
-    id("org.jetbrains.dokka") version "1.7.10"
-    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
+    id("org.jetbrains.dokka") version "1.9.0"
+    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
     id("maven-publish")
-    id("org.jetbrains.kotlinx.kover") version "0.7.2"
+    id("org.jetbrains.kotlinx.kover") version "0.7.3"
 }
 
 buildscript {
@@ -15,36 +15,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21")
-        classpath("com.android.tools.build:gradle:7.2.2")
-        // classpath("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.21")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
+        classpath("com.android.tools.build:gradle:7.4.0")
     }
 }
 
 version = "1.7.0-alpha"
 group = "io.iohk.atala.prism.apollo"
-
-dependencies {
-    kover(project(":apollo"))
-    kover(project(":hashing"))
-    kover(project(":uuid"))
-    kover(project(":base16"))
-    kover(project(":base32"))
-    kover(project(":base58"))
-    kover(project(":base64"))
-    kover(project(":multibase"))
-    kover(project(":utils"))
-    kover(project(":base-symmetric-encryption"))
-    kover(project(":secure-random"))
-//    kover(project(":aes"))
-    kover(project(":base-asymmetric-encryption"))
-//    kover(project(":rsa"))
-//    kover(project(":ecdsa"))
-    kover(project(":varint"))
-//    kover(project(":jose"))
-    kover(project("secp256k1-kmp"))
-    kover(project("secp256k1-kmp:native"))
-}
 
 allprojects {
     version = "1.7.0-alpha"
@@ -70,11 +47,23 @@ allprojects {
             }
         }
     }
+
+//    val os: OperatingSystem = OperatingSystem.current()
+//    if (os.isMacOsX) {
+//        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
+//            device.set("iPhone 14 Plus")
+//        }
+//        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
+//            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+//                device.set("iPhone 14 Plus")
+//            }
+//        }
+//    }
 }
 
 subprojects {
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
     apply(plugin = "org.jetbrains.kotlinx.kover")
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     ktlint {
         verbose.set(true)
@@ -84,45 +73,50 @@ subprojects {
             exclude {
                 it.file.toString().contains("external")
             }
+            val baseAsymmetricEncryptionExternalPath = rootDir
+                .resolve("base-asymmetric-encryption")
+                .resolve("src")
+                .resolve("jsMain")
+                .resolve("kotlin")
+                .resolve("io")
+                .resolve("iohk")
+                .resolve("atala")
+                .resolve("prism")
+                .resolve("apollo")
+                .resolve("utils")
+                .resolve("external")
             exclude(
-                "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**",
-                "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*",
-                "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/BNjs.kt",
-                "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Curve.kt",
-                "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/PresetCurve.kt",
-                "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Ellipticjs.kt",
-                "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/secp256k1js.kt",
-
-                "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**",
-                "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*",
-                "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/BNjs.kt",
-                "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Curve.kt",
-                "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/PresetCurve.kt",
-                "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Ellipticjs.kt",
-                "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/secp256k1js.kt",
-
-                "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**",
-                "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*",
-                "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/BNjs.kt",
-                "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Curve.kt",
-                "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/PresetCurve.kt",
-                "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Ellipticjs.kt",
-                "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/secp256k1js.kt"
+                "$baseAsymmetricEncryptionExternalPath/**",
+                "$baseAsymmetricEncryptionExternalPath/*"
             )
-            exclude {
-                it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" || it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
-            }
-            exclude("./base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**")
-            exclude {
-                it.file.toString().contains("external")
-            }
-            exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/external/") }
         }
     }
 }
 
+dependencies {
+    kover(project(":apollo"))
+    kover(project(":hashing"))
+    kover(project(":uuid"))
+    kover(project(":base16"))
+    kover(project(":base32"))
+    kover(project(":base58"))
+    kover(project(":base64"))
+    kover(project(":multibase"))
+    kover(project(":utils"))
+    kover(project(":base-symmetric-encryption"))
+    kover(project(":secure-random"))
+    // kover(project(":aes"))
+    kover(project(":base-asymmetric-encryption"))
+    // kover(project(":rsa"))
+    // kover(project(":ecdsa"))
+    kover(project(":varint"))
+    // kover(project(":jose"))
+    kover(project("secp256k1-kmp"))
+    kover(project("secp256k1-kmp:native"))
+}
+
 rootProject.plugins.withType(NodeJsRootPlugin::class.java) {
-    rootProject.extensions.getByType(NodeJsRootExtension::class.java).nodeVersion = "16.17.0"
+    rootProject.extensions.getByType(NodeJsRootExtension::class.java).nodeVersion = "18.17.1"
 }
 
 tasks.dokkaGfmMultiModule.configure {

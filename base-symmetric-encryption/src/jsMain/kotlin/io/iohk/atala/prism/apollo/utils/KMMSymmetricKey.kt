@@ -5,7 +5,7 @@ import io.iohk.atala.prism.apollo.base64.base64PadEncoded
 
 @OptIn(ExperimentalJsExport::class)
 @JsExport
-actual open class KMMSymmetricKey(val nativeValue: ByteArray) : SymmetricKeyBase64Export {
+actual final class KMMSymmetricKey(val nativeValue: ByteArray) : SymmetricKeyBase64Export {
     override fun exportToBase64(): String {
         return nativeValue.base64PadEncoded
     }

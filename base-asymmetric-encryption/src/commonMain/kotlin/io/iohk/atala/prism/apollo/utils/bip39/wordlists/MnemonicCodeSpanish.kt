@@ -2054,6 +2054,6 @@ internal object MnemonicCodeSpanish {
         "zona",
         "zorro",
         "zumo",
-        "zurdo",
+        "zurdo"
     )
 }

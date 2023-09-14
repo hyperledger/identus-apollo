@@ -53,27 +53,28 @@ kotlin {
             this.version = rootProject.version.toString()
         }
         browser {
-            this.webpackTask {
-                this.output.library = currentModuleName
-                this.output.libraryTarget = Target.VAR
-            }
-            this.commonWebpackConfig {
-                this.cssSupport {
-                    this.enabled = true
+            this.webpackTask(
+                Action {
+                    this.output.library = currentModuleName
+                    this.output.libraryTarget = Target.VAR
                 }
-            }
-            this.testTask {
-                this.useKarma {
-                    this.useChromeHeadless()
+            )
+            this.testTask(
+                Action {
+                    this.useKarma {
+                        this.useChromeHeadless()
+                    }
                 }
-            }
+            )
         }
         nodejs {
-            this.testTask {
-                this.useKarma {
-                    this.useChromeHeadless()
+            this.testTask(
+                Action {
+                    this.useKarma {
+                        this.useChromeHeadless()
+                    }
                 }
-            }
+            )
         }
     }
 
@@ -185,17 +186,6 @@ kotlin {
 //            val mingwX64Main by getting
 //            val mingwX64Test by getting
 //        }
-    }
-
-    if (os.isMacOsX) {
-        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
-            deviceId = "iPhone 14 Plus"
-        }
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                deviceId = "iPhone 14 Plus"
-            }
-        }
     }
 }
 

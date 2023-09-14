@@ -1,5 +1,5 @@
 package io.iohk.atala.prism.apollo.utils
-
+/*
 import platform.Security.SecKeyRef
 
 actual final class KMMRSAKeyPair actual constructor(val privateKey: KMMRSAPrivateKey, val publicKey: KMMRSAPublicKey) {
@@ -20,3 +20,4 @@ actual final class KMMRSAKeyPair actual constructor(val privateKey: KMMRSAPrivat
         }
     }
 }
+*/
