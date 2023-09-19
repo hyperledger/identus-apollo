@@ -4,11 +4,18 @@ import com.ionspin.kotlin.bignum.integer.BigInteger
 import io.iohk.atala.prism.apollo.hashing.SHA256
 import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import io.iohk.atala.prism.apollo.utils.ECConfig
+import io.iohk.atala.prism.apollo.utils.KMMECPoint
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PrivateKey
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PublicKey
 import io.iohk.atala.prism.apollo.utils.asByteArray
 import io.iohk.atala.prism.apollo.utils.asUint8Array
 import io.iohk.atala.prism.apollo.utils.decodeHex
+import io.iohk.atala.prism.apollo.utils.external.BN
 import io.iohk.atala.prism.apollo.utils.external.ec
 import io.iohk.atala.prism.apollo.utils.external.secp256k1.getPublicKey
+import node.buffer.Buffer
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.get
 
 actual class Secp256k1Lib actual constructor() {
     actual fun createPublicKey(privateKey: ByteArray, compressed: Boolean): ByteArray {
@@ -44,5 +51,24 @@ actual class Secp256k1Lib actual constructor() {
         val ecjs = ec("secp256k1")
         val sha = SHA256().digest(data)
         return ecjs.verify(sha.toHexString(), signature.toHexString(), publicKey.toHexString(), enc = "hex")
+    }
+
+    @OptIn(ExperimentalUnsignedTypes::class)
+    actual fun uncompressPublicKey(compressed: ByteArray): ByteArray {
+        val ecjs = ec("secp256k1")
+
+        val decoded = ecjs.curve.decodePoint(compressed.asUint8Array())
+
+        val x = ByteArray(decoded.getX().toArray().size) { index -> decoded.getX().toArray()[index].asDynamic() as Byte }
+        val y = ByteArray(decoded.getX().toArray().size) { index -> decoded.getY().toArray()[index].asDynamic() as Byte }
+
+        val header: Byte = 0x04
+        return byteArrayOf(header) + x + y
+    }
+
+    actual fun compressPublicKey(uncompressed: ByteArray): ByteArray {
+        val ecjs = ec("secp256k1")
+        val pubKeyBN = BN(ecjs.keyFromPublic(uncompressed.asUint8Array()).getPublic().encodeCompressed())
+        return ByteArray(pubKeyBN.toArray().size) { index -> pubKeyBN.toArray()[index].asDynamic() as Byte }
     }
 }

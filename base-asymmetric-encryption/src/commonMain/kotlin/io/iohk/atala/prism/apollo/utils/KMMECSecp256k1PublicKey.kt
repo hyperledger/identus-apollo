@@ -7,6 +7,7 @@ import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
+
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 interface KMMECSecp256k1PublicKeyCommonStaticInterface {
@@ -25,17 +26,15 @@ interface KMMECSecp256k1PublicKeyCommonStaticInterface {
     }
 
     fun secp256k1FromBytes(encoded: ByteArray): KMMECSecp256k1PublicKey {
-        val expectedLength = 1 + 2 * ECConfig.PRIVATE_KEY_BYTE_SIZE
-        require(encoded.size == expectedLength) {
-            "Encoded byte array's expected length is $expectedLength, but got ${encoded.size} bytes"
-        }
-        require(encoded[0].toInt() == 0x04) {
-            "First byte was expected to be 0x04, but got ${encoded[0]}"
+        require(encoded.size == 33 || encoded.size == 65) {
+            "Encoded byte array's expected length is 33 (compressed) or 65 (uncompressed), but got ${encoded.size} bytes"
         }
 
-        val xBytes = encoded.copyOfRange(1, 1 + ECConfig.PRIVATE_KEY_BYTE_SIZE)
-        val yBytes = encoded.copyOfRange(1 + ECConfig.PRIVATE_KEY_BYTE_SIZE, encoded.size)
-        return secp256k1FromByteCoordinates(xBytes, yBytes)
+        return if(encoded[0].toInt() != 0x04) {
+            KMMECSecp256k1PublicKey(Secp256k1Lib().uncompressPublicKey(encoded))
+        } else {
+            KMMECSecp256k1PublicKey(encoded)
+        }
     }
 
     fun secp256k1FromByteCoordinates(x: ByteArray, y: ByteArray): KMMECSecp256k1PublicKey {
@@ -88,5 +87,13 @@ class KMMECSecp256k1PublicKey {
         return secp256k1Lib.verify(raw, signature, data)
     }
 
-    companion object : KMMECSecp256k1PublicKeyCommonStaticInterface
+    /**
+     * Get compressed key
+     * @return compressed ByteArray
+     */
+    fun getCompressed(): ByteArray {
+        return Secp256k1Lib().compressPublicKey(raw)
+    }
+
+    public companion object : KMMECSecp256k1PublicKeyCommonStaticInterface
 }

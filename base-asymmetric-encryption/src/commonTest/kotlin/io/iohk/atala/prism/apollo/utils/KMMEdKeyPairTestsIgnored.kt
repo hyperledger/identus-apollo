@@ -1,13 +1,10 @@
 package io.iohk.atala.prism.apollo.utils
 
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-// un-ignore when JVM implementation is done and remove jsTest version of these tests
-@Ignore
 class KMMEdKeyPairTestsIgnored {
     @Test
     fun testGenerateKeyPair() {

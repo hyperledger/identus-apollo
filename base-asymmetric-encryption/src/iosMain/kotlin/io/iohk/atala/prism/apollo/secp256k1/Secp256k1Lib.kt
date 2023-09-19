@@ -2,6 +2,7 @@ package io.iohk.atala.prism.apollo.secp256k1
 
 import fr.acinq.secp256k1.Secp256k1Native
 import io.iohk.atala.prism.apollo.hashing.SHA256
+import io.iohk.atala.prism.apollo.utils.KMMECPoint
 
 actual class Secp256k1Lib {
     actual fun createPublicKey(privateKey: ByteArray, compressed: Boolean): ByteArray {
@@ -32,5 +33,13 @@ actual class Secp256k1Lib {
     ): Boolean {
         val sha = SHA256().digest(data)
         return Secp256k1Native.verify(signature, sha, publicKey)
+    }
+
+    actual fun uncompressPublicKey(compressed: ByteArray): ByteArray {
+        return Secp256k1Native.pubkeyParse(compressed)
+    }
+
+    actual fun compressPublicKey(uncompressed: ByteArray): ByteArray {
+        return Secp256k1Native.pubKeyCompress(uncompressed)
     }
 }
