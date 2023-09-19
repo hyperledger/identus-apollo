@@ -18,10 +18,10 @@ actual class KMMEdKeyPair actual constructor(actual val privateKey: KMMEdPrivate
     }
 
     actual fun sign(message: ByteArray): ByteArray {
-        throw NotImplementedError("Not implemented")
+        return privateKey.sign(message)
     }
 
     actual fun verify(message: ByteArray, sig: ByteArray): Boolean {
-        throw NotImplementedError("Not implemented")
+        return publicKey.verify(message, sig)
     }
 }

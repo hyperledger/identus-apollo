@@ -2,7 +2,9 @@ package io.iohk.atala.prism.apollo.utils
 
 import swift.cryptoKit.Ed25519
 
-public actual class KMMEdPrivateKey(val raw: ByteArray = ByteArray(0)) {
+public actual class KMMEdPrivateKey(val raw: ByteArray) {
+    @Throws(RuntimeException::class)
+    public constructor() : this(Ed25519.createPrivateKey().success()?.toByteArray() ?: throw RuntimeException("Null result"))
 
     @Throws(RuntimeException::class)
     actual fun sign(message: ByteArray): ByteArray {

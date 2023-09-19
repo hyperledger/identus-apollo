@@ -5,4 +5,7 @@ expect class Secp256k1Lib constructor() {
     fun derivePrivateKey(privateKeyBytes: ByteArray, derivedPrivateKeyBytes: ByteArray): ByteArray?
     fun sign(privateKey: ByteArray, data: ByteArray): ByteArray
     fun verify(publicKey: ByteArray, signature: ByteArray, data: ByteArray): Boolean
+    fun uncompressPublicKey(compressed: ByteArray): ByteArray
+
+    fun compressPublicKey(uncompressed: ByteArray): ByteArray
 }
