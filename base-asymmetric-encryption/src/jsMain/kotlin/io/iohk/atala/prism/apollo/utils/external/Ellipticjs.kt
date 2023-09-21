@@ -232,7 +232,7 @@ open external class eddsa(name: String /* "ed25519" */) {
     open fun keyFromPublic(pub: _eddsa_KeyPair): _eddsa_KeyPair
     open fun keyFromPublic(pub: base.BasePoint): _eddsa_KeyPair
     open fun keyFromSecret(secret: String): _eddsa_KeyPair
-    open fun keyFromSecret(secret: ByteArray): _eddsa_KeyPair
+    open fun keyFromSecret(secret: Buffer): _eddsa_KeyPair
     open fun makeSignature(sig: _eddsa_Signature): _eddsa_Signature
     open fun makeSignature(sig: String): _eddsa_Signature
     open fun decodePoint(bytes: String): base.BasePoint
