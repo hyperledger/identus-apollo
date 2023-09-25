@@ -16,15 +16,25 @@ final class Mnemonic {
 
         private const val PBKDF2C = 2048
         private const val PBKDF2DKLen = 64
+        class InvalidMnemonicCode(code: String) : RuntimeException(code)
+
+        fun isValidMnemonicCode(code: Array<String>): Boolean {
+            return code.all { it in MnemonicCodeEnglish.wordList }
+        }
 
         fun createRandomMnemonics(): Array<String> {
             val entropyBytes = SecureRandom.generateSeed(SEED_ENTROPY_BITS_24_WORDS / 8)
             return MnemonicCode(MnemonicCodeEnglish.wordList.toTypedArray()).toMnemonic(entropyBytes)
         }
 
-        fun createSeed(mnemonics: String, passphrase: String = "AtalaPrism"): ByteArray {
+        @Throws(InvalidMnemonicCode::class)
+        fun createSeed(mnemonics: Array<String>, passphrase: String = "AtalaPrism"): ByteArray {
+            if (!isValidMnemonicCode(mnemonics)) {
+                throw InvalidMnemonicCode(mnemonics.joinToString(separator = " "))
+            }
+            val mnemonicString = mnemonics.joinToString(separator = " ")
             return PBKDF2SHA512.derive(
-                mnemonics,
+                mnemonicString,
                 passphrase,
                 PBKDF2C,
                 PBKDF2DKLen
@@ -32,7 +42,7 @@ final class Mnemonic {
         }
 
         fun createRandomSeed(passphrase: String = "AtalaPrism"): ByteArray {
-            val mnemonics = this.createRandomMnemonics().joinToString(separator = " ")
+            val mnemonics = this.createRandomMnemonics()
             return this.createSeed(mnemonics, passphrase)
         }
     }
