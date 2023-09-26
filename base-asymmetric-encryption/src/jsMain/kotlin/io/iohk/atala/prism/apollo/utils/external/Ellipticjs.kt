@@ -28,6 +28,9 @@ external object curve {
         companion object {
             open class BasePoint {
                 fun encode(enc: String): String
+                fun encodeCompressed(enc: String): String
+                fun getX(): BN
+                fun getY(): BN
             }
         }
 

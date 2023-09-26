@@ -33,4 +33,12 @@ actual class Secp256k1Lib {
         val sha = SHA256().digest(data)
         return Secp256k1.verify(signature, sha, publicKey)
     }
+
+    actual fun uncompressPublicKey(compressed: ByteArray): ByteArray {
+        return Secp256k1.pubkeyParse(compressed)
+    }
+
+    actual fun compressPublicKey(uncompressed: ByteArray): ByteArray {
+        return Secp256k1.pubKeyCompress(uncompressed)
+    }
 }

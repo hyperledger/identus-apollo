@@ -205,6 +205,7 @@ open class Secp256k1 {
     protected fun MemScope.allocPublicKey(pubkey: ByteArray): secp256k1_pubkey {
         val natPub = toNat(pubkey)
         val pub = alloc<secp256k1_pubkey>()
+
         secp256k1_ec_pubkey_parse(
             ctx,
             pub.ptr,

@@ -45,4 +45,18 @@ class Secp256k1LibTests {
 
         assertTrue { Secp256k1Lib().verify(pubKeyBase64.base64UrlDecodedBytes, signatureBase64.base64UrlDecodedBytes, message.encodeToByteArray()) }
     }
+
+    @Test
+    fun testCompress() {
+        val pubKeyBase64 = "BHza5mV6_Iz6XdyMpxpjUMprZUCN_MpMuQCTFYpxSf8rW7N7DD04troywCgLkg0_ABP-IcxZcE1-qKjwCWYTVO8"
+
+        assertEquals(Secp256k1Lib().compressPublicKey(pubKeyBase64.base64UrlDecodedBytes).base64UrlEncoded, "A3za5mV6_Iz6XdyMpxpjUMprZUCN_MpMuQCTFYpxSf8r")
+    }
+
+    @Test
+    fun testUncompress() {
+        val pubKeyBase64 = "A3za5mV6_Iz6XdyMpxpjUMprZUCN_MpMuQCTFYpxSf8r"
+
+        assertEquals(Secp256k1Lib().uncompressPublicKey(pubKeyBase64.base64UrlDecodedBytes).base64UrlEncoded, "BHza5mV6_Iz6XdyMpxpjUMprZUCN_MpMuQCTFYpxSf8rW7N7DD04troywCgLkg0_ABP-IcxZcE1-qKjwCWYTVO8")
+    }
 }

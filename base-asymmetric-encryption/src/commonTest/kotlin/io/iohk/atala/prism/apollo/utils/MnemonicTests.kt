@@ -1,5 +1,6 @@
 package io.iohk.atala.prism.apollo.utils
 
+import io.iohk.atala.prism.apollo.hashing.PBKDF2SHA512
 import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import kotlin.test.Test
 import kotlin.test.assertContains
@@ -59,5 +60,17 @@ class MnemonicTests {
         val privateKey = seed.slice(IntRange(0, 31))
 
         assertContains(privateKey.toByteArray().toHexString(), "815b70655ca4c9675f5fc15fe8f82315f07521d034eec45bf4d5912bd3a61218")
+    }
+
+    @Test
+    fun testCreateSeedWithPW2() {
+        val mnemonics = "tool knock nerve skate detail early limit energy foam garage resource boring traffic violin cave place accuse can bring bring cargo clip stick dog"
+        val c = 2048
+        val dklen = 64
+        val passphrase = "mnemonic"
+
+        val derived = PBKDF2SHA512.derive(mnemonics, passphrase, c, dklen)
+
+        assertEquals(derived.size, 64)
     }
 }

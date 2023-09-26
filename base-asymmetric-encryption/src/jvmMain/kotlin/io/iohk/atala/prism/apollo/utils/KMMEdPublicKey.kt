@@ -2,11 +2,12 @@ package io.iohk.atala.prism.apollo.utils
 
 import org.bouncycastle.crypto.params.Ed25519PublicKeyParameters
 import org.bouncycastle.crypto.signers.Ed25519Signer
+import java.io.ByteArrayInputStream
 
 actual class KMMEdPublicKey(val raw: ByteArray) {
     actual fun verify(message: ByteArray, sig: ByteArray): Boolean {
         return try {
-            val publicKeyParams = Ed25519PublicKeyParameters(raw, 0)
+            val publicKeyParams = Ed25519PublicKeyParameters(ByteArrayInputStream(raw))
             val verifier = Ed25519Signer()
 
             verifier.init(false, publicKeyParams)
