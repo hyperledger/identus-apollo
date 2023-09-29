@@ -1,6 +1,6 @@
 package io.iohk.atala.prism.apollo.utils
 
-import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
+import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
 import io.iohk.atala.prism.apollo.utils.external.eddsa
 import node.buffer.Buffer
 import node.buffer.BufferEncoding
@@ -14,7 +14,7 @@ actual class KMMEdPublicKey(bytes: ByteArray) {
     init {
         val ed25519 = eddsa("ed25519")
 
-        raw = parseRaw(bytes)
+        raw = Curve25519Parser.parseRaw(bytes)
         val pub = raw.toString(BufferEncoding.hex)
 
         // TODO: Report a bug in elliptic, this method is not expecting a Buffer (bytes)
@@ -23,20 +23,20 @@ actual class KMMEdPublicKey(bytes: ByteArray) {
         keyPair = ed25519.keyFromPublic(pub)
     }
 
-    private fun parseRaw(bytes: ByteArray): Buffer {
-        val buffer = Buffer.from(bytes)
-
-        if (buffer.length === 43) {
-            return Buffer.from(buffer.toByteArray().decodeToString().base64UrlDecodedBytes)
-        }
-
-        if (buffer.length === 32) {
-            return buffer
-        }
-
-        throw Error("invalid raw key");
+    /**
+     * Base64 url encodes the raw value
+     * @return Buffer
+     */
+    fun getEncoded(): Buffer {
+        return Buffer.from(raw.toByteArray().base64UrlEncoded.encodeToByteArray())
     }
 
+    /**
+     * Confirm a message signature was signed with the corresponding PrivateKey
+     * @param message - the message that was signed
+     * @param sig - signature
+     * @return Boolean
+     */
     actual fun verify(message: ByteArray, sig: ByteArray): Boolean {
         return keyPair.verify(Buffer.from(message), sig.decodeToString())
     }
