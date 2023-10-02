@@ -1,18 +1,23 @@
 package io.iohk.atala.prism.apollo.utils
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider
-import java.security.KeyPair
-import java.security.KeyPairGenerator
+import org.bouncycastle.crypto.generators.Ed25519KeyPairGenerator
+import org.bouncycastle.crypto.params.Ed25519KeyGenerationParameters
+import org.bouncycastle.crypto.params.Ed25519PrivateKeyParameters
+import org.bouncycastle.crypto.params.Ed25519PublicKeyParameters
+import java.security.SecureRandom
 
-actual class KMMEdKeyPair actual constructor(actual val privateKey: KMMEdPrivateKey, actual val publicKey: KMMEdPublicKey) {
+actual class KMMEdKeyPair actual constructor(
+    actual val privateKey: KMMEdPrivateKey,
+    actual val publicKey: KMMEdPublicKey
+) {
     actual companion object : Ed25519KeyPairGeneration {
         override fun generateKeyPair(): KMMEdKeyPair {
-            val provider = BouncyCastleProvider()
-            val generator = KeyPairGenerator.getInstance("Ed25519", provider)
-            val javaKeyPair: KeyPair = generator.generateKeyPair()
+            val generator = Ed25519KeyPairGenerator()
+            generator.init(Ed25519KeyGenerationParameters(SecureRandom()))
+            val pair = generator.generateKeyPair()
             return KMMEdKeyPair(
-                KMMEdPrivateKey(javaKeyPair.private.encoded),
-                KMMEdPublicKey(javaKeyPair.public.encoded)
+                privateKey = KMMEdPrivateKey((pair.private as Ed25519PrivateKeyParameters).encoded),
+                publicKey = KMMEdPublicKey((pair.public as Ed25519PublicKeyParameters).encoded),
             )
         }
     }
