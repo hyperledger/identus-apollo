@@ -1,3 +1,5 @@
+@file:Suppress("ktlint")
+
 package io.iohk.atala.prism.apollo.utils
 
 import node.buffer.Buffer

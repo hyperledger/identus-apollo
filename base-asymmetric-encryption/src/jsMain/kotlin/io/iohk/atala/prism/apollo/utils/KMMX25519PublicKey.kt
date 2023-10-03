@@ -7,6 +7,7 @@ import node.buffer.Buffer
 @JsExport
 actual class KMMX25519PublicKey(bytes: ByteArray) {
     val raw: Buffer
+
     init {
         raw = Curve25519Parser.parseRaw(bytes)
     }
