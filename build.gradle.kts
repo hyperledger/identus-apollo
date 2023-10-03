@@ -21,7 +21,7 @@ buildscript {
     }
 }
 
-version = "1.0.1"
+version = "1.0.2"
 group = "io.iohk.atala.prism.apollo"
 
 dependencies {
@@ -47,7 +47,7 @@ dependencies {
 }
 
 allprojects {
-    version = "1.0.1"
+    version = "1.0.2"
     group = "io.iohk.atala.prism.apollo"
 
     repositories {
@@ -92,7 +92,6 @@ subprojects {
                 "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/PresetCurve.kt",
                 "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Ellipticjs.kt",
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/secp256k1js.kt",
-
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**",
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*",
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/BNjs.kt",
@@ -100,7 +99,6 @@ subprojects {
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/PresetCurve.kt",
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Ellipticjs.kt",
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/secp256k1js.kt",
-
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**",
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*",
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/BNjs.kt",
@@ -110,7 +108,8 @@ subprojects {
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/secp256k1js.kt"
             )
             exclude {
-                it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" || it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
+                it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" ||
+                    it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
             }
             exclude("./base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**")
             exclude {
