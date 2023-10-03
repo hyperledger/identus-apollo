@@ -21,7 +21,7 @@ buildscript {
     }
 }
 
-version = "1.0.1"
+version = "1.0.2"
 group = "io.iohk.atala.prism.apollo"
 
 dependencies {
@@ -47,7 +47,7 @@ dependencies {
 }
 
 allprojects {
-    version = "1.0.1"
+    version = "1.0.2"
     group = "io.iohk.atala.prism.apollo"
 
     repositories {
