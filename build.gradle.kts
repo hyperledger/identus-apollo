@@ -139,7 +139,10 @@ tasks.dokkaGfmMultiModule.configure {
  */
 @kotlin.jvm.Throws(IllegalStateException::class)
 fun Project.getLocalProperty(key: String, file: String = "local.properties"): String? {
-    require(file.endsWith(".properties"))
+    if (file.endsWith(".properties").not()) {
+        logger.error("$file File must be .properties.")
+        return null
+    }
     val properties = java.util.Properties()
     val localProperties = File(file)
     if (localProperties.isFile) {
@@ -149,12 +152,14 @@ fun Project.getLocalProperty(key: String, file: String = "local.properties"): St
     } else {
         // Handle CI in GitHub doesn't have `local.properties` file
         logger.warn("$file File not found.")
-        return "null"
+        return null
     }
 
-    val value = properties.getProperty(key, "null")
-
-    return if (value == "null") null else value
+    return if (properties.containsKey(key)) {
+        properties.getProperty(key)
+    } else {
+        null
+    }
 }
 
 koverReport {
