@@ -5,12 +5,22 @@ import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
+@OptIn(ExperimentalJsExport::class)
+@JsExport
 interface KMMECSecp256k1PrivateKeyCommonStaticInterface {
+    @JsName("secp256k1FromByteArray")
+    fun secp256k1FromByteArray(d: ByteArray): KMMECSecp256k1PrivateKey {
+        return KMMECSecp256k1PrivateKey(d)
+    }
 
-    fun secp256k1FromByteArray(d: ByteArray): KMMECSecp256k1PrivateKey
-
-    @Throws(ECPrivateKeyDecodingException::class)
-    fun tweak(privateKeyData: ByteArray, derivationPrivateKeyData: ByteArray): KMMECSecp256k1PrivateKey
+    fun tweak(
+        privateKeyData: ByteArray,
+        derivationPrivateKeyData: ByteArray
+    ): KMMECSecp256k1PrivateKey {
+        val derivedKey = Secp256k1Lib().derivePrivateKey(privateKeyData, derivationPrivateKeyData)
+        return derivedKey?.let { KMMECSecp256k1PrivateKey(derivedKey) }
+            ?: run { throw ECPrivateKeyDecodingException("Error while tweaking") }
+    }
 }
 
 @OptIn(ExperimentalJsExport::class)
@@ -53,18 +63,5 @@ class KMMECSecp256k1PrivateKey : Encodable {
         return secp256k1Lib.verify(getPublicKey().raw, signature, data)
     }
 
-    companion object : KMMECSecp256k1PrivateKeyCommonStaticInterface {
-        override fun secp256k1FromByteArray(d: ByteArray): KMMECSecp256k1PrivateKey {
-            return KMMECSecp256k1PrivateKey(d)
-        }
-
-        override fun tweak(
-            privateKeyData: ByteArray,
-            derivationPrivateKeyData: ByteArray
-        ): KMMECSecp256k1PrivateKey {
-            val derivedKey = Secp256k1Lib().derivePrivateKey(privateKeyData, derivationPrivateKeyData)
-            return derivedKey?.let { KMMECSecp256k1PrivateKey(derivedKey) }
-                ?: run { throw ECPrivateKeyDecodingException("Error while tweaking") }
-        }
-    }
+    companion object : KMMECSecp256k1PrivateKeyCommonStaticInterface
 }

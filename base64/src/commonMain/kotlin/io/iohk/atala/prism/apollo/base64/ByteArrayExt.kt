@@ -13,6 +13,7 @@ fun ByteArray.asCharArray(): CharArray {
 }
 
 // Base64Standard
+
 /**
  * Encode a [ByteArray] to Base64 [String] standard encoding
  * RFC 4648 Section 4
@@ -28,6 +29,7 @@ val ByteArray.base64Decoded: String
     get() = Base64.decode(this.decodeToString()).decodeToString()
 
 // Base64Standard with padding
+
 /**
  * Encode a [ByteArray] to Base64 [String] standard encoding
  * RFC 4648 Section 4
@@ -43,6 +45,7 @@ val ByteArray.base64PadDecoded: String
     get() = Base64.decode(this.decodeToString(), Encoding.StandardPad).decodeToString()
 
 // Base64URL
+
 /**
  * Decode a [ByteArray] Base64 URL-safe encoded to [String].
  * RFC 4648 Section 5
@@ -58,6 +61,7 @@ val ByteArray.base64UrlEncoded: String
     get() = Base64.encodeToString(this, Encoding.UrlSafe)
 
 // Base64URL with padding
+
 /**
  * Decode a [ByteArray] Base64 URL-safe encoded to [String].
  * RFC 4648 Section 5

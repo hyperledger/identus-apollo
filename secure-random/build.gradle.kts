@@ -49,30 +49,30 @@ kotlin {
     }
 
     if (os.isMacOsX) {
-        ios() {
+        ios {
             swiftCinterop("IOHKSecureRandomGeneration", name)
         }
 //        tvos()
 //        watchos()
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            iosSimulatorArm64() {
+            iosSimulatorArm64 {
                 swiftCinterop("IOHKSecureRandomGeneration", name)
             }
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-            macosArm64() {
+            macosArm64 {
                 swiftCinterop("IOHKSecureRandomGeneration", name)
             }
         }
     }
 //    if (os.isWindows) {
-//        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
 //        mingwX64()
 //    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
         this.useCommonJs()
+        generateTypeScriptDefinitions()
         this.compilations["main"].packageJson {
             this.version = rootProject.version.toString()
         }
@@ -166,8 +166,6 @@ kotlin {
             }
         }
 //        if (os.isWindows) {
-//            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
-//            // val mingwX86Test by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
 //            val mingwX64Main by getting
 //            val mingwX64Test by getting
 //        }
@@ -175,11 +173,11 @@ kotlin {
 
     if (os.isMacOsX) {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
-            deviceId = "iPhone 14 Plus"
+            device.set("iPhone 14 Plus")
         }
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
             tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                deviceId = "iPhone 14 Plus"
+                device.set("iPhone 14 Plus")
             }
         }
     }
@@ -215,9 +213,7 @@ android {
 tasks.withType<DokkaTask> {
     moduleName.set(project.name)
     moduleVersion.set(rootProject.version.toString())
-    description = """
-        This is a Kotlin Multiplatform Library is a secure random generation module
-    """.trimIndent()
+    description = "This is a Kotlin Multiplatform Library is a secure random generation module"
     dokkaSourceSets {
         // TODO: Figure out how to include files to the documentations
         named("commonMain") {
@@ -225,13 +221,3 @@ tasks.withType<DokkaTask> {
         }
     }
 }
-
-// afterEvaluate {
-//    tasks.withType<AbstractTestTask> {
-//        testLogging {
-//            events("passed", "skipped", "failed", "standard_out", "standard_error")
-//            showExceptions = true
-//            showStackTraces = true
-//        }
-//    }
-// }

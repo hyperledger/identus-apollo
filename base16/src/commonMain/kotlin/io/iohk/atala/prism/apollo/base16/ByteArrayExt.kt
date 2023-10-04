@@ -4,7 +4,7 @@ package io.iohk.atala.prism.apollo.base16
  * Convert [ByteArray] to [CharArray]
  * @return [CharArray]
  */
-internal fun ByteArray.asCharArray(): CharArray {
+fun ByteArray.asCharArray(): CharArray {
     val chars = CharArray(size)
     for (i in chars.indices) {
         chars[i] = get(i).toInt().toChar()
