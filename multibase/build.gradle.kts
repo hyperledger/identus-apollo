@@ -37,13 +37,13 @@ kotlin {
         }
     }
 //    if (os.isWindows) {
-//        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
 //        mingwX64()
 //    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
         this.useCommonJs()
+        generateTypeScriptDefinitions()
         this.compilations["main"].packageJson {
             this.version = rootProject.version.toString()
         }
@@ -145,11 +145,11 @@ kotlin {
 
     if (os.isMacOsX) {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
-            deviceId = "iPhone 14 Plus"
+            device.set("iPhone 14 Plus")
         }
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
             tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                deviceId = "iPhone 14 Plus"
+                device.set("iPhone 14 Plus")
             }
         }
     }
@@ -185,9 +185,7 @@ android {
 tasks.withType<DokkaTask> {
     moduleName.set(project.name)
     moduleVersion.set(rootProject.version.toString())
-    description = """
-        This is a Kotlin Multiplatform Library for Multibase
-    """.trimIndent()
+    description = "This is a Kotlin Multiplatform Library for Multibase"
     dokkaSourceSets {
         // TODO: Figure out how to include files to the documentations
         named("commonMain") {
@@ -195,13 +193,3 @@ tasks.withType<DokkaTask> {
         }
     }
 }
-
-// afterEvaluate {
-//    tasks.withType<AbstractTestTask> {
-//        testLogging {
-//            events("passed", "skipped", "failed", "standard_out", "standard_error")
-//            showExceptions = true
-//            showStackTraces = true
-//        }
-//    }
-// }

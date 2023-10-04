@@ -6,3 +6,4 @@ ktlint_standard_no_semi = disabled
 ktlint_standard_trailing-comma-on-call-site = disabled
 ktlint_standard_trailing-comma-on-declaration-site = disabled
 ktlint_standard_function-signature = disabled
+ktlint_standard_max-line-length = disabled

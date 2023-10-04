@@ -73,4 +73,4 @@ jobs:
       - name: Publish Maven artifacts to Github Packages
         id: publish
         run: |
-          ./gradlew publishAllPublicationsToGitHubPackagesRepository
+          ./gradlew publishAllPublicationsToGitHubPackagesRepository :base-asymmetric-encryption:publishJsPackageToGithubRegistry
