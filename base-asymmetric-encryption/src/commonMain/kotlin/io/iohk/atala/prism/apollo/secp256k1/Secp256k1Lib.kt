@@ -1,7 +1,5 @@
 package io.iohk.atala.prism.apollo.secp256k1
 
-import io.iohk.atala.prism.apollo.utils.KMMECPoint
-
 expect class Secp256k1Lib constructor() {
     fun createPublicKey(privateKey: ByteArray, compressed: Boolean): ByteArray
     fun derivePrivateKey(privateKeyBytes: ByteArray, derivedPrivateKeyBytes: ByteArray): ByteArray?

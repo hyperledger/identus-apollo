@@ -7,7 +7,6 @@ import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 interface KMMECSecp256k1PublicKeyCommonStaticInterface {
@@ -30,7 +29,7 @@ interface KMMECSecp256k1PublicKeyCommonStaticInterface {
             "Encoded byte array's expected length is 33 (compressed) or 65 (uncompressed), but got ${encoded.size} bytes"
         }
 
-        return if(encoded[0].toInt() != 0x04) {
+        return if (encoded[0].toInt() != 0x04) {
             KMMECSecp256k1PublicKey(Secp256k1Lib().uncompressPublicKey(encoded))
         } else {
             KMMECSecp256k1PublicKey(encoded)
