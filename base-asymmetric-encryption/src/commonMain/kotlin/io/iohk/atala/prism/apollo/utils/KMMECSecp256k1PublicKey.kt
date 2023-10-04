@@ -29,8 +29,7 @@ interface KMMECSecp256k1PublicKeyCommonStaticInterface {
         require(encoded.size == 33 || encoded.size == 65) {
             "Encoded byte array's expected length is 33 (compressed) or 65 (uncompressed), but got ${encoded.size} bytes"
         }
-
-        return if(encoded[0].toInt() != 0x04) {
+        return if (encoded[0].toInt() != 0x04) {
             KMMECSecp256k1PublicKey(Secp256k1Lib().uncompressPublicKey(encoded))
         } else {
             KMMECSecp256k1PublicKey(encoded)

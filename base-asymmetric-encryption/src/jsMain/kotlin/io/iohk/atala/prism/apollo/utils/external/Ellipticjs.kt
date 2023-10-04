@@ -3,7 +3,6 @@
 // @file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS")
 @file:JsModule("elliptic")
 
-/* ktlint-disable */
 package io.iohk.atala.prism.apollo.utils.external
 
 import node.buffer.Buffer
@@ -232,7 +231,7 @@ open external class eddsa(name: String /* "ed25519" */) {
     open fun keyFromPublic(pub: _eddsa_KeyPair): _eddsa_KeyPair
     open fun keyFromPublic(pub: base.BasePoint): _eddsa_KeyPair
     open fun keyFromSecret(secret: String): _eddsa_KeyPair
-    open fun keyFromSecret(secret: ByteArray): _eddsa_KeyPair
+    open fun keyFromSecret(secret: Buffer): _eddsa_KeyPair
     open fun makeSignature(sig: _eddsa_Signature): _eddsa_Signature
     open fun makeSignature(sig: String): _eddsa_Signature
     open fun decodePoint(bytes: String): base.BasePoint
@@ -268,4 +267,3 @@ open external class eddsa(name: String /* "ed25519" */) {
             set(value) = definedExternally
     }
 }
-/* ktlint-disable */

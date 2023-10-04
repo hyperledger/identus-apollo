@@ -1,5 +1,8 @@
 package io.iohk.atala.prism.apollo.utils
 
+import kotlin.js.ExperimentalJsExport
+
+@ExperimentalJsExport
 expect class KMMEdKeyPair(privateKey: KMMEdPrivateKey, publicKey: KMMEdPublicKey) {
     val privateKey: KMMEdPrivateKey
     val publicKey: KMMEdPublicKey

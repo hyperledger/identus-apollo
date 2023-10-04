@@ -2,13 +2,9 @@ package io.iohk.atala.prism.apollo.utils
 
 import swift.cryptoKit.X25519
 
-actual class KMMX25519PrivateKey {
-    public val raw: ByteArray
-
+actual class KMMX25519PrivateKey(val raw: ByteArray) {
     @Throws(RuntimeException::class)
-    constructor() {
-        this.raw = X25519.createPrivateKey().success()?.toByteArray() ?: throw RuntimeException("Null result")
-    }
+    public constructor() : this(X25519.createPrivateKey().success()?.toByteArray() ?: throw RuntimeException("Null result"))
 
     @Throws(RuntimeException::class)
     public fun publicKey(): KMMX25519PublicKey {
