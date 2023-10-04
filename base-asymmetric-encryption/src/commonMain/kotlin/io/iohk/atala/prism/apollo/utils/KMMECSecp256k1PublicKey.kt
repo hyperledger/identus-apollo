@@ -16,6 +16,7 @@ interface KMMECSecp256k1PublicKeyCommonStaticInterface {
      * @return true if point on curve, false if not.
      * @exception ClassCastException This method fails in JS. To be further investigated.
      */
+    @JsName("isPointOnSecp256k1Curve")
     fun isPointOnSecp256k1Curve(point: KMMECPoint): Boolean {
         val x = BigInteger.fromByteArray(point.x, Sign.POSITIVE)
         val y = BigInteger.fromByteArray(point.y, Sign.POSITIVE)
@@ -24,6 +25,7 @@ interface KMMECSecp256k1PublicKeyCommonStaticInterface {
         return ((y * y - x * x * x - ECConfig.b) mod ECConfig.p) == BigInteger.ZERO
     }
 
+    @JsName("secp256k1FromBytes")
     fun secp256k1FromBytes(encoded: ByteArray): KMMECSecp256k1PublicKey {
         require(encoded.size == 33 || encoded.size == 65) {
             "Encoded byte array's expected length is 33 (compressed) or 65 (uncompressed), but got ${encoded.size} bytes"
@@ -90,6 +92,7 @@ class KMMECSecp256k1PublicKey {
      * Get compressed key
      * @return compressed ByteArray
      */
+    @JsName("getCompressed")
     fun getCompressed(): ByteArray {
         return Secp256k1Lib().compressPublicKey(raw)
     }

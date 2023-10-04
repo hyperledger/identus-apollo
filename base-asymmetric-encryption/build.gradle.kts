@@ -1,3 +1,4 @@
+import dev.petuska.npm.publish.extension.domain.NpmAccess
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
@@ -10,6 +11,7 @@ plugins {
     id("io.github.luca992.multiplatform-swiftpackage") version "2.0.5-arm64"
     id("com.android.library")
     id("org.jetbrains.dokka")
+    id("dev.petuska.npm.publish") version "3.4.1"
 }
 
 kotlin {
@@ -87,6 +89,7 @@ kotlin {
         this.moduleName = currentModuleName
         this.binaries.library()
         this.useCommonJs()
+        generateTypeScriptDefinitions()
         this.compilations["main"].packageJson {
             this.version = rootProject.version.toString()
         }
@@ -149,12 +152,13 @@ kotlin {
                 dependencies {
                     api("fr.acinq.secp256k1:secp256k1-kmp:0.9.0")
                 }
-                val target = when {
-                    os.isLinux -> "linux"
-                    os.isMacOsX -> "darwin"
-                    os.isWindows -> "mingw"
-                    else -> error("Unsupported OS $os")
-                }
+                val target =
+                    when {
+                        os.isLinux -> "linux"
+                        os.isMacOsX -> "darwin"
+                        os.isWindows -> "mingw"
+                        else -> error("Unsupported OS $os")
+                    }
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-$target:0.9.0")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
@@ -214,8 +218,6 @@ kotlin {
             val macosArm64Test by getting { this.dependsOn(iosTest) }
         }
 //        if (os.isWindows) {
-//            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
-//            // val mingwX86Test by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
 //            val mingwX64Main by getting
 //            val mingwX64Test by getting
 //        }
@@ -223,11 +225,11 @@ kotlin {
 
     if (os.isMacOsX) {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
-            deviceId = "iPhone 14 Plus"
+            device.set("iPhone 14 Plus")
         }
         if (System.getProperty("os.arch") != "x86_64") { // M1Chip
             tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                deviceId = "iPhone 14 Plus"
+                device.set("iPhone 14 Plus")
             }
         }
     }
@@ -263,9 +265,7 @@ android {
 tasks.withType<DokkaTask> {
     moduleName.set(project.name)
     moduleVersion.set(rootProject.version.toString())
-    description = """
-        This is a Kotlin Multiplatform Library for Base Asymmetric Encryption
-    """.trimIndent()
+    description = "This is a Kotlin Multiplatform Library for Base Asymmetric Encryption"
     dokkaSourceSets {
         // TODO: Figure out how to include files to the documentations
         named("commonMain") {
@@ -291,5 +291,35 @@ ktlint {
             it.file.toString().contains("external")
         }
         exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/external/") }
+    }
+}
+
+npmPublish {
+    organization.set("input-output-hk")
+    version.set(project.version.toString())
+    access.set(NpmAccess.PUBLIC)
+    packages {
+        access.set(NpmAccess.PUBLIC)
+        named("js") {
+            scope.set("input-output-hk")
+            packageName.set("apollo")
+            packageJson {
+                author {
+                    name.set("IOG")
+                }
+                repository {
+                    type.set("git")
+                    url.set("https://github.com/input-output-hk/atala-prism-apollo.git")
+                }
+            }
+        }
+    }
+    registries {
+        access.set(NpmAccess.PUBLIC)
+        github {
+            uri.set("https://npm.pkg.github.com/")
+            access.set(NpmAccess.PUBLIC)
+            this.authToken.set(System.getenv("ATALA_GITHUB_TOKEN"))
+        }
     }
 }
