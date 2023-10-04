@@ -22,11 +22,11 @@ actual class KMMEdKeyPair actual constructor(
         override fun generateKeyPair(): KMMEdKeyPair {
             val ed25519 = eddsa("ed25519")
             val rnd = rand(32)
-            val secret = Buffer.from(rnd).toByteArray()
+            val secret = Buffer.from(rnd)
             val keypair = ed25519.keyFromSecret(secret)
             val public = keypair.getPublic()
 
-            return KMMEdKeyPair(KMMEdPrivateKey(secret), KMMEdPublicKey(public))
+            return KMMEdKeyPair(KMMEdPrivateKey(secret.toByteArray()), KMMEdPublicKey(public))
         }
     }
 }

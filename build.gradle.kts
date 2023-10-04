@@ -15,13 +15,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
         classpath("com.android.tools.build:gradle:7.2.2")
         // classpath("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.21")
     }
 }
 
-version = "1.7.0-alpha"
+version = "1.0.2"
 group = "io.iohk.atala.prism.apollo"
 
 dependencies {
@@ -47,7 +47,7 @@ dependencies {
 }
 
 allprojects {
-    version = "1.7.0-alpha"
+    version = "1.0.2"
     group = "io.iohk.atala.prism.apollo"
 
     repositories {
@@ -92,7 +92,6 @@ subprojects {
                 "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/PresetCurve.kt",
                 "/github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Ellipticjs.kt",
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/secp256k1js.kt",
-
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**",
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*",
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/BNjs.kt",
@@ -100,7 +99,6 @@ subprojects {
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/PresetCurve.kt",
                 "github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/Ellipticjs.kt",
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/secp256k1js.kt",
-
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**",
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*",
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/BNjs.kt",
@@ -110,7 +108,8 @@ subprojects {
                 "./github/workspace/base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/secp256k1js.kt"
             )
             exclude {
-                it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" || it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
+                it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" ||
+                    it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
             }
             exclude("./base-asymmetric-encryption/src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/**")
             exclude {
@@ -140,7 +139,10 @@ tasks.dokkaGfmMultiModule.configure {
  */
 @kotlin.jvm.Throws(IllegalStateException::class)
 fun Project.getLocalProperty(key: String, file: String = "local.properties"): String? {
-    require(file.endsWith(".properties"))
+    if (file.endsWith(".properties").not()) {
+        logger.error("$file File must be .properties.")
+        return null
+    }
     val properties = java.util.Properties()
     val localProperties = File(file)
     if (localProperties.isFile) {
@@ -150,12 +152,14 @@ fun Project.getLocalProperty(key: String, file: String = "local.properties"): St
     } else {
         // Handle CI in GitHub doesn't have `local.properties` file
         logger.warn("$file File not found.")
-        return "null"
+        return null
     }
 
-    val value = properties.getProperty(key, "null")
-
-    return if (value == "null") null else value
+    return if (properties.containsKey(key)) {
+        properties.getProperty(key)
+    } else {
+        null
+    }
 }
 
 koverReport {

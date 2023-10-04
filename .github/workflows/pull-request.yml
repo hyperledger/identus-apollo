@@ -1,3 +1,5 @@
+---
+# kics-scan ignore
 name: Pull Request CI
 
 defaults:
@@ -37,10 +39,10 @@ jobs:
 
       - name: Mega-Linter
         id: ml
-        uses: megalinter/megalinter@v6
+        uses: oxsecurity/megalinter@v7.4.0
 
       - name: Archive production artifacts
-        if: success() || failure()
+        if: ${{ success() || failure() }}
         uses: actions/upload-artifact@v3
         with:
           name: Mega-Linter reports
