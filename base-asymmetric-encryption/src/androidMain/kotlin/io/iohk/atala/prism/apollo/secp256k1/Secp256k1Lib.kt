@@ -42,16 +42,11 @@ actual class Secp256k1Lib {
         return Secp256k1.verify(signature, sha, publicKey)
     }
 
-    actual fun decodePoint(compressed: ByteArray): KMMECPoint {
-        require(compressed.size == ECConfig.PUBLIC_KEY_COMPRESSED_BYTE_SIZE) {
-            "Compressed byte array's expected length is ${ECConfig.PUBLIC_KEY_COMPRESSED_BYTE_SIZE}, but got ${compressed.size}"
-        }
-        val ecParameterSpec = ECNamedCurveTable.getParameterSpec(KMMEllipticCurve.SECP256k1.value)
-        val bouncyCastlePoint = ecParameterSpec.curve.decodePoint(compressed)
-        val point = ECPoint(
-            bouncyCastlePoint.xCoord.toBigInteger(),
-            bouncyCastlePoint.yCoord.toBigInteger()
-        )
-        return KMMECPoint(point.affineX.toByteArray(), point.affineY.toByteArray())
+    actual fun uncompressPublicKey(compressed: ByteArray): ByteArray {
+        return Secp256k1.pubkeyParse(compressed)
+    }
+
+    actual fun compressPublicKey(uncompressed: ByteArray): ByteArray {
+        return Secp256k1.pubKeyCompress(uncompressed)
     }
 }
