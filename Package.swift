@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
@@ -23,8 +23,8 @@ let package = Package(
         // RELEASE
         .binaryTarget(
             name: "Apollo",
-            url: "https://github.com/input-output-hk/atala-prism-apollo/releases/download/<ref>/Apollo.xcframework.zip",
-            checksum: "<checksum>"
+            url: "https://github.com/input-output-hk/atala-prism-apollo/releases/download/1.0.3/Apollo.xcframework.zip",
+            checksum: "89989b558887431844d5395c845a098678577b3c1dc867146ca058f0ce9e63dd"
         )
     ]
 )
