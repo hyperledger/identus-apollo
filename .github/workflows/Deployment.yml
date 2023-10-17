@@ -17,7 +17,12 @@ env:
   ATALA_GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
 
 on:
-  workflow_dispatch: null
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Create release with tag'
+        required: true
+        type: string
 
 jobs:
   deployment:
@@ -69,8 +74,49 @@ jobs:
         if: matrix.os-type == 'macos'
         run: |
           brew install autoconf automake libtool
+      
+      - name: Create Swift Package
+        run: |
+          ./gradlew :base-asymmetric-encryption:createSwiftPackage
+          
+      - name: Zip framework
+        run: |
+          target_dir_name="Apollo.xcframework"
+          source_dir="./base-asymmetric-encryption/build/packages/ApolloSwift/"
+          dest_dir="./base-asymmetric-encryption/build/packages/ApolloSwift/"
+          zip_name="Apollo.xcframework.zip"
+          (cd $source_dir && zip -r "../../$dest_dir/$zip_name" $target_dir_name)
+          
+      - name: Prepare release package
+        run: |
+          checksum=$(swift package compute-checksum 'base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip')
+          echo "CHECKSUM: $checksum"
+          rm -f Package.swift || true
+          ./.scripts/updatePackage.swift ${{github.event.inputs.tag}} $checksum './.scripts/TemplatePackage.swift' 'Package.swift'
+
+      - name: Commit package
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: prepare release ${{github.event.inputs.tag}}"
+          tagging_message: ${{github.event.inputs.tag}}
+          
+      - name: Upload swift package artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Apollo.xcframework.zip
+          path: base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip
+          
+      - name: Add swift package artifacts to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          tag: ${{github.event.inputs.tag}}
+          file: base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip
+          asset_name: "Apollo.xcframework.zip"
 
       - name: Publish Maven artifacts to Github Packages
         id: publish
         run: |
           ./gradlew publishAllPublicationsToGitHubPackagesRepository :base-asymmetric-encryption:publishJsPackageToGithubRegistry
+
+          
+      
