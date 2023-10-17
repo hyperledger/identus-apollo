@@ -95,6 +95,9 @@ jobs:
 
       - name: Commit package
         uses: stefanzweifel/git-auto-commit-action@v5
+        env:
+          GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
         with:
           commit_message: "chore: prepare release ${{github.event.inputs.tag}}"
           tagging_message: ${{github.event.inputs.tag}}
