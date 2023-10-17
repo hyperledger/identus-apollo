@@ -83,9 +83,8 @@ jobs:
         run: |
           target_dir_name="Apollo.xcframework"
           source_dir="./base-asymmetric-encryption/build/packages/ApolloSwift/"
-          dest_dir="./base-asymmetric-encryption/build/packages/ApolloSwift/"
           zip_name="Apollo.xcframework.zip"
-          (cd $source_dir && zip -r "../../$dest_dir/$zip_name" $target_dir_name)
+          (cd $source_dir && zip -r "$zip_name" $target_dir_name)
           
       - name: Prepare release package
         run: |
