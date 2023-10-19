@@ -2,27 +2,27 @@
 import PackageDescription
 
 let package = Package(
-    name: "Apollo",
+    name: "ApolloLibrary",
     platforms: [
         .iOS(.v13),
         .macOS(.v11)
     ],
     products: [
         .library(
-            name: "Apollo",
-            targets: ["Apollo"]
+            name: "ApolloLibrary",
+            targets: ["ApolloBinary"]
         ),
     ],
     targets: [
         // LOCAL
         // .binaryTarget(
-        //     name: "Apollo",
-        //     path: "./Apollo.xcframework"
+        //     name: "ApolloBinary",
+        //     path: "./base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip"
         // ),
 
         // RELEASE
         .binaryTarget(
-            name: "Apollo",
+            name: "ApolloBinary",
             url: "https://github.com/input-output-hk/atala-prism-apollo/releases/download/<ref>/Apollo.xcframework.zip",
             checksum: "<checksum>"
         )
