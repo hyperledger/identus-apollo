@@ -15,16 +15,16 @@ let package = Package(
     ],
     targets: [
         // LOCAL
-        .binaryTarget(
-            name: "ApolloBinary",
-            path: "base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip"
-        ),
-
-        // RELEASE
         // .binaryTarget(
         //     name: "ApolloBinary",
-        //     url: "https://github.com/input-output-hk/atala-prism-apollo/releases/download/testSwift1/Apollo.xcframework.zip",
-        //     checksum: "5a375e67217481eb177f9fb25bab349bb3ada0c1c37cbebe2bdda8979387f899"
-        // )
+        //     path: "./base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip"
+        // ),
+
+        // RELEASE
+        .binaryTarget(
+            name: "ApolloBinary",
+            url: "https://github.com/input-output-hk/atala-prism-apollo/releases/download/testSwift2/Apollo.xcframework.zip",
+            checksum: "817420e940206f912c5dcf92acb3b38bd2b87caef6caebc707ff1ff98c5778b8"
+        )
     ]
 )
