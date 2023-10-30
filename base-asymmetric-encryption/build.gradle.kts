@@ -63,27 +63,25 @@ kotlin {
         }
     }
 
-    if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-        iosSimulatorArm64 {
-            binaries.framework {
-                baseName = currentModuleName
-                embedBitcode("disable")
-            }
-
-            swiftCinterop("IOHKCryptoKit", name)
-            swiftCinterop("IOHKSecureRandomGeneration", name)
+    iosSimulatorArm64 {
+        binaries.framework {
+            baseName = currentModuleName
+            embedBitcode("disable")
         }
+
+        swiftCinterop("IOHKCryptoKit", name)
+        swiftCinterop("IOHKSecureRandomGeneration", name)
+    }
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-        macosArm64 {
-            binaries.framework {
-                baseName = currentModuleName
-                embedBitcode("disable")
-            }
-
-            swiftCinterop("IOHKCryptoKit", name)
-            swiftCinterop("IOHKSecureRandomGeneration", name)
+    macosArm64 {
+        binaries.framework {
+            baseName = currentModuleName
+            embedBitcode("disable")
         }
+
+        swiftCinterop("IOHKCryptoKit", name)
+        swiftCinterop("IOHKSecureRandomGeneration", name)
     }
     js(IR) {
         this.moduleName = currentModuleName
@@ -207,16 +205,14 @@ kotlin {
         val iosTest by getting {
             this.dependsOn(commonTest)
         }
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            val iosSimulatorArm64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val iosSimulatorArm64Test by getting {
-                this.dependsOn(iosTest)
-            }
-            val macosArm64Main by getting { this.dependsOn(iosMain) }
-            val macosArm64Test by getting { this.dependsOn(iosTest) }
+        val iosSimulatorArm64Main by getting {
+            this.dependsOn(iosMain)
         }
+        val iosSimulatorArm64Test by getting {
+            this.dependsOn(iosTest)
+        }
+        val macosArm64Main by getting { this.dependsOn(iosMain) }
+        val macosArm64Test by getting { this.dependsOn(iosTest) }
 //        if (os.isWindows) {
 //            val mingwX64Main by getting
 //            val mingwX64Test by getting
@@ -227,10 +223,8 @@ kotlin {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
             device.set("iPhone 14 Plus")
         }
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                device.set("iPhone 14 Plus")
-            }
+        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+            device.set("iPhone 14 Plus")
         }
     }
 }

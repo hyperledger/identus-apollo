@@ -30,12 +30,10 @@ kotlin {
 //        tvos()
 //        watchos()
 //        macosX64()
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            iosSimulatorArm64()
+        iosSimulatorArm64()
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-            macosArm64()
-        }
+        macosArm64()
     }
 //    if (os.isWindows) {
 //        mingwX64()
@@ -106,13 +104,12 @@ kotlin {
 //            val watchosTest by getting
 //            val macosX64Main by getting
 //            val macosX64Test by getting
-            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-                val iosSimulatorArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
+            val iosSimulatorArm64Main by getting {
+                this.dependsOn(iosMain)
+            }
+            val iosSimulatorArm64Test by getting {
+                this.dependsOn(iosTest)
+            }
 //                val tvosSimulatorArm64Main by getting {
 //                    this.dependsOn(tvosMain)
 //                }
@@ -125,9 +122,8 @@ kotlin {
 //                val watchosSimulatorArm64Test by getting {
 //                    this.dependsOn(watchosTest)
 //                }
-                val macosArm64Main by getting
-                val macosArm64Test by getting
-            }
+            val macosArm64Main by getting
+            val macosArm64Test by getting
         }
 //        if (os.isWindows) {
 //            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
@@ -141,10 +137,8 @@ kotlin {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
             device.set("iPhone 14 Plus")
         }
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                device.set("iPhone 14 Plus")
-            }
+        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+            device.set("iPhone 14 Plus")
         }
     }
 }

@@ -54,15 +54,13 @@ kotlin {
         }
 //        tvos()
 //        watchos()
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            iosSimulatorArm64 {
-                swiftCinterop("IOHKSecureRandomGeneration", name)
-            }
+        iosSimulatorArm64 {
+            swiftCinterop("IOHKSecureRandomGeneration", name)
+        }
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-            macosArm64 {
-                swiftCinterop("IOHKSecureRandomGeneration", name)
-            }
+        macosArm64 {
+            swiftCinterop("IOHKSecureRandomGeneration", name)
         }
     }
 //    if (os.isWindows) {
@@ -138,13 +136,12 @@ kotlin {
 //            val tvosTest by getting
 //            val watchosMain by getting
 //            val watchosTest by getting
-            if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-                val iosSimulatorArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
+            val iosSimulatorArm64Main by getting {
+                this.dependsOn(iosMain)
+            }
+            val iosSimulatorArm64Test by getting {
+                this.dependsOn(iosTest)
+            }
 //                val tvosSimulatorArm64Main by getting {
 //                    this.dependsOn(tvosMain)
 //                }
@@ -157,12 +154,11 @@ kotlin {
 //                val watchosSimulatorArm64Test by getting {
 //                    this.dependsOn(watchosTest)
 //                }
-                val macosArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val macosArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
+            val macosArm64Main by getting {
+                this.dependsOn(iosMain)
+            }
+            val macosArm64Test by getting {
+                this.dependsOn(iosTest)
             }
         }
 //        if (os.isWindows) {
@@ -175,10 +171,8 @@ kotlin {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
             device.set("iPhone 14 Plus")
         }
-        if (System.getProperty("os.arch") != "x86_64") { // M1Chip
-            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                device.set("iPhone 14 Plus")
-            }
+        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+            device.set("iPhone 14 Plus")
         }
     }
 }
