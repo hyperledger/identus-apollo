@@ -1,3 +1,4 @@
+import dev.petuska.npm.publish.extension.domain.NpmAccess
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
@@ -7,8 +8,10 @@ val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")
+    id("io.github.luca992.multiplatform-swiftpackage") version "2.0.5-arm64"
     id("com.android.library")
     id("org.jetbrains.dokka")
+    id("dev.petuska.npm.publish") version "3.4.1"
 }
 
 kotlin {
@@ -25,11 +28,44 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    if (os.isMacOsX) {
-        ios()
-        iosSimulatorArm64()
-        macosArm64()
+
+    ios {
+        binaries.framework {
+            baseName = "ApolloLibrary"
+            export(project(":cryptography"))
+            export(project(":multibase"))
+            export(project(":base64"))
+            export(project(":base58"))
+            export(project(":base32"))
+            export(project(":utils"))
+            export(project(":hashing"))
+        }
     }
+    iosSimulatorArm64 {
+        binaries.framework {
+            baseName = "ApolloLibrary"
+            export(project(":cryptography"))
+            export(project(":multibase"))
+            export(project(":base64"))
+            export(project(":base58"))
+            export(project(":base32"))
+            export(project(":utils"))
+            export(project(":hashing"))
+        }
+    }
+    macosArm64 {
+        binaries.framework {
+            baseName = "ApolloLibrary"
+            export(project(":cryptography"))
+            export(project(":multibase"))
+            export(project(":base64"))
+            export(project(":base58"))
+            export(project(":base32"))
+            export(project(":utils"))
+            export(project(":hashing"))
+        }
+    }
+
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
@@ -46,11 +82,6 @@ kotlin {
                 this.output.library = currentModuleName
                 this.output.libraryTarget = Target.VAR
             }
-            this.commonWebpackConfig {
-//                this.cssSupport {
-//                    enabled(true)
-//                }
-            }
             this.testTask {
                 this.useKarma {
                     this.useChromeHeadless()
@@ -66,11 +97,29 @@ kotlin {
         }
     }
 
+    multiplatformSwiftPackage {
+        packageName("Apollo")
+        swiftToolsVersion("5.3")
+        targetPlatforms {
+            iOS { v("13") }
+            macOS { v("11") }
+        }
+        outputDirectory(File(rootDir, "apollo/build/packages/ApolloSwift"))
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(project(":uuid"))
+                api(project(":cryptography"))
+                api(project(":multibase"))
+                api(project(":base64"))
+                api(project(":base58"))
+                api(project(":base32"))
                 api(project(":utils"))
                 api(project(":hashing"))
+                api(project(":varint"))
+                api(project(":secure-random"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
         }
@@ -91,21 +140,31 @@ kotlin {
                 implementation("junit:junit:4.13.2")
             }
         }
-        val jsMain by getting
-        val jsTest by getting
-        if (os.isMacOsX) {
-            val iosMain by getting
-            val iosTest by getting
+        val jsMain by getting {
+            dependencies {
+                implementation(npm("elliptic", "6.5.4"))
+                implementation(npm("@types/elliptic", "6.4.14"))
+                implementation(npm("@noble/curves", "1.2.0"))
+                implementation(npm("@stablelib/x25519", "1.0.3"))
 
-            val iosSimulatorArm64Main by getting {
-                this.dependsOn(iosMain)
+                // Polyfill dependencies
+                implementation(npm("stream-browserify", "3.0.0"))
+                implementation(npm("buffer", "6.0.3"))
             }
-            val iosSimulatorArm64Test by getting {
-                this.dependsOn(iosTest)
-            }
-            val macosArm64Main by getting
-            val macosArm64Test by getting
         }
+        val jsTest by getting
+
+        val iosMain by getting
+        val iosTest by getting
+
+        val iosSimulatorArm64Main by getting {
+            this.dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            this.dependsOn(iosTest)
+        }
+        val macosArm64Main by getting
+        val macosArm64Test by getting
     }
 
     if (os.isMacOsX) {
@@ -153,6 +212,36 @@ tasks.withType<DokkaTask> {
         // TODO: Figure out how to include files to the documentations
         named("commonMain") {
             includes.from("Module.md", "docs/Module.md")
+        }
+    }
+}
+
+npmPublish {
+    organization.set("input-output-hk")
+    version.set(rootProject.version.toString())
+    access.set(NpmAccess.PUBLIC)
+    packages {
+        access.set(NpmAccess.PUBLIC)
+        named("js") {
+            scope.set("input-output-hk")
+            packageName.set("apollo")
+            packageJson {
+                author {
+                    name.set("IOG")
+                }
+                repository {
+                    type.set("git")
+                    url.set("https://github.com/input-output-hk/atala-prism-apollo.git")
+                }
+            }
+        }
+    }
+    registries {
+        access.set(NpmAccess.PUBLIC)
+        github {
+            uri.set("https://npm.pkg.github.com/")
+            access.set(NpmAccess.PUBLIC)
+            this.authToken.set(System.getenv("ATALA_GITHUB_TOKEN"))
         }
     }
 }

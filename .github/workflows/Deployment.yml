@@ -26,12 +26,7 @@ on:
 
 jobs:
   deployment:
-    strategy:
-      matrix:
-        include:
-          - os: macos-latest
-            os-type: macos
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
@@ -59,39 +54,38 @@ jobs:
           distribution: zulu
 
       - name: "Install NodeJS ${{ env.NODEJS_VERSION }}"
-        if: matrix.os-type == 'linux'
         uses: actions/setup-node@v3
         with:
           node-version: "${{ env.NODEJS_VERSION }}"
 
       - name: Install Homebrew
-        if: matrix.os-type == 'macos'
         run: >
           /bin/bash -c "$(curl -fsSL
           https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
       - name: "Install autoconf, automake, libtool"
-        if: matrix.os-type == 'macos'
         run: |
           brew install autoconf automake libtool
-      
+
       - name: Create Swift Package
+        env:
+          TAG_VERSION: ${{github.event.inputs.tag}}
         run: |
-          ./gradlew :base-asymmetric-encryption:createSwiftPackage
-          
+          ./gradlew :apollo:createSwiftPackage
+
       - name: Zip framework
         run: |
           target_dir_name="Apollo.xcframework"
-          source_dir="./base-asymmetric-encryption/build/packages/ApolloSwift/"
+          source_dir="./apollo/build/packages/ApolloSwift/"
           zip_name="Apollo.xcframework.zip"
           (cd $source_dir && zip -r "$zip_name" $target_dir_name)
-          
+
       - name: Prepare release package
         run: |
-          checksum=$(swift package compute-checksum 'base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip')
+          checksum=$(swift package compute-checksum "apollo/build/packages/ApolloSwift/Apollo.xcframework.zip")
           echo "CHECKSUM: $checksum"
           rm -f Package.swift || true
-          ./.scripts/updatePackage.swift ${{github.event.inputs.tag}} $checksum './.scripts/TemplatePackage.swift' 'Package.swift'
+          ./.scripts/updatePackage.swift ${{github.event.inputs.tag}} "$checksum" "./.scripts/TemplatePackage.swift" "Package.swift"
 
       - name: Commit package
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -101,24 +95,24 @@ jobs:
         with:
           commit_message: "chore: prepare release ${{github.event.inputs.tag}}"
           tagging_message: ${{github.event.inputs.tag}}
-          
+          commit_options: -S --signoff
+
       - name: Upload swift package artifacts
         uses: actions/upload-artifact@v3
         with:
           name: Apollo.xcframework.zip
-          path: base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip
-          
+          path: apollo/build/packages/ApolloSwift/Apollo.xcframework.zip
+
       - name: Add swift package artifacts to release
         uses: svenstaro/upload-release-action@v2
         with:
           tag: ${{github.event.inputs.tag}}
-          file: base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip
+          file: apollo/build/packages/ApolloSwift/Apollo.xcframework.zip
           asset_name: "Apollo.xcframework.zip"
 
       - name: Publish Maven artifacts to Github Packages
+        env:
+          TAG_VERSION: ${{github.event.inputs.tag}}
         id: publish
         run: |
-          ./gradlew publishAllPublicationsToGitHubPackagesRepository :base-asymmetric-encryption:publishJsPackageToGithubRegistry
-
-          
-      
+          ./gradlew publishAllPublicationsToGitHubPackagesRepository :apollo:publishJsPackageToGithubRegistry
