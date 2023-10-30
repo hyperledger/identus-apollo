@@ -1,5 +1,6 @@
 package io.iohk.atala.prism.apollo.utils
 
+import io.iohk.atala.prism.apollo.derivation.MnemonicHelper
 import io.iohk.atala.prism.apollo.hashing.PBKDF2SHA512
 import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import kotlin.test.Test
@@ -9,30 +10,29 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 
 class MnemonicTests {
-
     @Test
     fun testValidateMnemonics() {
-        val invalidMnemonics = arrayOf("abc", "ddd", "inv")
-        assertFalse(Mnemonic.isValidMnemonicCode(invalidMnemonics))
+        val invalidMnemonics = listOf("abc", "ddd", "inv")
+        assertFalse(MnemonicHelper.isValidMnemonicCode(invalidMnemonics))
     }
 
     @Test
     fun testCreateRandomMnemonics() {
-        val mnemonics = Mnemonic.createRandomMnemonics()
-        val seed = Mnemonic.createSeed(mnemonics)
+        val mnemonics = MnemonicHelper.createRandomMnemonics()
+        val seed = MnemonicHelper.createSeed(mnemonics)
         assertEquals(seed.size, 64)
     }
 
     @Test
     fun testCreateRandomSeedWithPW() {
-        val seed = Mnemonic.createRandomSeed("Demo passphrase")
+        val seed = MnemonicHelper.createRandomSeed("Demo passphrase")
         assertEquals(seed.size, 64)
     }
 
     @Test
     fun testCreateSeed() {
-        val mnemonics = arrayOf("adjust", "animal", "anger", "around")
-        val seed = Mnemonic.createSeed(mnemonics)
+        val mnemonics = listOf("adjust", "animal", "anger", "around")
+        val seed = MnemonicHelper.createSeed(mnemonics)
 
         assertEquals(seed.size, 64)
 
@@ -42,18 +42,18 @@ class MnemonicTests {
 
     @Test
     fun testCreateSeedInvalidMnemonics() {
-        val mnemonics = arrayOf("abc", "ddd", "adsada", "testing")
+        val mnemonics = listOf("abc", "ddd", "adsada", "testing")
 
-        assertFailsWith<Mnemonic.Companion.InvalidMnemonicCode> {
-            Mnemonic.createSeed(mnemonics)
+        assertFailsWith<MnemonicHelper.Companion.InvalidMnemonicCode> {
+            MnemonicHelper.createSeed(mnemonics)
         }
     }
 
     @Test
     fun testCreateSeedWithPW() {
-        val mnemonics = arrayOf("adjust", "animal", "anger", "around")
+        val mnemonics = listOf("adjust", "animal", "anger", "around")
         val password = "123456"
-        val seed = Mnemonic.createSeed(mnemonics, password)
+        val seed = MnemonicHelper.createSeed(mnemonics, password)
 
         assertEquals(seed.size, 64)
 
