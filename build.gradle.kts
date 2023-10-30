@@ -21,7 +21,7 @@ buildscript {
     }
 }
 
-version = "1.0.2"
+version = System.getenv("TAG_VERSION") ?: "1.0.3"
 group = "io.iohk.atala.prism.apollo"
 
 dependencies {
@@ -34,11 +34,10 @@ dependencies {
     kover(project(":base64"))
     kover(project(":multibase"))
     kover(project(":utils"))
-    kover(project(":base-symmetric-encryption"))
+    kover(project(":cryptography"))
     kover(project(":secure-random"))
 //    kover(project(":aes"))
-    kover(project(":base-asymmetric-encryption"))
-//    kover(project(":rsa"))
+    //    kover(project(":rsa"))
 //    kover(project(":ecdsa"))
     kover(project(":varint"))
 //    kover(project(":jose"))
@@ -47,7 +46,7 @@ dependencies {
 }
 
 allprojects {
-    version = "1.0.2"
+    version = System.getenv("TAG_VERSION") ?: "1.0.3"
     group = "io.iohk.atala.prism.apollo"
 
     repositories {
