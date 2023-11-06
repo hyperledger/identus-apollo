@@ -135,28 +135,32 @@ class HDKey(
             throw Exception("No chainCode set")
         }
 
-        val data = if (index >= HARDENED_OFFSET) {
-            val priv = privateKey ?: throw Error("Could not derive hardened child key")
-            byteArrayOf(0) + priv + index.toByteArray()
-        } else {
-            throw Exception("Not supported")
-        }
+        val data =
+            if (index >= HARDENED_OFFSET) {
+                val priv = privateKey ?: throw Error("Could not derive hardened child key")
+                byteArrayOf(0) + priv + index.toByteArray()
+            } else {
+                throw Exception("Not supported")
+            }
 
-        val I = sha512(chainCode, data)
-        val childTweak = I.sliceArray(IntRange(0, 31))
-        val newChainCode = I.sliceArray(32 until I.size)
+        val sha = sha512(chainCode, data)
+        val childTweak = sha.sliceArray(IntRange(0, 31))
+        val newChainCode = sha.sliceArray(32 until sha.size)
 
         if (!isValidPrivateKey(childTweak)) {
-            throw ECPrivateKeyDecodingException("Expected encoded byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}, but got ${data.size}")
+            throw ECPrivateKeyDecodingException(
+                "Expected encoded byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}, but got ${data.size}"
+            )
         }
 
-        val opt = HDKeyOptions(
-            versions = Pair(BITCOIN_VERSIONS_PRIVATE, BITCOIN_VERSIONS_PUBLIC),
-            chainCode = newChainCode,
-            depth = depth + 1,
-            parentFingerprint = null,
-            index = index
-        )
+        val opt =
+            HDKeyOptions(
+                versions = Pair(BITCOIN_VERSIONS_PRIVATE, BITCOIN_VERSIONS_PUBLIC),
+                chainCode = newChainCode,
+                depth = depth + 1,
+                parentFingerprint = null,
+                index = index
+            )
 
         opt.privateKey = KMMECSecp256k1PrivateKey.tweak(privateKey, childTweak).raw
         return HDKey(
