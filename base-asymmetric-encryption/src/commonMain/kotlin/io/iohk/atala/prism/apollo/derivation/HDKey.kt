@@ -71,7 +71,6 @@ class HDKey(
     val depth: Int = 0,
     val childIndex: BigIntegerWrapper = BigIntegerWrapper(0)
 ) {
-
     @JsName("InitFromSeed")
     constructor(seed: ByteArray, depth: Int, childIndex: BigIntegerWrapper) : this(
         privateKey = sha512(key = "Bitcoin seed".encodeToByteArray(), input = seed).sliceArray(IntRange(0, 31)),
