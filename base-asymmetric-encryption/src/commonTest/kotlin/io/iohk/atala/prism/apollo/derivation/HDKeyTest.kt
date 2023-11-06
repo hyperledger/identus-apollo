@@ -124,4 +124,14 @@ class HDKeyTest {
         val key = hdKey.getKMMSecp256k1PrivateKey()
         assertNotNull(key)
     }
+
+    @Test
+    fun testDeriveChild_whithStackOverflowFromCIConditions_then() {
+        val seedBase64 = "MfAGRk2g_Yo8M-GUm688h8teXC6JYd39wJ2u6D8ocT-Qn8me8eThJW8i3vWX9vywmMQPj9Xpg9iBhpdaC9ZGgA"
+        val seed = seedBase64.base64UrlDecodedBytes
+        val path = "m/1'/0'/0'"
+
+        val hdKey = HDKey(seed, 0, 0)
+        hdKey.derive(path)
+    }
 }

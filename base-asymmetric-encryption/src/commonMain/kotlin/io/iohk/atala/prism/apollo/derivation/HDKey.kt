@@ -131,6 +131,7 @@ class HDKey(
      * @param index value used to derive a key
      */
     fun deriveChild(index: BigIntegerWrapper): HDKey {
+        println("Derive Child iteration")
         val index = index.value
         if (chainCode == null) {
             throw Exception("No chainCode set")
@@ -200,9 +201,13 @@ class HDKey(
         const val MASTER_SECRET = "Atala Prism"
 
         fun sha512(key: ByteArray, input: ByteArray): ByteArray {
-            val sha512 = HmacSHA512(key)
-            sha512.update(input)
-            return sha512.doFinal()
+            try {
+                val sha512 = HmacSHA512(key)
+                sha512.update(input)
+                return sha512.doFinal()
+            } catch (e: Exception) {
+                throw Error("Sha512 exception: ${e.message}")
+            }
         }
     }
 }
