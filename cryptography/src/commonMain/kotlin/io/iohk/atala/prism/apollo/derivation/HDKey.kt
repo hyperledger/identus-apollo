@@ -159,17 +159,13 @@ class HDKey(
             index = index
         )
 
-        return try {
-            opt.privateKey = KMMECSecp256k1PrivateKey.tweak(privateKey, childTweak).raw
-            return HDKey(
-                privateKey = opt.privateKey,
-                chainCode = opt.chainCode,
-                depth = opt.depth,
-                childIndex = BigIntegerWrapper(opt.index)
-            )
-        } catch (err: Error) {
-            this.deriveChild(BigIntegerWrapper(index + 1))
-        }
+        opt.privateKey = KMMECSecp256k1PrivateKey.tweak(privateKey, childTweak).raw
+        return HDKey(
+            privateKey = opt.privateKey,
+            chainCode = opt.chainCode,
+            depth = opt.depth,
+            childIndex = BigIntegerWrapper(opt.index)
+        )
     }
 
     /**
