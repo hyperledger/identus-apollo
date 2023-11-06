@@ -127,7 +127,7 @@ class HDKeyTest {
 
     @Test
     fun testDeriveChild_whithStackOverflowFromCIConditions_then() {
-        val seedBase64 = "MfAGRk2g_Yo8M-GUm688h8teXC6JYd39wJ2u6D8ocT-Qn8me8eThJW8i3vWX9vywmMQPj9Xpg9iBhpdaC9ZGgA"
+        val seedBase64 = "FJsDqiu6AIamix8TYsGmE2aDU6zo80NyXiQkuFQnfJ0pSQ8wxr0KfTJLJ9CKrmK9qf25VIv6iXNZM1SRgTlYUQ"
         val seed = seedBase64.base64UrlDecodedBytes
         val path = "m/1'/0'/0'"
 
