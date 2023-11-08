@@ -40,7 +40,7 @@ kotlin {
             export(project(":hashing"))
         }
     }
-    iosSimulatorArm64() {
+    iosSimulatorArm64 {
         binaries.framework {
             export(project(":cryptography"))
             export(project(":multibase"))
@@ -51,7 +51,7 @@ kotlin {
             export(project(":hashing"))
         }
     }
-    macosArm64() {
+    macosArm64 {
         binaries.framework {
             export(project(":cryptography"))
             export(project(":multibase"))
@@ -78,11 +78,6 @@ kotlin {
             this.webpackTask {
                 this.output.library = currentModuleName
                 this.output.libraryTarget = Target.VAR
-            }
-            this.commonWebpackConfig {
-//                this.cssSupport {
-//                    enabled(true)
-//                }
             }
             this.testTask {
                 this.useKarma {
