@@ -2,7 +2,6 @@
 @file:Suppress("ktlint", "internal:ktlint-suppression")
 @file:JsModule("bip32")
 
-/* ktlint-disable */
 package io.iohk.atala.prism.apollo.utils.external
 
 import node.buffer.Buffer
@@ -61,4 +60,3 @@ internal external fun fromPrivateKey(privateKey: Buffer, chainCode: Buffer, netw
 internal external fun fromPublicKey(publicKey: Buffer, chainCode: Buffer, network: Network = definedExternally): BIP32Interface
 
 internal external fun fromSeed(seed: Buffer, network: Network = definedExternally): BIP32Interface
-/* ktlint-disable */

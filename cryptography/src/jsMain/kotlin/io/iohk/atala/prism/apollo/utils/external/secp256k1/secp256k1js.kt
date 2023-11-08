@@ -2,7 +2,7 @@
 @file:Suppress("ktlint", "internal:ktlint-suppression")
 // @file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS")
 @file:JsModule("@noble/curves/secp256k1")
-/* ktlint-disable */
+
 package io.iohk.atala.prism.apollo.utils.external.secp256k1
 
 import io.iohk.atala.prism.apollo.utils.external.BN

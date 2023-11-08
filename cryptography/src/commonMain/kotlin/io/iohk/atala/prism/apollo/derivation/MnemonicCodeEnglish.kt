@@ -2050,6 +2050,6 @@ internal object MnemonicCodeEnglish {
             "zebra",
             "zero",
             "zone",
-            "zoo",
+            "zoo"
         )
 }

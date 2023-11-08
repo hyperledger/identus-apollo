@@ -1,8 +1,6 @@
-@file:Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:import-ordering")
-
 package io.iohk.atala.prism.apollo.secp256k1
 
-/* ktlint-disable */
+import io.iohk.atala.prism.apollo.utils.toHex
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.DeferScope
 import kotlinx.cinterop.MemScope
@@ -15,9 +13,26 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pin
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.readBytes
-import io.iohk.atala.prism.apollo.utils.toHex
-import secp256k1.*
-/* ktlint-disable */
+import secp256k1.SECP256K1_CONTEXT_SIGN
+import secp256k1.SECP256K1_CONTEXT_VERIFY
+import secp256k1.SECP256K1_FLAGS_BIT_CONTEXT_SIGN
+import secp256k1.SECP256K1_FLAGS_BIT_CONTEXT_VERIFY
+import secp256k1.SECP256K1_FLAGS_TYPE_CONTEXT
+import secp256k1.secp256k1_context
+import secp256k1.secp256k1_context_create
+import secp256k1.secp256k1_context_destroy
+import secp256k1.secp256k1_ec_privkey_tweak_mul
+import secp256k1.secp256k1_ec_pubkey_parse
+import secp256k1.secp256k1_ec_seckey_negate
+import secp256k1.secp256k1_ec_seckey_tweak_add
+import secp256k1.secp256k1_ec_seckey_verify
+import secp256k1.secp256k1_ecdsa_signature
+import secp256k1.secp256k1_ecdsa_signature_normalize
+import secp256k1.secp256k1_ecdsa_signature_parse_compact
+import secp256k1.secp256k1_ecdsa_signature_parse_der
+import secp256k1.secp256k1_ecdsa_signature_serialize_compact
+import secp256k1.secp256k1_ecdsa_verify
+import secp256k1.secp256k1_pubkey
 
 open class Secp256k1 {
     val ctx: CPointer<secp256k1_context> by lazy {

@@ -2,11 +2,10 @@
 @file:Suppress("ktlint", "internal:ktlint-suppression")
 // @file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS")
 
-/* ktlint-disable */
 package io.iohk.atala.prism.apollo.utils.external
 
-import org.khronos.webgl.* // ktlint-disable no-wildcard-imports
-import kotlin.js.* // ktlint-disable no-wildcard-imports
+import org.khronos.webgl.*
+import kotlin.js.*
 
 external interface EGCD {
     var a: BN
@@ -204,4 +203,3 @@ open external class RedBN : BN {
     open fun redNeg(): RedBN
     open fun redPow(b: BN): RedBN
 }
-/* ktlint-disable */

@@ -79,7 +79,7 @@ data class MerkleInclusionProof(
             mapOf(
                 Pair(hashField, JsonPrimitive(hash.toHexString())),
                 Pair(indexField, JsonPrimitive(index)),
-                Pair(siblingsField, JsonArray(siblings.map { JsonPrimitive(it.toHexString()) })),
+                Pair(siblingsField, JsonArray(siblings.map { JsonPrimitive(it.toHexString()) }))
             )
         )
     }

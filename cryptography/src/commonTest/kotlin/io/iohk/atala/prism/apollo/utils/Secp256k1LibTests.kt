@@ -9,7 +9,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-// @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class Secp256k1LibTests {
     @Test
     fun testCreatePublicKey() {
@@ -27,10 +26,11 @@ class Secp256k1LibTests {
         val privKeyBase64 = "96ViMAl0/N1Xm5RJesQxC2NvxhNc4ZkwPyVevZ4akDI="
         val derivedPrivKeyBase64 = "xEDIjzhlf/0o+vL42KupeLuZDiWBqpUHhVuwO8a2BBA="
 
-        val derivedKey = Secp256k1Lib().derivePrivateKey(
-            privKeyBase64.base64DecodedBytes,
-            derivedPrivKeyBase64.base64PadDecodedBytes
-        )
+        val derivedKey =
+            Secp256k1Lib().derivePrivateKey(
+                privKeyBase64.base64DecodedBytes,
+                derivedPrivKeyBase64.base64PadDecodedBytes
+            )
         assertEquals(
             "u-Yqv0HafNqAlodCU2_ahWRZ91IvQ438BK6wbJSaUwE",
             derivedKey!!.base64UrlEncoded

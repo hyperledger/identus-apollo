@@ -83,7 +83,10 @@ class KMMECSecp256k1KeysTests {
 
     @Test
     fun testGetCurvePoint() {
-        val publicKey = KMMECSecp256k1PublicKey("BD-l4lrQ6Go-oN5XtdpY6o5dyf2V2v5EbMAvRjVGJpE1gYVURJfxKMpNPnKlLr4MOLNVaYvBNOoy9L50E8jVx8Q".base64UrlDecodedBytes)
+        val publicKey =
+            KMMECSecp256k1PublicKey(
+                "BD-l4lrQ6Go-oN5XtdpY6o5dyf2V2v5EbMAvRjVGJpE1gYVURJfxKMpNPnKlLr4MOLNVaYvBNOoy9L50E8jVx8Q".base64UrlDecodedBytes
+            )
         val point = publicKey.getCurvePoint()
         assertEquals("P6XiWtDoaj6g3le12ljqjl3J_ZXa_kRswC9GNUYmkTU", point.x.base64UrlEncoded)
         assertEquals("gYVURJfxKMpNPnKlLr4MOLNVaYvBNOoy9L50E8jVx8Q", point.y.base64UrlEncoded)

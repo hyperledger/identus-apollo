@@ -18,8 +18,6 @@ package fr.acinq.secp256k1
 
 import kotlin.jvm.JvmStatic
 
-/* ktlint-disable */
-
 public interface Secp256k1 {
 
     /**

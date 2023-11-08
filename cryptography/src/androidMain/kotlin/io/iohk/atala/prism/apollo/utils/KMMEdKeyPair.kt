@@ -17,7 +17,7 @@ actual class KMMEdKeyPair actual constructor(
             val pair = generator.generateKeyPair()
             return KMMEdKeyPair(
                 privateKey = KMMEdPrivateKey((pair.private as Ed25519PrivateKeyParameters).encoded),
-                publicKey = KMMEdPublicKey((pair.public as Ed25519PublicKeyParameters).encoded),
+                publicKey = KMMEdPublicKey((pair.public as Ed25519PublicKeyParameters).encoded)
             )
         }
     }

@@ -4,7 +4,6 @@
 @file:JsQualifier("curve")
 @file:JsModule("elliptic")
 
-/* ktlint-disable */
 package io.iohk.atala.prism.apollo.utils.external
 
 import org.khronos.webgl.Uint8Array
@@ -175,4 +174,3 @@ open external class short(conf: ShortConf) : base {
         open fun toJSON(): Array<dynamic /* String | BN | Number | Buffer | Uint8Array | ReadonlyArray<Number> */>
     }
 }
-/* ktlint-disable */

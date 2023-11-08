@@ -1,15 +1,11 @@
-@file:Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:import-ordering")
-
 package io.iohk.atala.prism.apollo.secp256k1
 
-/* ktlint-disable */
 import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.readBytes
-import secp256k1.*
-/* ktlint-disable */
+import secp256k1.secp256k1_ecdh
 
 class ECDH : Secp256k1() {
     /**

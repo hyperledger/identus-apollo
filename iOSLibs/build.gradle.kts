@@ -19,7 +19,7 @@ libraries.forEach { library ->
                             "-target",
                             "${library}Iphoneos",
                             "-sdk",
-                            sdk,
+                            sdk
                         )
                     }
                     "macosx" -> {
@@ -30,7 +30,7 @@ libraries.forEach { library ->
                             "-target",
                             "${library}Macos",
                             "-sdk",
-                            sdk,
+                            sdk
                         )
                     }
                 }
@@ -42,22 +42,22 @@ libraries.forEach { library ->
 
             inputs.files(
                 fileTree("$projectDir/$library.xcodeproj") { exclude("**/xcuserdata") },
-                fileTree("$projectDir/$library"),
+                fileTree("$projectDir/$library")
             )
             when (sdk) {
                 "iphoneos" -> {
                     outputs.files(
-                        fileTree("$projectDir/$library/build/Release-iphoneos"),
+                        fileTree("$projectDir/$library/build/Release-iphoneos")
                     )
                 }
                 "iphonesimulator" -> {
                     outputs.files(
-                        fileTree("$projectDir/$library/build/Release-iphonesimulator"),
+                        fileTree("$projectDir/$library/build/Release-iphonesimulator")
                     )
                 }
                 "macosx" -> {
                     outputs.files(
-                        fileTree("$projectDir/$library/build/Release"),
+                        fileTree("$projectDir/$library/build/Release")
                     )
                 }
             }

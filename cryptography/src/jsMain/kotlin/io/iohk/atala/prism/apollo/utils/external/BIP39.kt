@@ -2,7 +2,6 @@
 @file:Suppress("ktlint", "internal:ktlint-suppression")
 @file:JsModule("bip39")
 
-/* ktlint-disable */
 package io.iohk.atala.prism.apollo.utils.external
 
 import node.buffer.Buffer
@@ -29,4 +28,3 @@ internal external fun validateMnemonic(mnemonic: String, wordlist: Array<String>
 internal external fun setDefaultWordlist(language: String)
 
 internal external fun getDefaultWordlist(): String
-/* ktlint-disable */
