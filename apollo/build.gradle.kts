@@ -31,6 +31,7 @@ kotlin {
 
     ios {
         binaries.framework {
+            baseName = "ApolloLibrary"
             export(project(":cryptography"))
             export(project(":multibase"))
             export(project(":base64"))
@@ -42,6 +43,7 @@ kotlin {
     }
     iosSimulatorArm64 {
         binaries.framework {
+            baseName = "ApolloLibrary"
             export(project(":cryptography"))
             export(project(":multibase"))
             export(project(":base64"))
@@ -53,6 +55,7 @@ kotlin {
     }
     macosArm64 {
         binaries.framework {
+            baseName = "ApolloLibrary"
             export(project(":cryptography"))
             export(project(":multibase"))
             export(project(":base64"))
@@ -107,6 +110,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(project(":uuid"))
                 api(project(":cryptography"))
                 api(project(":multibase"))
                 api(project(":base64"))
@@ -114,6 +118,8 @@ kotlin {
                 api(project(":base32"))
                 api(project(":utils"))
                 api(project(":hashing"))
+                api(project(":varint"))
+                api(project(":secure-random"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
         }
