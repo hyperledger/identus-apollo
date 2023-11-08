@@ -71,7 +71,6 @@ class HDKey(
     val depth: Int = 0,
     val childIndex: BigIntegerWrapper = BigIntegerWrapper(0)
 ) {
-
     @JsName("InitFromSeed")
     constructor(seed: ByteArray, depth: Int, childIndex: BigIntegerWrapper) : this(
         privateKey = sha512(key = "Bitcoin seed".encodeToByteArray(), input = seed).sliceArray(IntRange(0, 31)),
@@ -136,28 +135,32 @@ class HDKey(
             throw Exception("No chainCode set")
         }
 
-        val data = if (index >= HARDENED_OFFSET) {
-            val priv = privateKey ?: throw Error("Could not derive hardened child key")
-            byteArrayOf(0) + priv + index.toByteArray()
-        } else {
-            throw Exception("Not supported")
-        }
+        val data =
+            if (index >= HARDENED_OFFSET) {
+                val priv = privateKey ?: throw Error("Could not derive hardened child key")
+                byteArrayOf(0) + priv + index.toByteArray()
+            } else {
+                throw Exception("Not supported")
+            }
 
-        val I = sha512(chainCode, data)
-        val childTweak = I.sliceArray(IntRange(0, 31))
-        val newChainCode = I.sliceArray(32 until I.size)
+        val i = sha512(chainCode, data)
+        val childTweak = i.sliceArray(IntRange(0, 31))
+        val newChainCode = i.sliceArray(32 until i.size)
 
         if (!isValidPrivateKey(childTweak)) {
-            throw ECPrivateKeyDecodingException("Expected encoded byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}, but got ${data.size}")
+            throw ECPrivateKeyDecodingException(
+                "Expected encoded byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}, but got ${data.size}"
+            )
         }
 
-        val opt = HDKeyOptions(
-            versions = Pair(BITCOIN_VERSIONS_PRIVATE, BITCOIN_VERSIONS_PUBLIC),
-            chainCode = newChainCode,
-            depth = depth + 1,
-            parentFingerprint = null,
-            index = index
-        )
+        val opt =
+            HDKeyOptions(
+                versions = Pair(BITCOIN_VERSIONS_PRIVATE, BITCOIN_VERSIONS_PUBLIC),
+                chainCode = newChainCode,
+                depth = depth + 1,
+                parentFingerprint = null,
+                index = index
+            )
 
         opt.privateKey = KMMECSecp256k1PrivateKey.tweak(privateKey, childTweak).raw
         return HDKey(

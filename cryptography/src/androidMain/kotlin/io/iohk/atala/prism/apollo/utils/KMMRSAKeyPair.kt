@@ -5,7 +5,6 @@ import java.security.SecureRandom
 
 actual final class KMMRSAKeyPair actual constructor(val privateKey: KMMRSAPrivateKey, val publicKey: KMMRSAPublicKey) {
     actual companion object : RSAKeyPairGeneration {
-
         @JvmStatic
         override suspend fun generateRSAKeyPair(algorithm: RSAAsymmetricAlgorithm, keySize: Int): KMMRSAKeyPair {
             val keyPairGen = KeyPairGenerator.getInstance(algorithm.nativeValue())

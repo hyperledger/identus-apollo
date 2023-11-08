@@ -4,7 +4,6 @@ import org.bouncycastle.crypto.params.Ed25519PrivateKeyParameters
 import org.bouncycastle.crypto.signers.Ed25519Signer
 
 actual class KMMEdPrivateKey(val raw: ByteArray) {
-
     fun publicKey(): KMMEdPublicKey {
         val private = Ed25519PrivateKeyParameters(raw, 0)
         val public = private.generatePublicKey()

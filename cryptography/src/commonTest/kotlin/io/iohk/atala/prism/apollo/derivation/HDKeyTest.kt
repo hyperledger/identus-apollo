@@ -12,7 +12,6 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class HDKeyTest {
-
     lateinit var seed: ByteArray
     lateinit var privateKey: String
     lateinit var derivedPrivateKey: String
@@ -75,11 +74,12 @@ class HDKeyTest {
     @Test
     fun testDeriveChild_whenNoChainCode_thenThrowException() {
         val depth = 1
-        val hdKey = HDKey(
-            privateKey = privateKey.encodeToByteArray(),
-            depth = depth,
-            childIndex = BigIntegerWrapper(childIndex)
-        )
+        val hdKey =
+            HDKey(
+                privateKey = privateKey.encodeToByteArray(),
+                depth = depth,
+                childIndex = BigIntegerWrapper(childIndex)
+            )
 
         assertFailsWith(Exception::class) {
             hdKey.deriveChild(BigIntegerWrapper(childIndex))
@@ -89,11 +89,12 @@ class HDKeyTest {
     @Test
     fun testDeriveChild_whenPrivateKeyNotHardened_thenThrowException() {
         val depth = 1
-        val hdKey = HDKey(
-            privateKey = privateKey.encodeToByteArray(),
-            depth = depth,
-            childIndex = BigIntegerWrapper(childIndex)
-        )
+        val hdKey =
+            HDKey(
+                privateKey = privateKey.encodeToByteArray(),
+                depth = depth,
+                childIndex = BigIntegerWrapper(childIndex)
+            )
 
         assertFailsWith(Exception::class) {
             hdKey.deriveChild(BigIntegerWrapper(childIndex))
@@ -105,11 +106,12 @@ class HDKeyTest {
         val depth = 1
         childIndex = BigInteger(1)
 
-        val hdKey = HDKey(
-            privateKey = Random.Default.nextBytes(33),
-            depth = depth,
-            childIndex = BigIntegerWrapper(childIndex)
-        )
+        val hdKey =
+            HDKey(
+                privateKey = Random.Default.nextBytes(33),
+                depth = depth,
+                childIndex = BigIntegerWrapper(childIndex)
+            )
 
         assertFailsWith(Exception::class) {
             hdKey.deriveChild(BigIntegerWrapper(childIndex))

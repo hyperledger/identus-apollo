@@ -48,9 +48,15 @@ class Secp256k1Tests {
     @Test
     fun compressPublicKey() {
         val secp256k1 = Secp256k1()
-        val pub = Hex.decode("04C591A8FF19AC9C4E4E5793673B83123437E975285E7B442F4EE2654DFFCA5E2D2103ED494718C697AC9AEBCFD19612E224DB46661011863ED2FC54E71861E2A6")
+        val pub =
+            Hex.decode(
+                "04C591A8FF19AC9C4E4E5793673B83123437E975285E7B442F4EE2654DFFCA5E2D2103ED494718C697AC9AEBCFD19612E224DB46661011863ED2FC54E71861E2A6"
+            )
         val compressed = secp256k1.publicKeyCompress(pub)
-        assertEquals("02C591A8FF19AC9C4E4E5793673B83123437E975285E7B442F4EE2654DFFCA5E2D", Hex.encode(compressed).uppercase())
+        assertEquals(
+            "02C591A8FF19AC9C4E4E5793673B83123437E975285E7B442F4EE2654DFFCA5E2D",
+            Hex.encode(compressed).uppercase()
+        )
     }
 
     @Test
@@ -60,7 +66,7 @@ class Secp256k1Tests {
         val pub = secp256k1.createPublicKey(priv, false)
         assertEquals(
             "04C591A8FF19AC9C4E4E5793673B83123437E975285E7B442F4EE2654DFFCA5E2D2103ED494718C697AC9AEBCFD19612E224DB46661011863ED2FC54E71861E2A6",
-            Hex.encode(pub).uppercase(),
+            Hex.encode(pub).uppercase()
         )
         assertEquals(
             "02C591A8FF19AC9C4E4E5793673B83123437E975285E7B442F4EE2654DFFCA5E2D",
@@ -85,7 +91,7 @@ class Secp256k1Tests {
         val parsed1 = Secp256k1Native.pubkeyParse(pub)
         assertEquals(
             "04C591A8FF19AC9C4E4E5793673B83123437E975285E7B442F4EE2654DFFCA5E2D2103ED494718C697AC9AEBCFD19612E224DB46661011863ED2FC54E71861E2A6",
-            Hex.encode(parsed1).uppercase(),
+            Hex.encode(parsed1).uppercase()
         )
         val parsed2 = Secp256k1Native.pubkeyParse(parsed1)
         assertContentEquals(parsed1, parsed2)
@@ -112,7 +118,7 @@ class Secp256k1Tests {
         val pub4 = Secp256k1Native.pubKeyCombine(arrayOf(pub1, pub2, pub3))
         assertEquals(
             "042C0B7CF95324A07D05398B240174DC0C2BE444D96B159AA6C7F7B1E668680991AE31A9C671A36543F46CEA8FCE6984608AA316AA0472A7EED08847440218CB2F",
-            Hex.encode(pub4).uppercase(),
+            Hex.encode(pub4).uppercase()
         )
     }
 
@@ -124,7 +130,7 @@ class Secp256k1Tests {
         val sig = ecdsa.sign(message, priv)
         assertEquals(
             "182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A21C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9",
-            Hex.encode(sig).uppercase(),
+            Hex.encode(sig).uppercase()
         )
     }
 
@@ -136,28 +142,28 @@ class Secp256k1Tests {
         assertFalse(wasNotNormalized1)
         assertEquals(
             "182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A21C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9",
-            Hex.encode(normalizedCompactSig1).uppercase(),
+            Hex.encode(normalizedCompactSig1).uppercase()
         )
         val notNormalizedDerSig = Hex.decode("30450220182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A2022100E3990C925DEE3F780C50774AF120B062E0080D86D8C721C6E32F10DBACA57A58".lowercase())
         val (normalizedCompactSig2, wasNotNormalized2) = secp256k1.signatureNormalize(notNormalizedDerSig)
         assertTrue(wasNotNormalized2)
         assertEquals(
             "182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A21C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9",
-            Hex.encode(normalizedCompactSig2).uppercase(),
+            Hex.encode(normalizedCompactSig2).uppercase()
         )
         val normalizedCompactSig = Hex.decode("182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A21C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9".lowercase())
         val (normalizedCompactSig3, wasNotNormalized3) = secp256k1.signatureNormalize(normalizedCompactSig)
         assertFalse(wasNotNormalized3)
         assertEquals(
             "182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A21C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9",
-            Hex.encode(normalizedCompactSig3).uppercase(),
+            Hex.encode(normalizedCompactSig3).uppercase()
         )
         val notNormalizedCompactSig = Hex.decode("182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A2E3990C925DEE3F780C50774AF120B062E0080D86D8C721C6E32F10DBACA57A58".lowercase())
         val (normalizedCompactSig4, wasNotNormalized4) = secp256k1.signatureNormalize(notNormalizedCompactSig)
         assertTrue(wasNotNormalized4)
         assertEquals(
             "182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A21C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9",
-            Hex.encode(normalizedCompactSig4).uppercase(),
+            Hex.encode(normalizedCompactSig4).uppercase()
         )
     }
 
@@ -179,7 +185,7 @@ class Secp256k1Tests {
         val sig = ecdsa.sign(message, priv)
         assertEquals(
             "182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A21C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9",
-            Hex.encode(sig).uppercase(),
+            Hex.encode(sig).uppercase()
         )
     }
 
@@ -210,7 +216,7 @@ class Secp256k1Tests {
         val npriv = secp256k1.privateKeyNegate(priv)
         assertEquals(
             "981A9A7DD677A622518DA068D66D5F824E5F22F084B8A0E2F195B5662F300C11",
-            Hex.encode(npriv).uppercase(),
+            Hex.encode(npriv).uppercase()
         )
         val nnpriv: ByteArray = secp256k1.privateKeyNegate(npriv)
         assertContentEquals(priv, nnpriv)
@@ -224,7 +230,7 @@ class Secp256k1Tests {
         val tweakedPriv = secp256k1.privateKeyTweakAdd(priv, tweak)
         assertEquals(
             "A168571E189E6F9A7E2D657A4B53AE99B909F7E712D1C23CED28093CD57C88F3",
-            Hex.encode(tweakedPriv).uppercase(),
+            Hex.encode(tweakedPriv).uppercase()
         )
     }
 
@@ -236,7 +242,7 @@ class Secp256k1Tests {
         val tweakedPriv = secp256k1.privateKeyTweakMul(priv, tweak)
         assertEquals(
             "97F8184235F101550F3C71C927507651BD3F1CDB4A5A33B8986ACF0DEE20FFFC",
-            Hex.encode(tweakedPriv).uppercase(),
+            Hex.encode(tweakedPriv).uppercase()
         )
     }
 
@@ -247,7 +253,7 @@ class Secp256k1Tests {
         val tweakedPub = Secp256k1Native.pubKeyTweakAdd(pub, tweak)
         assertEquals(
             "0411C6790F4B663CCE607BAAE08C43557EDC1A4D11D88DFCB3D841D0C6A941AF525A268E2A863C148555C48FB5FBA368E88718A46E205FABC3DBA2CCFFAB0796EF",
-            Hex.encode(tweakedPub).uppercase(),
+            Hex.encode(tweakedPub).uppercase()
         )
     }
 
@@ -258,7 +264,7 @@ class Secp256k1Tests {
         val tweakedPub = Secp256k1Native.pubKeyTweakMul(pub, tweak)
         assertEquals(
             "04E0FE6FE55EBCA626B98A807F6CAF654139E14E5E3698F01A9A658E21DC1D2791EC060D4F412A794D5370F672BC94B722640B5F76914151CFCA6E712CA48CC589",
-            Hex.encode(tweakedPub).uppercase(),
+            Hex.encode(tweakedPub).uppercase()
         )
     }
 
@@ -270,7 +276,7 @@ class Secp256k1Tests {
         val secret = ecdh.ecdh(priv, pub)
         assertEquals(
             "2A2A67007A926E6594AF3EB564FC74005B37A9C8AEF2033C4552051B5C87F043",
-            Hex.encode(secret).uppercase(),
+            Hex.encode(secret).uppercase()
         )
     }
 
@@ -301,11 +307,14 @@ class Secp256k1Tests {
     @Test
     fun convertCompactEcdsaSignatureToDer() {
         val ecdsa = ECDSA()
-        val compact = Hex.decode("182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A21C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9".lowercase()) // sha256hash of "testing"
+        val compact =
+            Hex.decode(
+                "182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A21C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9".lowercase()
+            ) // sha256hash of "testing"
         val der = ecdsa.compact2der(compact)
         assertEquals(
             "30440220182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A202201C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9",
-            Hex.encode(der).uppercase(),
+            Hex.encode(der).uppercase()
         )
     }
 

@@ -15,7 +15,10 @@ class KMMECSecp256k1KeysTests {
         val privateKey = KMMECSecp256k1PrivateKey.secp256k1FromByteArray(base64ByteArray)
         val message = "Test"
         val signature = privateKey.sign(message.encodeToByteArray())
-        assertEquals("MEUCIQCFeGlhJrH-9R70X4JzrurWs52SwuxCnJ8ky6riFwMOrwIgT7zlLo7URMHW5tiMgG73IOw2Dm3XyLl1iqW1-t5NFWQ", signature.base64UrlEncoded)
+        assertEquals(
+            "MEUCIQCFeGlhJrH-9R70X4JzrurWs52SwuxCnJ8ky6riFwMOrwIgT7zlLo7URMHW5tiMgG73IOw2Dm3XyLl1iqW1-t5NFWQ",
+            signature.base64UrlEncoded
+        )
     }
 
     @Test
@@ -25,7 +28,10 @@ class KMMECSecp256k1KeysTests {
         val privateKey = KMMECSecp256k1PrivateKey.secp256k1FromByteArray(base64ByteArray)
         val message = "Test"
         val signature = privateKey.sign(message.encodeToByteArray())
-        assertEquals("MEUCIQCFeGlhJrH-9R70X4JzrurWs52SwuxCnJ8ky6riFwMOrwIgT7zlLo7URMHW5tiMgG73IOw2Dm3XyLl1iqW1-t5NFWQ", signature.base64UrlEncoded)
+        assertEquals(
+            "MEUCIQCFeGlhJrH-9R70X4JzrurWs52SwuxCnJ8ky6riFwMOrwIgT7zlLo7URMHW5tiMgG73IOw2Dm3XyLl1iqW1-t5NFWQ",
+            signature.base64UrlEncoded
+        )
         assertTrue(privateKey.verify(signature, message.encodeToByteArray()))
     }
 
@@ -36,7 +42,10 @@ class KMMECSecp256k1KeysTests {
         val privateKey = KMMECSecp256k1PrivateKey.secp256k1FromByteArray(base64ByteArray)
         val message = "Test"
         val signature = privateKey.sign(message.encodeToByteArray())
-        assertEquals("MEUCIQCFeGlhJrH-9R70X4JzrurWs52SwuxCnJ8ky6riFwMOrwIgT7zlLo7URMHW5tiMgG73IOw2Dm3XyLl1iqW1-t5NFWQ", signature.base64UrlEncoded)
+        assertEquals(
+            "MEUCIQCFeGlhJrH-9R70X4JzrurWs52SwuxCnJ8ky6riFwMOrwIgT7zlLo7URMHW5tiMgG73IOw2Dm3XyLl1iqW1-t5NFWQ",
+            signature.base64UrlEncoded
+        )
         val publicKey = privateKey.getPublicKey()
         assertTrue(publicKey.verify(signature, message.encodeToByteArray()))
     }
@@ -46,20 +55,25 @@ class KMMECSecp256k1KeysTests {
         val privateKeyBase64 = "N_JFgvYaReyRXwassz5FHg33A4I6dczzdXrjdHGksmg"
         val base64ByteArray = privateKeyBase64.base64UrlDecodedBytes
         val privateKey = KMMECSecp256k1PrivateKey.secp256k1FromByteArray(base64ByteArray)
-        assertEquals("BD-l4lrQ6Go-oN5XtdpY6o5dyf2V2v5EbMAvRjVGJpE1gYVURJfxKMpNPnKlLr4MOLNVaYvBNOoy9L50E8jVx8Q", privateKey.getPublicKey().raw.base64UrlEncoded)
+        assertEquals(
+            "BD-l4lrQ6Go-oN5XtdpY6o5dyf2V2v5EbMAvRjVGJpE1gYVURJfxKMpNPnKlLr4MOLNVaYvBNOoy9L50E8jVx8Q",
+            privateKey.getPublicKey().raw.base64UrlEncoded
+        )
     }
 
     @Test
     fun testIsPointOnSecp256k1Curve() {
-        val point = KMMECPoint(
-            "P6XiWtDoaj6g3le12ljqjl3J_ZXa_kRswC9GNUYmkTU".base64UrlDecodedBytes,
-            "gYVURJfxKMpNPnKlLr4MOLNVaYvBNOoy9L50E8jVx8Q".base64UrlDecodedBytes
-        )
-        try {
-            val publicKey = KMMECSecp256k1PublicKey.secp256k1FromByteCoordinates(
-                point.x,
-                point.y
+        val point =
+            KMMECPoint(
+                "P6XiWtDoaj6g3le12ljqjl3J_ZXa_kRswC9GNUYmkTU".base64UrlDecodedBytes,
+                "gYVURJfxKMpNPnKlLr4MOLNVaYvBNOoy9L50E8jVx8Q".base64UrlDecodedBytes
             )
+        try {
+            val publicKey =
+                KMMECSecp256k1PublicKey.secp256k1FromByteCoordinates(
+                    point.x,
+                    point.y
+                )
             assertNotNull(publicKey)
             assertTrue(true)
         } catch (ex: Exception) {
@@ -78,10 +92,11 @@ class KMMECSecp256k1KeysTests {
     @Test
     fun testECSecp256K1FromByteCoordinates() {
         try {
-            val publicKey = KMMECSecp256k1PublicKey.secp256k1FromByteCoordinates(
-                "P6XiWtDoaj6g3le12ljqjl3J_ZXa_kRswC9GNUYmkTU".base64UrlDecodedBytes,
-                "gYVURJfxKMpNPnKlLr4MOLNVaYvBNOoy9L50E8jVx8Q".base64UrlDecodedBytes
-            )
+            val publicKey =
+                KMMECSecp256k1PublicKey.secp256k1FromByteCoordinates(
+                    "P6XiWtDoaj6g3le12ljqjl3J_ZXa_kRswC9GNUYmkTU".base64UrlDecodedBytes,
+                    "gYVURJfxKMpNPnKlLr4MOLNVaYvBNOoy9L50E8jVx8Q".base64UrlDecodedBytes
+                )
             assertNotNull(publicKey)
             assertTrue(true)
         } catch (ex: Exception) {

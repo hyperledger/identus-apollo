@@ -5,21 +5,23 @@ internal object Hex {
 
     fun decode(hex: String): ByteArray {
         val input = hex.filterNot { it.isWhitespace() }
-        val offset = when {
-            input.length >= 2 && input[0] == '0' && input[1] == 'x' -> 2
-            input.length >= 2 && input[0] == '0' && input[1] == 'X' -> 2
-            else -> 0
-        }
+        val offset =
+            when {
+                input.length >= 2 && input[0] == '0' && input[1] == 'x' -> 2
+                input.length >= 2 && input[0] == '0' && input[1] == 'X' -> 2
+                else -> 0
+            }
         val len = input.length - offset
         require(len % 2 == 0)
         val out = ByteArray(len / 2)
 
-        fun hexToBin(ch: Char): Int = when (ch) {
-            in '0'..'9' -> ch - '0'
-            in 'a'..'f' -> ch - 'a' + 10
-            in 'A'..'F' -> ch - 'A' + 10
-            else -> throw IllegalArgumentException("illegal hex character: $ch")
-        }
+        fun hexToBin(ch: Char): Int =
+            when (ch) {
+                in '0'..'9' -> ch - '0'
+                in 'a'..'f' -> ch - 'a' + 10
+                in 'A'..'F' -> ch - 'A' + 10
+                else -> throw IllegalArgumentException("illegal hex character: $ch")
+            }
 
         for (i in out.indices) {
             out[i] = (hexToBin(input[offset + 2 * i]) * 16 + hexToBin(input[offset + 2 * i + 1])).toByte()

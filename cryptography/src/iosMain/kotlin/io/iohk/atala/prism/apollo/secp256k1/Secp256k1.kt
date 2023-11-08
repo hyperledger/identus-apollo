@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports", "ktlint:standard:import-ordering")
+
 package io.iohk.atala.prism.apollo.secp256k1
 
 /* ktlint-disable */
@@ -15,16 +17,13 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.readBytes
 import io.iohk.atala.prism.apollo.utils.toHex
 import secp256k1.*
-
 /* ktlint-disable */
 
 open class Secp256k1 {
-
     val ctx: CPointer<secp256k1_context> by lazy {
         secp256k1_context_create((SECP256K1_FLAGS_TYPE_CONTEXT or SECP256K1_FLAGS_BIT_CONTEXT_SIGN or SECP256K1_FLAGS_BIT_CONTEXT_VERIFY).toUInt())
             ?: error("Could not create secp256k1 context")
     }
-
 
     /**
      * Convert an ECDSA signature to a normalized lower-S form (bitcoin standardness rule).
@@ -141,11 +140,12 @@ open class Secp256k1 {
             val sig = alloc<secp256k1_ecdsa_signature>()
             val sigPinned = signature.toUByteArray().pin()
             val nativeBytes = sigPinned.addressOf(0)
-            val result = when {
-                signature.size == 64 -> secp256k1_ecdsa_signature_parse_compact(context, sig.ptr, nativeBytes)
-                signature.size < 64 -> throw Secp256k1Exception("Unknown signature format")
-                else -> secp256k1_ecdsa_signature_parse_der(context, sig.ptr, nativeBytes, signature.size.convert())
-            }
+            val result =
+                when {
+                    signature.size == 64 -> secp256k1_ecdsa_signature_parse_compact(context, sig.ptr, nativeBytes)
+                    signature.size < 64 -> throw Secp256k1Exception("Unknown signature format")
+                    else -> secp256k1_ecdsa_signature_parse_der(context, sig.ptr, nativeBytes, signature.size.convert())
+                }
             if (result != 1) {
                 throw Secp256k1Exception("cannot parse signature (size = ${signature.size} sig = ${signature.toHex()}")
             }
@@ -183,11 +183,12 @@ open class Secp256k1 {
         val sig = alloc<secp256k1_ecdsa_signature>()
         val nativeBytes = toNat(input)
 
-        val result = when {
-            input.size == 64 -> secp256k1_ecdsa_signature_parse_compact(ctx, sig.ptr, nativeBytes)
-            input.size < 64 -> throw Secp256k1Exception("Unknown signature format")
-            else -> secp256k1_ecdsa_signature_parse_der(ctx, sig.ptr, nativeBytes, input.size.convert())
-        }
+        val result =
+            when {
+                input.size == 64 -> secp256k1_ecdsa_signature_parse_compact(ctx, sig.ptr, nativeBytes)
+                input.size < 64 -> throw Secp256k1Exception("Unknown signature format")
+                else -> secp256k1_ecdsa_signature_parse_der(ctx, sig.ptr, nativeBytes, input.size.convert())
+            }
         result.requireSuccess("cannot parse signature (size = ${input.size} sig = ${Hex.encode(input)}")
         return sig
     }

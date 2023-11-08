@@ -1,8 +1,6 @@
 package io.iohk.atala.prism.apollo.secp256k1
 
-/* ktlint-disable */
 import fr.acinq.secp256k1.Secp256k1Native
-/* ktlint-disable */
 
 class ECDSA : Secp256k1() {
     /**
