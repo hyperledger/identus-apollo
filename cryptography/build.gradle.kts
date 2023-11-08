@@ -137,14 +137,7 @@ kotlin {
                 dependencies {
                     api("fr.acinq.secp256k1:secp256k1-kmp:0.9.0")
                 }
-                val target =
-                    when {
-                        os.isLinux -> "linux"
-                        os.isMacOsX -> "darwin"
-                        os.isWindows -> "mingw"
-                        else -> error("Unsupported OS $os")
-                    }
-                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm-$target:0.9.0")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.9.0")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
             }
