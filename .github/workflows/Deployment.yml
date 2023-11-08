@@ -114,4 +114,4 @@ jobs:
           TAG_VERSION: ${{github.event.inputs.tag}}
         id: publish
         run: |
-          ./gradlew :publishAllPublicationsToGitHubPackagesRepository :apollo:publishJsPackageToGithubRegistry
+          ./gradlew publishAllPublicationsToGitHubPackagesRepository :apollo:publishJsPackageToGithubRegistry
