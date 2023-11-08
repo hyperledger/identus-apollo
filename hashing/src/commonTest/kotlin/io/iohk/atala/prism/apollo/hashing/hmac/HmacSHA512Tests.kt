@@ -15,7 +15,6 @@ import kotlin.test.assertEquals
  * - https://github.com/xsc/pandect/blob/main/test/pandect/hmac_test.clj
  */
 class HmacSHA512Tests : BaseHmacHashTests() {
-
     override fun hash(key: ByteArray, stringToHash: ByteArray, outputLength: Int?): String {
         val hash = SHA512().createHmac(key, outputLength)
         return hash.digest(stringToHash).toHexString()
@@ -378,9 +377,10 @@ class HmacSHA512Tests : BaseHmacHashTests() {
                 "6e6a3cde12f2cb3a42ec8a5d21b435c4da4df6ca7e41537d361d8169158287bf1d2241581de07f88fe92f5ae4e96eb9c489fc3b258ea3842ea2d511ce883883e"
             )
 
-        var key = ByteArray(64) {
-            it.toByte()
-        }
+        var key =
+            ByteArray(64) {
+                it.toByte()
+            }
 
         expectedOutput.forEachIndexed { index, output ->
             assertEquals(output, hash(key, ByteArray(index) { it.toByte() }))
