@@ -17,11 +17,10 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
         classpath("com.android.tools.build:gradle:7.2.2")
-        // classpath("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.21")
     }
 }
 
-version = System.getenv("TAG_VERSION") ?: "1.0.3"
+version = System.getenv("TAG_VERSION") ?: "1.0.6"
 group = "io.iohk.atala.prism.apollo"
 
 dependencies {
@@ -46,7 +45,7 @@ dependencies {
 }
 
 allprojects {
-    version = System.getenv("TAG_VERSION") ?: "1.0.3"
+    version = System.getenv("TAG_VERSION") ?: "1.0.6"
     group = "io.iohk.atala.prism.apollo"
 
     repositories {

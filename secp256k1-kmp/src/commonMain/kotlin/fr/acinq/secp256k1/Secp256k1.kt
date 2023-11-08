@@ -19,7 +19,6 @@ package fr.acinq.secp256k1
 import kotlin.jvm.JvmStatic
 
 public interface Secp256k1 {
-
     /**
      * Verify an ECDSA signature.
      *
