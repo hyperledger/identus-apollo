@@ -1,3 +1,10 @@
+# [1.7.0-snapshot.1](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.0.0-snapshot.1...v1.7.0-snapshot.1) (2023-11-10)
+
+
+### Bug Fixes
+
+* npmjs auto packages with gradle plugin ([6f9871b](https://github.com/input-output-hk/atala-prism-apollo/commit/6f9871b19269a9f4b9029df91b1d5e3155b2f504))
+
 # 1.0.0-snapshot.1 (2023-11-10)
 
 
