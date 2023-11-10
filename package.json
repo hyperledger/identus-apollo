@@ -1,0 +1,26 @@
+{
+  "name": "atala-prism-apollo",
+  "version": "1.0.6",
+  "description": "atala-prism-apollo",
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/input-output-hk/atala-prism-apollo.git"
+  },
+  "author": "IOG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/input-output-hk/atala-prism-apollo/issues"
+  },
+  "homepage": "https://github.com/input-output-hk/atala-prism-apollo#readme",
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.2",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "gradle-semantic-release-plugin": "1.7.7",
+    "semantic-release": "^21.0.2",
+    "semantic-release-slack-bot": "^4.0.2"
+  }
+}

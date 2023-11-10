@@ -20,7 +20,6 @@ buildscript {
     }
 }
 
-version = System.getenv("TAG_VERSION") ?: "1.0.6"
 group = "io.iohk.atala.prism.apollo"
 
 dependencies {
@@ -45,7 +44,6 @@ dependencies {
 }
 
 allprojects {
-    version = System.getenv("TAG_VERSION") ?: "1.0.6"
     group = "io.iohk.atala.prism.apollo"
 
     repositories {
