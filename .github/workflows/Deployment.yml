@@ -22,7 +22,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deployment:
+  release:
     runs-on: macos-latest
     steps:
       - name: Checkout the repo
