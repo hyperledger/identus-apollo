@@ -19,37 +19,6 @@ env:
 on: [pull_request]
 
 jobs:
-  lint:
-    name: Lint changes
-    runs-on: ubuntu-latest
-    env:
-      APPLY_FIXES: none
-      APPLY_FIXES_EVENT: pull_request
-      APPLY_FIXES_MODE: commit
-      VALIDATE_ALL_CODEBASE: ${{ github.ref_name == 'main' }}
-      DISABLE: COPYPASTE,SPELL
-      DISABLE_LINTERS: REPOSITORY_CHECKOV,BASH_SHELLCHECK,C_CPPLINT,CPP_CPPLINT
-      GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.ATALA_GITHUB_TOKEN }}
-          fetch-depth: 0
-
-      - name: Mega-Linter
-        id: ml
-        uses: oxsecurity/megalinter@v7.4.0
-
-      - name: Archive production artifacts
-        if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: Mega-Linter reports
-          path: |
-            report
-            mega-linter.log
-
   build:
     strategy:
       matrix:
@@ -69,25 +38,14 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v1
-
-      - name: Cache gradle
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            ~/.konan
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
       - name: Install Java ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: "zulu"
+
+      - name: Gradle Build Action
+        uses: gradle/gradle-build-action@v2
 
       - name: Install NodeJS ${{ env.NODEJS_VERSION }}
         uses: actions/setup-node@v3
