@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.0.3...v1.1.0) (2023-11-13)
+
+
+### Features
+
+* **mnemonic:** js doesnt handle List and swift doesnt handle Array this is the solution ([#105](https://github.com/input-output-hk/atala-prism-apollo/issues/105)) ([e65e0f0](https://github.com/input-output-hk/atala-prism-apollo/commit/e65e0f0b93169ef1cf0b08f73aa1f74ade525113))
+
 # 1.0.0 (2023-11-13)
 
 
