@@ -1,6 +1,6 @@
 ---
 # kics-scan ignore
-name: Deployment
+name: Release Apollo
 
 defaults:
   run:
@@ -12,45 +12,25 @@ concurrency:
 
 env:
   JAVA_VERSION: 11
-  NODEJS_VERSION: 16.17.0
   ATALA_GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
+  GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
   ATALA_GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
+  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Create release with tag'
-        required: true
-        type: string
 
 jobs:
-  deployment:
-    strategy:
-      matrix:
-        include:
-          - os: macos-latest
-            os-type: macos
-    runs-on: ${{ matrix.os }}
+  release:
+    runs-on: macos-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
         with:
           submodules: recursive
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v1
-
-      - name: Cache gradle
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            ~/.konan
-          key: "${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}"
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          token: ${{ secrets.ATALA_GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: "Install Java ${{ env.JAVA_VERSION }}"
         uses: actions/setup-java@v3
@@ -59,66 +39,32 @@ jobs:
           distribution: zulu
 
       - name: "Install NodeJS ${{ env.NODEJS_VERSION }}"
-        if: matrix.os-type == 'linux'
         uses: actions/setup-node@v3
         with:
-          node-version: "${{ env.NODEJS_VERSION }}"
+          node-version: "lts/*"
 
       - name: Install Homebrew
-        if: matrix.os-type == 'macos'
         run: >
           /bin/bash -c "$(curl -fsSL
           https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
       - name: "Install autoconf, automake, libtool"
-        if: matrix.os-type == 'macos'
         run: |
           brew install autoconf automake libtool
-      
-      - name: Create Swift Package
-        run: |
-          ./gradlew :base-asymmetric-encryption:createSwiftPackage
-          
-      - name: Zip framework
-        run: |
-          target_dir_name="Apollo.xcframework"
-          source_dir="./base-asymmetric-encryption/build/packages/ApolloSwift/"
-          zip_name="Apollo.xcframework.zip"
-          (cd $source_dir && zip -r "$zip_name" $target_dir_name)
-          
-      - name: Prepare release package
-        run: |
-          checksum=$(swift package compute-checksum 'base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip')
-          echo "CHECKSUM: $checksum"
-          rm -f Package.swift || true
-          ./.scripts/updatePackage.swift ${{github.event.inputs.tag}} $checksum './.scripts/TemplatePackage.swift' 'Package.swift'
 
-      - name: Commit package
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: crazy-max/ghaction-import-gpg@v5
+        id: import_gpg
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: Release
         env:
-          GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
-          GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
-        with:
-          commit_message: "chore: prepare release ${{github.event.inputs.tag}}"
-          tagging_message: ${{github.event.inputs.tag}}
-          
-      - name: Upload swift package artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: Apollo.xcframework.zip
-          path: base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip
-          
-      - name: Add swift package artifacts to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          tag: ${{github.event.inputs.tag}}
-          file: base-asymmetric-encryption/build/packages/ApolloSwift/Apollo.xcframework.zip
-          asset_name: "Apollo.xcframework.zip"
-
-      - name: Publish Maven artifacts to Github Packages
-        id: publish
+          GIT_AUTHOR_EMAIL: ${{ steps.import_gpg.outputs.email }}
+          GIT_COMMITTER_EMAIL: ${{ steps.import_gpg.outputs.email }}
+          GIT_AUTHOR_NAME: ${{ steps.import_gpg.outputs.name }}
+          GIT_COMMITTER_NAME: ${{ steps.import_gpg.outputs.name }}
         run: |
-          ./gradlew publishAllPublicationsToGitHubPackagesRepository :base-asymmetric-encryption:publishJsPackageToGithubRegistry
-
-          
-      
+          npm install
+          npx semantic-release

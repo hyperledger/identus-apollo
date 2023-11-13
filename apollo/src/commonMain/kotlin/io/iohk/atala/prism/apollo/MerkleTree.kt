@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:property-naming")
+
 package io.iohk.atala.prism.apollo
 
 import io.iohk.atala.prism.apollo.hashing.SHA256
@@ -56,21 +58,30 @@ data class MerkleRoot(val hash: Hash)
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 data class MerkleInclusionProof(
-    val hash: Hash, // hash inclusion of which this proof is for
-    val index: Index, // index for the given hash's position in the tree
-    val siblings: List<Hash> // given hash's siblings at each level of the tree starting from the bottom
+    /**
+     * hash inclusion of which this proof is for
+     */
+    val hash: Hash,
+    /**
+     * index for the given hash's position in the tree
+     */
+    val index: Index,
+    /**
+     * given hash's siblings at each level of the tree starting from the bottom
+     */
+    val siblings: List<Hash>
 ) {
     // merkle root of which this proof is for
     fun derivedRoot(): MerkleRoot {
         val n = siblings.size
-        val root = siblings.indices.fold(prefixHash(hash)) { currentHash, i ->
-            if (index and (1 shl (n - i - 1)) == 0) {
-                combineHashes(currentHash, siblings[i])
-            } else {
-                combineHashes(siblings[i], currentHash)
+        val root =
+            siblings.indices.fold(prefixHash(hash)) { currentHash, i ->
+                if (index and (1 shl (n - i - 1)) == 0) {
+                    combineHashes(currentHash, siblings[i])
+                } else {
+                    combineHashes(siblings[i], currentHash)
+                }
             }
-        }
-
         return MerkleRoot(root)
     }
 
@@ -79,13 +90,33 @@ data class MerkleInclusionProof(
             mapOf(
                 Pair(hashField, JsonPrimitive(hash.toHexString())),
                 Pair(indexField, JsonPrimitive(index)),
-                Pair(siblingsField, JsonArray(siblings.map { JsonPrimitive(it.toHexString()) })),
+                Pair(siblingsField, JsonArray(siblings.map { JsonPrimitive(it.toHexString()) }))
             )
         )
     }
 
     fun encode(): String {
         return toJson().toString()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as MerkleInclusionProof
+
+        if (!hash.contentEquals(other.hash)) return false
+        if (index != other.index) return false
+        if (siblings != other.siblings) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = hash.contentHashCode()
+        result = 31 * result + index
+        result = 31 * result + siblings.hashCode()
+        return result
     }
 
     companion object {
@@ -105,8 +136,12 @@ data class MerkleInclusionProof(
         fun decodeJson(encodedMerkleInclusionProof: JsonObject): Validated<MerkleInclusionProof, String> {
             val maybeHash = encodedMerkleInclusionProof[hashField]?.jsonPrimitive?.content?.decodeHex()
             val maybeIndex = encodedMerkleInclusionProof[indexField]?.jsonPrimitive?.int
-            val maybeSiblings = encodedMerkleInclusionProof[siblingsField]?.jsonArray?.map { it.jsonPrimitive.content }
-                ?.map { it.decodeHex() }
+            val maybeSiblings =
+                encodedMerkleInclusionProof[siblingsField]?.jsonArray?.map {
+                    it.jsonPrimitive.content
+                }?.map {
+                    it.decodeHex()
+                }
 
             return Validated.Applicative.apply(
                 Validated.getOrError(
@@ -145,11 +180,16 @@ data class MerkleProofs(val root: MerkleRoot, val proofs: List<MerkleInclusionPr
 fun generateProofs(hashes: List<Hash>): MerkleProofs {
     tailrec fun buildMerkleTree(currentLevel: List<MerkleTree>, nextLevel: List<MerkleTree>): MerkleTree {
         return when {
-            currentLevel.size >= 2 -> buildMerkleTree(
-                currentLevel = currentLevel.subList(2, currentLevel.size),
-                nextLevel = listOf(MerkleNode(currentLevel[0], currentLevel[1])) + nextLevel
-            )
-            currentLevel.size == 1 -> buildMerkleTree(currentLevel = emptyList(), nextLevel = listOf(currentLevel[0]) + nextLevel)
+            currentLevel.size >= 2 ->
+                buildMerkleTree(
+                    currentLevel = currentLevel.subList(2, currentLevel.size),
+                    nextLevel = listOf(MerkleNode(currentLevel[0], currentLevel[1])) + nextLevel
+                )
+            currentLevel.size == 1 ->
+                buildMerkleTree(
+                    currentLevel = emptyList(),
+                    nextLevel = listOf(currentLevel[0]) + nextLevel
+                )
             nextLevel.size == 1 -> nextLevel[0]
 
             // We reverse `nextLevel` list so that it has the same order as the initial
@@ -162,16 +202,18 @@ fun generateProofs(hashes: List<Hash>): MerkleProofs {
         return when (tree) {
             is MerkleLeaf -> listOf(MerkleInclusionProof(tree.data, currentIndex, currentPath))
             is MerkleNode -> {
-                val first = buildProofs(
-                    tree.left,
-                    currentIndex,
-                    listOf(tree.right.hash) + currentPath
-                )
-                val second = buildProofs(
-                    tree.right,
-                    currentIndex or (1 shl currentPath.size),
-                    listOf(tree.left.hash) + currentPath
-                )
+                val first =
+                    buildProofs(
+                        tree.left,
+                        currentIndex,
+                        listOf(tree.right.hash) + currentPath
+                    )
+                val second =
+                    buildProofs(
+                        tree.right,
+                        currentIndex or (1 shl currentPath.size),
+                        listOf(tree.left.hash) + currentPath
+                    )
                 first + second
             }
         }

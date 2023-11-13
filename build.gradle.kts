@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 
 plugins {
     id("org.jetbrains.dokka") version "1.7.10"
-    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     id("maven-publish")
     id("org.jetbrains.kotlinx.kover") version "0.7.2"
 }
@@ -17,11 +17,9 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
         classpath("com.android.tools.build:gradle:7.2.2")
-        // classpath("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.21")
     }
 }
 
-version = "1.0.2"
 group = "io.iohk.atala.prism.apollo"
 
 dependencies {
@@ -34,11 +32,10 @@ dependencies {
     kover(project(":base64"))
     kover(project(":multibase"))
     kover(project(":utils"))
-    kover(project(":base-symmetric-encryption"))
+    kover(project(":cryptography"))
     kover(project(":secure-random"))
 //    kover(project(":aes"))
-    kover(project(":base-asymmetric-encryption"))
-//    kover(project(":rsa"))
+    //    kover(project(":rsa"))
 //    kover(project(":ecdsa"))
     kover(project(":varint"))
 //    kover(project(":jose"))
@@ -47,7 +44,6 @@ dependencies {
 }
 
 allprojects {
-    version = "1.0.2"
     group = "io.iohk.atala.prism.apollo"
 
     repositories {
