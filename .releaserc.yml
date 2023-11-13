@@ -1,6 +1,6 @@
 branches:
   - name: "main"
-  - name: "feature/ATL-6096"
+  - name: "release/*"
     prerelease: "snapshot"
 
 plugins:
