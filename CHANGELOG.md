@@ -1,3 +1,10 @@
+## [1.1.1-snapshot.1](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.1.0...v1.1.1-snapshot.1) (2023-11-14)
+
+
+### Bug Fixes
+
+* test commit ([ad52ba9](https://github.com/input-output-hk/atala-prism-apollo/commit/ad52ba910d4b3c71815d7f77521747ad42f0f15c))
+
 # [1.1.0](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.0.3...v1.1.0) (2023-11-13)
 
 
