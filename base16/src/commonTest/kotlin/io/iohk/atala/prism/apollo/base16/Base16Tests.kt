@@ -37,26 +37,26 @@ class Base16Tests {
 
     @Test
     fun testEncodeBase16RFC_4648_2() {
-        assertEquals("666F", "fo".base16Encoded)
+        assertEquals("666F", "fo".base16Encoded.uppercase())
     }
 
     @Test
     fun testEncodeBase16RFC_4648_3() {
-        assertEquals("666F6F", "foo".base16Encoded)
+        assertEquals("666F6F", "foo".base16Encoded.uppercase())
     }
 
     @Test
     fun testEncodeBase16RFC_4648_4() {
-        assertEquals("666F6F62", "foob".base16Encoded)
+        assertEquals("666F6F62", "foob".base16Encoded.uppercase())
     }
 
     @Test
     fun testEncodeBase16RFC_4648_5() {
-        assertEquals("666F6F6261", "fooba".base16Encoded)
+        assertEquals("666F6F6261", "fooba".base16Encoded.uppercase())
     }
 
     @Test
     fun testEncodeBase16RFC_4648_6() {
-        assertEquals("666F6F626172", "foobar".base16Encoded)
+        assertEquals("666F6F626172", "foobar".base16Encoded.uppercase())
     }
 }
