@@ -62,56 +62,66 @@ class Base32Tests {
 
     @Test
     fun testEncodeBase32_RFC_4648_1() {
-        assertEquals("foo".base32UpperPadEncoded, "MZXW6===")
+        assertEquals("MZXW6===", "foo".base32UpperPadEncoded)
+        assertEquals("foo", "MZXW6===".base32UpperPadDecoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_2() {
-        assertEquals("foob".base32UpperPadEncoded, "MZXW6YQ=")
+        assertEquals("MZXW6YQ=", "foob".base32UpperPadEncoded)
+        assertEquals("foob", "MZXW6YQ=".base32UpperPadDecoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_3() {
-        assertEquals("fooba".base32UpperPadEncoded, "MZXW6YTB")
+        assertEquals("MZXW6YTB", "fooba".base32UpperPadEncoded)
+        assertEquals("fooba", "MZXW6YTB".base32UpperPadDecoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_4() {
-        assertEquals("foobar".base32UpperPadEncoded, "MZXW6YTBOI======")
+        assertEquals("MZXW6YTBOI======", "foobar".base32UpperPadEncoded)
+        assertEquals("foobar", "MZXW6YTBOI======".base32UpperPadDecoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_5() {
-        assertEquals("".base32Encoded, "")
+        assertEquals("", "".base32Encoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_6() {
-        assertEquals("f".base32HexUpperPadEncoded, "CO======")
+        assertEquals("CO======", "f".base32HexUpperPadEncoded)
+        assertEquals("f", "CO======".base32HexUpperPadDecoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_7() {
-        assertEquals("fo".base32HexUpperPadEncoded, "CPNG====")
+        assertEquals("CPNG====", "fo".base32HexUpperPadEncoded)
+        assertEquals("fo", "CPNG====".base32HexUpperPadDecoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_8() {
-        assertEquals("foo".base32HexUpperPadEncoded, "CPNMU===")
+        assertEquals("CPNMU===", "foo".base32HexUpperPadEncoded)
+        assertEquals("foo", "CPNMU===".base32HexUpperPadDecoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_9() {
-        assertEquals("foob".base32HexUpperPadEncoded, "CPNMUOG=")
+        assertEquals("CPNMUOG=", "foob".base32HexUpperPadEncoded)
+        assertEquals("foob", "CPNMUOG=".base32HexUpperPadDecoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_10() {
-        assertEquals("fooba".base32HexUpperPadEncoded, "CPNMUOJ1")
+        assertEquals("CPNMUOJ1", "fooba".base32HexUpperPadEncoded)
+        assertEquals("fooba", "CPNMUOJ1".base32HexUpperPadDecoded)
     }
 
     @Test
     fun testEncodeBase32_RFC_4648_11() {
-        assertEquals("foobar".base32HexUpperPadEncoded, "CPNMUOJ1E8======")
+        assertEquals("CPNMUOJ1E8======", "foobar".base32HexUpperPadEncoded)
+        assertEquals("foobar", "CPNMUOJ1E8======".base32HexUpperPadDecoded)
     }
 }

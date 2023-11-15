@@ -49,21 +49,32 @@ internal final object Base32 {
      * Decode string to Base32
      */
     fun decode(input: String, encoding: Encoding = Encoding.Standard): ByteArray {
-        val bytes = decodeToBigInteger(encoding.alphabet, base, input).toByteArray()
+        val bytes = decodeToBigInteger(encoding.alphabet, base, input).toByteArray().dropLastWhile {
+            it.toInt() == 0
+        }.toByteArray()
+
+        // Determine if the first byte is a sign byte (0x00) and needs to be stripped
         val stripSignByte = bytes.size > 1 && bytes[0].compareTo(0) == 0 && bytes[1] < 0
+
+        // Count the number of leading zeros in the input string
         var leadingZeros = 0
         var i = 0
         while (input[i] == encoding.alphabet[0]) {
             leadingZeros++
             i++
         }
+
+        // Allocate a temporary byte array with the correct size, accounting for the sign byte and leading zeros
         val tmp = ByteArray(bytes.size - (if (stripSignByte) 1 else 0) + leadingZeros)
+
+        // Copy the decoded bytes into the temporary array, skipping the sign byte if necessary
         bytes.copyInto(
-            tmp, // dest
-            0, // dest offset
-            if (stripSignByte) 1 else 0,
-            tmp.size - leadingZeros // can be added -1 not sure
+            tmp, // destination array
+            0, // destination offset
+            if (stripSignByte) 1 else 0, // source offset
+            tmp.size - leadingZeros // number of bytes to copy
         )
+
         return tmp
     }
 
@@ -71,10 +82,12 @@ internal final object Base32 {
         var bi = BigInteger(0)
         for (i in input.length - 1 downTo 0) {
             val alphaIndex = alphabet.indexOf(input[i])
-            if (alphaIndex == -1) {
+            if (alphaIndex == -1 && input[i] != '=') {
                 throw IllegalStateException("Illegal character " + input[i] + " at " + i)
             }
-            bi = bi.add(BigInteger(alphaIndex.toLong()).multiply(base.pow(input.length - 1 - i)))
+            if (input[i] != '=') {
+                bi = bi.add(BigInteger(alphaIndex.toLong()).multiply(base.pow(input.length - 1 - i)))
+            }
         }
         return bi
     }
