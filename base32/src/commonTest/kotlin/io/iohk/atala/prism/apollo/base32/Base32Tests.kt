@@ -101,4 +101,53 @@ class Base32Tests {
         val expected = byteArrayOf(1, 17, -107, -115, -107, -71, -47, -55, -123, -79, -91, -23, -108, -127, -107, -39, -107, -55, -27, -47, -95, -91, -71, -100, -124, -124, -124)
         assertContentEquals(expected, "8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144".uppercase().base32HexUpperPadDecodedBytes)
     }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_1() {
+        assertEquals("foo".base32UpperPadEncoded, "MZXW6===")
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_2() {
+        assertEquals("foob".base32Encoded, "MZXW6YQ=")
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_3() {
+        assertEquals("fooba".base32UpperEncoded, "MZXW6YTB")
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_4() {
+        assertEquals("foobar".base32Encoded, "MZXW6YTBOI======")
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_5() {
+        assertEquals("".base32Encoded, "")
+    }
+    @Test
+    fun testEncodeBase32_RFC_4648_6() {
+        assertEquals("f".base32Encoded, "CO======")
+    }
+    @Test
+    fun testEncodeBase32_RFC_4648_7() {
+        assertEquals("fo".base32Encoded, "CPNG====")
+    }
+    @Test
+    fun testEncodeBase32_RFC_4648_8() {
+        assertEquals("foo".base32Encoded, "CPNMU===")
+    }
+    @Test
+    fun testEncodeBase32_RFC_4648_9() {
+        assertEquals("foob".base32Encoded, "CPNMUOG=")
+    }
+    @Test
+    fun testEncodeBase32_RFC_4648_10() {
+        assertEquals("fooba".base32Encoded, "CPNMUOJ1")
+    }
+    @Test
+    fun testEncodeBase32_RFC_4648_11() {
+        assertEquals("foobar".base32Encoded, "CPNMUOJ1E8======")
+    }
 }
