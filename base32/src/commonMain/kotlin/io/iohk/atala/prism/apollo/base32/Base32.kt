@@ -13,6 +13,9 @@ internal final object Base32 {
      * Encode string to Base32
      */
     fun encode(input: ByteArray, encoding: Encoding = Encoding.Standard): String {
+        if (input.contentEquals("".encodeToByteArray())) {
+            return ""
+        }
         var bi = BigInteger.fromByteArray(input, Sign.POSITIVE)
         val sb = StringBuilder()
         while (bi >= base) {

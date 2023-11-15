@@ -13,6 +13,9 @@ internal final object Base58 {
      * Encode string to Base58
      */
     fun encode(input: ByteArray, encoding: Encoding = Encoding.BTC): String {
+        if (input.contentEquals("".encodeToByteArray())) {
+            return ""
+        }
         var bi = BigInteger.fromByteArray(input, Sign.POSITIVE)
         val sb = StringBuilder()
         while (bi >= base) {
