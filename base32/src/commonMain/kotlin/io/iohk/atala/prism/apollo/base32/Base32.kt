@@ -12,7 +12,7 @@ internal final object Base32 {
     /**
      * Encode string to Base32
      */
-    fun encode(input: ByteArray, encoding: Encoding = Encoding.Standard): String {
+    fun encode(input: ByteArray, encoding: Encoding = Encoding.Standard, paddingEnabled: Boolean = true): String {
         if (input.contentEquals("".encodeToByteArray())) {
             return ""
         }
@@ -41,7 +41,6 @@ internal final object Base32 {
         repeat(padding) {
             output.append('=')
         }
-
 
         return output.toString()
     }
