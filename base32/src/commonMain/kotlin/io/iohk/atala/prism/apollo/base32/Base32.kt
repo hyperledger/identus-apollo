@@ -1,7 +1,6 @@
 package io.iohk.atala.prism.apollo.base32
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
-import com.ionspin.kotlin.bignum.integer.Sign
 
 /**
  * Base32 implementation
