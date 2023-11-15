@@ -19,7 +19,7 @@ sealed interface Encoding {
      * Base32 Standard with padding
      */
     object StandardPad : Encoding {
-        override val alphabet: String = "abcdefghijklmnopqrstuvwxyz234567="
+        override val alphabet: String = "abcdefghijklmnopqrstuvwxyz234567"
     }
 
     /**
@@ -33,7 +33,7 @@ sealed interface Encoding {
      * Base32 Upper with padding
      */
     object UpperPad : Encoding {
-        override val alphabet: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567="
+        override val alphabet: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
     }
 
     /**

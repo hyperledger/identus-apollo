@@ -16,23 +16,34 @@ internal final object Base32 {
         if (input.contentEquals("".encodeToByteArray())) {
             return ""
         }
-        var bi = BigInteger.fromByteArray(input, Sign.POSITIVE)
-        val sb = StringBuilder()
-        while (bi >= base) {
-            val mod = bi.mod(base)
-            sb.insert(0, encoding.alphabet[mod.intValue()])
-            bi = bi.subtract(mod).divide(base)
-        }
-        sb.insert(0, encoding.alphabet[bi.intValue()])
-        // convert leading zeros.
-        for (b in input) {
-            if (b.compareTo(0) == 0) {
-                sb.insert(0, encoding.alphabet[0])
-            } else {
-                break
+        val output = StringBuilder()
+        var buffer = 0
+        var bits = 0
+
+        for (byte in input) {
+            buffer = (buffer shl 8) or (byte.toInt() and 0xFF)
+            bits += 8
+
+            while (bits >= 5) {
+                val index = (buffer shr (bits - 5)) and 0x1F
+                output.append(encoding.alphabet[index])
+                bits -= 5
             }
         }
-        return sb.toString()
+
+        if (bits > 0) {
+            buffer = (buffer shl (5 - bits))
+            val index = (buffer and 0x1F)
+            output.append(encoding.alphabet[index])
+        }
+
+        val padding = (8 - output.length % 8) % 8
+        repeat(padding) {
+            output.append('=')
+        }
+
+
+        return output.toString()
     }
 
     /**
