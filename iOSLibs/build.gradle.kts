@@ -9,6 +9,30 @@ libraries.forEach { library ->
         tasks.create<Exec>("build${library.capitalize()}${sdk.capitalize()}") {
             group = "build"
 
+            inputs.files(
+                fileTree("$projectDir/$library.xcodeproj") { exclude("**/xcuserdata") },
+                fileTree("$projectDir/$library")
+            )
+            when (sdk) {
+                "iphoneos" -> {
+                    outputs.files(
+                        fileTree("$projectDir/$library/build/Release-iphoneos")
+                    )
+                }
+                "iphonesimulator" -> {
+                    outputs.files(
+                        fileTree("$projectDir/$library/build/Release-iphonesimulator")
+                    )
+                }
+                "macosx" -> {
+                    outputs.files(
+                        fileTree("$projectDir/$library/build/Release")
+                    )
+                }
+            }
+
+            workingDir(projectDir)
+
             if (os.isMacOsX) {
                 when (sdk) {
                     "iphoneos", "iphonesimulator" -> {
@@ -36,30 +60,6 @@ libraries.forEach { library ->
                 }
             } else {
                 commandLine("echo", "Unsupported platform.")
-            }
-
-            workingDir(projectDir)
-
-            inputs.files(
-                fileTree("$projectDir/$library.xcodeproj") { exclude("**/xcuserdata") },
-                fileTree("$projectDir/$library")
-            )
-            when (sdk) {
-                "iphoneos" -> {
-                    outputs.files(
-                        fileTree("$projectDir/$library/build/Release-iphoneos")
-                    )
-                }
-                "iphonesimulator" -> {
-                    outputs.files(
-                        fileTree("$projectDir/$library/build/Release-iphonesimulator")
-                    )
-                }
-                "macosx" -> {
-                    outputs.files(
-                        fileTree("$projectDir/$library/build/Release")
-                    )
-                }
             }
         }
     }

@@ -1,7 +1,9 @@
 package io.iohk.atala.prism.apollo.utils
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import swift.cryptoKit.X25519
 
+@OptIn(ExperimentalForeignApi::class)
 actual class KMMX25519PrivateKey(val raw: ByteArray) {
     @Throws(RuntimeException::class)
     public constructor() : this(X25519.createPrivateKey().success()?.toByteArray() ?: throw RuntimeException("Null result"))

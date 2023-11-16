@@ -2,6 +2,7 @@ package io.iohk.atala.prism.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
+import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
 import io.iohk.atala.prism.apollo.derivation.HDKey.Companion.HARDENED_OFFSET
 import kotlin.random.Random
 import kotlin.test.BeforeTest
@@ -42,11 +43,21 @@ class HDKeyTest {
 
         val hdKey = HDKey(seed = seed, depth = depth, childIndex = BigIntegerWrapper(childIndex))
 
-        assertNotNull(hdKey.privateKey)
-        assertTrue(privateKey.base64UrlDecodedBytes.contentEquals(hdKey.privateKey!!))
-        assertNotNull(hdKey.chainCode)
-        assertEquals(depth, hdKey.depth)
-        assertEquals(BigIntegerWrapper(childIndex), hdKey.childIndex)
+        println(hdKey.privateKey!!.base64UrlEncoded)
+        println(privateKey)
+
+        assertNotNull(hdKey.privateKey, "private key not null")
+        assertTrue(
+            privateKey.base64UrlDecodedBytes.contentEquals(hdKey.privateKey!!),
+            "base64 decoded key not equals"
+        )
+        assertNotNull(hdKey.chainCode, "chain code not null")
+        assertEquals(depth, hdKey.depth, "depth")
+        assertEquals(
+            BigIntegerWrapper(childIndex).value,
+            hdKey.childIndex.value,
+            "hd child index value not equals"
+        )
     }
 
     @Test

@@ -15,7 +15,7 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     jvm {
@@ -29,40 +29,54 @@ kotlin {
         }
     }
 
-    ios {
-        binaries.framework {
-            baseName = "ApolloLibrary"
-            export(project(":cryptography"))
-            export(project(":multibase"))
-            export(project(":base64"))
-            export(project(":base58"))
-            export(project(":base32"))
-            export(project(":utils"))
-            export(project(":hashing"))
+    if (os.isMacOsX) {
+        ios {
+            binaries.framework {
+                baseName = "ApolloLibrary"
+                export(project(":cryptography"))
+                export(project(":multibase"))
+                export(project(":base64"))
+                export(project(":base58"))
+                export(project(":base32"))
+                export(project(":utils"))
+                export(project(":hashing"))
+            }
         }
-    }
-    iosSimulatorArm64 {
-        binaries.framework {
-            baseName = "ApolloLibrary"
-            export(project(":cryptography"))
-            export(project(":multibase"))
-            export(project(":base64"))
-            export(project(":base58"))
-            export(project(":base32"))
-            export(project(":utils"))
-            export(project(":hashing"))
+        multiplatformSwiftPackage {
+            packageName("Apollo")
+            swiftToolsVersion("5.3")
+            targetPlatforms {
+                iOS { v("13") }
+                macOS { v("11") }
+            }
+            outputDirectory(File(rootDir, "apollo/build/packages/ApolloSwift"))
         }
-    }
-    macosArm64 {
-        binaries.framework {
-            baseName = "ApolloLibrary"
-            export(project(":cryptography"))
-            export(project(":multibase"))
-            export(project(":base64"))
-            export(project(":base58"))
-            export(project(":base32"))
-            export(project(":utils"))
-            export(project(":hashing"))
+        // M1Chip
+        if (System.getProperty("os.arch") != "x86_64") {
+            iosSimulatorArm64 {
+                binaries.framework {
+                    baseName = "ApolloLibrary"
+                    export(project(":cryptography"))
+                    export(project(":multibase"))
+                    export(project(":base64"))
+                    export(project(":base58"))
+                    export(project(":base32"))
+                    export(project(":utils"))
+                    export(project(":hashing"))
+                }
+            }
+            macosArm64 {
+                binaries.framework {
+                    baseName = "ApolloLibrary"
+                    export(project(":cryptography"))
+                    export(project(":multibase"))
+                    export(project(":base64"))
+                    export(project(":base58"))
+                    export(project(":base32"))
+                    export(project(":utils"))
+                    export(project(":hashing"))
+                }
+            }
         }
     }
 
@@ -97,16 +111,6 @@ kotlin {
         }
     }
 
-    multiplatformSwiftPackage {
-        packageName("Apollo")
-        swiftToolsVersion("5.3")
-        targetPlatforms {
-            iOS { v("13") }
-            macOS { v("11") }
-        }
-        outputDirectory(File(rootDir, "apollo/build/packages/ApolloSwift"))
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -120,7 +124,7 @@ kotlin {
                 api(project(":hashing"))
                 api(project(":varint"))
                 api(project(":secure-random"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
             }
         }
         val commonTest by getting {
@@ -129,7 +133,7 @@ kotlin {
             }
         }
         val androidMain by getting
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
@@ -154,17 +158,21 @@ kotlin {
         }
         val jsTest by getting
 
-        val iosMain by getting
-        val iosTest by getting
-
-        val iosSimulatorArm64Main by getting {
-            this.dependsOn(iosMain)
+        if (os.isMacOsX) {
+            val iosMain by getting
+            val iosTest by getting
+            // M1Chip
+            if (System.getProperty("os.arch") != "x86_64") {
+                val iosSimulatorArm64Main by getting {
+                    this.dependsOn(iosMain)
+                }
+                val iosSimulatorArm64Test by getting {
+                    this.dependsOn(iosTest)
+                }
+                val macosArm64Main by getting
+                val macosArm64Test by getting
+            }
         }
-        val iosSimulatorArm64Test by getting {
-            this.dependsOn(iosTest)
-        }
-        val macosArm64Main by getting
-        val macosArm64Test by getting
     }
 
     if (os.isMacOsX) {
@@ -243,5 +251,15 @@ npmPublish {
             access.set(NpmAccess.PUBLIC)
             this.authToken.set(System.getenv("ATALA_GITHUB_TOKEN"))
         }
+    }
+}
+
+// Workaround for a bug in Gradle
+afterEvaluate {
+    tasks.named("lintAnalyzeDebug") {
+        this.enabled = false
+    }
+    tasks.named("lintAnalyzeRelease") {
+        this.enabled = false
     }
 }

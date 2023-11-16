@@ -1,7 +1,9 @@
 package io.iohk.atala.prism.apollo.utils
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Security.SecKeyRef
 
+@OptIn(ExperimentalForeignApi::class)
 actual final class KMMRSAKeyPair actual constructor(val privateKey: KMMRSAPrivateKey, val publicKey: KMMRSAPublicKey) {
     private constructor(
         nativePrivateKey: SecKeyRef,

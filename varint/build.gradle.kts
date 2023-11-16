@@ -12,7 +12,7 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     jvm {
@@ -30,13 +30,15 @@ kotlin {
 //        tvos()
 //        watchos()
         macosX64()
-        iosSimulatorArm64()
+        // M1Chip
+        if (System.getProperty("os.arch") != "x86_64") {
+            iosSimulatorArm64()
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-        macosArm64()
+            macosArm64()
+        }
     }
 //    if (os.isWindows) {
-//        // mingwX86() // it depend on kotlinx-datetime lib to support this platform before we can support it as well
 //        mingwX64()
 //    }
     js(IR) {
@@ -54,11 +56,6 @@ kotlin {
             this.webpackTask {
                 this.output.library = currentModuleName
                 this.output.libraryTarget = Target.VAR
-            }
-            this.commonWebpackConfig {
-//                this.cssSupport {
-//                    this.enabled = true
-//                }
             }
             this.testTask {
                 this.useKarma {
@@ -78,7 +75,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.squareup.okio:okio:3.2.0")
+                implementation("com.squareup.okio:okio:3.4.0")
             }
         }
         val commonTest by getting {
@@ -93,7 +90,7 @@ kotlin {
             }
         }
         val androidMain by getting
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
@@ -107,12 +104,14 @@ kotlin {
 //            val tvosTest by getting
 //            val watchosMain by getting
 //            val watchosTest by getting
-            val iosSimulatorArm64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val iosSimulatorArm64Test by getting {
-                this.dependsOn(iosTest)
-            }
+            // M1Chip
+            if (System.getProperty("os.arch") != "x86_64") {
+                val iosSimulatorArm64Main by getting {
+                    this.dependsOn(iosMain)
+                }
+                val iosSimulatorArm64Test by getting {
+                    this.dependsOn(iosTest)
+                }
 //                val tvosSimulatorArm64Main by getting {
 //                    this.dependsOn(tvosMain)
 //                }
@@ -125,16 +124,15 @@ kotlin {
 //                val watchosSimulatorArm64Test by getting {
 //                    this.dependsOn(watchosTest)
 //                }
-            val macosArm64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val macosArm64Test by getting {
-                this.dependsOn(iosTest)
+                val macosArm64Main by getting {
+                    this.dependsOn(iosMain)
+                }
+                val macosArm64Test by getting {
+                    this.dependsOn(iosTest)
+                }
             }
         }
 //        if (os.isWindows) {
-//            // val mingwX86Main by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
-//            // val mingwX86Test by getting // it depend on kotlinx-datetime lib to support this platform before we can support it as well
 //            val mingwX64Main by getting
 //            val mingwX64Test by getting
 //        }
@@ -186,5 +184,15 @@ tasks.withType<DokkaTask> {
         named("commonMain") {
             includes.from("Module.md", "docs/Module.md")
         }
+    }
+}
+
+// Workaround for a bug in Gradle
+afterEvaluate {
+    tasks.named("lintAnalyzeDebug") {
+        this.enabled = false
+    }
+    tasks.named("lintAnalyzeRelease") {
+        this.enabled = false
     }
 }

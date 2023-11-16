@@ -2,10 +2,10 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 
 plugins {
-    id("org.jetbrains.dokka") version "1.7.10"
+    id("org.jetbrains.dokka") version "1.9.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     id("maven-publish")
-    id("org.jetbrains.kotlinx.kover") version "0.7.2"
+    id("org.jetbrains.kotlinx.kover") version "0.7.4"
 }
 
 buildscript {
@@ -15,7 +15,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.20")
         classpath("com.android.tools.build:gradle:7.2.2")
     }
 }
@@ -34,11 +34,7 @@ dependencies {
     kover(project(":utils"))
     kover(project(":cryptography"))
     kover(project(":secure-random"))
-//    kover(project(":aes"))
-    //    kover(project(":rsa"))
-//    kover(project(":ecdsa"))
     kover(project(":varint"))
-//    kover(project(":jose"))
     kover(project("secp256k1-kmp"))
     kover(project("secp256k1-kmp:native"))
 }
@@ -117,7 +113,7 @@ subprojects {
 }
 
 rootProject.plugins.withType(NodeJsRootPlugin::class.java) {
-    rootProject.extensions.getByType(NodeJsRootExtension::class.java).nodeVersion = "16.17.0"
+    rootProject.extensions.getByType(NodeJsRootExtension::class.java).nodeVersion = "20.9.0"
 }
 
 tasks.dokkaGfmMultiModule.configure {

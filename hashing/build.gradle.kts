@@ -12,7 +12,7 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     jvm {
@@ -29,10 +29,13 @@ kotlin {
         ios()
 //        tvos()
 //        watchos()
-        iosSimulatorArm64()
+        // M1Chip
+        if (System.getProperty("os.arch") != "x86_64") {
+            iosSimulatorArm64()
 //            tvosSimulatorArm64()
 //            watchosSimulatorArm64()
-        macosArm64()
+            macosArm64()
+        }
     }
     if (os.isWindows) {
         mingwX64()
@@ -54,9 +57,6 @@ kotlin {
                 this.output.libraryTarget = Target.VAR
             }
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -64,9 +64,6 @@ kotlin {
         }
         nodejs {
             this.testTask {
-                if (os.isWindows) {
-                    this.enabled = false
-                }
                 this.useKarma {
                     this.useChromeHeadless()
                 }
@@ -79,7 +76,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
             }
         }
         val allButJSMain by creating {
@@ -91,7 +88,7 @@ kotlin {
         val jvmMain by getting {
             this.dependsOn(allButJSMain)
             dependencies {
-                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
+                implementation("org.bitcoinj:bitcoinj-core:0.16.2")
             }
         }
         val jvmTest by getting {
@@ -100,10 +97,10 @@ kotlin {
         val androidMain by getting {
             this.dependsOn(allButJSMain)
             dependencies {
-                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
+                implementation("org.bitcoinj:bitcoinj-core:0.16.2")
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             this.dependsOn(allButJSTest)
             dependencies {
                 implementation("junit:junit:4.13.2")
@@ -127,12 +124,14 @@ kotlin {
             val iosTest by getting {
                 this.dependsOn(allButJSTest)
             }
-            val iosSimulatorArm64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val iosSimulatorArm64Test by getting {
-                this.dependsOn(iosTest)
-            }
+            // M1Chip
+            if (System.getProperty("os.arch") != "x86_64") {
+                val iosSimulatorArm64Main by getting {
+                    this.dependsOn(iosMain)
+                }
+                val iosSimulatorArm64Test by getting {
+                    this.dependsOn(iosTest)
+                }
 //                val tvosSimulatorArm64Main by getting {
 //                    this.dependsOn(tvosMain)
 //                }
@@ -145,20 +144,15 @@ kotlin {
 //                val watchosSimulatorArm64Test by getting {
 //                    this.dependsOn(watchosTest)
 //                }
-            val macosArm64Main by getting {
-                this.dependsOn(iosMain)
-            }
-            val macosArm64Test by getting {
-                this.dependsOn(iosTest)
+                val macosArm64Main by getting {
+                    this.dependsOn(iosMain)
+                }
+                val macosArm64Test by getting {
+                    this.dependsOn(iosTest)
+                }
             }
         }
         if (os.isWindows) {
-            val mingwX86Main by getting {
-                this.dependsOn(allButJSMain)
-            }
-            val mingwX86Test by getting {
-                this.dependsOn(allButJSTest)
-            }
             val mingwX64Main by getting {
                 this.dependsOn(allButJSMain)
             }
@@ -217,5 +211,15 @@ tasks.withType<DokkaTask> {
         named("commonMain") {
             includes.from("Module.md", "docs/Module.md")
         }
+    }
+}
+
+// Workaround for a bug in Gradle
+afterEvaluate {
+    tasks.named("lintAnalyzeDebug") {
+        this.enabled = false
+    }
+    tasks.named("lintAnalyzeRelease") {
+        this.enabled = false
     }
 }

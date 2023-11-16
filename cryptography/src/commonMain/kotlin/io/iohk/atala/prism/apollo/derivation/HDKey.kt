@@ -2,10 +2,10 @@ package io.iohk.atala.prism.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.toBigInteger
+import io.iohk.atala.prism.apollo.hashing.SHA512
 import io.iohk.atala.prism.apollo.utils.ECConfig
 import io.iohk.atala.prism.apollo.utils.ECPrivateKeyDecodingException
 import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PrivateKey
-import org.kotlincrypto.macs.hmac.sha2.HmacSHA512
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
@@ -199,9 +199,7 @@ class HDKey(
         const val MASTER_SECRET = "Atala Prism"
 
         fun sha512(key: ByteArray, input: ByteArray): ByteArray {
-            val sha512 = HmacSHA512(key)
-            sha512.update(input)
-            return sha512.doFinal()
+            return SHA512().hmac(key, input)
         }
     }
 }
