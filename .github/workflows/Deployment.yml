@@ -17,6 +17,7 @@ env:
   ATALA_GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
   SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+  ATALA_NPM_TOKEN: ${{ secrets.ATALA_NPM_TOKEN }}
 
 on:
   workflow_dispatch:

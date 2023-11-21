@@ -217,13 +217,13 @@ tasks.withType<DokkaTask> {
 }
 
 npmPublish {
-    organization.set("input-output-hk")
+    organization.set("atala")
     version.set(rootProject.version.toString())
     access.set(NpmAccess.PUBLIC)
     packages {
         access.set(NpmAccess.PUBLIC)
         named("js") {
-            scope.set("input-output-hk")
+            scope.set("atala")
             packageName.set("apollo")
             packageJson {
                 author {
@@ -238,10 +238,9 @@ npmPublish {
     }
     registries {
         access.set(NpmAccess.PUBLIC)
-        github {
-            uri.set("https://npm.pkg.github.com/")
-            access.set(NpmAccess.PUBLIC)
-            this.authToken.set(System.getenv("ATALA_GITHUB_TOKEN"))
+        register("npmjs") {
+            uri.set("https://registry.npmjs.org")
+            authToken.set(System.getenv("ATALA_NPM_TOKEN"))
         }
     }
 }
