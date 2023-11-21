@@ -6,10 +6,14 @@ import io.iohk.atala.prism.apollo.hashing.SHA256
 actual class Secp256k1Lib {
     actual fun createPublicKey(privateKey: ByteArray, compressed: Boolean): ByteArray {
         val pubKey = Secp256k1.pubkeyCreate(privateKey)
-        if (compressed) {
-            return Secp256k1.pubKeyCompress(pubKey)
+        if (Secp256k1Helper.validatePublicKey(pubKey)) {
+            if (compressed) {
+                return Secp256k1.pubKeyCompress(pubKey)
+            }
+            return pubKey
+        } else {
+            throw Secp256k1Exception("invalid public key")
         }
-        return pubKey
     }
 
     actual fun derivePrivateKey(

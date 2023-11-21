@@ -233,7 +233,7 @@ public object Secp256k1Native : Secp256k1 {
             secp256k1_xonly_pubkey_parse(ctx, pubkey.ptr, nPub).requireSuccess("secp256k1_xonly_pubkey_parse() failed")
             val nData = toNat(data)
             val nSig = toNat(signature)
-            return secp256k1_schnorrsig_verify(ctx, nSig, nData, 32, pubkey.ptr) == 1
+            return secp256k1_schnorrsig_verify(ctx, nSig, nData, 32u, pubkey.ptr) == 1
         }
     }
 
@@ -252,7 +252,7 @@ public object Secp256k1Native : Secp256k1 {
             return nSig.readBytes(64)
         }
     }
-    
+
     public override fun cleanup() {
         secp256k1_context_destroy(ctx)
     }

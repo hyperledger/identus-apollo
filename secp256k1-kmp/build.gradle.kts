@@ -11,7 +11,11 @@ plugins {
 kotlin {
     explicitApi()
 
-    val commonMain by sourceSets.getting
+    val commonMain by sourceSets.getting {
+        dependencies {
+            api("com.ionspin.kotlin:bignum:0.3.7")
+        }
+    }
 
     jvm {
         compilations.all {

@@ -119,8 +119,8 @@ kotlin {
                 implementation(project(":utils"))
                 implementation(project(":secure-random"))
                 implementation(project(":hashing"))
-                implementation("com.ionspin.kotlin:bignum:0.3.7")
                 implementation(project(":base64"))
+                implementation("com.ionspin.kotlin:bignum:0.3.7")
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
             }
         }
@@ -134,9 +134,7 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                dependencies {
-                    api("fr.acinq.secp256k1:secp256k1-kmp:0.9.0")
-                }
+                api("fr.acinq.secp256k1:secp256k1-kmp:0.9.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.9.0")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
