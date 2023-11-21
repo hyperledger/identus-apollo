@@ -47,41 +47,6 @@ class Base32Tests {
     }
 
     @Test
-    fun testEncodeBase32Hex() {
-        // Hex value of "Welcome to IOG!" in hex
-        val value = byteArrayOf(1, 17, -107, -115, -107, -71, -47, -55, -123, -79, -91, -23, -108, -127, -107, -39, -107, -55, -27, -47, -95, -91, -71, -100, -124, -124, -124)
-        assertEquals("8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144", value.base32HexEncoded)
-    }
-
-    @Test
-    fun testDecodeBase32Hex() {
-        // Hex value of "Welcome to IOG!" in hex
-        val expected = byteArrayOf(1, 17, -107, -115, -107, -71, -47, -55, -123, -79, -91, -23, -108, -127, -107, -39, -107, -55, -27, -47, -95, -91, -71, -100, -124, -124, -124)
-        assertContentEquals(expected, "8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144".base32HexDecodedBytes)
-    }
-
-    @Test
-    fun testEncodeBase32HexWithPadding() {
-        // Hex value of "Welcome to IOG!" in hex
-        val value = byteArrayOf(1, 17, -107, -115, -107, -71, -47, -55, -123, -79, -91, -23, -108, -127, -107, -39, -107, -55, -27, -47, -95, -91, -71, -100, -124, -124, -124)
-        assertEquals("8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144", value.base32HexPadEncoded)
-    }
-
-    @Test
-    fun testDecodeBase32HexWithPadding() {
-        // Hex value of "Welcome to IOG!" in hex
-        val expected = byteArrayOf(1, 17, -107, -115, -107, -71, -47, -55, -123, -79, -91, -23, -108, -127, -107, -39, -107, -55, -27, -47, -95, -91, -71, -100, -124, -124, -124)
-        assertContentEquals(expected, "8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144".lowercase().base32HexPadDecodedBytes)
-    }
-
-    @Test
-    fun testEncodeBase32HexUpper() {
-        // Hex value of "Welcome to IOG!" in hex
-        val value = byteArrayOf(1, 17, -107, -115, -107, -71, -47, -55, -123, -79, -91, -23, -108, -127, -107, -39, -107, -55, -27, -47, -95, -91, -71, -100, -124, -124, -124)
-        assertEquals("8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144".uppercase(), value.base32HexUpperEncoded)
-    }
-
-    @Test
     fun testDecodeBase32HexUpper() {
         // Hex value of "Welcome to IOG!" in hex
         val expected = byteArrayOf(1, 17, -107, -115, -107, -71, -47, -55, -123, -79, -91, -23, -108, -127, -107, -39, -107, -55, -27, -47, -95, -91, -71, -100, -124, -124, -124)
@@ -89,16 +54,74 @@ class Base32Tests {
     }
 
     @Test
-    fun testEncodeBase32HexUpperWithPadding() {
-        // Hex value of "Welcome to IOG!" in hex
-        val value = byteArrayOf(1, 17, -107, -115, -107, -71, -47, -55, -123, -79, -91, -23, -108, -127, -107, -39, -107, -55, -27, -47, -95, -91, -71, -100, -124, -124, -124)
-        assertEquals("8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144".uppercase(), value.base32HexUpperPadEncoded)
-    }
-
-    @Test
     fun testDecodeBase32HexUpperWithPadding() {
         // Hex value of "Welcome to IOG!" in hex
         val expected = byteArrayOf(1, 17, -107, -115, -107, -71, -47, -55, -123, -79, -91, -23, -108, -127, -107, -39, -107, -55, -27, -47, -95, -91, -71, -100, -124, -124, -124)
         assertContentEquals(expected, "8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144".uppercase().base32HexUpperPadDecodedBytes)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_1() {
+        assertEquals("MZXW6===", "foo".base32UpperPadEncoded)
+        assertEquals("foo", "MZXW6===".base32UpperPadDecoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_2() {
+        assertEquals("MZXW6YQ=", "foob".base32UpperPadEncoded)
+        assertEquals("foob", "MZXW6YQ=".base32UpperPadDecoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_3() {
+        assertEquals("MZXW6YTB", "fooba".base32UpperPadEncoded)
+        assertEquals("fooba", "MZXW6YTB".base32UpperPadDecoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_4() {
+        assertEquals("MZXW6YTBOI======", "foobar".base32UpperPadEncoded)
+        assertEquals("foobar", "MZXW6YTBOI======".base32UpperPadDecoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_5() {
+        assertEquals("", "".base32Encoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_6() {
+        assertEquals("CO======", "f".base32HexUpperPadEncoded)
+        assertEquals("f", "CO======".base32HexUpperPadDecoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_7() {
+        assertEquals("CPNG====", "fo".base32HexUpperPadEncoded)
+        assertEquals("fo", "CPNG====".base32HexUpperPadDecoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_8() {
+        assertEquals("CPNMU===", "foo".base32HexUpperPadEncoded)
+        assertEquals("foo", "CPNMU===".base32HexUpperPadDecoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_9() {
+        assertEquals("CPNMUOG=", "foob".base32HexUpperPadEncoded)
+        assertEquals("foob", "CPNMUOG=".base32HexUpperPadDecoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_10() {
+        assertEquals("CPNMUOJ1", "fooba".base32HexUpperPadEncoded)
+        assertEquals("fooba", "CPNMUOJ1".base32HexUpperPadDecoded)
+    }
+
+    @Test
+    fun testEncodeBase32_RFC_4648_11() {
+        assertEquals("CPNMUOJ1E8======", "foobar".base32HexUpperPadEncoded)
+        assertEquals("foobar", "CPNMUOJ1E8======".base32HexUpperPadDecoded)
     }
 }

@@ -13,6 +13,9 @@ internal final object Base16 {
      * Encode string to Base16
      */
     fun encode(input: ByteArray, encoding: Encoding = Encoding.Standard): String {
+        if (input.isEmpty()) {
+            return ""
+        }
         var bi = BigInteger.fromByteArray(input, Sign.POSITIVE)
         val sb = StringBuilder()
         while (bi >= base) {

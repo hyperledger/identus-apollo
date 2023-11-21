@@ -5,7 +5,7 @@ package io.iohk.atala.prism.apollo.base32
  * Encode a [String] to Base32 [String]
  */
 val String.base32Encoded: String
-    get() = Base32.encode(this.encodeToByteArray())
+    get() = Base32.encode(this.encodeToByteArray(), paddingEnabled = false)
 
 /**
  * Decode a Base32 [String] to [ByteArray].
@@ -24,13 +24,13 @@ val String.base32Decoded: String
  * Encode a [String] to Base32 [String]
  */
 val String.base32PadEncoded: String
-    get() = Base32.encode(this.encodeToByteArray(), Encoding.StandardPad)
+    get() = Base32.encode(this.encodeToByteArray(), Encoding.Standard)
 
 /**
  * Decode a Base32 [String] to [ByteArray].
  */
 val String.base32PadDecodedBytes: ByteArray
-    get() = Base32.decode(this, Encoding.StandardPad)
+    get() = Base32.decode(this, Encoding.Standard)
 
 /**
  * Decode a Base32 [String] to [String].
@@ -43,7 +43,7 @@ val String.base32PadDecoded: String
  * Encode a [String] to Base32 [String]
  */
 val String.base32UpperEncoded: String
-    get() = Base32.encode(this.encodeToByteArray(), Encoding.Upper)
+    get() = Base32.encode(this.encodeToByteArray(), Encoding.Upper, paddingEnabled = false)
 
 /**
  * Decode a Base32 [String] to [ByteArray].
@@ -62,13 +62,13 @@ val String.base32UpperDecoded: String
  * Encode a [String] to Base32 [String]
  */
 val String.base32UpperPadEncoded: String
-    get() = Base32.encode(this.encodeToByteArray(), Encoding.UpperPad)
+    get() = Base32.encode(this.encodeToByteArray(), Encoding.Upper)
 
 /**
  * Decode a Base32 [String] to [ByteArray].
  */
 val String.base32UpperPadDecodedBytes: ByteArray
-    get() = Base32.decode(this, Encoding.UpperPad)
+    get() = Base32.decode(this, Encoding.Upper)
 
 /**
  * Decode a Base32 [String] to [String].
@@ -81,7 +81,7 @@ val String.base32UpperPadDecoded: String
  * Encode a [String] to Base32 [String]
  */
 val String.base32HexEncoded: String
-    get() = Base32.encode(this.encodeToByteArray(), Encoding.Hex)
+    get() = Base32.encode(this.encodeToByteArray(), Encoding.Hex, paddingEnabled = false)
 
 /**
  * Decode a Base32 [String] to [ByteArray].
@@ -100,13 +100,13 @@ val String.base32HexDecoded: String
  * Encode a [String] to Base32 [String]
  */
 val String.base32HexPadEncoded: String
-    get() = Base32.encode(this.encodeToByteArray(), Encoding.HexPad)
+    get() = Base32.encode(this.encodeToByteArray(), Encoding.Hex)
 
 /**
  * Decode a Base32 [String] to [ByteArray].
  */
 val String.base32HexPadDecodedBytes: ByteArray
-    get() = Base32.decode(this, Encoding.HexPad)
+    get() = Base32.decode(this, Encoding.Hex)
 
 /**
  * Decode a Base32 [String] to [String].
@@ -119,7 +119,7 @@ val String.base32HexPadDecoded: String
  * Encode a [String] to Base32 [String]
  */
 val String.base32HexUpperEncoded: String
-    get() = Base32.encode(this.encodeToByteArray(), Encoding.HexUpper)
+    get() = Base32.encode(this.encodeToByteArray(), Encoding.HexUpper, paddingEnabled = false)
 
 /**
  * Decode a Base32 [String] to [ByteArray].
@@ -138,13 +138,13 @@ val String.base32HexUpperDecoded: String
  * Encode a [String] to Base32 [String]
  */
 val String.base32HexUpperPadEncoded: String
-    get() = Base32.encode(this.encodeToByteArray(), Encoding.HexUpperPad)
+    get() = Base32.encode(this.encodeToByteArray(), Encoding.HexUpper)
 
 /**
  * Decode a Base32 [String] to [ByteArray].
  */
 val String.base32HexUpperPadDecodedBytes: ByteArray
-    get() = Base32.decode(this, Encoding.HexUpperPad)
+    get() = Base32.decode(this, Encoding.HexUpper)
 
 /**
  * Decode a Base32 [String] to [String].

@@ -18,7 +18,7 @@ fun ByteArray.asCharArray(): CharArray {
  * Encode a [ByteArray] to Base32 [String] standard
  */
 val ByteArray.base32Encoded: String
-    get() = Base32.encode(this)
+    get() = Base32.encode(this, paddingEnabled = false)
 
 /**
  * Decode a [ByteArray] Base32 standard encoded to [String]
@@ -32,7 +32,7 @@ val ByteArray.base32Decoded: String
  * Encode a [ByteArray] to Base32 [String] standard with padding
  */
 val ByteArray.base32PadEncoded: String
-    get() = Base32.encode(this, Encoding.StandardPad)
+    get() = Base32.encode(this, Encoding.Standard)
 
 /**
  * Decode a [ByteArray] Base32 standard with padding encoded to [String]
@@ -46,7 +46,7 @@ val ByteArray.base32PadDecoded: String
  * Encode a [ByteArray] to Base32 [String] upper
  */
 val ByteArray.base32UpperEncoded: String
-    get() = Base32.encode(this, Encoding.Upper)
+    get() = Base32.encode(this, Encoding.Upper, paddingEnabled = false)
 
 /**
  * Decode a [ByteArray] Base32 Upper encoded to [String]
@@ -60,7 +60,7 @@ val ByteArray.base32UpperDecoded: String
  * Encode a [ByteArray] to Base32 [String] Upper with padding
  */
 val ByteArray.base32UpperPadEncoded: String
-    get() = Base32.encode(this, Encoding.UpperPad)
+    get() = Base32.encode(this, Encoding.Upper)
 
 /**
  * Decode a [ByteArray] Base32 Upper with padding encoded to [String]
@@ -74,7 +74,7 @@ val ByteArray.base32UpperPadDecoded: String
  * Encode a [ByteArray] to Base32 [String] hex
  */
 val ByteArray.base32HexEncoded: String
-    get() = Base32.encode(this, Encoding.Hex)
+    get() = Base32.encode(this, Encoding.Hex, paddingEnabled = false)
 
 /**
  * Decode a [ByteArray] Base32 Hex encoded to [String]
@@ -88,7 +88,7 @@ val ByteArray.base32HexDecoded: String
  * Encode a [ByteArray] to Base32 [String] Hex with padding
  */
 val ByteArray.base32HexPadEncoded: String
-    get() = Base32.encode(this, Encoding.HexPad)
+    get() = Base32.encode(this, Encoding.Hex)
 
 /**
  * Decode a [ByteArray] Base32 Hex with padding encoded to [String]
@@ -116,7 +116,7 @@ val ByteArray.base32HexUpperDecoded: String
  * Encode a [ByteArray] to Base32 [String] Hex Upper with padding
  */
 val ByteArray.base32HexUpperPadEncoded: String
-    get() = Base32.encode(this, Encoding.HexUpperPad)
+    get() = Base32.encode(this, Encoding.HexUpper)
 
 /**
  * Decode a [ByteArray] Base32 HexUpper with padding encoded to [String]
