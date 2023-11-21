@@ -16,24 +16,10 @@ sealed interface Encoding {
     }
 
     /**
-     * Base32 Standard with padding
-     */
-    object StandardPad : Encoding {
-        override val alphabet: String = "abcdefghijklmnopqrstuvwxyz234567="
-    }
-
-    /**
      * Base32 Upper
      */
     object Upper : Encoding {
         override val alphabet: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
-    }
-
-    /**
-     * Base32 Upper with padding
-     */
-    object UpperPad : Encoding {
-        override val alphabet: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567="
     }
 
     /**
@@ -44,23 +30,9 @@ sealed interface Encoding {
     }
 
     /**
-     * Base32 Hex with padding
-     */
-    object HexPad : Encoding {
-        override val alphabet: String = "0123456789abcdefghijklmnopqrstuvw="
-    }
-
-    /**
      * Base32 Hex Upper
      */
     object HexUpper : Encoding {
         override val alphabet: String = "0123456789ABCDEFGHIJKLMNOPQRSTUVW"
-    }
-
-    /**
-     * Base32 Hex Upper with padding
-     */
-    object HexUpperPad : Encoding {
-        override val alphabet: String = "0123456789ABCDEFGHIJKLMNOPQRSTUVW="
     }
 }
