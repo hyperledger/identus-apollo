@@ -3,6 +3,7 @@ package io.iohk.atala.prism.apollo.derivation
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
 import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
+import io.iohk.atala.prism.apollo.base64.base64UrlPadDecodedBytes
 import io.iohk.atala.prism.apollo.derivation.HDKey.Companion.HARDENED_OFFSET
 import kotlin.random.Random
 import kotlin.test.BeforeTest
@@ -79,7 +80,8 @@ class HDKeyTest {
         val path = "m/0'/0'/0'"
 
         val derPrivateKey = hdKey.derive(path)
-        assertTrue(derivedPrivateKey.base64UrlDecodedBytes.contentEquals(derPrivateKey.privateKey!!))
+        val decodedValue = derivedPrivateKey.base64UrlPadDecodedBytes
+        assertEquals(decodedValue.toList(), derPrivateKey.privateKey!!.toList())
     }
 
     @Test

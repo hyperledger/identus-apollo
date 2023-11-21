@@ -11,6 +11,9 @@ internal final object Base64 {
      * Encode ByteArray to Base64 String
      */
     fun encodeToString(input: ByteArray, encoding: Encoding = Encoding.Standard): String {
+        if (input.contentEquals("".encodeToByteArray())) {
+            return ""
+        }
         return when (encoding) {
             Encoding.Standard -> getEncoder().withoutPadding().encodeToString(input)
             Encoding.StandardPad -> getEncoder().encodeToString(input)
@@ -23,6 +26,9 @@ internal final object Base64 {
      * Encode ByteArray to Base64 ByteArray
      */
     fun encode(input: ByteArray, encoding: Encoding = Encoding.Standard): ByteArray {
+        if (input.contentEquals("".encodeToByteArray())) {
+            return input
+        }
         return when (encoding) {
             Encoding.Standard -> getEncoder().withoutPadding().encode(input)
             Encoding.StandardPad -> getEncoder().encode(input)

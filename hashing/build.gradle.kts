@@ -11,6 +11,9 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
+fun kotlinw(target: String): String =
+    "org.jetbrains.kotlin-wrappers:kotlin-$target"
+
 kotlin {
     androidTarget {
         publishAllLibraryVariants()
@@ -72,7 +75,11 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -108,6 +115,11 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
+                implementation(project.dependencies.platform(kotlinw("wrappers-bom:1.0.0-pre.461")))
+                implementation(kotlinw("web"))
+                implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.7.3")
+
                 implementation(npm("hash.js", "1.1.7"))
                 implementation(npm("@noble/hashes", "1.3.1", true))
 

@@ -132,7 +132,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(project(":base64"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3") // or the latest version
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
             }
         }

@@ -2,6 +2,12 @@ package io.iohk.atala.prism.apollo.hashing.internal
 
 import io.iohk.atala.prism.apollo.hashing.external.BlockHash
 import io.iohk.atala.prism.apollo.hashing.external.hash
+import js.buffer.ArrayBuffer
+import js.typedarrays.Int8Array
+import kotlinx.coroutines.await
+import org.kotlincrypto.macs.hmac.sha2.HmacSHA512
+import web.crypto.CryptoKey
+import kotlin.js.Promise
 
 /**
  * [HMAC] is defined in RFC 2104 (also FIPS 198a).
@@ -72,8 +78,10 @@ actual final class HMAC actual constructor(
                         return hmac.update(localData).digest().map { it.toByte() }.toByteArray()
                     }
                     "SHA-512" -> {
-                        val hmac = hash.hmac(hash.sha512 as BlockHash<Any>, localKey)
-                        return hmac.update(localData).digest().map { it.toByte() }.toByteArray()
+                        val sha512 = HmacSHA512(localKey)
+                        sha512.update(localData)
+                        return sha512.doFinal()
+                        // return sha512(localKey, localData)
                     }
                     else -> throw NotImplementedError("Not implemented")
                 }
@@ -109,5 +117,31 @@ actual final class HMAC actual constructor(
     override fun digest(input: ByteArray): ByteArray {
         dataToHash += input
         return digest()
+    }
+
+    private suspend fun sha512(localKey: ByteArray, localData: ByteArray): ByteArray {
+        val jsKey = (
+            js(
+                """
+                    var algorithm = { name: "HMAC", hash: "SHA-512" };
+                    window.crypto.subtle.importKey(
+                        "raw",
+                        localKey,
+                        algorithm,
+                        false,
+                        ["sign", "verify"]
+                    );
+                """
+            ) as Promise<CryptoKey>
+            ).await()
+
+        val signature = (
+            js(
+                """
+                    window.crypto.subtle.sign("HMAC", jsKey, localData);
+                """
+            ) as Promise<ArrayBuffer>
+            ).await()
+        return Int8Array(signature).unsafeCast<ByteArray>()
     }
 }
