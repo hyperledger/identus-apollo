@@ -156,4 +156,39 @@ class Base64Tests {
         )
         assertEquals("c2FzY2hwZQ", "saschpe".base64UrlEncoded)
     }
+
+    @Test
+    fun testEncodeBase16RFC_4648() {
+        assertEquals("", "".base64PadEncoded)
+    }
+
+    @Test
+    fun testEncodeBase16RFC_4648_1() {
+        assertEquals("Zg==", "f".base64PadEncoded)
+    }
+
+    @Test
+    fun testEncodeBase16RFC_4648_2() {
+        assertEquals("Zm8=", "fo".base64PadEncoded)
+    }
+
+    @Test
+    fun testEncodeBase16RFC_4648_3() {
+        assertEquals("Zm9v", "foo".base64PadEncoded)
+    }
+
+    @Test
+    fun testEncodeBase16RFC_4648_4() {
+        assertEquals("Zm9vYg==", "foob".base64PadEncoded)
+    }
+
+    @Test
+    fun testEncodeBase16RFC_4648_5() {
+        assertEquals("Zm9vYmE=", "fooba".base64PadEncoded)
+    }
+
+    @Test
+    fun testEncodeBase16RFC_4648_6() {
+        assertEquals("Zm9vYmFy", "foobar".base64PadEncoded)
+    }
 }
