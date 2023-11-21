@@ -141,15 +141,17 @@ public interface Secp256k1 {
      * Serialize a public key to compact form (33 bytes).
      */
     public fun pubKeyCompress(pubkey: ByteArray): ByteArray {
-        return when {
-            pubkey.size == 33 && (pubkey[0] == 2.toByte() || pubkey[0] == 3.toByte()) -> pubkey
-            pubkey.size == 65 && pubkey[0] == 4.toByte() -> {
-                val compressed = pubkey.copyOf(33)
-                compressed[0] = if (pubkey.last() % 2 == 0) 2.toByte() else 3.toByte()
-                compressed
+        val pubKey =
+            when {
+                pubkey.size == 33 && (pubkey[0] == 2.toByte() || pubkey[0] == 3.toByte()) -> pubkey
+                pubkey.size == 65 && pubkey[0] == 4.toByte() -> {
+                    val compressed = pubkey.copyOf(33)
+                    compressed[0] = if (pubkey.last() % 2 == 0) 2.toByte() else 3.toByte()
+                    compressed
+                }
+                else -> throw Secp256k1Exception("invalid public key")
             }
-            else -> throw Secp256k1Exception("invalid public key")
-        }
+        return pubKey
     }
 
     /**
