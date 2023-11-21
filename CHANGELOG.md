@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.1.0...v1.1.1) (2023-11-21)
+
+
+### Bug Fixes
+
+* add ec pub key validation checks ([#112](https://github.com/input-output-hk/atala-prism-apollo/issues/112)) ([023beb7](https://github.com/input-output-hk/atala-prism-apollo/commit/023beb78d6dba1bd70a9d60a711c86ef7c6a251a))
+* Base32 re-implemented as per RFC-4648 ([#111](https://github.com/input-output-hk/atala-prism-apollo/issues/111)) ([4170ac1](https://github.com/input-output-hk/atala-prism-apollo/commit/4170ac10def15fad8281777e285929bf3623517e))
+* Update npm configuration for npmjs repository ([#114](https://github.com/input-output-hk/atala-prism-apollo/issues/114)) ([c8a0ca4](https://github.com/input-output-hk/atala-prism-apollo/commit/c8a0ca4d0bd752ffb94e6300f3f72fa71ab29e32))
+
 # [1.1.0](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.0.3...v1.1.0) (2023-11-13)
 
 
