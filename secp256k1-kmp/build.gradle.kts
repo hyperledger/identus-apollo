@@ -25,30 +25,35 @@ kotlin {
             compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/linux/libsecp256k1.a")
         }
     }
-    iosX64 {
-        secp256k1CInterop("ios")
-        // https://youtrack.jetbrains.com/issue/KT-39396
-        compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/x86_x64-iphonesimulator/libsecp256k1.a")
-    }
-    iosArm64 {
-        secp256k1CInterop("ios")
-        // https://youtrack.jetbrains.com/issue/KT-39396
-        compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/arm64-iphoneos/libsecp256k1.a")
-    }
-    iosSimulatorArm64 {
-        secp256k1CInterop("iosSimulatorArm64")
-        // https://youtrack.jetbrains.com/issue/KT-39396
-        compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/arm64-iphonesimulator/libsecp256k1.a")
-    }
-    macosX64 {
-        secp256k1CInterop("macosX64")
-        // https://youtrack.jetbrains.com/issue/KT-39396
-        compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/x86_x64-macosx/libsecp256k1.a")
-    }
-    macosArm64 {
-        secp256k1CInterop("macosArm64")
-        // https://youtrack.jetbrains.com/issue/KT-39396
-        compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/arm64-macosx/libsecp256k1.a")
+    if (currentOs.isMacOsX) {
+        iosX64 {
+            secp256k1CInterop("ios")
+            // https://youtrack.jetbrains.com/issue/KT-39396
+            compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/x86_x64-iphonesimulator/libsecp256k1.a")
+        }
+        macosX64 {
+            secp256k1CInterop("macosX64")
+            // https://youtrack.jetbrains.com/issue/KT-39396
+            compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/x86_x64-macosx/libsecp256k1.a")
+        }
+        // Mx Chip
+        if (System.getProperty("os.arch") != "x86_64") {
+            iosArm64 {
+                secp256k1CInterop("ios")
+                // https://youtrack.jetbrains.com/issue/KT-39396
+                compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/arm64-iphoneos/libsecp256k1.a")
+            }
+            iosSimulatorArm64 {
+                secp256k1CInterop("iosSimulatorArm64")
+                // https://youtrack.jetbrains.com/issue/KT-39396
+                compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/arm64-iphonesimulator/libsecp256k1.a")
+            }
+            macosArm64 {
+                secp256k1CInterop("macosArm64")
+                // https://youtrack.jetbrains.com/issue/KT-39396
+                compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/arm64-macosx/libsecp256k1.a")
+            }
+        }
     }
     applyDefaultHierarchyTemplate()
 

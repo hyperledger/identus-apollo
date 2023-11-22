@@ -28,65 +28,72 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    iosX64 {
-        binaries.framework {
-            baseName = "ApolloLibrary"
-            export(project(":cryptography"))
-            export(project(":multibase"))
-            export(project(":base64"))
-            export(project(":base58"))
-            export(project(":base32"))
-            export(project(":utils"))
-            export(project(":hashing"))
+    if (os.isMacOsX) {
+        iosX64 {
+            binaries.framework {
+                baseName = "ApolloLibrary"
+                export(project(":cryptography"))
+                export(project(":multibase"))
+                export(project(":base64"))
+                export(project(":base58"))
+                export(project(":base32"))
+                export(project(":utils"))
+                export(project(":hashing"))
+            }
         }
-    }
-    iosArm64 {
-        binaries.framework {
-            baseName = "ApolloLibrary"
-            export(project(":cryptography"))
-            export(project(":multibase"))
-            export(project(":base64"))
-            export(project(":base58"))
-            export(project(":base32"))
-            export(project(":utils"))
-            export(project(":hashing"))
+        macosX64 {
+            binaries.framework {
+                baseName = "ApolloLibrary"
+                export(project(":cryptography"))
+                export(project(":multibase"))
+                export(project(":base64"))
+                export(project(":base58"))
+                export(project(":base32"))
+                export(project(":utils"))
+                export(project(":hashing"))
+            }
         }
-    }
-    iosSimulatorArm64 {
-        binaries.framework {
-            baseName = "ApolloLibrary"
-            export(project(":cryptography"))
-            export(project(":multibase"))
-            export(project(":base64"))
-            export(project(":base58"))
-            export(project(":base32"))
-            export(project(":utils"))
-            export(project(":hashing"))
+        // Mx Chip
+        if (System.getProperty("os.arch") != "x86_64") {
+            iosArm64 {
+                binaries.framework {
+                    baseName = "ApolloLibrary"
+                    export(project(":cryptography"))
+                    export(project(":multibase"))
+                    export(project(":base64"))
+                    export(project(":base58"))
+                    export(project(":base32"))
+                    export(project(":utils"))
+                    export(project(":hashing"))
+                }
+            }
+            iosSimulatorArm64 {
+                binaries.framework {
+                    baseName = "ApolloLibrary"
+                    export(project(":cryptography"))
+                    export(project(":multibase"))
+                    export(project(":base64"))
+                    export(project(":base58"))
+                    export(project(":base32"))
+                    export(project(":utils"))
+                    export(project(":hashing"))
+                }
+            }
+            macosArm64 {
+                binaries.framework {
+                    baseName = "ApolloLibrary"
+                    export(project(":cryptography"))
+                    export(project(":multibase"))
+                    export(project(":base64"))
+                    export(project(":base58"))
+                    export(project(":base32"))
+                    export(project(":utils"))
+                    export(project(":hashing"))
+                }
+            }
         }
-    }
-    macosArm64 {
-        binaries.framework {
-            baseName = "ApolloLibrary"
-            export(project(":cryptography"))
-            export(project(":multibase"))
-            export(project(":base64"))
-            export(project(":base58"))
-            export(project(":base32"))
-            export(project(":utils"))
-            export(project(":hashing"))
-        }
-    }
-    macosX64 {
-        binaries.framework {
-            baseName = "ApolloLibrary"
-            export(project(":cryptography"))
-            export(project(":multibase"))
-            export(project(":base64"))
-            export(project(":base58"))
-            export(project(":base32"))
-            export(project(":utils"))
-            export(project(":hashing"))
-        }
+    } else {
+        iosX64()
     }
     js(IR) {
         this.moduleName = currentModuleName

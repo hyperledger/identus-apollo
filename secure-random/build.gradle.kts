@@ -50,20 +50,25 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    iosX64 {
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-    }
-    iosArm64 {
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-    }
-    iosSimulatorArm64 {
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-    }
-    macosX64 {
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-    }
-    macosArm64 {
-        swiftCinterop("IOHKSecureRandomGeneration", name)
+    if (os.isMacOsX) {
+        iosX64 {
+            swiftCinterop("IOHKSecureRandomGeneration", name)
+        }
+        macosX64 {
+            swiftCinterop("IOHKSecureRandomGeneration", name)
+        }
+        // Mx Chip
+        if (System.getProperty("os.arch") != "x86_64") {
+            iosArm64 {
+                swiftCinterop("IOHKSecureRandomGeneration", name)
+            }
+            iosSimulatorArm64 {
+                swiftCinterop("IOHKSecureRandomGeneration", name)
+            }
+            macosArm64 {
+                swiftCinterop("IOHKSecureRandomGeneration", name)
+            }
+        }
     }
     js(IR) {
         this.moduleName = currentModuleName

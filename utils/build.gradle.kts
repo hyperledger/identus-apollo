@@ -28,11 +28,16 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    macosArm64()
-    macosX64()
+    if (os.isMacOsX) {
+        iosX64()
+        macosX64()
+        // Mx Chip
+        if (System.getProperty("os.arch") != "x86_64") {
+            iosArm64()
+            iosSimulatorArm64()
+            macosArm64()
+        }
+    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()

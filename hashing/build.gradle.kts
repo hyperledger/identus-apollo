@@ -28,11 +28,16 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    macosArm64()
-    macosX64()
+    if (os.isMacOsX) {
+        iosX64()
+        macosX64()
+        // Mx Chip
+        if (System.getProperty("os.arch") != "x86_64") {
+            iosArm64()
+            iosSimulatorArm64()
+            macosArm64()
+        }
+    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
@@ -83,12 +88,6 @@ kotlin {
         val allButJSTest by creating {
             this.dependsOn(commonTest)
         }
-        val appleMain by getting {
-            this.dependsOn(allButJSMain)
-        }
-        val appleTest by getting {
-            this.dependsOn(allButJSTest)
-        }
         val jvmMain by getting {
             this.dependsOn(allButJSMain)
             dependencies {
@@ -126,6 +125,14 @@ kotlin {
             }
         }
         val jsTest by getting
+        if (os.isMacOsX) {
+            val appleMain by getting {
+                this.dependsOn(allButJSMain)
+            }
+            val appleTest by getting {
+                this.dependsOn(allButJSTest)
+            }
+        }
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")
         }

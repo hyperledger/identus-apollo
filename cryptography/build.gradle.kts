@@ -48,50 +48,55 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    iosX64 {
-        binaries.framework {
-            baseName = currentModuleName
-            embedBitcode("disable")
-        }
+    if (os.isMacOsX) {
+        iosX64 {
+            binaries.framework {
+                baseName = currentModuleName
+                embedBitcode("disable")
+            }
 
-        swiftCinterop("IOHKCryptoKit", name)
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-    }
-    iosArm64 {
-        binaries.framework {
-            baseName = currentModuleName
-            embedBitcode("disable")
+            swiftCinterop("IOHKCryptoKit", name)
+            swiftCinterop("IOHKSecureRandomGeneration", name)
         }
+        macosX64 {
+            binaries.framework {
+                baseName = currentModuleName
+                embedBitcode("disable")
+            }
 
-        swiftCinterop("IOHKCryptoKit", name)
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-    }
-    iosSimulatorArm64 {
-        binaries.framework {
-            baseName = currentModuleName
-            embedBitcode("disable")
+            swiftCinterop("IOHKCryptoKit", name)
+            swiftCinterop("IOHKSecureRandomGeneration", name)
         }
+        // Mx Chip
+        if (System.getProperty("os.arch") != "x86_64") {
+            iosArm64 {
+                binaries.framework {
+                    baseName = currentModuleName
+                    embedBitcode("disable")
+                }
 
-        swiftCinterop("IOHKCryptoKit", name)
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-    }
-    macosArm64 {
-        binaries.framework {
-            baseName = currentModuleName
-            embedBitcode("disable")
+                swiftCinterop("IOHKCryptoKit", name)
+                swiftCinterop("IOHKSecureRandomGeneration", name)
+            }
+            iosSimulatorArm64 {
+                binaries.framework {
+                    baseName = currentModuleName
+                    embedBitcode("disable")
+                }
+
+                swiftCinterop("IOHKCryptoKit", name)
+                swiftCinterop("IOHKSecureRandomGeneration", name)
+            }
+            macosArm64 {
+                binaries.framework {
+                    baseName = currentModuleName
+                    embedBitcode("disable")
+                }
+
+                swiftCinterop("IOHKCryptoKit", name)
+                swiftCinterop("IOHKSecureRandomGeneration", name)
+            }
         }
-
-        swiftCinterop("IOHKCryptoKit", name)
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-    }
-    macosX64 {
-        binaries.framework {
-            baseName = currentModuleName
-            embedBitcode("disable")
-        }
-
-        swiftCinterop("IOHKCryptoKit", name)
-        swiftCinterop("IOHKSecureRandomGeneration", name)
     }
     js(IR) {
         this.moduleName = currentModuleName
