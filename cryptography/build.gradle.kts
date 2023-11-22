@@ -37,7 +37,6 @@ kotlin {
     androidTarget {
         publishAllLibraryVariants()
     }
-
     jvm {
         compilations.all {
             kotlinOptions {
@@ -49,42 +48,51 @@ kotlin {
             useJUnitPlatform()
         }
     }
-
-    if (os.isMacOsX) {
-        ios {
-            binaries.framework {
-                baseName = currentModuleName
-                embedBitcode("disable")
-            }
-
-            swiftCinterop("IOHKCryptoKit", name)
-            swiftCinterop("IOHKSecureRandomGeneration", name)
+    iosX64 {
+        binaries.framework {
+            baseName = currentModuleName
+            embedBitcode("disable")
         }
-        // M1Chip
-        if (System.getProperty("os.arch") != "x86_64") {
-            iosSimulatorArm64 {
-                binaries.framework {
-                    baseName = currentModuleName
-                    embedBitcode("disable")
-                }
 
-                swiftCinterop("IOHKCryptoKit", name)
-                swiftCinterop("IOHKSecureRandomGeneration", name)
-            }
-            macosArm64 {
-                binaries.framework {
-                    baseName = currentModuleName
-                    embedBitcode("disable")
-                }
-
-                swiftCinterop("IOHKCryptoKit", name)
-                swiftCinterop("IOHKSecureRandomGeneration", name)
-            }
-//        tvosSimulatorArm64()
-//        watchosSimulatorArm64()
-        }
+        swiftCinterop("IOHKCryptoKit", name)
+        swiftCinterop("IOHKSecureRandomGeneration", name)
     }
+    iosArm64 {
+        binaries.framework {
+            baseName = currentModuleName
+            embedBitcode("disable")
+        }
 
+        swiftCinterop("IOHKCryptoKit", name)
+        swiftCinterop("IOHKSecureRandomGeneration", name)
+    }
+    iosSimulatorArm64 {
+        binaries.framework {
+            baseName = currentModuleName
+            embedBitcode("disable")
+        }
+
+        swiftCinterop("IOHKCryptoKit", name)
+        swiftCinterop("IOHKSecureRandomGeneration", name)
+    }
+    macosArm64 {
+        binaries.framework {
+            baseName = currentModuleName
+            embedBitcode("disable")
+        }
+
+        swiftCinterop("IOHKCryptoKit", name)
+        swiftCinterop("IOHKSecureRandomGeneration", name)
+    }
+    macosX64 {
+        binaries.framework {
+            baseName = currentModuleName
+            embedBitcode("disable")
+        }
+
+        swiftCinterop("IOHKCryptoKit", name)
+        swiftCinterop("IOHKSecureRandomGeneration", name)
+    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
@@ -117,6 +125,7 @@ kotlin {
             }
         }
     }
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         val commonMain by getting {
@@ -180,38 +189,22 @@ kotlin {
         }
         val jsTest by getting
         if (os.isMacOsX) {
-            val iosMain by getting {
+            val appleMain by getting {
                 dependencies {
                     implementation(project(":secp256k1-kmp"))
                 }
             }
-            val iosTest by getting {
-                this.dependsOn(commonTest)
-            }
-            // M1Chip
-            if (System.getProperty("os.arch") != "x86_64") {
-                val iosSimulatorArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
-                val macosArm64Main by getting { this.dependsOn(iosMain) }
-                val macosArm64Test by getting { this.dependsOn(iosTest) }
-            }
         }
-//        if (os.isWindows) {
-//            val mingwX64Main by getting
-//            val mingwX64Test by getting
-//        }
     }
 
     if (os.isMacOsX) {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
             device.set("iPhone 14 Plus")
         }
-        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-            device.set("iPhone 14 Plus")
+        if (System.getProperty("os.arch") != "x86_64") {
+            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+                device.set("iPhone 14 Plus")
+            }
         }
     }
 }

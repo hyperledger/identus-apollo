@@ -28,8 +28,7 @@ kotlin {
             useJUnitPlatform()
         }
     }
-
-    ios {
+    iosX64 {
         binaries.framework {
             baseName = "ApolloLibrary"
             export(project(":cryptography"))
@@ -41,43 +40,54 @@ kotlin {
             export(project(":hashing"))
         }
     }
-    multiplatformSwiftPackage {
-        packageName("Apollo")
-        swiftToolsVersion("5.3")
-        targetPlatforms {
-            iOS { v("13") }
-            macOS { v("11") }
-        }
-        outputDirectory(File(rootDir, "apollo/build/packages/ApolloSwift"))
-    }
-    // M1Chip
-    if (System.getProperty("os.arch") != "x86_64") {
-        iosSimulatorArm64 {
-            binaries.framework {
-                baseName = "ApolloLibrary"
-                export(project(":cryptography"))
-                export(project(":multibase"))
-                export(project(":base64"))
-                export(project(":base58"))
-                export(project(":base32"))
-                export(project(":utils"))
-                export(project(":hashing"))
-            }
-        }
-        macosArm64 {
-            binaries.framework {
-                baseName = "ApolloLibrary"
-                export(project(":cryptography"))
-                export(project(":multibase"))
-                export(project(":base64"))
-                export(project(":base58"))
-                export(project(":base32"))
-                export(project(":utils"))
-                export(project(":hashing"))
-            }
+    iosArm64 {
+        binaries.framework {
+            baseName = "ApolloLibrary"
+            export(project(":cryptography"))
+            export(project(":multibase"))
+            export(project(":base64"))
+            export(project(":base58"))
+            export(project(":base32"))
+            export(project(":utils"))
+            export(project(":hashing"))
         }
     }
-
+    iosSimulatorArm64 {
+        binaries.framework {
+            baseName = "ApolloLibrary"
+            export(project(":cryptography"))
+            export(project(":multibase"))
+            export(project(":base64"))
+            export(project(":base58"))
+            export(project(":base32"))
+            export(project(":utils"))
+            export(project(":hashing"))
+        }
+    }
+    macosArm64 {
+        binaries.framework {
+            baseName = "ApolloLibrary"
+            export(project(":cryptography"))
+            export(project(":multibase"))
+            export(project(":base64"))
+            export(project(":base58"))
+            export(project(":base32"))
+            export(project(":utils"))
+            export(project(":hashing"))
+        }
+    }
+    macosX64 {
+        binaries.framework {
+            baseName = "ApolloLibrary"
+            export(project(":cryptography"))
+            export(project(":multibase"))
+            export(project(":base64"))
+            export(project(":base58"))
+            export(project(":base32"))
+            export(project(":utils"))
+            export(project(":hashing"))
+        }
+    }
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
@@ -107,6 +117,17 @@ kotlin {
                 }
             }
         }
+    }
+    applyDefaultHierarchyTemplate()
+
+    multiplatformSwiftPackage {
+        packageName("Apollo")
+        swiftToolsVersion("5.3")
+        targetPlatforms {
+            iOS { v("13") }
+            macOS { v("11") }
+        }
+        outputDirectory(File(rootDir, "apollo/build/packages/ApolloSwift"))
     }
 
     sourceSets {
@@ -155,30 +176,16 @@ kotlin {
             }
         }
         val jsTest by getting
-
-        if (os.isMacOsX) {
-            val iosMain by getting
-            val iosTest by getting
-            // M1Chip
-            if (System.getProperty("os.arch") != "x86_64") {
-                val iosSimulatorArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
-                val macosArm64Main by getting
-                val macosArm64Test by getting
-            }
-        }
     }
 
     if (os.isMacOsX) {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
             device.set("iPhone 14 Plus")
         }
-        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-            device.set("iPhone 14 Plus")
+        if (System.getProperty("os.arch") != "x86_64") {
+            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+                device.set("iPhone 14 Plus")
+            }
         }
     }
 }
@@ -223,13 +230,13 @@ tasks.withType<DokkaTask> {
 }
 
 npmPublish {
-    organization.set("input-output-hk")
+    organization.set("atala")
     version.set(rootProject.version.toString())
     access.set(NpmAccess.PUBLIC)
     packages {
         access.set(NpmAccess.PUBLIC)
         named("js") {
-            scope.set("input-output-hk")
+            scope.set("atala")
             packageName.set("apollo")
             packageJson {
                 author {
@@ -244,10 +251,9 @@ npmPublish {
     }
     registries {
         access.set(NpmAccess.PUBLIC)
-        github {
-            uri.set("https://npm.pkg.github.com/")
-            access.set(NpmAccess.PUBLIC)
-            this.authToken.set(System.getenv("ATALA_GITHUB_TOKEN"))
+        register("npmjs") {
+            uri.set("https://registry.npmjs.org")
+            authToken.set(System.getenv("ATALA_NPM_TOKEN"))
         }
     }
 }

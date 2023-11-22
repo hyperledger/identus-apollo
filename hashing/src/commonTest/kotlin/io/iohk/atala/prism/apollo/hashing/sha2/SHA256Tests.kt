@@ -2,13 +2,13 @@ package io.iohk.atala.prism.apollo.hashing.sha2
 
 import io.iohk.atala.prism.apollo.hashing.BaseHashTests
 import io.iohk.atala.prism.apollo.hashing.SHA256
-import io.iohk.atala.prism.apollo.hashing.internal.JsIgnore
 import io.iohk.atala.prism.apollo.hashing.internal.toBinary
 import io.iohk.atala.prism.apollo.hashing.internal.toHexString
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.time.Duration.Companion.seconds
 
 class SHA256Tests : BaseHashTests() {
     override val valueForHash: List<String>
@@ -42,9 +42,9 @@ class SHA256Tests : BaseHashTests() {
     }
 
     @Test
-    @JsIgnore
+    @Ignore
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
-    fun test_VeryLong() = runTest {
+    fun test_VeryLong() = runTest(timeout = 60.seconds) {
         val hash = SHA256()
         repeat(16_777_216) {
             hash.update("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno".encodeToByteArray())

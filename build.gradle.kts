@@ -56,8 +56,8 @@ allprojects {
                 this.name = "GitHubPackages"
                 this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
                 credentials {
-                    this.username = getLocalProperty("username") ?: System.getenv("ATALA_GITHUB_ACTOR")
-                    this.password = getLocalProperty("token") ?: System.getenv("ATALA_GITHUB_TOKEN")
+                    this.username = System.getenv("ATALA_GITHUB_ACTOR")
+                    this.password = System.getenv("ATALA_GITHUB_TOKEN")
                 }
             }
         }
@@ -118,40 +118,6 @@ rootProject.plugins.withType(NodeJsRootPlugin::class.java) {
 
 tasks.dokkaGfmMultiModule.configure {
     outputDirectory.set(buildDir.resolve("dokkaCustomMultiModuleOutput"))
-}
-
-/**
- * Read any properties file and return the value of the key passed
- *
- * @param key value to key that needs reading
- * @param file file name in root folder that will be read with default value of "local.properties"
- * @throws [IllegalStateException] in case of failing to read file
- *
- * @return value of the key if found
- */
-@kotlin.jvm.Throws(IllegalStateException::class)
-fun Project.getLocalProperty(key: String, file: String = "local.properties"): String? {
-    if (file.endsWith(".properties").not()) {
-        logger.error("$file File must be .properties.")
-        return null
-    }
-    val properties = java.util.Properties()
-    val localProperties = File(file)
-    if (localProperties.isFile) {
-        java.io.InputStreamReader(java.io.FileInputStream(localProperties), Charsets.UTF_8).use { reader ->
-            properties.load(reader)
-        }
-    } else {
-        // Handle CI in GitHub doesn't have `local.properties` file
-        logger.warn("$file File not found.")
-        return null
-    }
-
-    return if (properties.containsKey(key)) {
-        properties.getProperty(key)
-    } else {
-        null
-    }
 }
 
 koverReport {

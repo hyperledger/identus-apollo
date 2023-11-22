@@ -28,21 +28,11 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    if (os.isMacOsX) {
-        ios()
-//        tvos()
-//        watchos()
-        // M1Chip
-        if (System.getProperty("os.arch") != "x86_64") {
-            iosSimulatorArm64()
-//            tvosSimulatorArm64()
-//            watchosSimulatorArm64()
-            macosArm64()
-        }
-    }
-//    if (os.isWindows) {
-//        mingwX64()
-//    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    macosArm64()
+    macosX64()
     js(IR) {
         this.moduleName = currentModuleName
         this.binaries.library()
@@ -73,6 +63,7 @@ kotlin {
             }
         }
     }
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         val commonMain by getting {
@@ -101,53 +92,16 @@ kotlin {
             }
         }
         val jsTest by getting
-        if (os.isMacOsX) {
-            val iosMain by getting
-            val iosTest by getting
-//            val tvosMain by getting
-//            val tvosTest by getting
-//            val watchosMain by getting
-//            val watchosTest by getting
-            // M1Chip
-            if (System.getProperty("os.arch") != "x86_64") {
-                val iosSimulatorArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
-//                val tvosSimulatorArm64Main by getting {
-//                    this.dependsOn(tvosMain)
-//                }
-//                val tvosSimulatorArm64Test by getting {
-//                    this.dependsOn(tvosTest)
-//                }
-//                val watchosSimulatorArm64Main by getting {
-//                    this.dependsOn(watchosMain)
-//                }
-//                val watchosSimulatorArm64Test by getting {
-//                    this.dependsOn(watchosTest)
-//                }
-                val macosArm64Main by getting {
-                    this.dependsOn(iosMain)
-                }
-                val macosArm64Test by getting {
-                    this.dependsOn(iosTest)
-                }
-            }
-        }
-//        if (os.isWindows) {
-//            val mingwX64Main by getting
-//            val mingwX64Test by getting
-//        }
     }
 
     if (os.isMacOsX) {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
             device.set("iPhone 14 Plus")
         }
-        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-            device.set("iPhone 14 Plus")
+        if (System.getProperty("os.arch") != "x86_64") {
+            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+                device.set("iPhone 14 Plus")
+            }
         }
     }
 }
