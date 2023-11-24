@@ -60,14 +60,14 @@ kotlin {
             baseName = "ApolloLibrary"
         }
     }
-    macosX64 {
-        swiftCinterop("IOHKSecureRandomGeneration", name)
-        swiftCinterop("IOHKCryptoKit", name)
-
-        binaries.framework {
-            baseName = "ApolloLibrary"
-        }
-    }
+//    macosX64 {
+//        swiftCinterop("IOHKSecureRandomGeneration", name)
+//        swiftCinterop("IOHKCryptoKit", name)
+//
+//        binaries.framework {
+//            baseName = "ApolloLibrary"
+//        }
+//    }
     // Mx Chip
     if (System.getProperty("os.arch") != "x86_64") {
         macosArm64 {
@@ -206,12 +206,12 @@ kotlin {
             val iosTest by getting {
                 dependsOn(appleTest)
             }
-            val macosX64Main by getting {
-                dependsOn(appleMain)
-            }
-            val macosX64Test by getting {
-                dependsOn(appleTest)
-            }
+//            val macosX64Main by getting {
+//                dependsOn(appleMain)
+//            }
+//            val macosX64Test by getting {
+//                dependsOn(appleTest)
+//            }
             // Mx Chip
             if (System.getProperty("os.arch") != "x86_64") {
                 val iosSimulatorArm64Main by getting {
