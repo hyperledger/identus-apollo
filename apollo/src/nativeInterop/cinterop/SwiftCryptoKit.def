@@ -1,0 +1,19 @@
+package = io.iohk.atala.prism.swift.cryptoKit
+language = Objective-C
+
+headers = SwiftCryptoKit/SwiftCryptoKit-Swift.h
+headerFilter = SwiftCryptoKit/*
+
+staticLibraries = libSwiftCryptoKit.a
+libraryPaths.ios_x64 = ../iOSLibs/SwiftCryptoKit/build/Release-iphonesimulator/
+libraryPaths.ios_arm64 = ../iOSLibs/SwiftCryptoKit/build/Release-iphoneos/
+libraryPaths.ios_simulator_arm64 =../iOSLibs/SwiftCryptoKit/build/Release-iphonesimulator/
+libraryPaths.macos_x64 = ../iOSLibs/SwiftCryptoKit/build/Release/
+libraryPaths.macos_arm64 = ../iOSLibs/SwiftCryptoKit/build/Release/
+
+linkerOpts = -L/usr/lib/swift
+linkerOpts.ios_x64 = -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/
+linkerOpts.ios_arm64 = -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/
+linkerOpts.ios_simulator_arm64 = -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/
+linkerOpts.macos_x64 = -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/
+linkerOpts.macos_arm64 = -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/

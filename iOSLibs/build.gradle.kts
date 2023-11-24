@@ -7,7 +7,7 @@ val sdks = listOf("iphoneos", "iphonesimulator", "macosx")
 libraries.forEach { library ->
     sdks.forEach { sdk ->
         tasks.create<Exec>("build${library.capitalize()}${sdk.capitalize()}") {
-            group = "build"
+            group = "build swift"
 
             if (os.isMacOsX) {
                 when (sdk) {
@@ -42,22 +42,23 @@ libraries.forEach { library ->
 
             inputs.files(
                 fileTree("$projectDir/$library.xcodeproj") { exclude("**/xcuserdata") },
-                fileTree("$projectDir/$library")
+                fileTree("$projectDir/$library/$library")
             )
             when (sdk) {
                 "iphoneos" -> {
                     outputs.files(
-                        fileTree("$projectDir/$library/build/Release-iphoneos")
+
+                        fileTree(projectDir.resolve("$library/build/Release-iphoneos/"))
                     )
                 }
                 "iphonesimulator" -> {
                     outputs.files(
-                        fileTree("$projectDir/$library/build/Release-iphonesimulator")
+                        fileTree(projectDir.resolve("$library/build/Release-iphonesimulator/"))
                     )
                 }
                 "macosx" -> {
                     outputs.files(
-                        fileTree("$projectDir/$library/build/Release")
+                        fileTree(projectDir.resolve("$library/build/Release"))
                     )
                 }
             }
@@ -67,6 +68,7 @@ libraries.forEach { library ->
 
 tasks.create<Delete>("clean") {
     group = "build"
+    delete("$projectDir/build")
     libraries.forEach {
         delete("$projectDir/$it/build")
     }
