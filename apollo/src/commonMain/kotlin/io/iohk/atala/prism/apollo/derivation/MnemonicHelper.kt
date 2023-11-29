@@ -4,6 +4,9 @@ import io.iohk.atala.prism.apollo.hashing.PBKDF2SHA512
 import io.iohk.atala.prism.apollo.securerandom.SecureRandom
 import org.kotlincrypto.hash.sha2.SHA256
 
+/**
+ * This helper provides a set of methods to work with Mnemonics
+ */
 final class MnemonicHelper {
     companion object {
         private const val SEED_ENTROPY_BITS_24_WORDS = 256
@@ -13,15 +16,33 @@ final class MnemonicHelper {
 
         class InvalidMnemonicCode(code: String) : RuntimeException(code)
 
+        /**
+         * It validates if a provided list of works is a valid mnemonic
+         *
+         * @return Boolean
+         */
         fun isValidMnemonicCode(code: List<String>): Boolean {
             return code.all { it in MnemonicCodeEnglish.wordList }
         }
 
+        /**
+         * It creates a random list of works
+         *
+         * @return List<String> as mnemonics
+         */
         fun createRandomMnemonics(): List<String> {
             val entropyBytes = SecureRandom.generateSeed(SEED_ENTROPY_BITS_24_WORDS / 8)
             return toMnemonicCode(MnemonicCodeEnglish.wordList, entropyBytes)
         }
 
+        /**
+         * Creates a seed from a mnemonics list and a passphrase.
+         *
+         * @param mnemonics The word list used for generating the mnemonic code.
+         * @param passphrase Passphrase used to derive the mnemonic string
+         * @throws InvalidMnemonicCode if the list of mnemonics is invalid
+         * @return ByteArray representing the seed raw value
+         */
         @Throws(InvalidMnemonicCode::class)
         fun createSeed(mnemonics: List<String>, passphrase: String = "AtalaPrism"): ByteArray {
             if (!isValidMnemonicCode(mnemonics)) {
@@ -36,11 +57,25 @@ final class MnemonicHelper {
             )
         }
 
+        /**
+         * Create random seed with a passphrase
+         *
+         * @param String passphrase to include into the seed creation
+         * @return ByteArray seed raw value
+         */
         fun createRandomSeed(passphrase: String = "AtalaPrism"): ByteArray {
             val mnemonics = this.createRandomMnemonics()
             return this.createSeed(mnemonics, passphrase)
         }
 
+        /**
+         * Converts a byte array of entropy into a mnemonic code (word list) based on the specified word list.
+         *
+         * @param words The word list to be used for generating the mnemonic code. This list should conform to the BIP-39 standard.
+         * @param entropy The entropy byte array, which is used to generate the mnemonic code. The length of this array must be a multiple of 4 bytes (32 bits).
+         * @throws Exception if the entropy is empty or its length is not a multiple of 32 bits.
+         * @return A list of strings representing the mnemonic code.
+         */
         fun toMnemonicCode(words: List<String>, entropy: ByteArray): List<String> {
             if (entropy.size % 4 > 0) {
                 throw Exception("Entropy length not multiple of 32 bits.")

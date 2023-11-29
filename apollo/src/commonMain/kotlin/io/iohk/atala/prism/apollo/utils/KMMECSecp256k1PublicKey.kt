@@ -54,6 +54,9 @@ interface KMMECSecp256k1PublicKeyCommonStaticInterface {
     }
 }
 
+/**
+ * Definition of the KMMECSecp256k1PublicKey functionality
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 class KMMECSecp256k1PublicKey {
@@ -64,6 +67,11 @@ class KMMECSecp256k1PublicKey {
         this.raw = raw
     }
 
+    /**
+     * Method to get the CurvePoint of KMMECSecp256k1PublicKey
+     *
+     * @return KMMECPoint
+     */
     fun getCurvePoint(): KMMECPoint {
         if (raw.size != 65) {
             throw IllegalArgumentException("Public key should be 65 bytes long")
