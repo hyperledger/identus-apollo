@@ -23,6 +23,9 @@ interface KMMECSecp256k1PrivateKeyCommonStaticInterface {
     }
 }
 
+/**
+ * Definition of the KMMECSecp256k1PublicKey functionality
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 class KMMECSecp256k1PrivateKey : Encodable {
@@ -33,11 +36,21 @@ class KMMECSecp256k1PrivateKey : Encodable {
         this.raw = raw
     }
 
+    /**
+     * Method to fetch the KMMECSecp256k1PublicKey
+     *
+     * @return KMMECSecp256k1PublicKey
+     */
     fun getPublicKey(): KMMECSecp256k1PublicKey {
         val pubKeyBytes = Secp256k1Lib().createPublicKey(raw, false)
         return KMMECSecp256k1PublicKey(pubKeyBytes)
     }
 
+    /**
+     * Method to get the encoded raw value
+     *
+     * @return ByteArray representing the raw value of this KMMECSecp256k1PrivateKey
+     */
     override fun getEncoded(): ByteArray {
         return raw
     }

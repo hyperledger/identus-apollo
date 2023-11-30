@@ -182,6 +182,11 @@ class HDKey(
         return this.deriveChild(BigIntegerWrapper(BigInteger(index)))
     }
 
+    /**
+     * Method to get the KMMECSecp256k1PrivateKey from HDKey
+     *
+     * @return KMMECSecp256k1PrivateKey
+     */
     fun getKMMSecp256k1PrivateKey(): KMMECSecp256k1PrivateKey {
         privateKey?.let {
             return KMMECSecp256k1PrivateKey.secp256k1FromByteArray(privateKey)
