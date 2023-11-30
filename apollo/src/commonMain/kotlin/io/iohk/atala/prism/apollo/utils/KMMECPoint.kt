@@ -3,6 +3,9 @@ package io.iohk.atala.prism.apollo.utils
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
+/**
+ * Representation of an EC curve point
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 data class KMMECPoint(val x: ByteArray, val y: ByteArray) {

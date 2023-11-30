@@ -1,0 +1,61 @@
+---
+# kics-scan ignore
+name: "Release Documentation"
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  JAVA_VERSION: 11
+  NODEJS_VERSION: 16.17.0
+  ATALA_GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
+  ATALA_GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout the repo"
+        uses: actions/checkout@v3
+
+      - name: "Validate Gradle Wrapper"
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: "Cache gradle"
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/.konan
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: "Install Java ${{ env.JAVA_VERSION }}"
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: "zulu"
+
+      - name: "Dokka Documentation Generation"
+        run: |
+          ./gradlew dokkaHtml
+
+      - name: "Push"
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: gh-pages # The branch name where you want to push the assets
+          FOLDER: "apollo/build/dokka/html/" # The directory where your assets are generated
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+          MESSAGE: "feat(docs): ({sha}) {msg}" # The commit message

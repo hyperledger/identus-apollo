@@ -2,6 +2,9 @@ package io.iohk.atala.prism.apollo.utils
 
 import kotlin.js.ExperimentalJsExport
 
+/**
+ * Interface defining the functionality for generating KMMX25519 key pairs.
+ */
 @OptIn(ExperimentalJsExport::class)
 expect class KMMX25519KeyPair(privateKey: KMMX25519PrivateKey, publicKey: KMMX25519PublicKey) {
     val privateKey: KMMX25519PrivateKey
