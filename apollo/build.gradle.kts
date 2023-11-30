@@ -4,6 +4,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URL
 
 val currentModuleName: String = "Apollo"
 val os: OperatingSystem = OperatingSystem.current()
@@ -314,14 +315,43 @@ ktlint {
 }
 
 // Dokka implementation
-tasks.withType<DokkaTask> {
-    moduleName.set(project.name)
+tasks.withType<DokkaTask>().configureEach {
+    moduleName.set(currentModuleName)
     moduleVersion.set(rootProject.version.toString())
     description = "This is a Kotlin Multiplatform Library for cryptography"
+    pluginConfiguration<org.jetbrains.dokka.base.DokkaBase, org.jetbrains.dokka.base.DokkaBaseConfiguration> {
+        customAssets = listOf(rootDir.resolve("Logo.png"))
+    }
     dokkaSourceSets {
-        // TODO: Figure out how to include files to the documentations
-        named("commonMain") {
-            includes.from("Module.md", "docs/Module.md")
+        configureEach {
+            jdkVersion.set(11)
+            languageVersion.set("1.8.20")
+            apiVersion.set("2.0")
+            includes.from(
+                "docs/Base64.md",
+                "docs/SecureRandom.md"
+            )
+            sourceLink {
+                localDirectory.set(projectDir.resolve("src"))
+                remoteUrl.set(URL("https://github.com/input-output-hk/atala-prism-apollo/tree/main/src"))
+                remoteLineSuffix.set("#L")
+            }
+            externalDocumentationLink {
+                url.set(URL("https://kotlinlang.org/api/latest/jvm/stdlib/"))
+            }
+            externalDocumentationLink {
+                url.set(URL("https://kotlinlang.org/api/kotlinx.serialization/"))
+            }
+            externalDocumentationLink {
+                url.set(URL("https://api.ktor.io/"))
+            }
+            externalDocumentationLink {
+                url.set(URL("https://kotlinlang.org/api/kotlinx-datetime/"))
+                packageListUrl.set(URL("https://kotlinlang.org/api/kotlinx-datetime/"))
+            }
+            externalDocumentationLink {
+                url.set(URL("https://kotlinlang.org/api/kotlinx.coroutines/"))
+            }
         }
     }
 }
@@ -335,6 +365,7 @@ npmPublish {
         named("js") {
             scope.set("atala")
             packageName.set("apollo")
+            readme.set(rootDir.resolve("README.md"))
             packageJson {
                 author {
                     name.set("IOG")

@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 
 plugins {
-    id("org.jetbrains.dokka") version "1.7.10"
+    id("org.jetbrains.dokka") version "1.9.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     id("maven-publish")
     id("org.jetbrains.kotlinx.kover") version "0.7.2"
@@ -17,6 +17,7 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
         classpath("com.android.tools.build:gradle:7.2.2")
+        classpath("org.jetbrains.dokka:dokka-base:1.9.10")
     }
 }
 
@@ -86,8 +87,4 @@ subprojects {
 
 rootProject.plugins.withType(NodeJsRootPlugin::class.java) {
     rootProject.extensions.getByType(NodeJsRootExtension::class.java).nodeVersion = "16.17.0"
-}
-
-tasks.dokkaGfmMultiModule.configure {
-    outputDirectory.set(buildDir.resolve("dokkaCustomMultiModuleOutput"))
 }
