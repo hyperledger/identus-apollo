@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.1.1...v1.2.0) (2023-11-30)
+
+
+### Bug Fixes
+
+* ci swift package ([#118](https://github.com/input-output-hk/atala-prism-apollo/issues/118)) ([e13b9ca](https://github.com/input-output-hk/atala-prism-apollo/commit/e13b9caa9ee0c364bfa1c889e44b0561af55abb4))
+
+
+### Features
+
+* Reorganise Apollo ([#116](https://github.com/input-output-hk/atala-prism-apollo/issues/116)) ([6b8299b](https://github.com/input-output-hk/atala-prism-apollo/commit/6b8299bde9f653f261e103e4dc739d92482c9f08))
+
 ## [1.1.1](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.1.0...v1.1.1) (2023-11-21)
 
 
