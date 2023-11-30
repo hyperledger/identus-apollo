@@ -18,6 +18,7 @@ plugins:
     "@semantic-release/git",
     {
       assets: [
+        "Package.swift",
         "CHANGELOG.md",
         "gradle.properties",
       ],
