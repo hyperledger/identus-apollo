@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.0...v1.2.1) (2023-12-01)
+
+
+### Bug Fixes
+
+* release has a v in the name this will fix it ([#119](https://github.com/input-output-hk/atala-prism-apollo/issues/119)) ([a85f7ad](https://github.com/input-output-hk/atala-prism-apollo/commit/a85f7ad51b9cc26292e1936c7758da1667c275eb))
+
 # [1.2.0](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.1.1...v1.2.0) (2023-11-30)
 
 
