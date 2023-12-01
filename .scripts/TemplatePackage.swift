@@ -23,7 +23,7 @@ let package = Package(
         // RELEASE
         .binaryTarget(
             name: "ApolloBinary",
-            url: "https://github.com/input-output-hk/atala-prism-apollo/releases/download/<ref>/Apollo.xcframework.zip",
+            url: "https://github.com/input-output-hk/atala-prism-apollo/releases/download/v<ref>/Apollo.xcframework.zip",
             checksum: "<checksum>"
         )
     ]
