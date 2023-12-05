@@ -17,15 +17,17 @@ on:
   push:
     branches:
       - main
-    tags:
-      - "*"
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: "Checkout the repo"
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          token: ${{ secrets.ATALA_GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: "Validate Gradle Wrapper"
         uses: gradle/wrapper-validation-action@v1
@@ -46,6 +48,14 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: "zulu"
+
+      - name: "Install Homebrew"
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+      - name: "Install autoconf, automake, libtool"
+        run: |
+          brew install autoconf automake libtool
 
       - name: "Dokka Documentation Generation"
         run: |
