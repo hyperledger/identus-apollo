@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.1...v1.2.2) (2023-12-05)
+
+
+### Bug Fixes
+
+* remove if since the xcframework is not building with all targets ([#121](https://github.com/input-output-hk/atala-prism-apollo/issues/121)) ([e728572](https://github.com/input-output-hk/atala-prism-apollo/commit/e72857278488abd8d4355f2636deadd90c2bd94d))
+
 ## [1.2.1](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.0...v1.2.1) (2023-12-01)
 
 
