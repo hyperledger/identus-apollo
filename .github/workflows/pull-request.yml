@@ -30,54 +30,56 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Validate Gradle Wrapper
+      - name: "Validate Gradle Wrapper"
         run: pwd
 
-      - name: Checkout the repo
+      - name: "Checkout the repo"
         uses: actions/checkout@v3
         with:
           submodules: recursive
+          token: ${{ secrets.ATALA_GITHUB_TOKEN }}
+          fetch-depth: 0
 
-      - name: Install Java ${{ env.JAVA_VERSION }}
+      - name: "Install Java ${{ env.JAVA_VERSION }}"
         uses: actions/setup-java@v3
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: "zulu"
 
-      - name: Gradle Build Action
+      - name: "Gradle Build Action"
         uses: gradle/gradle-build-action@v2
 
-      - name: Install NodeJS ${{ env.NODEJS_VERSION }}
+      - name: "Install NodeJS ${{ env.NODEJS_VERSION }}"
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODEJS_VERSION }}
 
-      - name: Install Homebrew
+      - name: "Install Homebrew"
         if: matrix.os-type == 'macos'
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-      - name: Install autoconf, automake, libtool
+      - name: "Install autoconf, automake, libtool"
         if: matrix.os-type == 'macos'
         run: |
           brew install autoconf automake libtool
 
-      - name: Test Kotlin code is properly formatted
+      - name: "Test Kotlin code is properly formatted"
         run: ./gradlew ktlintCheck
 
-      - name: Build Check All tests
+      - name: "Build Check All tests"
         run: ./gradlew allTests
 
-      - name: Generate kover coverage report
+      - name: "Generate kover coverage report"
         run: ./gradlew koverHtmlReport koverXmlReport
 
-      - name: Upload coverage html
+      - name: "Upload coverage html"
         uses: actions/upload-artifact@v3.1.2
         with:
           name: coverage-results-${{ matrix.os-type }}.zip
           path: build/reports/kover/html
 
-      - name: Add coverage report to PR
+      - name: "Add coverage report to PR"
         id: kover
         uses: mi-kas/kover-report@v1
         with:
@@ -89,7 +91,7 @@ jobs:
           min-coverage-changed-files: 90
           coverage-counter-type: LINE
 
-      - name: Upload the build report
+      - name: "Upload the build report"
         if: always()
         uses: actions/upload-artifact@v3
         with:
