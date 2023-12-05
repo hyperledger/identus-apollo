@@ -50,12 +50,10 @@ jobs:
           distribution: "zulu"
 
       - name: Install Homebrew
-        if: matrix.os-type == 'macos'
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
       - name: Install autoconf, automake, libtool
-        if: matrix.os-type == 'macos'
         run: |
           brew install autoconf automake libtool
 
