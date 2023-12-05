@@ -53,24 +53,21 @@ kotlin {
                 "$rootDir/secp256k1-kmp/native/build/ios/x86_x64-macosx/libsecp256k1.a"
             )
         }
-        // Mx Chip
-        if (System.getProperty("os.arch") != "x86_64") {
-            iosSimulatorArm64 {
-                secp256k1CInterop("iosSimulatorArm64")
-                // https://youtrack.jetbrains.com/issue/KT-39396
-                compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
-                    "-include-binary",
-                    "$rootDir/secp256k1-kmp/native/build/ios/arm64-iphonesimulator/libsecp256k1.a"
-                )
-            }
-            macosArm64 {
-                secp256k1CInterop("macosArm64")
-                // https://youtrack.jetbrains.com/issue/KT-39396
-                compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
-                    "-include-binary",
-                    "$rootDir/secp256k1-kmp/native/build/ios/arm64-macosx/libsecp256k1.a"
-                )
-            }
+        iosSimulatorArm64 {
+            secp256k1CInterop("iosSimulatorArm64")
+            // https://youtrack.jetbrains.com/issue/KT-39396
+            compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
+                "-include-binary",
+                "$rootDir/secp256k1-kmp/native/build/ios/arm64-iphonesimulator/libsecp256k1.a"
+            )
+        }
+        macosArm64 {
+            secp256k1CInterop("macosArm64")
+            // https://youtrack.jetbrains.com/issue/KT-39396
+            compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
+                "-include-binary",
+                "$rootDir/secp256k1-kmp/native/build/ios/arm64-macosx/libsecp256k1.a"
+            )
         }
     }
 
@@ -98,14 +95,11 @@ kotlin {
             val macosX64Main by getting {
                 dependsOn(nativeMain)
             }
-            // Mx Chip
-            if (System.getProperty("os.arch") != "x86_64") {
-                val iosSimulatorArm64Main by getting {
-                    dependsOn(nativeMain)
-                }
-                val macosArm64Main by getting {
-                    dependsOn(nativeMain)
-                }
+            val iosSimulatorArm64Main by getting {
+                dependsOn(nativeMain)
+            }
+            val macosArm64Main by getting {
+                dependsOn(nativeMain)
             }
         }
         all {

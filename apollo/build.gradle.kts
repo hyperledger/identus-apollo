@@ -61,31 +61,20 @@ kotlin {
             baseName = "ApolloLibrary"
         }
     }
-//    macosX64 {
-//        swiftCinterop("IOHKSecureRandomGeneration", name)
-//        swiftCinterop("IOHKCryptoKit", name)
-//
-//        binaries.framework {
-//            baseName = "ApolloLibrary"
-//        }
-//    }
-    // Mx Chip
-    if (System.getProperty("os.arch") != "x86_64") {
-        macosArm64 {
-            swiftCinterop("IOHKSecureRandomGeneration", name)
-            swiftCinterop("IOHKCryptoKit", name)
+    macosArm64 {
+        swiftCinterop("IOHKSecureRandomGeneration", name)
+        swiftCinterop("IOHKCryptoKit", name)
 
-            binaries.framework {
-                baseName = "ApolloLibrary"
-            }
+        binaries.framework {
+            baseName = "ApolloLibrary"
         }
-        iosSimulatorArm64 {
-            swiftCinterop("IOHKSecureRandomGeneration", name)
-            swiftCinterop("IOHKCryptoKit", name)
+    }
+    iosSimulatorArm64 {
+        swiftCinterop("IOHKSecureRandomGeneration", name)
+        swiftCinterop("IOHKCryptoKit", name)
 
-            binaries.framework {
-                baseName = "ApolloLibrary"
-            }
+        binaries.framework {
+            baseName = "ApolloLibrary"
         }
     }
     js(IR) {
@@ -191,43 +180,32 @@ kotlin {
         }
         val jsTest by getting
 
-        if (os.isMacOsX) {
-            val appleMain by creating {
-                dependsOn(commonMain)
-                dependencies {
-                    implementation(project(":secp256k1-kmp"))
-                }
+        val appleMain by creating {
+            dependsOn(commonMain)
+            dependencies {
+                implementation(project(":secp256k1-kmp"))
             }
-            val appleTest by creating {
-                dependsOn(commonTest)
-            }
-            val iosMain by getting {
-                dependsOn(appleMain)
-            }
-            val iosTest by getting {
-                dependsOn(appleTest)
-            }
-//            val macosX64Main by getting {
-//                dependsOn(appleMain)
-//            }
-//            val macosX64Test by getting {
-//                dependsOn(appleTest)
-//            }
-            // Mx Chip
-            if (System.getProperty("os.arch") != "x86_64") {
-                val iosSimulatorArm64Main by getting {
-                    dependsOn(appleMain)
-                }
-                val iosSimulatorArm64Test by getting {
-                    dependsOn(appleTest)
-                }
-                val macosArm64Main by getting {
-                    dependsOn(appleMain)
-                }
-                val macosArm64Test by getting {
-                    dependsOn(appleTest)
-                }
-            }
+        }
+        val appleTest by creating {
+            dependsOn(commonTest)
+        }
+        val iosMain by getting {
+            dependsOn(appleMain)
+        }
+        val iosTest by getting {
+            dependsOn(appleTest)
+        }
+        val iosSimulatorArm64Main by getting {
+            dependsOn(appleMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(appleTest)
+        }
+        val macosArm64Main by getting {
+            dependsOn(appleMain)
+        }
+        val macosArm64Test by getting {
+            dependsOn(appleTest)
         }
     }
 
@@ -235,11 +213,8 @@ kotlin {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
             device.set("iPhone 14 Plus")
         }
-        // Mx Chip
-        if (System.getProperty("os.arch") != "x86_64") {
-            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                device.set("iPhone 14 Plus")
-            }
+        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+            device.set("iPhone 14 Plus")
         }
     }
 }
