@@ -25,7 +25,7 @@ jobs:
         include:
           - os: ubuntu-latest
             os-type: linux
-          - os: macos-latest
+          - os: macos-13
             os-type: macos
       fail-fast: false
     runs-on: ${{ matrix.os }}
