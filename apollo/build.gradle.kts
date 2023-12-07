@@ -361,4 +361,7 @@ afterEvaluate {
     tasks.named("lintAnalyzeRelease") {
         this.enabled = false
     }
+    tasks.named("iosX64Test") {
+        this.enabled = false
+    }
 }

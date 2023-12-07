@@ -69,11 +69,6 @@ jobs:
         with:
           xcode-version: '15.0.1'
 
-      - name: "Search Result"
-        if: matrix.os-type == 'macos' # iOS_21A342/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 17.0.simruntime/Contents/Resources/RuntimeRoot/usr/lib/
-        working-directory: "/Library/Developer/CoreSimulator/Volumes/"
-        run: grep -r .
-
       - name: "Test Kotlin code is properly formatted"
         run: ./gradlew ktlintCheck
 
