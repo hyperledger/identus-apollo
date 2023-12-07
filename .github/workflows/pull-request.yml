@@ -67,7 +67,7 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         if: matrix.os-type == 'macos'
         with:
-          xcode-version: latest-stable
+          xcode-version: '15.0.1'
 
       - name: "Test Kotlin code is properly formatted"
         run: ./gradlew ktlintCheck
