@@ -255,8 +255,6 @@ public object Secp256k1Native : Secp256k1 {
     public override fun cleanup() {
         secp256k1_context_destroy(ctx)
     }
-
-
 }
 
 internal actual fun getSecpk256k1(): Secp256k1 = Secp256k1Native

@@ -1,6 +1,7 @@
 import dev.petuska.npm.publish.extension.domain.NpmAccess
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -59,6 +60,7 @@ kotlin {
 
         binaries.framework {
             baseName = "ApolloLibrary"
+            embedBitcode(BitcodeEmbeddingMode.DISABLE)
         }
     }
     iosX64 {
@@ -67,6 +69,7 @@ kotlin {
 
         binaries.framework {
             baseName = "ApolloLibrary"
+            embedBitcode(BitcodeEmbeddingMode.DISABLE)
         }
     }
     iosSimulatorArm64 {
@@ -75,6 +78,7 @@ kotlin {
 
         binaries.framework {
             baseName = "ApolloLibrary"
+            embedBitcode(BitcodeEmbeddingMode.DISABLE)
         }
     }
     macosArm64 {
@@ -83,6 +87,7 @@ kotlin {
 
         binaries.framework {
             baseName = "ApolloLibrary"
+            embedBitcode(BitcodeEmbeddingMode.DISABLE)
         }
     }
     js(IR) {
@@ -345,5 +350,15 @@ npmPublish {
             uri.set("https://registry.npmjs.org")
             authToken.set(System.getenv("ATALA_NPM_TOKEN"))
         }
+    }
+}
+
+// Workaround for a bug in Gradle
+afterEvaluate {
+    tasks.named("lintAnalyzeDebug") {
+        this.enabled = false
+    }
+    tasks.named("lintAnalyzeRelease") {
+        this.enabled = false
     }
 }

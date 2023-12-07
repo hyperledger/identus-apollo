@@ -16,8 +16,6 @@
 
 package fr.acinq.secp256k1
 
-import kotlin.jvm.JvmStatic
-
 public interface Secp256k1 {
     /**
      * Verify an ECDSA signature.
@@ -160,7 +158,6 @@ public interface Secp256k1 {
     public fun cleanup()
 
     public companion object : Secp256k1 by getSecpk256k1() {
-        @JvmStatic
         public fun get(): Secp256k1 = this
     }
 }
