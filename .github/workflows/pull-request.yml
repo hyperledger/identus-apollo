@@ -70,8 +70,8 @@ jobs:
           xcode-version: '15.0.1'
 
       - name: "Search Result"
-        if: matrix.os-type == 'macos' # Developer/CoreSimulator/Profiles/Runtimes/iOS 17.0.simruntime/Contents/Resources/RuntimeRoot/usr/lib/
-        working-directory: "/Library/Developer/CoreSimulator/Volumes/iOS_21A342/Library/"
+        if: matrix.os-type == 'macos' # Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 17.0.simruntime/Contents/Resources/RuntimeRoot/usr/lib/
+        working-directory: "/Library/Developer/CoreSimulator/Volumes/iOS_21A342/"
         run: ls
 
       - name: "Test Kotlin code is properly formatted"
