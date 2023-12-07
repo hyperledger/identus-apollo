@@ -1,5 +1,6 @@
 package io.iohk.atala.prism.apollo.secp256k1
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.memScoped
@@ -11,6 +12,7 @@ class ECDH : Secp256k1() {
     /**
      * Compute an elliptic curve Diffie-Hellman secret.
      */
+    @OptIn(ExperimentalForeignApi::class)
     fun ecdh(privateKey: ByteArray, publicKey: ByteArray): ByteArray {
         require(privateKey.size == 32)
         require(publicKey.size == 33 || publicKey.size == 65)

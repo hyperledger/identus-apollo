@@ -3,6 +3,7 @@ package io.iohk.atala.prism.apollo.secp256k1
 import io.iohk.atala.prism.apollo.utils.toHexString
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.DeferScope
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.MemScope
 import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.addressOf
@@ -34,6 +35,7 @@ import secp256k1.secp256k1_ecdsa_signature_serialize_compact
 import secp256k1.secp256k1_ecdsa_verify
 import secp256k1.secp256k1_pubkey
 
+@OptIn(ExperimentalForeignApi::class)
 open class Secp256k1 {
     val ctx: CPointer<secp256k1_context> by lazy {
         secp256k1_context_create((SECP256K1_FLAGS_TYPE_CONTEXT or SECP256K1_FLAGS_BIT_CONTEXT_SIGN or SECP256K1_FLAGS_BIT_CONTEXT_VERIFY).toUInt())

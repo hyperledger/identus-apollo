@@ -5,9 +5,8 @@ import kotlinx.cinterop.*
 import platform.posix.size_tVar
 import secp256k1.*
 
-@OptIn(ExperimentalUnsignedTypes::class, kotlinx.cinterop.UnsafeNumber::class)
+@OptIn(ExperimentalUnsignedTypes::class, UnsafeNumber::class, ExperimentalForeignApi::class)
 public object Secp256k1Native : Secp256k1 {
-
     private val ctx: CPointer<secp256k1_context> by lazy {
         secp256k1_context_create((SECP256K1_FLAGS_TYPE_CONTEXT or SECP256K1_FLAGS_BIT_CONTEXT_SIGN or SECP256K1_FLAGS_BIT_CONTEXT_VERIFY).toUInt())
             ?: error("Could not create secp256k1 context")
