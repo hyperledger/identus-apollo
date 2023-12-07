@@ -195,10 +195,6 @@ The following instruction using Xcode 15
 5. Then go to the project configuration page in Xcode and check the Frameworks and Libraries section and add the `Apollo.xcframework` if not found then choose `Embed & Sign`.
 6. Then go to the build phase page and mark the framework as required.
 
-## How to use for JS app
-
-TBD
-
 ## How to use for Node.js app
 
 Inside the `package.json`
@@ -209,14 +205,6 @@ Inside the `package.json`
     }
 }
 ```
-
-## How to use for Python
-
-TBD
-
-## How to use for Scala
-
-TBD
 
 ## How to use for another KMP (Kotlin Multiplatform) project
 
