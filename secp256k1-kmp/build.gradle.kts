@@ -45,20 +45,20 @@ kotlin {
                 "$rootDir/secp256k1-kmp/native/build/ios/arm64-iphoneos/libsecp256k1.a"
             )
         }
-        macosX64 {
-            secp256k1CInterop("macosX64")
-            // https://youtrack.jetbrains.com/issue/KT-39396
-            compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
-                "-include-binary",
-                "$rootDir/secp256k1-kmp/native/build/ios/x86_x64-macosx/libsecp256k1.a"
-            )
-        }
         iosSimulatorArm64 {
             secp256k1CInterop("iosSimulatorArm64")
             // https://youtrack.jetbrains.com/issue/KT-39396
             compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
                 "-include-binary",
                 "$rootDir/secp256k1-kmp/native/build/ios/arm64-iphonesimulator/libsecp256k1.a"
+            )
+        }
+        macosX64 {
+            secp256k1CInterop("macosX64")
+            // https://youtrack.jetbrains.com/issue/KT-39396
+            compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
+                "-include-binary",
+                "$rootDir/secp256k1-kmp/native/build/ios/x86_x64-macosx/libsecp256k1.a"
             )
         }
         macosArm64 {
@@ -70,37 +70,16 @@ kotlin {
             )
         }
     }
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("com.ionspin.kotlin:bignum:0.3.7")
+                api("com.ionspin.kotlin:bignum:0.3.8")
             }
         }
-        val nativeMain by creating {
+        val nativeMain by getting {
             dependsOn(commonMain)
-        }
-        if (currentOs.isLinux) {
-            val linuxX64Main by getting {
-                dependsOn(nativeMain)
-            }
-        }
-        if (currentOs.isMacOsX) {
-            val iosX64Main by getting {
-                dependsOn(nativeMain)
-            }
-            val iosArm64Main by getting {
-                dependsOn(nativeMain)
-            }
-            val macosX64Main by getting {
-                dependsOn(nativeMain)
-            }
-            val iosSimulatorArm64Main by getting {
-                dependsOn(nativeMain)
-            }
-            val macosArm64Main by getting {
-                dependsOn(nativeMain)
-            }
         }
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")

@@ -10,14 +10,14 @@ import kotlin.test.assertTrue
 class Secp256k1Tests {
     @Test
     fun verifyValidPrivateKey() {
-        val secp256k1 = Secp256k1()
+        val secp256k1 = Secp256k1Native
         val privateKey = Hex.decode("67E56582298859DDAE725F972992A07C6C4FB9F62A8FFF58CE3CA926A1063530".lowercase())
         assertTrue(secp256k1.secKeyVerify(privateKey))
     }
 
     @Test
     fun verifyInvalidPrivateKey() {
-        val secp256k1 = Secp256k1()
+        val secp256k1 = Secp256k1Native
         val invalidSize = Hex.decode("67E56582298859DDAE725F972992A07C6C4FB9F62A8FFF58CE3CA926A106353001")
         assertFalse(secp256k1.secKeyVerify(invalidSize))
         val curveOrder = Hex.decode("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141".lowercase())
@@ -47,12 +47,12 @@ class Secp256k1Tests {
 
     @Test
     fun compressPublicKey() {
-        val secp256k1 = Secp256k1()
+        val secp256k1 = Secp256k1Native
         val pub =
             Hex.decode(
                 "04C591A8FF19AC9C4E4E5793673B83123437E975285E7B442F4EE2654DFFCA5E2D2103ED494718C697AC9AEBCFD19612E224DB46661011863ED2FC54E71861E2A6"
             )
-        val compressed = secp256k1.publicKeyCompress(pub)
+        val compressed = secp256k1.pubKeyCompress(pub)
         assertEquals(
             "02C591A8FF19AC9C4E4E5793673B83123437E975285E7B442F4EE2654DFFCA5E2D",
             Hex.encode(compressed).uppercase()
@@ -148,7 +148,7 @@ class Secp256k1Tests {
 
     @Test
     fun normalizeEcdsaSignature() {
-        val secp256k1 = Secp256k1()
+        val secp256k1 = Secp256k1Native
         val normalizedDerSig =
             Hex.decode(
                 "30440220182A108E1448DC8F1FB467D06A0F3BB8EA0533584CB954EF8DA112F1D60E39A202201C66F36DA211C087F3AF88B50EDF4F9BDAA6CF5FD6817E74DCA34DB12390C6E9".lowercase()
@@ -241,23 +241,23 @@ class Secp256k1Tests {
 
     @Test
     fun negatePrivateKey() {
-        val secp256k1 = Secp256k1()
+        val secp256k1 = Secp256k1Native
         val priv = Hex.decode("67E56582298859DDAE725F972992A07C6C4FB9F62A8FFF58CE3CA926A1063530".lowercase())
-        val npriv = secp256k1.privateKeyNegate(priv)
+        val npriv = secp256k1.privKeyNegate(priv)
         assertEquals(
             "981A9A7DD677A622518DA068D66D5F824E5F22F084B8A0E2F195B5662F300C11",
             Hex.encode(npriv).uppercase()
         )
-        val nnpriv: ByteArray = secp256k1.privateKeyNegate(npriv)
+        val nnpriv: ByteArray = secp256k1.privKeyNegate(npriv)
         assertContentEquals(priv, nnpriv)
     }
 
     @Test
     fun addTweakToPrivateKey() {
-        val secp256k1 = Secp256k1()
+        val secp256k1 = Secp256k1Native
         val priv = Hex.decode("67E56582298859DDAE725F972992A07C6C4FB9F62A8FFF58CE3CA926A1063530".lowercase())
         val tweak = Hex.decode("3982F19BEF1615BCCFBB05E321C10E1D4CBA3DF0E841C2E41EEB6016347653C3".lowercase())
-        val tweakedPriv = secp256k1.privateKeyTweakAdd(priv, tweak)
+        val tweakedPriv = secp256k1.privKeyTweakAdd(priv, tweak)
         assertEquals(
             "A168571E189E6F9A7E2D657A4B53AE99B909F7E712D1C23CED28093CD57C88F3",
             Hex.encode(tweakedPriv).uppercase()
@@ -266,10 +266,10 @@ class Secp256k1Tests {
 
     @Test
     fun multiplyPrivateKeyWithTweak() {
-        val secp256k1 = Secp256k1()
+        val secp256k1 = Secp256k1Native
         val priv = Hex.decode("67E56582298859DDAE725F972992A07C6C4FB9F62A8FFF58CE3CA926A1063530".lowercase())
         val tweak = Hex.decode("3982F19BEF1615BCCFBB05E321C10E1D4CBA3DF0E841C2E41EEB6016347653C3".lowercase())
-        val tweakedPriv = secp256k1.privateKeyTweakMul(priv, tweak)
+        val tweakedPriv = secp256k1.privKeyTweakMul(priv, tweak)
         assertEquals(
             "97F8184235F101550F3C71C927507651BD3F1CDB4A5A33B8986ACF0DEE20FFFC",
             Hex.encode(tweakedPriv).uppercase()

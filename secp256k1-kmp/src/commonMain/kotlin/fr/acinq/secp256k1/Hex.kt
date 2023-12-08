@@ -2,13 +2,10 @@
 
 package fr.acinq.secp256k1
 
-import kotlin.jvm.JvmStatic
-
 // ktlint-disable filename
 public object Hex {
     private val hexCode = arrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f')
 
-    @JvmStatic
     public fun decode(hex: String): ByteArray {
         val input = hex.filterNot { it.isWhitespace() }
         val offset = when {
@@ -34,7 +31,6 @@ public object Hex {
         return out
     }
 
-    @JvmStatic
     public fun encode(input: ByteArray, offset: Int, len: Int): String {
         val r = StringBuilder(len * 2)
         for (i in 0 until len) {
@@ -45,6 +41,5 @@ public object Hex {
         return r.toString()
     }
 
-    @JvmStatic
     public fun encode(input: ByteArray): String = encode(input, 0, input.size)
 }

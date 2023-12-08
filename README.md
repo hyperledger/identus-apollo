@@ -1,6 +1,6 @@
 # Apollo
 
-[![Kotlin](https://img.shields.io/badge/kotlin-1.7.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.9.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![Build](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml)
 [![Deployment](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/Deployment.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/Deployment.yml)
 
@@ -11,8 +11,6 @@
 ![js](https://camo.githubusercontent.com/3e0a143e39915184b54b60a2ecedec75e801f396d34b5b366c94ec3604f7e6bd/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d6a732d4638444235442e7376673f7374796c653d666c6174)
 ![getNode-js](https://camo.githubusercontent.com/d08fda729ceebcae0f23c83499ca8f06105350f037661ac9a4cc7f58edfdbca9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d6e6f64656a732d3638613036332e7376673f7374796c653d666c6174)
 ![macos](https://camo.githubusercontent.com/1b8313498db244646b38a4480186ae2b25464e5e8d71a1920c52b2be5212b909/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d6d61636f732d3131313131312e7376673f7374796c653d666c6174)
-![tvos](https://camo.githubusercontent.com/4ac08d7fb1bcb8ef26388cd2bf53b49626e1ab7cbda581162a946dd43e6a2726/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d74766f732d3830383038302e7376673f7374796c653d666c6174)
-![watchos](https://camo.githubusercontent.com/135dbadae40f9cabe7a3a040f9380fb485cff36c90909f3c1ae36b81c304426b/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d77617463686f732d4330433043302e7376673f7374796c653d666c6174)
 
 ![Atala Prism Logo](Logo.png)
 
@@ -24,6 +22,18 @@ A cryptography lib built with Kotlin Multiplatform with support for the followin
 - JVM
 
 ## How to build Apollo
+
+### Set Environment Variables
+
+Set variable `ATALA_GITHUB_ACTOR` with your GitHub Username and set variable `ATALA_GITHUB_TOKEN` with your GitHub Personal Access Token.
+
+As an example we will go with `Bash`
+
+1. Open CMD.
+2. Run `sudo nano $HOME/.bash_profile`.
+3. Insert `export ATALA_GITHUB_ACTOR="YOUR GITHUB USERNAME"`
+4. Insert `export ATALA_GITHUB_TOKEN="YOUR GITHUB PERSONAL ACCESS TOKEN"`
+5. Save profile and restart CMD to take effect.
 
 ### Install Homebrew (Mac Only)
 
@@ -101,6 +111,14 @@ You should be able to import and build the project in IntelliJ IDEA now.
 
 Here is a list of common issues you might face and its solutions.
 
+##### Enviroment Variables were added but not available
+
+If you already added the envorment variable to your CMD profile and still not being available.
+
+**Solution**
+
+* Restart your Device.
+
 ##### No binary for ChromeHeadless browser on your platform
 
 If you get error:
@@ -132,25 +150,66 @@ Could not find JNA native support
 * Make sure that you are using Java version that is arch64.
 
 ## How to use for JVM/Android app
-TBD
+
+In `build.gradle.kts` files include the dependency
+```kotlin
+repositories {
+    mavenCentral()
+    maven {
+            this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
+            credentials {
+                this.username = // GitHub Username
+                this.password = // GitHub Access Token
+            }
+        }
+}
+```
+For dependencies
+```kotlin
+dependencies {
+    val apolloVersion = ... // Latest Apollo Version
+    implementation("io.iohk.atala.prism.apollo:apollo:$apolloVersion")
+}
+```
 
 ## How to use for iOS app
-TBD
 
-## How to use for JS app
-TBD
+### Using SPM
 
-## How to use for NodeJS app
-TBD
+Inside your `Package.swift` file, add the following
+```swift
+dependencies: [
+    .package(
+        url: "git@github.com:input-output-hk/atala-prism-apollo.git",
+        from: "latest versoin"
+    )
+]
+```
+### Using generated xcframework directly
 
-## How to use for Python
-TBD
+The following instruction using Xcode 15
+1. Go the [Release Page](https://github.com/input-output-hk/atala-prism-apollo/releases) and check the latest version and download the `Apollo.xcframework.zip` file.
+2. Uncompress the downloaded file.
+3. Add the `Apollo.xcframework` to your Xcode project.
+4. When asked select Copy items if needed.
+5. Then go to the project configuration page in Xcode and check the Frameworks and Libraries section and add the `Apollo.xcframework` if not found then choose `Embed & Sign`.
+6. Then go to the build phase page and mark the framework as required.
 
-## How to use for Scala
-TBD
+## How to use for Node.js app
 
-## How to use for another KMM project
+Inside the `package.json`
+```json
+{
+    "dependencies": {
+        "@atala/apollo": "latest version of Apollo"
+    }
+}
+```
+
+## How to use for another KMP (Kotlin Multiplatform) project
+
 You need to do the following:
+
 1. You need to let Gradle know where to search for the Apollo package
 2. Import the packages in the common target as per your project needs
     1. Once you insert the import in the common target, it will automatically retrieve each supported target knowing that the currently only available targets are:
@@ -161,7 +220,6 @@ You need to do the following:
 |------------------------------------------|--------------------|
 | iOS x86 64                               | :heavy_check_mark: |
 | iOS Arm 64                               | :heavy_check_mark: |
-| iOS Arm 32                               | :heavy_check_mark: |
 | iOS Simulator Arm 64 (Apple Silicon)     | :heavy_check_mark: |
 | JVM                                      | :heavy_check_mark: | 
 | Android                                  | :heavy_check_mark: |
@@ -169,18 +227,6 @@ You need to do the following:
 | NodeJS Browser                           | :heavy_check_mark: |
 | macOS X86 64                             | :heavy_check_mark: |
 | macOS Arm 64 (Apple Silicon)             | :heavy_check_mark: |
-| watchOS X86 32                           | :heavy_check_mark: |
-| watchOS Arm 64(_32)                      | :heavy_check_mark: |
-| watchOS Arm 32                           | :heavy_check_mark: |
-| watchOS Simulator Arm 64 (Apple Silicon) | :heavy_check_mark: |
-| tvOS X86 64                              | :heavy_check_mark: |
-| tvOS Arm 64                              | :heavy_check_mark: |
-| tvOS Simulator Arm 64 (Apple Silicon)    | :heavy_check_mark: |
-| Linux X86 64                             | :x:                |
-| Linux Arm 64                             | :x:                |
-| Linux Arm 32                             | :x:                |
-| minGW X86 64                             | :x:                |
-| minGW X86 32                             | :x:                | 
 
 **For the first, second & third point** we have two cases using Groovy and using Kotlin DSL
 
@@ -194,8 +240,8 @@ allprojects {
         maven {
             url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
             credentials {
-                username = System.getenv("ATALA_GITHUB_ACTOR") // this is CMD system environment and you can replace the retrieval of its value to any other preferable way if needed
-                password = System.getenv("ATALA_GITHUB_TOKEN") // this is CMD system environment and you can replace the retrieval of its value to any other preferable way if needed
+                username = // GitHub Username
+                password = // GitHub Access Token
             }
         }
     }
@@ -204,13 +250,6 @@ allprojects {
 In the module `build.gradle`
 ```groovy
 kotlin {
-    // if you are going to use the iOS as one of the KMM module target. You need to use the new iOS hierarchy
-    ios() // New iOS hierarchy
-    // instead of the old way
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    
     sourceSets {
         commonMain {
             dependencies {
@@ -232,8 +271,8 @@ allprojects {
         maven {
             url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
             credentials {
-                username = System.getenv("ATALA_GITHUB_ACTOR") // this is CMD system environment, and you can replace the retrieval of its value to any other preferable way if needed
-                password = System.getenv("ATALA_GITHUB_TOKEN") // this is CMD system environment, and you can replace the retrieval of its value to any other preferable way if needed
+                username = // GitHub Username
+                password = // GitHub Access Token
             }
         }
     }
@@ -241,13 +280,6 @@ allprojects {
 ```
 ```kotlin
 kotlin {
-    // if you are going to use the iOS as one of the KMM module target. You need to use the new iOS hierarchy
-    ios() // New iOS hierarchy
-    // instead of the old way
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -259,7 +291,7 @@ kotlin {
 }
 ```
 **For the third point**
-You need to use Kotlin version `1.7.21`.
+You need to use Kotlin version `1.9.20`.
 
 ## Usage
 

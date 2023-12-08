@@ -1,5 +1,6 @@
 package io.iohk.atala.prism.apollo.hashing
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.usePinned
@@ -10,7 +11,7 @@ import platform.CoreCrypto.kCCPRFHmacAlgSHA512
 // TODO: Finish implementation of pbkdf2 function on each platform probably easiest path
 actual class PBKDF2SHA512 {
     actual companion object {
-        @OptIn(ExperimentalUnsignedTypes::class)
+        @OptIn(ExperimentalUnsignedTypes::class, ExperimentalForeignApi::class)
         actual fun derive(
             p: String,
             s: String,

@@ -1,6 +1,7 @@
 import dev.petuska.npm.publish.extension.domain.NpmAccess
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -40,7 +41,7 @@ fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.swiftCinterop(libr
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
     jvm {
@@ -53,20 +54,22 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    ios {
+    iosArm64 {
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
 
         binaries.framework {
             baseName = "ApolloLibrary"
+            embedBitcode(BitcodeEmbeddingMode.DISABLE)
         }
     }
-    macosArm64 {
+    iosX64 {
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
 
         binaries.framework {
             baseName = "ApolloLibrary"
+            embedBitcode(BitcodeEmbeddingMode.DISABLE)
         }
     }
     iosSimulatorArm64 {
@@ -75,6 +78,16 @@ kotlin {
 
         binaries.framework {
             baseName = "ApolloLibrary"
+            embedBitcode(BitcodeEmbeddingMode.DISABLE)
+        }
+    }
+    macosArm64 {
+        swiftCinterop("IOHKSecureRandomGeneration", name)
+        swiftCinterop("IOHKCryptoKit", name)
+
+        binaries.framework {
+            baseName = "ApolloLibrary"
+            embedBitcode(BitcodeEmbeddingMode.DISABLE)
         }
     }
     js(IR) {
@@ -107,6 +120,7 @@ kotlin {
             }
         }
     }
+    applyDefaultHierarchyTemplate()
 
     multiplatformSwiftPackage {
         packageName("Apollo")
@@ -121,8 +135,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-                implementation("com.ionspin.kotlin:bignum:0.3.7")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
+                implementation("com.ionspin.kotlin:bignum:0.3.8")
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
                 implementation("org.kotlincrypto.hash:sha2:0.3.0")
             }
@@ -134,26 +148,26 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("fr.acinq.secp256k1:secp256k1-kmp:0.9.0")
-                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.9.0")
-                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-android:0.9.0")
+                api("fr.acinq.secp256k1:secp256k1-kmp:0.11.0")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.11.0")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-android:0.11.0")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
-                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
+                implementation("org.bitcoinj:bitcoinj-core:0.16.2")
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
         }
         val jvmMain by getting {
             dependencies {
-                api("fr.acinq.secp256k1:secp256k1-kmp:0.9.0")
-                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.9.0")
+                api("fr.acinq.secp256k1:secp256k1-kmp:0.11.0")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.11.0")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
-                implementation("org.bitcoinj:bitcoinj-core:0.15.10")
+                implementation("org.bitcoinj:bitcoinj-core:0.16.2")
             }
         }
         val jvmTest by getting {
@@ -180,32 +194,10 @@ kotlin {
         }
         val jsTest by getting
 
-        val appleMain by creating {
-            dependsOn(commonMain)
+        val appleMain by getting {
             dependencies {
                 implementation(project(":secp256k1-kmp"))
             }
-        }
-        val appleTest by creating {
-            dependsOn(commonTest)
-        }
-        val iosMain by getting {
-            dependsOn(appleMain)
-        }
-        val iosTest by getting {
-            dependsOn(appleTest)
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(appleMain)
-        }
-        val iosSimulatorArm64Test by getting {
-            dependsOn(appleTest)
-        }
-        val macosArm64Main by getting {
-            dependsOn(appleMain)
-        }
-        val macosArm64Test by getting {
-            dependsOn(appleTest)
         }
     }
 
@@ -300,7 +292,7 @@ tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets {
         configureEach {
             jdkVersion.set(11)
-            languageVersion.set("1.8.20")
+            languageVersion.set("1.9.20")
             apiVersion.set("2.0")
             includes.from(
                 "docs/Base64.md",
@@ -358,5 +350,18 @@ npmPublish {
             uri.set("https://registry.npmjs.org")
             authToken.set(System.getenv("ATALA_NPM_TOKEN"))
         }
+    }
+}
+
+// Workaround for a bug in Gradle
+afterEvaluate {
+    tasks.named("lintAnalyzeDebug") {
+        this.enabled = false
+    }
+    tasks.named("lintAnalyzeRelease") {
+        this.enabled = false
+    }
+    tasks.named("iosX64Test") {
+        this.enabled = false
     }
 }
