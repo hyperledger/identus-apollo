@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.4...v1.2.5) (2023-12-11)
+
+
+### Bug Fixes
+
+* checksum third try ([#125](https://github.com/input-output-hk/atala-prism-apollo/issues/125)) ([f1eba66](https://github.com/input-output-hk/atala-prism-apollo/commit/f1eba66cf93cbbc10dcbbd4f3813858495c2fb93))
+
 ## [1.2.4](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.3...v1.2.4) (2023-12-11)
 
 
