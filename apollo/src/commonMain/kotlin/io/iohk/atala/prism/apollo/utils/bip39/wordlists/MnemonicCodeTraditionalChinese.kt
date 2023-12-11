@@ -3,6 +3,14 @@ package io.iohk.atala.prism.apollo.utils.bip39.wordlists
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
+/**
+ * The MnemonicCodeTraditionalChinese class represents a collection of Traditional Chinese mnemonic words.
+ * These words can be used for generating and restoring mnemonic codes in Traditional Chinese.
+ *
+ * The words are used to represent binary data in a human-readable format.
+ *
+ * @property wordList The list of Traditional Chinese mnemonic words
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 internal object MnemonicCodeTraditionalChinese {

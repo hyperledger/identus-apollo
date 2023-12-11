@@ -41,10 +41,21 @@ class DerivationAxis internal constructor(val i: Int) {
             i.toString()
         }
 
+    /**
+     * Returns the hash code value for the object.
+     *
+     * @return the hash code value for the object.
+     */
     override fun hashCode(): Int {
         return i.hashCode()
     }
 
+    /**
+     * Checks if the given object is equal to this DerivationAxis.
+     *
+     * @param other the object to compare
+     * @return true if the given object is equal to this DerivationAxis, false otherwise
+     */
     override fun equals(other: Any?): Boolean {
         return other is DerivationAxis && number == other.number
     }

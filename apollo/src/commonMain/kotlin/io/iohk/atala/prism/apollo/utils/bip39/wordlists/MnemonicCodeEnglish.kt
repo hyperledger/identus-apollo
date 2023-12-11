@@ -3,6 +3,14 @@ package io.iohk.atala.prism.apollo.utils.bip39.wordlists
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
+/**
+ * The MnemonicCodeEnglish class represents a collection of English mnemonic words.
+ * These words can be used for generating and restoring mnemonic codes in English.
+ *
+ * The words are used to represent binary data in a human-readable format.
+ *
+ * @property wordList The list of English mnemonic words
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 internal object MnemonicCodeEnglish {

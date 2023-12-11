@@ -45,6 +45,14 @@ class BigIntegerWrapper {
         value = bigInteger
     }
 
+    /**
+     * Checks whether this BigIntegerWrapper is equal to the specified object.
+     *
+     * Two BigIntegerWrapper objects are considered equal if they have the same value.
+     *
+     * @param other the object to compare with this BigIntegerWrapper
+     * @return true if the specified object is equal to this BigIntegerWrapper, false otherwise
+     */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
@@ -54,6 +62,13 @@ class BigIntegerWrapper {
         return value == other.value
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * The hash code value is based on the value of the BigIntegerWrapper object.
+     *
+     * @return the hash code value for the object
+     */
     override fun hashCode(): Int {
         return value.hashCode()
     }
@@ -71,6 +86,15 @@ class HDKey(
     val depth: Int = 0,
     val childIndex: BigIntegerWrapper = BigIntegerWrapper(0)
 ) {
+    /**
+     * Constructs a new HDKey object from a seed, depth, and child index.
+     *
+     * @param seed The seed used to derive the private key and chain code.
+     * @param depth The depth of the HDKey.
+     * @param childIndex The child index of the HDKey.
+     *
+     * @throws IllegalArgumentException if the seed length is not equal to 64.
+     */
     @JsName("InitFromSeed")
     constructor(seed: ByteArray, depth: Int, childIndex: BigIntegerWrapper) : this(
         privateKey = sha512(key = "Bitcoin seed".encodeToByteArray(), input = seed).sliceArray(IntRange(0, 31)),
@@ -83,6 +107,14 @@ class HDKey(
         }
     }
 
+    /**
+     * Constructs an HDKey by initializing the private key, chain code, depth, and child index from the provided seed.
+     *
+     * @param seed        The seed used to derive the private key and chain code.
+     * @param depth       The depth of the HDKey.
+     * @param childIndex  The child index of the HDKey.
+     * @throws IllegalArgumentException if the seed size is not 64 bytes.
+     */
     @JsName("InitFromSeedFromBigIntegerString")
     constructor(seed: ByteArray, depth: Int, childIndex: Int) : this(
         privateKey = sha512(key = "Bitcoin seed".encodeToByteArray(), input = seed).sliceArray(IntRange(0, 31)),
@@ -193,18 +225,42 @@ class HDKey(
         } ?: throw Exception("Private key not available")
     }
 
+    /**
+     * Determines if the provided private key data is valid.
+     *
+     * @param data The byte array representing the private key data.
+     * @return True if the private key data is valid, false otherwise.
+     */
     private fun isValidPrivateKey(data: ByteArray): Boolean {
         return (data.size == ECConfig.PRIVATE_KEY_BYTE_SIZE)
     }
 
     companion object {
+        /**
+         * This variable represents the hardened offset for deriving HD keys.
+         *
+         * @suppress This symbol is not intended to be used outside of this module.
+         */
         @Suppress("NON_EXPORTABLE_TYPE")
         const val HARDENED_OFFSET = 2147483648
+        /**
+         * Represents the version number for Bitcoin private keys.
+         */
         const val BITCOIN_VERSIONS_PRIVATE = 0x0488ade4
+        /**
+         * Public bitcoin versions constant.
+         */
         const val BITCOIN_VERSIONS_PUBLIC = 0x0488b21e
         const val FINGERPRINT = 0
         const val MASTER_SECRET = "Atala Prism"
 
+        /**
+         * Calculates the SHA-512 hash of the given key and input.
+         *
+         * @param key The key to use for HMAC-SHA512. It should be a byte array.
+         * @param input The input data for which the hash needs to be calculated. It should be a byte array.
+         * @return The SHA-512 hash of the input data. It is returned as a byte array.
+         */
         fun sha512(key: ByteArray, input: ByteArray): ByteArray {
             val sha512 = HmacSHA512(key)
             sha512.update(input)

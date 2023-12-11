@@ -3,6 +3,14 @@ package io.iohk.atala.prism.apollo.utils.bip39.wordlists
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
+/**
+ * The MnemonicCodeFrench class represents a collection of French mnemonic words.
+ * These words can be used for generating and restoring mnemonic codes in French.
+ *
+ * The words are used to represent binary data in a human-readable format.
+ *
+ * @property wordList The list of French mnemonic words
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 internal object MnemonicCodeFrench {

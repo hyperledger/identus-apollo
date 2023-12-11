@@ -4,6 +4,9 @@ import com.ionspin.kotlin.bignum.integer.BigInteger
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
+/**
+ * ECConfig class contains constants and parameters related to elliptic curve cryptography.
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 object ECConfig {
