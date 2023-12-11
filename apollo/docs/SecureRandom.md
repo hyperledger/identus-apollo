@@ -1,8 +1,5 @@
 # Package io.iohk.atala.prism.apollo.securerandom
 
-
-![Atala Prism Logo](../../images/Logo.png)
-
 Apollo Secure Random is Kotlin Multiplatform library to generate secure random bytes
 
 ## Supported Targets

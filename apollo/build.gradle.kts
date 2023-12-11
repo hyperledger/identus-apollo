@@ -313,6 +313,7 @@ tasks.withType<DokkaTask>().configureEach {
             languageVersion.set("1.9.20")
             apiVersion.set("2.0")
             includes.from(
+                "docs/Apollo.md",
                 "docs/Base64.md",
                 "docs/SecureRandom.md"
             )
