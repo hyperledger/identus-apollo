@@ -16,6 +16,7 @@ func main() {
     let outputPath = args[4]
 
     do {
+        print("Updating reference to: \(ref) and checksum to:\(checksum)")
         // Read the content of the file
         let fileContent = try String(contentsOfFile: inputPath, encoding: .utf8)
         
