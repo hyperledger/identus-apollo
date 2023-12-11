@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URL
+import java.time.Year
 
 val currentModuleName: String = "Apollo"
 val os: OperatingSystem = OperatingSystem.current()
@@ -40,11 +41,27 @@ fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.swiftCinterop(libr
     }
 }
 
+/**
+ * The `javadocJar` variable is used to register a `Jar` task to generate a Javadoc JAR file.
+ * The Javadoc JAR file is created with the classifier "javadoc" and it includes the HTML documentation generated
+ * by the `dokkaHtml` task.
+ */
+val javadocJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
+    from(tasks.dokkaHtml)
+}
+
 kotlin {
     androidTarget {
         publishAllLibraryVariants()
     }
     jvm {
+        withSourcesJar()
+        publishing {
+            publications.withType<MavenPublication> {
+                artifact(javadocJar)
+            }
+        }
         compilations.all {
             kotlinOptions {
                 jvmTarget = "11"
@@ -288,6 +305,7 @@ tasks.withType<DokkaTask>().configureEach {
     description = "This is a Kotlin Multiplatform Library for cryptography"
     pluginConfiguration<org.jetbrains.dokka.base.DokkaBase, org.jetbrains.dokka.base.DokkaBaseConfiguration> {
         customAssets = listOf(rootDir.resolve("Logo.png"))
+        footerMessage = "(c) ${Year.now().value} IOG Copyright"
     }
     dokkaSourceSets {
         configureEach {
