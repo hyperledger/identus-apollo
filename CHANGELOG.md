@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.2...v1.2.3) (2023-12-11)
+
+
+### Bug Fixes
+
+* remove failing links to unblock dokka documentation generation ([#120](https://github.com/input-output-hk/atala-prism-apollo/issues/120)) ([0e18bef](https://github.com/input-output-hk/atala-prism-apollo/commit/0e18befc1b548cf261074d436e55ffbdc3512b3d))
+
 ## [1.2.2](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.1...v1.2.2) (2023-12-05)
 
 
