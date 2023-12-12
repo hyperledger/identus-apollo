@@ -29,14 +29,6 @@ dependencies {
     kover(project("secp256k1-kmp:native"))
 }
 
-koverReport {
-    filters {
-        excludes {
-            classes("io.iohk.atala.prism.apollo.utils.bip39.wordlists.*")
-        }
-    }
-}
-
 allprojects {
     group = "io.iohk.atala.prism.apollo"
 
@@ -65,6 +57,16 @@ allprojects {
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     apply(plugin = "org.jetbrains.kotlinx.kover")
+
+    koverReport {
+        filters {
+            excludes {
+                classes(
+                    "io.iohk.atala.prism.apollo.utils.bip39.wordlists.*"
+                )
+            }
+        }
+    }
 
     ktlint {
         verbose.set(true)
