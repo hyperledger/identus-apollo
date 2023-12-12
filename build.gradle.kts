@@ -20,7 +20,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.20")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.21")
         classpath("com.android.tools.build:gradle:7.2.2")
         classpath("org.jetbrains.dokka:dokka-base:1.9.10")
     }
@@ -32,14 +32,6 @@ dependencies {
     kover(project(":apollo"))
     kover(project("secp256k1-kmp"))
     kover(project("secp256k1-kmp:native"))
-}
-
-koverReport {
-    filters {
-        excludes {
-            classes("io.iohk.atala.prism.apollo.utils.bip39.wordlists.*")
-        }
-    }
 }
 
 allprojects {
@@ -149,6 +141,16 @@ allprojects {
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     apply(plugin = "org.jetbrains.kotlinx.kover")
+
+    koverReport {
+        filters {
+            excludes {
+                classes(
+                    "io.iohk.atala.prism.apollo.utils.bip39.wordlists.*"
+                )
+            }
+        }
+    }
 
     ktlint {
         verbose.set(true)

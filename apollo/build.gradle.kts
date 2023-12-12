@@ -310,7 +310,7 @@ tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets {
         configureEach {
             jdkVersion.set(11)
-            languageVersion.set("1.9.20")
+            languageVersion.set("1.9.21")
             apiVersion.set("2.0")
             includes.from(
                 "docs/Apollo.md",

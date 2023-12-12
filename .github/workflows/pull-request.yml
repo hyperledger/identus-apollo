@@ -82,13 +82,13 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         with:
           name: coverage-results-${{ matrix.os-type }}.zip
-          path: build/reports/kover/html
+          path: apollo/build/reports/kover/html
 
       - name: "Add coverage report to PR"
         id: kover
         uses: mi-kas/kover-report@v1
         with:
-          path: ${{ github.workspace }}/build/reports/kover/report.xml
+          path: ${{ github.workspace }}/apollo/build/reports/kover/report.xml
           token: ${{ secrets.ATALA_GITHUB_TOKEN }}
           title: Code Coverage
           update-comment: true
