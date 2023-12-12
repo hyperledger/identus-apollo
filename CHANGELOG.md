@@ -1,3 +1,10 @@
+## [1.2.7](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.6...v1.2.7) (2023-12-12)
+
+
+### Bug Fixes
+
+* ci xcode version needs to be updated ([#129](https://github.com/input-output-hk/atala-prism-apollo/issues/129)) ([c0cbf88](https://github.com/input-output-hk/atala-prism-apollo/commit/c0cbf881855d6cff60c8e5f4a451bedeb7dfe6bf))
+
 ## [1.2.6](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.5...v1.2.6) (2023-12-12)
 
 
