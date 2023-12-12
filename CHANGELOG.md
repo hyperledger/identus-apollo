@@ -1,3 +1,10 @@
+## [1.2.6-snapshot.1](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.5...v1.2.6-snapshot.1) (2023-12-12)
+
+
+### Bug Fixes
+
+* try simplified sed replacement for swift ([568972b](https://github.com/input-output-hk/atala-prism-apollo/commit/568972bbae69e92bd1f7867645f13cde859ae157))
+
 ## [1.2.5](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.4...v1.2.5) (2023-12-11)
 
 
