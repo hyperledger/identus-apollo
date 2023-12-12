@@ -13,7 +13,7 @@ plugins:
   # - [ '@semantic-release/exec', {
   #   prepareCmd: '(cd ./apollo/build/packages/ApolloSwift && zip -r "Apollo.xcframework.zip" Apollo.xcframework)' } ]
   - [ '@semantic-release/exec', {
-      prepareCmd: 'CHECKSUM=$(swift package compute-checksum ./apollo/build/packages/ApolloSwift/Apollo.xcframework.zip) echo ${CHECKSUM}'
+      prepareCmd: 'echo $(swift package compute-checksum ./apollo/build/packages/ApolloSwift/Apollo.xcframework.zip)'
     }
     ]
   # - [
