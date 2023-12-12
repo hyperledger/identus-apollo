@@ -243,10 +243,12 @@ class HDKey(
          */
         @Suppress("NON_EXPORTABLE_TYPE")
         const val HARDENED_OFFSET = 2147483648
+
         /**
          * Represents the version number for Bitcoin private keys.
          */
         const val BITCOIN_VERSIONS_PRIVATE = 0x0488ade4
+
         /**
          * Public bitcoin versions constant.
          */
