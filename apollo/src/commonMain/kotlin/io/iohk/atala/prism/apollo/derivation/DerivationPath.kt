@@ -16,6 +16,11 @@ data class DerivationPath(val axes: List<DerivationAxis>) {
     fun derive(axis: DerivationAxis): DerivationPath =
         copy(axes = axes + axis)
 
+    /**
+     * Returns a string representation of the DerivationPath object.
+     *
+     * @return The string representation of the DerivationPath object.
+     */
     override fun toString(): String =
         (listOf("m") + axes.map { it.toString() }).joinToString("/")
 
@@ -42,6 +47,13 @@ data class DerivationPath(val axes: List<DerivationAxis>) {
             }
         }
 
+        /**
+         * Parses the given axis string and returns the corresponding DerivationAxis object.
+         *
+         * @param axis The axis string to parse. The string should be a number between 0 and 2^31^ - 1. If the axis is hardened,
+         *              a ' should be added after the number. Example: "21'" for a hardened axis or "7" for a normal axis.
+         * @return The parsed DerivationAxis object.
+         */
         private fun parseAxis(axis: String): DerivationAxis {
             val hardened = axis.endsWith("'")
             val axisNumStr = if (hardened) axis.substring(0, axis.length - 1) else axis

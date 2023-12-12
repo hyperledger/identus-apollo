@@ -5,7 +5,7 @@ import io.iohk.atala.prism.apollo.securerandom.SecureRandom
 import org.kotlincrypto.hash.sha2.SHA256
 
 /**
- * This helper provides a set of methods to work with Mnemonics
+ * A helper class for working with mnemonics.
  */
 final class MnemonicHelper {
     companion object {
@@ -14,6 +14,12 @@ final class MnemonicHelper {
         private const val PBKDF2C = 2048
         private const val PBKDF2_DK_LEN = 64
 
+        /**
+         * A custom exception class representing an invalid mnemonic code.
+         *
+         * @param code The mnemonic code that is invalid.
+         * @constructor Creates an instance of InvalidMnemonicCode with the specified code.
+         */
         class InvalidMnemonicCode(code: String) : RuntimeException(code)
 
         /**

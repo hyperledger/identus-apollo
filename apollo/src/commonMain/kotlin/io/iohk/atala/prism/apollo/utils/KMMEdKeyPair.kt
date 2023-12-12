@@ -1,11 +1,8 @@
 package io.iohk.atala.prism.apollo.utils
 
-import kotlin.js.ExperimentalJsExport
-
 /**
  * Interface defining the functionality for generating KMMEd key pairs.
  */
-@ExperimentalJsExport
 expect class KMMEdKeyPair(privateKey: KMMEdPrivateKey, publicKey: KMMEdPublicKey) {
     val privateKey: KMMEdPrivateKey
     val publicKey: KMMEdPublicKey

@@ -1,11 +1,6 @@
 # Package io.iohk.atala.prism.apollo.base64
 
-![Atala Prism Logo](../../images/Logo.png)
-
-Apollo Base64 is Kotlin Multiplatform library containing:
-
-- Standard
-- URL safe
+Apollo Base64 is Kotlin Multiplatform library containing Standard & URL safe
 
 ## Supported Targets
 

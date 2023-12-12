@@ -3,6 +3,14 @@ package io.iohk.atala.prism.apollo.utils.bip39.wordlists
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
+/**
+ * The MnemonicCodeCzech class represents a collection of Czech mnemonic words.
+ * These words can be used for generating and restoring mnemonic codes in Czech.
+ *
+ * The words are used to represent binary data in a human-readable format.
+ *
+ * @property wordList The list of Czech mnemonic words
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 internal object MnemonicCodeCzech {

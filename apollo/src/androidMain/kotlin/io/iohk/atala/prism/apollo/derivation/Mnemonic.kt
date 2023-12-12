@@ -1,5 +1,8 @@
 package io.iohk.atala.prism.apollo.derivation
 
+/**
+ * The Mnemonic class provides utility methods for working with mnemonic codes.
+ */
 final class Mnemonic {
     companion object {
         class InvalidMnemonicCode(code: String) : RuntimeException(code)
