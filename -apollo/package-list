@@ -64,7 +64,6 @@ $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKey.Companion///Pointing
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKey.Companion/BITCOIN_VERSIONS_PRIVATE/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key/-companion/-b-i-t-c-o-i-n_-v-e-r-s-i-o-n-s_-p-r-i-v-a-t-e.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKey.Companion/BITCOIN_VERSIONS_PUBLIC/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key/-companion/-b-i-t-c-o-i-n_-v-e-r-s-i-o-n-s_-p-u-b-l-i-c.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKey.Companion/FINGERPRINT/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key/-companion/-f-i-n-g-e-r-p-r-i-n-t.html
-$dokka.location:io.iohk.atala.prism.apollo.derivation/HDKey.Companion/HARDENED_OFFSET/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key/-companion/-h-a-r-d-e-n-e-d_-o-f-f-s-e-t.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKey.Companion/MASTER_SECRET/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key/-companion/-m-a-s-t-e-r_-s-e-c-r-e-t.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKey.Companion/sha512/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key/-companion/sha512.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKey///PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key/index.html
@@ -84,6 +83,8 @@ $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKeyOptions///PointingToD
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKeyOptions/HDKeyOptions/#kotlin.Pair[kotlin.Int,kotlin.Int]#kotlin.ByteArray#kotlin.Int#kotlin.Int?#com.ionspin.kotlin.bignum.integer.BigInteger#kotlin.ByteArray?#kotlin.ByteArray?/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key-options/-h-d-key-options.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKeyOptions/chainCode/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key-options/chain-code.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKeyOptions/depth/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key-options/depth.html
+$dokka.location:io.iohk.atala.prism.apollo.derivation/HDKeyOptions/equals/#kotlin.Any?/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key-options/equals.html
+$dokka.location:io.iohk.atala.prism.apollo.derivation/HDKeyOptions/hashCode/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key-options/hash-code.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKeyOptions/index/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key-options/--index--.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKeyOptions/parentFingerprint/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key-options/parent-fingerprint.html
 $dokka.location:io.iohk.atala.prism.apollo.derivation/HDKeyOptions/privateKey/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.derivation/-h-d-key-options/private-key.html
