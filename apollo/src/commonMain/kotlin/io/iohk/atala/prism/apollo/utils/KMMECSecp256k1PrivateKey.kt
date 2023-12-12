@@ -8,11 +8,26 @@ import kotlin.js.JsName
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 interface KMMECSecp256k1PrivateKeyCommonStaticInterface {
+    /**
+     * Constructs a [KMMECSecp256k1PrivateKey] from a byte array.
+     *
+     * @param d The byte array representing the private key.
+     * @return The constructed [KMMECSecp256k1PrivateKey] object.
+     */
     @JsName("secp256k1FromByteArray")
     fun secp256k1FromByteArray(d: ByteArray): KMMECSecp256k1PrivateKey {
         return KMMECSecp256k1PrivateKey(d)
     }
 
+    /**
+     * Creates a tweaked instance of [KMMECSecp256k1PrivateKey] by deriving a new private key from the
+     * provided private key data and derivation private key data.
+     *
+     * @param privateKeyData The byte array representing the original private key.
+     * @param derivationPrivateKeyData The byte array used for deriving the new private key.
+     * @return A [KMMECSecp256k1PrivateKey] object representing the derived private key.
+     * @throws ECPrivateKeyDecodingException if an error occurs while tweaking.
+     */
     fun tweak(
         privateKeyData: ByteArray,
         derivationPrivateKeyData: ByteArray

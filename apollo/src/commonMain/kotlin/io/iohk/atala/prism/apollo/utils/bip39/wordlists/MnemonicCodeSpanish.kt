@@ -3,6 +3,14 @@ package io.iohk.atala.prism.apollo.utils.bip39.wordlists
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
+/**
+ * The MnemonicCodeSpanish class represents a collection of Spanish mnemonic words.
+ * These words can be used for generating and restoring mnemonic codes in Spanish.
+ *
+ * The words are used to represent binary data in a human-readable format.
+ *
+ * @property wordList The list of Spanish mnemonic words
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 internal object MnemonicCodeSpanish {

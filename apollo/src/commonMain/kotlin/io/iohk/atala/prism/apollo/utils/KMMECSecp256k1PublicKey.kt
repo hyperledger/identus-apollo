@@ -25,6 +25,13 @@ interface KMMECSecp256k1PublicKeyCommonStaticInterface {
         return ((y * y - x * x * x - ECConfig.b) mod ECConfig.p) == BigInteger.ZERO
     }
 
+    /**
+     * Converts an encoded byte array to a KMMECSecp256k1PublicKey object.
+     *
+     * @param encoded The encoded byte array representing the public key.
+     * @return A KMMECSecp256k1PublicKey object.
+     * @throws IllegalArgumentException if the encoded byte array's length is not 33 (compressed) or 65 (uncompressed).
+     */
     @JsName("secp256k1FromBytes")
     fun secp256k1FromBytes(encoded: ByteArray): KMMECSecp256k1PublicKey {
         require(encoded.size == 33 || encoded.size == 65) {
@@ -38,6 +45,14 @@ interface KMMECSecp256k1PublicKeyCommonStaticInterface {
         }
     }
 
+    /**
+     * Generates a KMMECSecp256k1PublicKey from byte coordinates.
+     *
+     * @param x The x coordinate as a ByteArray.
+     * @param y The y coordinate as a ByteArray.
+     * @return The KMMECSecp256k1PublicKey generated from the byte coordinates.
+     * @throws IllegalArgumentException if the x or y coordinate byte length exceeds ECConfig.PUBLIC_KEY_COORDINATE_BYTE_SIZE.
+     */
     fun secp256k1FromByteCoordinates(x: ByteArray, y: ByteArray): KMMECSecp256k1PublicKey {
         val xTrimmed = x.dropWhile { it == 0.toByte() }.toByteArray()
         require(xTrimmed.size <= ECConfig.PUBLIC_KEY_COORDINATE_BYTE_SIZE) {

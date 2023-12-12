@@ -1,7 +1,7 @@
 package io.iohk.atala.prism.apollo
 
 /**
- * Define which platform
+ * Provides information about the platform on which the application is running.
  */
 expect object Platform {
     /**

@@ -3,6 +3,14 @@ package io.iohk.atala.prism.apollo.utils.bip39.wordlists
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
+/**
+ * The MnemonicCodeItalian class represents a collection of Italian mnemonic words.
+ * These words can be used for generating and restoring mnemonic codes in Italian.
+ *
+ * The words are used to represent binary data in a human-readable format.
+ *
+ * @property wordList The list of Italian mnemonic words
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 internal object MnemonicCodeItalian {
