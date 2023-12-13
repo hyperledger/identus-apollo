@@ -45,81 +45,95 @@ allprojects {
 
     apply(plugin = "org.gradle.maven-publish")
 
+    // Disable Publish Gradle task for the following modules
+    val disabledProjects = listOf("iOSLibs", "secp256k1-kmp", "native")
+    if (disabledProjects.contains(project.name)) {
+        afterEvaluate {
+            tasks.named("publishAllPublicationsToSonatypeRepository") {
+                enabled = false
+            }
+        }
+    }
+    // Allowed projects to publish to maven
+    val allowedProjectsToPublish = listOf("apollo")
+
     publishing {
         publications {
-            create<MavenPublication>(project.name) {
-                groupId = publishedMavenId
-                artifactId = project.name
-                version = project.version.toString()
-                pom {
-                    name.set("Atala PRISM Apollo")
-                    description.set("Collection of the cryptographic methods used all around Atala PRISM")
-                    url.set("https://docs.atalaprism.io/")
-                    organization {
-                        name.set("IOG")
-                        url.set("https://iog.io/")
-                    }
-                    licenses {
-                        license {
-                            name.set("The Apache License, Version 2.0")
-                            url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+            if (allowedProjectsToPublish.contains(project.name)) {
+                create<MavenPublication>(project.name) {
+                    groupId = publishedMavenId
+                    artifactId = project.name
+                    version = project.version.toString()
+                    pom {
+                        name.set("Atala PRISM Apollo")
+                        description.set("Collection of the cryptographic methods used all around Atala PRISM")
+                        url.set("https://docs.atalaprism.io/")
+                        organization {
+                            name.set("IOG")
+                            url.set("https://iog.io/")
                         }
-                    }
-                    developers {
-                        developer {
-                            id.set("hamada147")
-                            name.set("Ahmed Moussa")
-                            email.set("ahmed.moussa@iohk.io")
-                            organization.set("IOG")
-                            roles.add("developer")
+                        licenses {
+                            license {
+                                name.set("The Apache License, Version 2.0")
+                                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                            }
                         }
-                        developer {
-                            id.set("amagyar-iohk")
-                            name.set("Allain Magyar")
-                            email.set("allain.magyar@iohk.io")
-                            organization.set("IOG")
-                            roles.add("qc")
+                        developers {
+                            developer {
+                                id.set("hamada147")
+                                name.set("Ahmed Moussa")
+                                email.set("ahmed.moussa@iohk.io")
+                                organization.set("IOG")
+                                roles.add("developer")
+                            }
+                            developer {
+                                id.set("amagyar-iohk")
+                                name.set("Allain Magyar")
+                                email.set("allain.magyar@iohk.io")
+                                organization.set("IOG")
+                                roles.add("qc")
+                            }
+                            developer {
+                                id.set("antonbaliasnikov")
+                                name.set("Anton Baliasnikov")
+                                email.set("anton.baliasnikov@iohk.io")
+                                organization.set("IOG")
+                                roles.add("qc")
+                            }
+                            developer {
+                                id.set("elribonazo")
+                                name.set("Javier Ribó")
+                                email.set("javier.ribo@iohk.io")
+                                organization.set("IOG")
+                                roles.add("developer")
+                            }
+                            developer {
+                                id.set("goncalo-frade-iohk")
+                                name.set("Gonçalo Frade")
+                                email.set("goncalo.frade@iohk.io")
+                                organization.set("IOG")
+                                roles.add("developer")
+                            }
+                            developer {
+                                id.set("curtis-h")
+                                name.set("Curtis Harding")
+                                email.set("curtis.harding@iohk.io")
+                                organization.set("IOG")
+                                roles.add("developer")
+                            }
+                            developer {
+                                id.set("cristianIOHK")
+                                name.set("Cristian Gonzalez")
+                                email.set("cristian.castro@iohk.io")
+                                organization.set("IOG")
+                                roles.add("developer")
+                            }
                         }
-                        developer {
-                            id.set("antonbaliasnikov")
-                            name.set("Anton Baliasnikov")
-                            email.set("anton.baliasnikov@iohk.io")
-                            organization.set("IOG")
-                            roles.add("qc")
+                        scm {
+                            connection.set("scm:git:git://input-output-hk/atala-prism-apollo.git")
+                            developerConnection.set("scm:git:ssh://input-output-hk/atala-prism-apollo.git")
+                            url.set("https://github.com/input-output-hk/atala-prism-apollo")
                         }
-                        developer {
-                            id.set("elribonazo")
-                            name.set("Javier Ribó")
-                            email.set("javier.ribo@iohk.io")
-                            organization.set("IOG")
-                            roles.add("developer")
-                        }
-                        developer {
-                            id.set("goncalo-frade-iohk")
-                            name.set("Gonçalo Frade")
-                            email.set("goncalo.frade@iohk.io")
-                            organization.set("IOG")
-                            roles.add("developer")
-                        }
-                        developer {
-                            id.set("curtis-h")
-                            name.set("Curtis Harding")
-                            email.set("curtis.harding@iohk.io")
-                            organization.set("IOG")
-                            roles.add("developer")
-                        }
-                        developer {
-                            id.set("cristianIOHK")
-                            name.set("Cristian Gonzalez")
-                            email.set("cristian.castro@iohk.io")
-                            organization.set("IOG")
-                            roles.add("developer")
-                        }
-                    }
-                    scm {
-                        connection.set("scm:git:git://input-output-hk/atala-prism-apollo.git")
-                        developerConnection.set("scm:git:ssh://input-output-hk/atala-prism-apollo.git")
-                        url.set("https://github.com/input-output-hk/atala-prism-apollo")
                     }
                 }
             }
