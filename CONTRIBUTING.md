@@ -5,6 +5,7 @@ The following is a set of guidelines for contributing to Apollo. These are mostl
 
 ## What should I know before I get started?
 
+
 ### Atala PRISM
 
 Atala PRISM is a self-sovereign identity (SSI) platform and service suite for verifiable data and digital identity. Built on Cardano, it offers core infrastructure for issuing DIDs (Decentralized identifiers) and verifiable credentials, alongside tools and frameworks to help expand your ecosystem.  
