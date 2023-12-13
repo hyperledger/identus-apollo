@@ -7,7 +7,6 @@ plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"
   - [ "@semantic-release/changelog", { changelogFile: "CHANGELOG.md" } ]
-  - "gradle-semantic-release-plugin"
   - [ '@semantic-release/exec', {
     prepareCmd: './gradlew :apollo:createSwiftPackage' } ]
   - [ '@semantic-release/exec', {
