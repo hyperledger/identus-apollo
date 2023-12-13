@@ -34,7 +34,7 @@ kotlin {
             // https://youtrack.jetbrains.com/issue/KT-39396
             compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
                 "-include-binary",
-                "$rootDir/secp256k1-kmp/native/build/ios/x86_x64-iphonesimulator/libsecp256k1.a"
+                "$rootDir/secp256k1-kmp/native/build/ios/arm64_x86_x64-iphonesimulator/libsecp256k1.a"
             )
         }
         iosArm64 {
@@ -50,7 +50,7 @@ kotlin {
             // https://youtrack.jetbrains.com/issue/KT-39396
             compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
                 "-include-binary",
-                "$rootDir/secp256k1-kmp/native/build/ios/arm64-iphonesimulator/libsecp256k1.a"
+                "$rootDir/secp256k1-kmp/native/build/ios/arm64_x86_x64-iphonesimulator/libsecp256k1.a"
             )
         }
         macosX64 {
@@ -58,7 +58,7 @@ kotlin {
             // https://youtrack.jetbrains.com/issue/KT-39396
             compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
                 "-include-binary",
-                "$rootDir/secp256k1-kmp/native/build/ios/x86_x64-macosx/libsecp256k1.a"
+                "$rootDir/secp256k1-kmp/native/build/ios/arm64-x86_x64-macosx/libsecp256k1.a"
             )
         }
         macosArm64 {
@@ -66,7 +66,7 @@ kotlin {
             // https://youtrack.jetbrains.com/issue/KT-39396
             compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
                 "-include-binary",
-                "$rootDir/secp256k1-kmp/native/build/ios/arm64-macosx/libsecp256k1.a"
+                "$rootDir/secp256k1-kmp/native/build/ios/arm64-x86_x64-macosx/libsecp256k1.a"
             )
         }
     }

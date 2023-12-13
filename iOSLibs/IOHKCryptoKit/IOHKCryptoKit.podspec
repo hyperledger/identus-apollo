@@ -27,9 +27,9 @@ Pod::Spec.new do |s|
     s.swift_version = '5.7'
     s.cocoapods_version = '>= 1.10.0'
     
-    s.ios.deployment_target = '13.0'
+    s.ios.deployment_target = '15.0'
     s.osx.deployment_target  = '12.0'
-    s.tvos.deployment_target = '13.0'
+    s.tvos.deployment_target = '15.0'
     s.watchos.deployment_target = '8.0'
     
     s.source_files = 'IOHKCryptoKit/**/*.swift'
