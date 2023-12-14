@@ -66,10 +66,16 @@ libraries.forEach { library ->
     }
 }
 
-tasks.create<Delete>("clean") {
+val deleteBuildFolder by tasks.register<Delete>("deleteBuildFolder") {
     group = "build"
     delete("$projectDir/build")
     libraries.forEach {
         delete("$projectDir/$it/build")
+    }
+}
+
+afterEvaluate {
+    tasks.named("clean") {
+        dependsOn(deleteBuildFolder)
     }
 }

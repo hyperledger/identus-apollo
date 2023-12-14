@@ -107,24 +107,3 @@ kotlin {
 //        compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/arm64-appletvos/libsecp256k1.a")
 //    }
 }
-
-afterEvaluate {
-    // Disable publish of targets
-    if (currentOs.isMacOsX) {
-        tasks.named("publishIosX64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
-        tasks.named("publishIosArm64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
-        tasks.named("publishIosSimulatorArm64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
-        tasks.named("publishMacosArm64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
-        tasks.named("publishMacosX64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
-    }
-}
