@@ -87,8 +87,10 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
-            if (System.getenv("XCODE_VERSION_MAJOR").toInt() >= 1500) {
-                linkerOpts += "-ld64"
+            if (os.isMacOsX) {
+                if (System.getenv().containsKey("XCODE_VERSION_MAJOR") && System.getenv("XCODE_VERSION_MAJOR") == "1500") {
+                    linkerOpts += "-ld64"
+                }
             }
         }
     }
