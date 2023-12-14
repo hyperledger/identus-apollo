@@ -1,3 +1,10 @@
+## [1.2.9](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.8...v1.2.9) (2023-12-14)
+
+
+### Bug Fixes
+
+* ci pipelienes to use correct env vars ([7ee131f](https://github.com/input-output-hk/atala-prism-apollo/commit/7ee131f7dcab15820885904d264681f9860e8256))
+
 ## [1.2.8](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.7...v1.2.8) (2023-12-14)
 
 
