@@ -87,8 +87,10 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
-            if (System.getenv("XCODE_VERSION_MAJOR") == "1500") {
-                linkerOpts += "-ld64"
+            if (os.isMacOsX) {
+                if (System.getenv().containsKey("XCODE_VERSION_MAJOR") && System.getenv("XCODE_VERSION_MAJOR") == "1500") {
+                    linkerOpts += "-ld64"
+                }
             }
         }
     }
@@ -384,6 +386,24 @@ afterEvaluate {
         this.enabled = false
     }
     tasks.named("iosX64Test") {
+        this.enabled = false
+    }
+    // Disable publish of targets
+    if (os.isMacOsX) {
+        tasks.named("publishIosX64PublicationToSonatypeRepository") {
+            this.enabled = false
+        }
+        tasks.named("publishIosArm64PublicationToSonatypeRepository") {
+            this.enabled = false
+        }
+        tasks.named("publishIosSimulatorArm64PublicationToSonatypeRepository") {
+            this.enabled = false
+        }
+        tasks.named("publishMacosArm64PublicationToSonatypeRepository") {
+            this.enabled = false
+        }
+    }
+    tasks.named("publishJsPublicationToSonatypeRepository") {
         this.enabled = false
     }
 }
