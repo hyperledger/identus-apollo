@@ -172,7 +172,7 @@ dependencies {
 }
 ```
 
-## How to use for iOS app
+## How to use for Swift app
 
 ### Using SPM
 
@@ -181,7 +181,7 @@ Inside your `Package.swift` file, add the following
 dependencies: [
     .package(
         url: "git@github.com:input-output-hk/atala-prism-apollo.git",
-        from: "latest versoin"
+        from: "latest version"
     )
 ]
 ```
@@ -194,6 +194,23 @@ The following instruction using Xcode 15
 4. When asked select Copy items if needed.
 5. Then go to the project configuration page in Xcode and check the Frameworks and Libraries section and add the `Apollo.xcframework` if not found then choose `Embed & Sign`.
 6. Then go to the build phase page and mark the framework as required.
+
+[!WARNING]
+**For Intel iOS simulator**: You need to add the following flag as YES `EMBEDDED_CONTENT_CONTAINS_SWIFT=YES` on the target like so:
+
+```swift
+Package.swift
+
+Package(
+   ...
+   targets: .testTarget(
+      ...
+      swiftSettings: [.define("EMBEDDED_CONTENT_CONTAINS_SWIFT=YES")]
+      ...
+   )
+)
+
+```
 
 ## How to use for Node.js app
 
