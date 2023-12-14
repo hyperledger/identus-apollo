@@ -3,6 +3,14 @@
 
 ### Bug Fixes
 
+* add documentation and release a new version ([#133](https://github.com/input-output-hk/atala-prism-apollo/issues/133)) ([4fd785a](https://github.com/input-output-hk/atala-prism-apollo/commit/4fd785a842d359d86e544f45c09a571981d61f8c))
+* x64 simulator needs to be built with this flags to work ([06bd937](https://github.com/input-output-hk/atala-prism-apollo/commit/06bd937e6584c179d2dbc96aa97c29348123b259))
+
+## [1.2.8](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.7...v1.2.8) (2023-12-14)
+
+
+### Bug Fixes
+
 * x64 simulator needs to be built with this flags to work ([06bd937](https://github.com/input-output-hk/atala-prism-apollo/commit/06bd937e6584c179d2dbc96aa97c29348123b259))
 
 ## [1.2.7](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.6...v1.2.7) (2023-12-12)
