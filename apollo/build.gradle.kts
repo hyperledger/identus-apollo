@@ -387,17 +387,19 @@ afterEvaluate {
         this.enabled = false
     }
     // Disable publish of targets
-    tasks.named("publishIosX64PublicationToSonatypeRepository") {
-        this.enabled = false
-    }
-    tasks.named("publishIosArm64PublicationToSonatypeRepository") {
-        this.enabled = false
-    }
-    tasks.named("publishIosSimulatorArm64PublicationToSonatypeRepository") {
-        this.enabled = false
-    }
-    tasks.named("publishMacosArm64PublicationToSonatypeRepository") {
-        this.enabled = false
+    if (os.isMacOsX) {
+        tasks.named("publishIosX64PublicationToSonatypeRepository") {
+            this.enabled = false
+        }
+        tasks.named("publishIosArm64PublicationToSonatypeRepository") {
+            this.enabled = false
+        }
+        tasks.named("publishIosSimulatorArm64PublicationToSonatypeRepository") {
+            this.enabled = false
+        }
+        tasks.named("publishMacosArm64PublicationToSonatypeRepository") {
+            this.enabled = false
+        }
     }
     tasks.named("publishJsPublicationToSonatypeRepository") {
         this.enabled = false
