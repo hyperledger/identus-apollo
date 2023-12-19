@@ -20,7 +20,7 @@ fun _require(name: String): dynamic = js("require(name)")
  * In a browser environment, the `global` variable refers to the `window` object.
  */
 val global: dynamic by lazy {
-    js("((typeof global !== 'undefined') ? global : self)")
+    js("((typeof global !== 'undefined') ? global : window)")
 }
 
 /**
