@@ -3,6 +3,13 @@ package io.iohk.atala.prism.apollo.utils
 import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
 import node.buffer.Buffer
 
+/**
+ * The Curve25519Parser object provides methods for parsing byte arrays into raw key values.
+ * It supports parsing both encoded and raw data.
+ *
+ * @property encodedLength The length of the encoded key value.
+ * @property rawLength The length of the raw key value.
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 object Curve25519Parser {

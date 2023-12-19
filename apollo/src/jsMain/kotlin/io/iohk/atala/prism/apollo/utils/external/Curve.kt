@@ -8,6 +8,13 @@ package io.iohk.atala.prism.apollo.utils.external
 
 import org.khronos.webgl.Uint8Array
 
+/**
+ * Represents a base curve.
+ *
+ * @constructor Creates a base curve with the specified type and configuration options.
+ * @param type The type of the curve.
+ * @param conf The configuration options for the curve.
+ */
 open external class base(type: String, conf: BaseCurveOptions) {
     open var p: Any
     open var type: String
@@ -65,6 +72,15 @@ open external class base(type: String, conf: BaseCurveOptions) {
     }
 }
 
+/**
+ * Represents an Edwards curve.
+ *
+ * @property a The `a` parameter of the curve.
+ * @property c The `c` parameter of the curve.
+ * @property c2 The `c2` parameter of the curve.
+ * @property d The `d` parameter of the curve.
+ * @property dd The `dd` parameter of the curve.
+ */
 open external class edwards(conf: EdwardsConf) : base {
     open var a: Any
     open var c: Any
@@ -128,6 +144,10 @@ open external class edwards(conf: EdwardsConf) : base {
     }
 }
 
+/**
+ * Represents a short form elliptic curve.
+ * @param conf The configuration options for the curve.
+ */
 open external class short(conf: ShortConf) : base {
     open var a: dynamic /* String | BN | Number | Buffer | Uint8Array | ReadonlyArray<Number> */
     open var b: dynamic /* String | BN | Number | Buffer | Uint8Array | ReadonlyArray<Number> */

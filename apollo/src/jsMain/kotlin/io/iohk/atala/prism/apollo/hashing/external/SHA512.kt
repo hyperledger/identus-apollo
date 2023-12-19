@@ -8,6 +8,16 @@ package io.iohk.atala.prism.apollo.hashing.external
 import org.khronos.webgl.* // ktlint-disable no-wildcard-imports
 import kotlin.js.*
 
+/**
+ * The `Hashe` class is an open external class that represents a hash function. It provides methods for updating the hash state, computing the hash digest, destroying the hash object
+ *, and cloning the hash object.
+ *
+ * @param T the type parameter which must extend `Hashe<T>`
+ * @property blockLen the length of the hash block
+ * @property outputLen the length of the hash output
+ *
+ * @constructor Creates a new instance of the `Hashe` class.
+ */
 open external class Hashe<T : Hashe<T>> {
     open var blockLen: Number
     open var outputLen: Number
@@ -19,6 +29,16 @@ open external class Hashe<T : Hashe<T>> {
     open fun _cloneInto(to: T = definedExternally): T
     open fun clone(): T
 }
+/**
+ * SHA2 is a class that provides methods for computing SHA-2 hash functions.
+ *
+ * @param T the type of the subclass that extends SHA2
+ * @property blockLen the length of the hash block
+ * @property outputLen the length of the hash output
+ * @property padOffset the padding offset
+ * @property isLE indicates whether the byte order is little endian
+ * @constructor Creates a SHA2 instance with the specified parameters.
+ */
 open external class SHA2<T : SHA2<T>>(blockLen: Number, outputLen: Number, padOffset: Number, isLE: Boolean) :
     Hashe<T> {
     override var blockLen: Number
@@ -43,6 +63,9 @@ open external class SHA2<T : SHA2<T>>(blockLen: Number, outputLen: Number, padOf
     override fun _cloneInto(to: T): T
 }
 
+/**
+ * The SHA512 class is an implementation of the SHA-512 hash algorithm.
+ */
 open external class SHA512 : SHA2<SHA512> {
     open var Ah: Number
     open var Al: Number
@@ -67,6 +90,9 @@ open external class SHA512 : SHA2<SHA512> {
     override fun destroy()
 }
 
+/**
+ * The sha512 class provides a platform-specific implementation for generating SHA-512 hash.
+ */
 external object sha512 {
     @nativeInvoke
     operator fun invoke(message: Any): Uint8Array
@@ -75,6 +101,8 @@ external object sha512 {
     fun create(): Any
 }
 
+/**
+ * A class representing the SHA-512*/
 external object sha512_224 {
     @nativeInvoke
     operator fun invoke(message: Any): Uint8Array
@@ -83,6 +111,8 @@ external object sha512_224 {
     fun create(): Any
 }
 
+/**
+ * The `sha512_256` class represents an object that can compute SHA-512*/
 external object sha512_256 {
     @nativeInvoke
     operator fun invoke(message: Any): Uint8Array
@@ -91,6 +121,9 @@ external object sha512_256 {
     fun create(): Any
 }
 
+/**
+ * The `sha384` class provides functions for computing the SHA-384 hash.
+ */
 external object sha384 {
     @nativeInvoke
     operator fun invoke(message: Any): Uint8Array

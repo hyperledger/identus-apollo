@@ -11,17 +11,39 @@ import io.iohk.atala.prism.apollo.utils.external.eddsa.KeyPair as _eddsa_KeyPair
 import io.iohk.atala.prism.apollo.utils.external.eddsa.KeyPairOptions as _eddsa_KeyPairOptions
 import io.iohk.atala.prism.apollo.utils.external.eddsa.Signature as _eddsa_Signature
 
+/**
+ * Utility class for various operations.
+ */
 external var utils: Any
 
+/**
+ * Generates an array of random numbers.
+ *
+ * @param len The length of the array.
+ * @return An array of random numbers.
+ */
 external fun rand(len: Number): Uint8Array
 
+/**
+ * The current version of the software.
+ * This variable is external and holds a numeric value representing the version number.
+ * It is used to keep track of the software's version for informational purposes.
+ */
 external var version: Number
 
+/**
+ * Represents a set of coordinates in a two-dimensional space.
+ */
 external interface Coordinates {
     var x: String
     var y: String
 }
 
+/**
+ * The `curve` class provides methods for working with elliptic curves in cryptography.
+ *
+ * @class
+ */
 external object curve {
     open class base {
         companion object {
@@ -38,6 +60,15 @@ external object curve {
     }
 }
 
+/**
+ * The `ec` class represents an elliptic curve cryptography object. It provides methods for generating key pairs, signing and verifying messages, and recovering public keys.
+ *
+ * @property curve the elliptic curve used by the `ec` object
+ * @property n the order of the elliptic curve group
+ * @property nh a precomputed value used in the `recoverPubKey` function
+ * @property g the generator point of the elliptic curve group
+ * @property hash the hash function used in the `sign` and `verify` functions
+ */
 open external class ec {
     open var curve: curve.base
     open var n: BN
@@ -220,6 +251,11 @@ open external class ec {
     }
 }
 
+/**
+ * Represents an EdDSA cryptographic system.
+ *
+ * @param name The name of the curve ("ed25519").
+ */
 open external class eddsa(name: String /* "ed25519" */) {
     open var curve: edwards
     open fun sign(message: String, secret: String): _eddsa_Signature

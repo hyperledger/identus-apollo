@@ -8,5 +8,14 @@ package io.iohk.atala.prism.apollo.hashing.external
 import kotlin.js.*
 import org.khronos.webgl.*
 
+/**
+ * Derives a key from a password using the PBKDF2 algorithm.
+ *
+ * @param hash The hash function to use for key derivation.
+ * @param password The password used for key derivation.
+ * @param salt The salt value.
+ * @param opts Additional options for key derivation.
+ * @return The derived key as a Uint8Array.
+ */
 external fun pbkdf2(hash: Any, password: String, salt: String, opts: dynamic): Uint8Array
 
