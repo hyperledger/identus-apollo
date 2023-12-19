@@ -112,7 +112,7 @@ external object sha512_224 {
 }
 
 /**
- * The `sha512_256` class represents an object that can compute SHA-512*/
+ * The `SHA512_256` class represents an object that can compute SHA-512*/
 external object sha512_256 {
     @nativeInvoke
     operator fun invoke(message: Any): Uint8Array
