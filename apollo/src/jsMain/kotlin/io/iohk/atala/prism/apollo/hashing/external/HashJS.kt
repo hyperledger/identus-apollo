@@ -227,7 +227,7 @@ internal external interface Sha384 : BlockHash<Sha384>, MessageDigest<Sha384> {
 }
 
 /**
- * Sha512 is an internal external interface that extends both BlockHash and MessageDigest interfaces.
+ * SHA512 is an internal external interface that extends both BlockHash and MessageDigest interfaces.
  * It represents the SHA-512 hash algorithm.
  *
  * Please note that this documentation only focuses on the specific properties and methods provided by the Sha512 interface.
