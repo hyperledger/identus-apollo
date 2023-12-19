@@ -91,7 +91,7 @@ open external class SHA512 : SHA2<SHA512> {
 }
 
 /**
- * The sha512 class provides a platform-specific implementation for generating SHA-512 hash.
+ * The SHA512 class provides a platform-specific implementation for generating SHA-512 hash.
  */
 external object sha512 {
     @nativeInvoke
