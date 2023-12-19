@@ -107,3 +107,12 @@ kotlin {
 //        compilations["main"].kotlinOptions.freeCompilerArgs += listOf("-include-binary", "$rootDir/secp256k1-kmp/native/build/ios/arm64-appletvos/libsecp256k1.a")
 //    }
 }
+
+afterEvaluate {
+    tasks.withType<PublishToMavenRepository>().configureEach {
+        enabled = false
+    }
+    tasks.withType<PublishToMavenLocal>().configureEach {
+        enabled = false
+    }
+}
