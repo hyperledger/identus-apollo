@@ -137,7 +137,7 @@ internal external interface Sha256Constructor {
 }
 
 /**
- * The Sha384Constructor interface represents a constructor function for the Sha384 interface,
+ * The Sha384Constructor interface represents a constructor function for the SHA384 interface,
  * which is an implementation of the BlockHash and MessageDigest interfaces.
  */
 internal external interface Sha384Constructor {
