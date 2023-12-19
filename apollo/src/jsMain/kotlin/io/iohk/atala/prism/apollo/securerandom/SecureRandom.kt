@@ -1,8 +1,9 @@
 package io.iohk.atala.prism.apollo.securerandom
 
-import io.iohk.atala.prism.apollo.utils.toByteArray
+import io.iohk.atala.prism.apollo.utils._require
+import io.iohk.atala.prism.apollo.utils.global
+import io.iohk.atala.prism.apollo.utils.isNode
 import js.typedarrays.Uint8Array
-import web.crypto.crypto
 
 /**
  * The SecureRandom class provides a platform-specific implementation for generating secure random numbers.
@@ -19,13 +20,21 @@ actual class SecureRandom actual constructor(
      */
     override fun nextBytes(size: Int): ByteArray {
         val arr = Uint8Array(size)
-        return crypto.getRandomValues(arr).buffer.toByteArray()
+        return if (isNode) {
+            _require("crypto").getRandomValues(arr)
+        } else {
+            global.crypto.getRandomValues(arr)
+        }
     }
 
     actual companion object : SecureRandomStaticInterface {
         override fun generateSeed(numBytes: Int): ByteArray {
             val arr = Uint8Array(numBytes)
-            return crypto.getRandomValues(arr).buffer.toByteArray()
+            return if (isNode) {
+                _require("crypto").getRandomValues(arr)
+            } else {
+                global.crypto.getRandomValues(arr)
+            }
         }
     }
 }
