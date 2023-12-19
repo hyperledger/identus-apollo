@@ -9,5 +9,10 @@ import kotlin.js.JsExport
 @ExperimentalJsExport
 @JsExport
 interface X25519KeyPairGeneration {
+    /**
+     * Generates a new X25519 key pair.
+     *
+     * @return the generated key pair as a [KMMX25519KeyPair] object.
+     */
     fun generateKeyPair(): KMMX25519KeyPair
 }

@@ -6,23 +6,89 @@ package io.iohk.atala.prism.apollo.utils.external
 
 import js.typedarrays.Uint8Array
 
+/**
+ * The length of a public key.
+ *
+ * This variable represents the length of a public key used in cryptographic algorithms.
+ * The value of this variable can vary depending on the specific cryptographic algorithm used.
+ * It is recommended to check the documentation of the cryptographic library or API being used
+ * to determine the exact value of this variable for a particular algorithm.
+ *
+ * @see <a href="https*/
 external var PUBLIC_KEY_LENGTH: Any
 
+/**
+ * Represents the length of a secret key.
+ *
+ * The [SECRET_KEY_LENGTH] variable is used to specify the length of a secret key.
+ * It is of type [Any] and should be assigned with the required length of the secret key.
+ *
+ * Note that the length should be an integer value representing the number of characters or bits in the key.
+ *
+ * @see <a href="https*/
 external var SECRET_KEY_LENGTH: Any
 
+/**
+ * The length of the shared key used in the system.
+ *
+ * The value of this variable is supplied externally and its type is not specified.
+ * Please refer to the system documentation or the code where this variable is used
+ * to determine its actual data type.
+ */
 external var SHARED_KEY_LENGTH: Any
 
+/**
+ * Returns the scalar multiplication of two given Uint8Array values.
+ *
+ * @param n The first Uint8Array value representing the scalar.
+ * @param p The second Uint8Array value representing the point.
+ * @return The Uint8Array value representing the result of the scalar multiplication.
+ */
 external fun scalarMult(n: Uint8Array, p: Uint8Array): Uint8Array
 
+/**
+ * Returns the scalar multiplication of the base point in Elliptic Curve Cryptography (ECC)
+ * with the given scalar value.
+ *
+ * @param n The scalar value to multiply the base point with.
+ * @return The result of the scalar multiplication as a Uint8Array.
+ */
 external fun scalarMultBase(n: Uint8Array): Uint8Array
 
+/**
+ * An interface representing a Key Pair.
+ *
+ * @property publicKey The public key associated with the Key Pair.
+ * @property secretKey The secret key associated with the Key Pair.
+ */
 external interface KeyPair {
     var publicKey: Uint8Array
     var secretKey: Uint8Array
 }
 
+/**
+ * Generates a key pair from the given seed.
+ *
+ * @param seed The seed used to generate the key pair.
+ * @return The generated KeyPair object containing the public key and secret key.
+ */
 external fun generateKeyPairFromSeed(seed: Uint8Array): KeyPair
 
+/**
+ * Generates a new key pair using a pseudo-random number generator (PRNG).
+ *
+ * @param prng Optional PRNG. If not provided, a default PRNG will be used.
+ * @return The generated key pair with a public key and a secret key.
+ */
 external fun generateKeyPair(prng: dynamic = definedExternally): KeyPair
 
+/**
+ * Compute the shared key using Diffie-Hellman key exchange.
+ *
+ * @param mySecretKey The secret key of the current user.
+ * @param theirPublicKey The public key of the other user.
+ * @param rejectZero Whether to reject zero shared key or not. Default is false.
+ *
+ * @return The computed shared key as a Uint8Array.
+ */
 external fun sharedKey(mySecretKey: Uint8Array, theirPublicKey: Uint8Array, rejectZero: Boolean = definedExternally): Uint8Array
