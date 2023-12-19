@@ -146,7 +146,7 @@ internal external interface Sha384Constructor {
 }
 
 /**
- * The `Sha512Constructor` interface represents a constructor function for creating instances of the `Sha512` interface.
+ * The `Sha512Constructor` interface represents a constructor function for creating instances of the `SHA512` interface.
  */
 internal external interface Sha512Constructor {
     @nativeInvoke
