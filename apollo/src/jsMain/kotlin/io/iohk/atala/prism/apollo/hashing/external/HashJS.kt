@@ -191,7 +191,7 @@ internal external interface Sha1 : BlockHash<Sha1>, MessageDigest<Sha1> {
 }
 
 /**
- * The `Sha224` class represents the SHA-224 hash algorithm. It implements the `BlockHash` and `MessageDigest` interfaces.
+ * The `SHA224` class represents the SHA-224 hash algorithm. It implements the `BlockHash` and `MessageDigest` interfaces.
  *
  * @see BlockHash
  * @see MessageDigest
