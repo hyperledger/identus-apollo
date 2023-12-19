@@ -2,10 +2,14 @@ package io.iohk.atala.prism.apollo.securerandom
 
 /**
  * The SecureRandom class provides a platform-specific implementation for generating secure random numbers.
+ *
+ * @property seed The seed value used for initializing the random number generator.
+ *
+ * @see [java.security.SecureRandom]
  */
 actual class SecureRandom actual constructor(
     actual val seed: ByteArray
-) : SecureRandomInterface {
+) : SecureRandomInterface, java.security.SecureRandom() {
     /**
      * The `jvmSecureRandom` variable is a private property of type `java.security.SecureRandom`. It is used for generating secure random numbers on the JVM platform.
      *

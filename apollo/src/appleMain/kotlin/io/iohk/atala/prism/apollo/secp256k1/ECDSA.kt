@@ -2,6 +2,9 @@ package io.iohk.atala.prism.apollo.secp256k1
 
 import fr.acinq.secp256k1.Secp256k1Native
 
+/**
+ * ECDSA class for creating and manipulating ECDSA signatures.
+ */
 class ECDSA {
     /**
      * Create a normalized ECDSA signature.

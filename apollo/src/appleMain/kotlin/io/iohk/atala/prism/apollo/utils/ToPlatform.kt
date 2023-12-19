@@ -15,6 +15,11 @@ import platform.Foundation.numberWithInt
 import platform.darwin.NSUInteger
 import platform.posix.memcpy
 
+/**
+ * Converts a ByteArray to an NSData object.
+ *
+ * @return The converted NSData object.
+ */
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 fun ByteArray.toNSData(): NSData = memScoped {
     NSData.create(
@@ -23,6 +28,11 @@ fun ByteArray.toNSData(): NSData = memScoped {
     )
 }
 
+/**
+ * Converts an NSData object to a ByteArray.
+ *
+ * @return The ByteArray representation of the NSData object.
+ */
 @OptIn(ExperimentalForeignApi::class)
 fun NSData.toByteArray(): ByteArray = ByteArray(this@toByteArray.length.toInt()).apply {
     if (this@toByteArray.length > 0U) {
@@ -32,20 +42,40 @@ fun NSData.toByteArray(): ByteArray = ByteArray(this@toByteArray.length.toInt())
     }
 }
 
+/**
+ * Converts an integer to an NSNumber object.
+ *
+ * @return The converted NSNumber object.
+ */
 @OptIn(ExperimentalForeignApi::class)
 fun Int.toNSNumber(): NSNumber = memScoped {
     return NSNumber.numberWithInt(this@toNSNumber)
 }
 
+/**
+ * Converts an NSNumber to a Kotlin Int.
+ *
+ * @return The converted Kotlin Int value.
+ */
 fun NSNumber.toKotlinInt(): Int {
     return this.intValue
 }
 
+/**
+ * Converts a Kotlin String to an NSString object.
+ *
+ * @return The converted NSString object.
+ */
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 fun String.toNSString(): NSString = memScoped {
     return NSString.create(string = this@toNSString)
 }
 
+/**
+ * Converts an NSString to a Kotlin String.
+ *
+ * @return The converted Kotlin String.
+ */
 fun NSString.toKotlinString(): String {
     return this.toString()
 }

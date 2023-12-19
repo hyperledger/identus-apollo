@@ -4,6 +4,14 @@ import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
 import io.iohk.atala.prism.apollo.utils.external.eddsa
 import node.buffer.Buffer
 
+/**
+ * Represents a private key in the KMMEd cryptographic system.
+ *
+ * @property raw The raw value of the private key.
+ * @property keyPair The key pair object associated with the private key.
+ * @constructor Creates a KMMEdPrivateKey object.
+ * @param bytes The byte array representing the private key.
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 actual class KMMEdPrivateKey(bytes: ByteArray) {

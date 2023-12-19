@@ -23,6 +23,12 @@ actual class SecureRandom actual constructor(
     }
 
     actual companion object : SecureRandomStaticInterface {
+        /**
+         * Generates a random seed of the specified length in bytes.
+         *
+         * @param numBytes The length of the seed in bytes.
+         * @return The generated seed as a ByteArray.
+         */
         override fun generateSeed(numBytes: Int): ByteArray {
             return IOHKSecureRandomGeneration.randomDataWithLength(numBytes.toLong()).toByteArray()
         }

@@ -7,12 +7,23 @@ import org.bouncycastle.crypto.params.X25519PublicKeyParameters
 import java.security.SecureRandom
 import kotlin.js.ExperimentalJsExport
 
+/**
+ * Represents a key pair for the X25519 elliptic curve encryption algorithm.
+ *
+ * @property privateKey The private key of the key pair.
+ * @property publicKey The public key of the key pair.
+ */
 actual class KMMX25519KeyPair actual constructor(
     actual val privateKey: KMMX25519PrivateKey,
     actual val publicKey: KMMX25519PublicKey
 ) {
     @OptIn(ExperimentalJsExport::class)
     actual companion object : X25519KeyPairGeneration {
+        /**
+         * Generates a key pair for the X25519 elliptic curve encryption algorithm.
+         *
+         * @return KMMX25519KeyPair object containing the private and public keys.
+         */
         override fun generateKeyPair(): KMMX25519KeyPair {
             val generator = X25519KeyPairGenerator()
             generator.init(X25519KeyGenerationParameters(SecureRandom()))

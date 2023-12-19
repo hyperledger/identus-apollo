@@ -21,6 +21,17 @@ import org.w3c.workers.*
 import org.w3c.xhr.*
 import org.khronos.webgl.Uint8Array
 
+/**
+ * Represents an external interface `T$0`.
+ *
+ * This interface defines four properties:
+ * - `k1neg`: A boolean indicating whether `k1` is negative.
+ * - `k1`: Any value representing the first key.
+ * - `k2neg`: A boolean indicating whether `k2` is negative.
+ * - `k2`: Any value representing the second key.
+ *
+ * Use this interface to manipulate and access the keys and their values.
+ */
 external interface `T$0` {
     var k1neg: Boolean
     var k1: Any
@@ -28,12 +39,44 @@ external interface `T$0` {
     var k2: Any
 }
 
+/**
+ * Represents an external interface `T$1`.
+ *
+ * This interface has the following properties:
+ * - `beta`: Any
+ * - `splitScalar`: A function that takes a parameter `k` of type `Any` and returns an object of type `T$0`.
+ */
 external interface `T$1` {
     var beta: Any
     var splitScalar: (k: Any) -> `T$0`
 }
 
 
+/**
+ * A class representing the `T$2` interface.
+ *
+ * @property nBitLength The bit length of `n`.
+ * @property nByteLength The byte length of `n`.
+ * @property Fp The value of `Fp`.
+ * @property n The value of `n`.
+ * @property h The value of `h`.
+ * @property hEff The effective value of `h`.
+ * @property Gx The value of `Gx`.
+ * @property Gy The value of `Gy`.
+ * @property allowInfinityPoint A flag indicating whether the infinity point is allowed.
+ * @property a The value of `a`.
+ * @property b The value of `b`.
+ * @property allowedPrivateKeyLengths An array of allowed private key lengths.
+ * @property wrapPrivateKey A flag indicating whether the private key should be wrapped.
+ * @property endo The endomorphism parameters.
+ * @property hash The hashing algorithm.
+ * @property hmac The HMAC function.
+ * @property randomBytes The function to generate random bytes.
+ * @property lowS A flag indicating whether low values of `S` are required.
+ * @property bits2int The function to convert bits to an integer.
+ * @property bits2int_modN The function to convert bits to an integer modulo `N`.
+ * @property p The value of `p`.
+ */
 external interface `T$2` {
     var nBitLength: Number
     var nByteLength: Number
@@ -72,6 +115,9 @@ external interface `T$2` {
     var p: Any
 }
 
+/**
+ * Represents the interface `T$4`.
+ */
 external interface `T$4` {
     var normPrivateKeyToScalar: (key: dynamic /* Uint8Array | String | Any */) -> Any
     fun isValidPrivateKey(privateKey: Uint8Array): Boolean
@@ -80,6 +126,9 @@ external interface `T$4` {
     var randomPrivateKey: () -> Uint8Array
 }
 
+/**
+ * Represents an external interface `T$5`.
+ */
 external interface `T$5` {
     var create: (hash: Any) -> Any
     var CURVE:`T$2`
@@ -93,4 +142,7 @@ external interface `T$5` {
 }
 
 
+/**
+ * Represents the secp256k1 variable.
+ */
 external var secp256k1: `T$5`
