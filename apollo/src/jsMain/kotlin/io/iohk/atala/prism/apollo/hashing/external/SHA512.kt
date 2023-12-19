@@ -122,7 +122,7 @@ external object sha512_256 {
 }
 
 /**
- * The `sha384` class provides functions for computing the SHA-384 hash.
+ * The `SHA384` class provides functions for computing the SHA-384 hash.
  */
 external object sha384 {
     @nativeInvoke
