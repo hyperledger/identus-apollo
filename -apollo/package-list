@@ -848,9 +848,12 @@ $dokka.location:io.iohk.atala.prism.apollo.utils.external/short/pointFromX/#org.
 $dokka.location:io.iohk.atala.prism.apollo.utils.external/short/pointFromX/#org.khronos.webgl.Uint8Array/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils.external/short/point-from-x.html
 $dokka.location:io.iohk.atala.prism.apollo.utils.external/short/short/#io.iohk.atala.prism.apollo.utils.external.short.ShortConf/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils.external/short/short.html
 $dokka.location:io.iohk.atala.prism.apollo.utils////PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/index.html
+$dokka.location:io.iohk.atala.prism.apollo.utils//_require/#kotlin.String/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/_require.html
 $dokka.location:io.iohk.atala.prism.apollo.utils//asByteArray/org.khronos.webgl.Uint8Array#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/as-byte-array.html
 $dokka.location:io.iohk.atala.prism.apollo.utils//asUint8Array/kotlin.ByteArray#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/as-uint8-array.html
 $dokka.location:io.iohk.atala.prism.apollo.utils//decodeHex/kotlin.String#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/decode-hex.html
+$dokka.location:io.iohk.atala.prism.apollo.utils//global/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/global.html
+$dokka.location:io.iohk.atala.prism.apollo.utils//isNode/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/is-node.html
 $dokka.location:io.iohk.atala.prism.apollo.utils//padStart/kotlin.ByteArray#kotlin.Int#kotlin.Byte/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/pad-start.html
 $dokka.location:io.iohk.atala.prism.apollo.utils//toArrayBuffer/kotlin.ByteArray#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/to-array-buffer.html
 $dokka.location:io.iohk.atala.prism.apollo.utils//toByteArray/js.buffer.ArrayBuffer#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.utils/to-byte-array.html
