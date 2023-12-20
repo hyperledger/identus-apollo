@@ -7,12 +7,31 @@ package io.iohk.atala.prism.apollo.utils.external
 import org.khronos.webgl.*
 import kotlin.js.*
 
+/**
+ * The EGCD interface represents an object that holds the result of the Extended Euclidean Algorithm (EGCD)
+ * for two numbers a and b, along with their greatest common divisor (gcd).
+ *
+ * @property a The first number for which the EGCD is computed.
+ * @property b The second number for which the EGCD is computed.
+ * @property gcd The greatest common divisor (gcd) of a and b.
+ */
 external interface EGCD {
     var a: BN
     var b: BN
     var gcd: BN
 }
 
+/**
+ * The `BN` class is a JavaScript wrapper around the `bn.js` library, which provides
+ * a fast and efficient implementation of big numbers for cryptographic purposes.
+ *
+ * @constructor Creates a new `BN` object.
+ *
+ * @param number The number to initialize the `BN` object with. It can be either a
+ *     `Number`, `String`, `Array<Number>`, or `Uint8Array`.
+ * @param base The numeric base of the input number. Defaults to 10.
+ * @param endian The endianness of the input number. Defaults to "be" (big-endian).
+ */
 @JsModule("bn.js")
 open external class BN {
     constructor(number: Number, base: Number = definedExternally, endian: String = definedExternally)
@@ -162,6 +181,10 @@ open external class BN {
     }
 }
 
+/**
+ * The RedBN class is a subclass of the BN class. It represents a big number in a redc representation,
+ * where reduction by a modulus is used for certain mathematical operations.
+ */
 open external class RedBN : BN {
     constructor(number: Number, base: Number = definedExternally, endian: String = definedExternally)
     constructor(number: Number)

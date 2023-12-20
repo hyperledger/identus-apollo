@@ -6,6 +6,11 @@
 
 package io.iohk.atala.prism.apollo.utils.external
 
+/**
+ * A class representing a preset curve.
+ *
+ * @param options The options for the preset curve.
+ */
 open external class PresetCurve(options: Options) {
     open var type: String
     open var g: Any

@@ -5,6 +5,14 @@ import io.iohk.atala.prism.apollo.utils.external.eddsa
 import node.buffer.Buffer
 import node.buffer.BufferEncoding
 
+/**
+ * Represents a public key in the KMMEd cryptographic system.
+ *
+ * @property raw The raw value of the public key.
+ * @property keyPair The key pair object associated with the public key.
+ * @constructor Creates a KMMEdPublicKey object.
+ * @param bytes The byte array representing the public key.
+ */
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 actual class KMMEdPublicKey(bytes: ByteArray) {
