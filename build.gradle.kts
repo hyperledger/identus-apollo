@@ -44,23 +44,14 @@ allprojects {
     }
 
     apply(plugin = "org.gradle.maven-publish")
+    apply(plugin = "org.gradle.signing")
 
-    // Disable Publish Gradle task for the following modules
-    val disabledProjects = listOf("iOSLibs", "secp256k1-kmp", "native")
-    if (disabledProjects.contains(project.name)) {
-        afterEvaluate {
-            tasks.named("publishAllPublicationsToSonatypeRepository") {
-                enabled = false
-            }
-        }
-    }
     // Allowed projects to publish to maven
     val allowedProjectsToPublish = listOf("apollo")
-
-    publishing {
-        publications {
-            if (allowedProjectsToPublish.contains(project.name)) {
-                create<MavenPublication>(project.name) {
+    if (allowedProjectsToPublish.contains(project.name)) {
+        publishing {
+            publications {
+                withType<MavenPublication> {
                     groupId = publishedMavenId
                     artifactId = project.name
                     version = project.version.toString()
@@ -71,6 +62,10 @@ allprojects {
                         organization {
                             name.set("IOG")
                             url.set("https://iog.io/")
+                        }
+                        issueManagement {
+                            system.set("Github")
+                            url.set("https://github.com/input-output-hk/atala-prism-apollo")
                         }
                         licenses {
                             license {
@@ -135,11 +130,16 @@ allprojects {
                             url.set("https://github.com/input-output-hk/atala-prism-apollo")
                         }
                     }
+                    signing {
+                        val base64EncodedAsciiArmoredSigningKey: String = System.getenv("BASE64_ARMORED_GPG_SIGNING_KEY_MAVEN") ?: ""
+                        val signingKeyPassword: String = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
+                        useInMemoryPgpKeys(String(Base64.getDecoder().decode(base64EncodedAsciiArmoredSigningKey.toByteArray())), signingKeyPassword)
+                        sign(this@withType)
+                    }
                 }
             }
-        }
-//        repositories {
-//            // GitHub Maven Repo
+            repositories {
+                // GitHub Maven Repo
 //            maven {
 //                this.name = "GitHubPackages"
 //                this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
@@ -148,7 +148,8 @@ allprojects {
 //                    this.password = System.getenv("ATALA_GITHUB_TOKEN")
 //                }
 //            }
-//        }
+            }
+        }
     }
 }
 
@@ -198,11 +199,4 @@ nexusPublishing {
             password.set(System.getenv("SONATYPE_PASSWORD"))
         }
     }
-}
-
-signing {
-    val base64EncodedAsciiArmoredSigningKey: String = System.getenv("BASE64_ARMORED_GPG_SIGNING_KEY_MAVEN") ?: ""
-    val signingKeyPassword: String = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
-    useInMemoryPgpKeys(String(Base64.getDecoder().decode(base64EncodedAsciiArmoredSigningKey.toByteArray())), signingKeyPassword)
-    sign(publishing.publications)
 }

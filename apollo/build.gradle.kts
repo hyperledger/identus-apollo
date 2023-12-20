@@ -58,8 +58,10 @@ kotlin {
     jvm {
         withSourcesJar()
         publishing {
-            publications.withType<MavenPublication> {
-                artifact(javadocJar)
+            publications {
+                withType<MavenPublication> {
+                    artifact(javadocJar)
+                }
             }
         }
         compilations.all {
@@ -388,22 +390,35 @@ afterEvaluate {
     tasks.named("iosX64Test") {
         this.enabled = false
     }
+    tasks.withType<PublishToMavenRepository> {
+        dependsOn(tasks.withType<Sign>())
+    }
     // Disable publish of targets
     if (os.isMacOsX) {
-        tasks.named("publishIosX64PublicationToSonatypeRepository") {
-            this.enabled = false
+        if (tasks.findByName("publishIosX64PublicationToSonatypeRepository") != null) {
+            tasks.named("publishIosX64PublicationToSonatypeRepository") {
+                this.enabled = false
+            }
         }
-        tasks.named("publishIosArm64PublicationToSonatypeRepository") {
-            this.enabled = false
+        if (tasks.findByName("publishIosArm64PublicationToSonatypeRepository") != null) {
+            tasks.named("publishIosArm64PublicationToSonatypeRepository") {
+                this.enabled = false
+            }
         }
-        tasks.named("publishIosSimulatorArm64PublicationToSonatypeRepository") {
-            this.enabled = false
+        if (tasks.findByName("publishIosSimulatorArm64PublicationToSonatypeRepository") != null) {
+            tasks.named("publishIosSimulatorArm64PublicationToSonatypeRepository") {
+                this.enabled = false
+            }
         }
-        tasks.named("publishMacosArm64PublicationToSonatypeRepository") {
-            this.enabled = false
+        if (tasks.findByName("publishMacosArm64PublicationToSonatypeRepository") != null) {
+            tasks.named("publishMacosArm64PublicationToSonatypeRepository") {
+                this.enabled = false
+            }
         }
     }
-    tasks.named("publishJsPublicationToSonatypeRepository") {
-        this.enabled = false
+    if (tasks.findByName("publishJsPublicationToSonatypeRepository") != null) {
+        tasks.named("publishJsPublicationToSonatypeRepository") {
+            this.enabled = false
+        }
     }
 }

@@ -109,22 +109,10 @@ kotlin {
 }
 
 afterEvaluate {
-    // Disable publish of targets
-    if (currentOs.isMacOsX) {
-        tasks.named("publishIosX64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
-        tasks.named("publishIosArm64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
-        tasks.named("publishIosSimulatorArm64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
-        tasks.named("publishMacosArm64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
-        tasks.named("publishMacosX64PublicationToSonatypeRepository") {
-            this.enabled = false
-        }
+    tasks.withType<PublishToMavenRepository>().configureEach {
+        enabled = false
+    }
+    tasks.withType<PublishToMavenLocal>().configureEach {
+        enabled = false
     }
 }
