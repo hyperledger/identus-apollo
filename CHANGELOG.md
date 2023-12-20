@@ -1,3 +1,11 @@
+## [1.2.10](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.9...v1.2.10) (2023-12-20)
+
+
+### Bug Fixes
+
+* crypto is not defined ([#136](https://github.com/input-output-hk/atala-prism-apollo/issues/136)) ([3ef02fe](https://github.com/input-output-hk/atala-prism-apollo/commit/3ef02feaff43a5203a0b3a209cb8da88df6a54df))
+* Gradle publish script ([#134](https://github.com/input-output-hk/atala-prism-apollo/issues/134)) ([3f4cce5](https://github.com/input-output-hk/atala-prism-apollo/commit/3f4cce516cf5edd11dfbfefa4639772de996e997))
+
 ## [1.2.9](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.8...v1.2.9) (2023-12-14)
 
 
