@@ -155,13 +155,6 @@ In `build.gradle.kts` files include the dependency
 ```kotlin
 repositories {
     mavenCentral()
-    maven {
-            this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-            credentials {
-                this.username = // GitHub Username
-                this.password = // GitHub Access Token
-            }
-        }
 }
 ```
 For dependencies
@@ -254,13 +247,7 @@ In the project `build.gradle`
 allprojects {
     repositories {
         // along with all the other current existing repos add the following
-        maven {
-            url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-            credentials {
-                username = // GitHub Username
-                password = // GitHub Access Token
-            }
-        }
+        mavenCentral()
     }
 }
 ```
@@ -285,13 +272,7 @@ In the project `build.gradle.kts`
 allprojects {
     repositories {
         // along with all the other current existing repos add the following
-        maven {
-            url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-            credentials {
-                username = // GitHub Username
-                password = // GitHub Access Token
-            }
-        }
+        mavenCentral()
     }
 }
 ```
