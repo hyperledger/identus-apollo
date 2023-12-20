@@ -126,9 +126,19 @@ val buildSecp256k1TvOSArm64 by tasks.creating(Exec::class) {
     }
 }
 
-val clean by tasks.creating {
+val deleteBuildFolder by tasks.register<Delete>("deleteBuildFolder") {
     group = "build"
-    doLast {
-        delete(projectDir.resolve("build"))
+    delete(projectDir.resolve("build"))
+}
+
+afterEvaluate {
+    tasks.named("clean") {
+        dependsOn(deleteBuildFolder)
+    }
+    tasks.withType<PublishToMavenRepository>().configureEach {
+        enabled = false
+    }
+    tasks.withType<PublishToMavenLocal>().configureEach {
+        enabled = false
     }
 }
