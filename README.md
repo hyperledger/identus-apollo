@@ -157,10 +157,6 @@ repositories {
     mavenCentral()
     maven {
             this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-            credentials {
-                this.username = // GitHub Username
-                this.password = // GitHub Access Token
-            }
         }
 }
 ```
@@ -256,10 +252,6 @@ allprojects {
         // along with all the other current existing repos add the following
         maven {
             url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-            credentials {
-                username = // GitHub Username
-                password = // GitHub Access Token
-            }
         }
     }
 }
@@ -287,10 +279,6 @@ allprojects {
         // along with all the other current existing repos add the following
         maven {
             url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-            credentials {
-                username = // GitHub Username
-                password = // GitHub Access Token
-            }
         }
     }
 }
