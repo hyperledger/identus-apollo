@@ -8,7 +8,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     id("maven-publish")
-    id("org.jetbrains.kotlinx.kover") version "0.7.4"
+    id("org.jetbrains.kotlinx.kover") version "0.7.5"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0-rc-1"
     id("signing")
 }
@@ -27,12 +27,6 @@ buildscript {
 }
 
 group = publishedMavenId
-
-dependencies {
-    kover(project(":apollo"))
-    kover(project("secp256k1-kmp"))
-    kover(project("secp256k1-kmp:native"))
-}
 
 allprojects {
     group = publishedMavenId
