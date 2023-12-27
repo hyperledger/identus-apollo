@@ -225,6 +225,13 @@ kotlin {
         }
     }
 
+    // Enable the export of KDoc (Experimental feature) to Generated Native targets (Apple, Linux, etc.)
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+        compilations.getByName("main") {
+            compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
+        }
+    }
+
     if (os.isMacOsX) {
         tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
             device.set("iPhone 14 Plus")
