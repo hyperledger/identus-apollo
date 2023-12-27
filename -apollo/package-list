@@ -204,10 +204,8 @@ $dokka.location:io.iohk.atala.prism.apollo.hashing.external/sha512_256/create/#/
 $dokka.location:io.iohk.atala.prism.apollo.hashing.external/sha512_256/invoke/#kotlin.Any/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.hashing.external/sha512_256/invoke.html
 $dokka.location:io.iohk.atala.prism.apollo.hashing.external/sha512_256/outputLen/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.hashing.external/sha512_256/output-len.html
 $dokka.location:io.iohk.atala.prism.apollo.hashing////PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.hashing/index.html
-$dokka.location:io.iohk.atala.prism.apollo.hashing/PBKDF2SHA512.Companion///PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.hashing/-p-b-k-d-f2-s-h-a512/-companion/index.html
-$dokka.location:io.iohk.atala.prism.apollo.hashing/PBKDF2SHA512.Companion/derive/#kotlin.String#kotlin.String#kotlin.Int#kotlin.Int/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.hashing/-p-b-k-d-f2-s-h-a512/-companion/derive.html
 $dokka.location:io.iohk.atala.prism.apollo.hashing/PBKDF2SHA512///PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.hashing/-p-b-k-d-f2-s-h-a512/index.html
-$dokka.location:io.iohk.atala.prism.apollo.hashing/PBKDF2SHA512/PBKDF2SHA512/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.hashing/-p-b-k-d-f2-s-h-a512/-p-b-k-d-f2-s-h-a512.html
+$dokka.location:io.iohk.atala.prism.apollo.hashing/PBKDF2SHA512/derive/#kotlin.String#kotlin.String#kotlin.Int#kotlin.Int/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.hashing/-p-b-k-d-f2-s-h-a512/derive.html
 $dokka.location:io.iohk.atala.prism.apollo.secp256k1////PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.secp256k1/index.html
 $dokka.location:io.iohk.atala.prism.apollo.secp256k1/ECDH///PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.secp256k1/-e-c-d-h/index.html
 $dokka.location:io.iohk.atala.prism.apollo.secp256k1/ECDH/ECDH/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.secp256k1/-e-c-d-h/-e-c-d-h.html
