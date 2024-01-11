@@ -1,16 +1,15 @@
 # Apollo
 
-[![Kotlin](https://img.shields.io/badge/kotlin-1.9.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
-[![Build](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/pull-request.yml)
-[![Deployment](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/Deployment.yml/badge.svg)](https://github.com/input-output-hk/atala-prism-apollo/actions/workflows/Deployment.yml)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.9.22-blue.svg?logo=kotlin)](http://kotlinlang.org)
+![badge-license]
+![badge-latest-release]
+[![semantic-release-kotlin]](https://github.com/semantic-release/semantic-release)
 
-![android](https://camo.githubusercontent.com/b1d9ad56ab51c4ad1417e9a5ad2a8fe63bcc4755e584ec7defef83755c23f923/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d616e64726f69642d3645444238442e7376673f7374796c653d666c6174)
-![apple-silicon](https://camo.githubusercontent.com/a92c841ffd377756a144d5723ff04ecec886953d40ac03baa738590514714921/687474703a2f2f696d672e736869656c64732e696f2f62616467652f737570706f72742d2535424170706c6553696c69636f6e2535442d3433424246462e7376673f7374796c653d666c6174)
-![ios](https://camo.githubusercontent.com/1fec6f0d044c5e1d73656bfceed9a78fd4121b17e82a2705d2a47f6fd1f0e3e5/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d696f732d4344434443442e7376673f7374796c653d666c6174)
-![jvm](https://camo.githubusercontent.com/700f5dcd442fd835875568c038ae5cd53518c80ae5a0cf12c7c5cf4743b5225b/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d6a766d2d4442343133442e7376673f7374796c653d666c6174)
-![js](https://camo.githubusercontent.com/3e0a143e39915184b54b60a2ecedec75e801f396d34b5b366c94ec3604f7e6bd/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d6a732d4638444235442e7376673f7374796c653d666c6174)
-![getNode-js](https://camo.githubusercontent.com/d08fda729ceebcae0f23c83499ca8f06105350f037661ac9a4cc7f58edfdbca9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d6e6f64656a732d3638613036332e7376673f7374796c653d666c6174)
-![macos](https://camo.githubusercontent.com/1b8313498db244646b38a4480186ae2b25464e5e8d71a1920c52b2be5212b909/687474703a2f2f696d672e736869656c64732e696f2f62616467652f706c6174666f726d2d6d61636f732d3131313131312e7376673f7374796c653d666c6174)
+![badge-platform-android]
+![badge-platform-ios]
+![badge-platform-jvm]
+![badge-platform-js]
+![badge-platform-js-node]
 
 ![Atala Prism Logo](Logo.png)
 
@@ -160,8 +159,7 @@ repositories {
 For dependencies
 ```kotlin
 dependencies {
-    val apolloVersion = ... // Latest Apollo Version
-    implementation("io.iohk.atala.prism.apollo:apollo:$apolloVersion")
+    implementation("io.iohk.atala.prism.apollo:apollo:<latest version>")
 }
 ```
 
@@ -174,7 +172,7 @@ Inside your `Package.swift` file, add the following
 dependencies: [
     .package(
         url: "git@github.com:input-output-hk/atala-prism-apollo.git",
-        from: "latest version"
+        from: "<latest version>"
     )
 ]
 ```
@@ -211,34 +209,12 @@ Inside the `package.json`
 ```json
 {
     "dependencies": {
-        "@atala/apollo": "latest version of Apollo"
+        "@atala/apollo": "<latest version>"
     }
 }
 ```
 
 ## How to use for another KMP (Kotlin Multiplatform) project
-
-You need to do the following:
-
-1. You need to let Gradle know where to search for the Apollo package
-2. Import the packages in the common target as per your project needs
-    1. Once you insert the import in the common target, it will automatically retrieve each supported target knowing that the currently only available targets are:
-3. You need to use the new iOS hierarchy system (In case they have an iOS target)
-4. You need to use the same Kotlin version used in our project
-
-| Platform                                 | Supported          |
-|------------------------------------------|--------------------|
-| iOS x86 64                               | :heavy_check_mark: |
-| iOS Arm 64                               | :heavy_check_mark: |
-| iOS Simulator Arm 64 (Apple Silicon)     | :heavy_check_mark: |
-| JVM                                      | :heavy_check_mark: | 
-| Android                                  | :heavy_check_mark: |
-| JS Browser                               | :heavy_check_mark: |
-| NodeJS Browser                           | :heavy_check_mark: |
-| macOS X86 64                             | :heavy_check_mark: |
-| macOS Arm 64 (Apple Silicon)             | :heavy_check_mark: |
-
-**For the first, second & third point** we have two cases using Groovy and using Kotlin DSL
 
 ### Using Groovy
 
@@ -258,7 +234,7 @@ kotlin {
         commonMain {
             dependencies {
                 // This following is just an example you can import it as per you needs
-                implementation 'io.iohk.atala.prism.apollo:apollo:${latest version}'
+                implementation 'io.iohk.atala.prism.apollo:apollo:<latest version>'
             }
         }
     }
@@ -288,8 +264,12 @@ kotlin {
     }
 }
 ```
-**For the third point**
-You need to use Kotlin version `1.9.21`.
+
+## How to use for Scala project
+
+```scala
+libraryDependencies += "io.iohk.atala.prism.apollo" % "apollo-jvm" % "<latest version>"
+```
 
 ## Usage
 
@@ -309,3 +289,15 @@ This software is provided 'as-is', without any express or implied warranty. In n
 authors be held liable for any damages arising from the use of this software. Permission is granted
 to anyone to use this software for any purpose, including commercial applications, and to alter it
 and redistribute it freely.
+
+<!-- TAG_VERSION -->
+[badge-latest-release]: https://img.shields.io/badge/latest--release-1.2.10-blue.svg?style=flat
+[badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
+[semantic-release-kotlin]: https://img.shields.io/badge/semantic--release-kotlin-blue?logo=semantic-release
+
+<!-- TAG_PLATFORMS -->
+[badge-platform-android]: http://img.shields.io/badge/-android-6EDB8D.svg?style=flat
+[badge-platform-ios]: http://img.shields.io/badge/-ios-CDCDCD.svg?style=flat
+[badge-platform-jvm]: http://img.shields.io/badge/-jvm-DB413D.svg?style=flat
+[badge-platform-js]: http://img.shields.io/badge/-js-F8DB5D.svg?style=flat
+[badge-platform-js-node]: https://img.shields.io/badge/-nodejs-68a063.svg?style=flat
