@@ -401,26 +401,24 @@ afterEvaluate {
         dependsOn(tasks.withType<Sign>())
     }
     // Disable publish of targets
-    if (os.isMacOsX) {
-        if (tasks.findByName("publishIosX64PublicationToSonatypeRepository") != null) {
-            tasks.named("publishIosX64PublicationToSonatypeRepository") {
-                this.enabled = false
-            }
+    if (tasks.findByName("publishIosX64PublicationToSonatypeRepository") != null) {
+        tasks.named("publishIosX64PublicationToSonatypeRepository") {
+            this.enabled = false
         }
-        if (tasks.findByName("publishIosArm64PublicationToSonatypeRepository") != null) {
-            tasks.named("publishIosArm64PublicationToSonatypeRepository") {
-                this.enabled = false
-            }
+    }
+    if (tasks.findByName("publishIosArm64PublicationToSonatypeRepository") != null) {
+        tasks.named("publishIosArm64PublicationToSonatypeRepository") {
+            this.enabled = false
         }
-        if (tasks.findByName("publishIosSimulatorArm64PublicationToSonatypeRepository") != null) {
-            tasks.named("publishIosSimulatorArm64PublicationToSonatypeRepository") {
-                this.enabled = false
-            }
+    }
+    if (tasks.findByName("publishIosSimulatorArm64PublicationToSonatypeRepository") != null) {
+        tasks.named("publishIosSimulatorArm64PublicationToSonatypeRepository") {
+            this.enabled = false
         }
-        if (tasks.findByName("publishMacosArm64PublicationToSonatypeRepository") != null) {
-            tasks.named("publishMacosArm64PublicationToSonatypeRepository") {
-                this.enabled = false
-            }
+    }
+    if (tasks.findByName("publishMacosArm64PublicationToSonatypeRepository") != null) {
+        tasks.named("publishMacosArm64PublicationToSonatypeRepository") {
+            this.enabled = false
         }
     }
     if (tasks.findByName("publishJsPublicationToSonatypeRepository") != null) {

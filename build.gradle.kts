@@ -20,7 +20,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.21")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22")
         classpath("com.android.tools.build:gradle:7.2.2")
         classpath("org.jetbrains.dokka:dokka-base:1.9.10")
     }
@@ -74,6 +74,7 @@ allprojects {
                                 email.set("ahmed.moussa@iohk.io")
                                 organization.set("IOG")
                                 roles.add("developer")
+                                url.set("https://github.com/hamada147")
                             }
                             developer {
                                 id.set("amagyar-iohk")
