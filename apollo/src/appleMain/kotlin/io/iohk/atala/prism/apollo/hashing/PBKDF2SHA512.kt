@@ -41,7 +41,7 @@ actual object PBKDF2SHA512 {
                     algorithm = kCCPBKDF2,
                     password = p,
                     passwordLen = p.length.convert(),
-                    salt = saltPin.addressOf(0),
+                    salt = if (saltPin.get().isNotEmpty()) saltPin.addressOf(0) else null,
                     saltLen = saltPin.get().size.convert(),
                     prf = kCCPRFHmacAlgSHA512,
                     rounds = rounds,
