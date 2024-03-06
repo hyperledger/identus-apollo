@@ -1,3 +1,11 @@
+## [1.2.11](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.10...v1.2.11) (2024-03-06)
+
+
+### Bug Fixes
+
+* Apple crash when creating seed with empty string passphrase ([#146](https://github.com/input-output-hk/atala-prism-apollo/issues/146)) ([ce739dd](https://github.com/input-output-hk/atala-prism-apollo/commit/ce739ddc0477e239c213475b88653229b9781370))
+* upgrade gradle & libs ([#147](https://github.com/input-output-hk/atala-prism-apollo/issues/147)) ([b0906dd](https://github.com/input-output-hk/atala-prism-apollo/commit/b0906ddc938e8dec55848ec3157e85b18b252315))
+
 ## [1.2.10](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.9...v1.2.10) (2023-12-20)
 
 
