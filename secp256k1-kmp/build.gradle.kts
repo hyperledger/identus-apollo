@@ -12,7 +12,7 @@ fun KotlinNativeTarget.secp256k1CInterop(target: String) {
     compilations["main"].cinterops {
         val libsecp256k1 by creating {
             includeDirs.headerFilterOnly(project.file("native/secp256k1/include/"))
-            tasks[interopProcessingTaskName].dependsOn(":secp256k1-kmp:native:buildSecp256k1${target.capitalize()}")
+            tasks[interopProcessingTaskName].dependsOn(":secp256k1-kmp:native:buildSecp256k1${target.replaceFirstChar(Char::uppercase)}")
         }
     }
 }

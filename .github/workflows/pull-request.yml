@@ -11,8 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  JAVA_VERSION: 11
-  NODEJS_VERSION: 16.17.0
+  JAVA_VERSION: 17
   ATALA_GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
   ATALA_GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
 
@@ -34,25 +33,20 @@ jobs:
         run: pwd
 
       - name: "Checkout the repo"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
           token: ${{ secrets.ATALA_GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: "Install Java ${{ env.JAVA_VERSION }}"
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: "zulu"
 
       - name: "Gradle Build Action"
-        uses: gradle/gradle-build-action@v2
-
-      - name: "Install NodeJS ${{ env.NODEJS_VERSION }}"
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODEJS_VERSION }}
+        uses: gradle/gradle-build-action@v3
 
       - name: "Install Homebrew"
         if: matrix.os-type == 'macos'

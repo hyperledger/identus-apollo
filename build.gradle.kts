@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import java.util.Base64
 
 val publishedMavenId: String = "io.iohk.atala.prism.apollo"
@@ -11,6 +9,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.7.5"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0-rc-1"
     id("signing")
+    id("com.android.library") version "8.1.4" apply false
 }
 
 buildscript {
@@ -21,7 +20,6 @@ buildscript {
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22")
-        classpath("com.android.tools.build:gradle:7.2.2")
         classpath("org.jetbrains.dokka:dokka-base:1.9.10")
     }
 }
@@ -179,10 +177,6 @@ subprojects {
             exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/external/") }
         }
     }
-}
-
-rootProject.plugins.withType(NodeJsRootPlugin::class.java) {
-    rootProject.extensions.getByType(NodeJsRootExtension::class.java).nodeVersion = "16.17.0"
 }
 
 nexusPublishing {
