@@ -13,7 +13,7 @@ val os: OperatingSystem = OperatingSystem.current()
 
 plugins {
     kotlin("multiplatform")
-    id("io.github.luca992.multiplatform-swiftpackage") version "2.0.5-arm64"
+    id("io.github.luca992.multiplatform-swiftpackage") version "2.2.2"
     id("com.android.library")
     id("org.jetbrains.dokka")
     id("dev.petuska.npm.publish") version "3.4.1"
@@ -26,15 +26,15 @@ fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.swiftCinterop(libr
             when (platform) {
                 "iosX64", "iosSimulatorArm64" -> {
                     includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphonesimulator/include/")
-                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphonesimulator")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.replaceFirstChar(Char::uppercase)}Iphonesimulator")
                 }
                 "iosArm64" -> {
                     includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphoneos/include/")
-                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Iphoneos")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.replaceFirstChar(Char::uppercase)}Iphoneos")
                 }
                 "macosX64", "macosArm64" -> {
                     includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release/include/")
-                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.capitalize()}Macosx")
+                    tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.replaceFirstChar(Char::uppercase)}Macosx")
                 }
             }
         }
@@ -66,7 +66,7 @@ kotlin {
         }
         compilations.all {
             kotlinOptions {
-                jvmTarget = "11"
+                jvmTarget = "17"
             }
         }
         testRuns["test"].executionTask.configure {
@@ -159,10 +159,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
-                implementation("com.ionspin.kotlin:bignum:0.3.8")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+                implementation("com.ionspin.kotlin:bignum:0.3.9")
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
-                implementation("org.kotlincrypto.hash:sha2:0.3.0")
+                implementation("org.kotlincrypto.hash:sha2:0.4.0")
             }
         }
         val commonTest by getting {
@@ -172,9 +172,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("fr.acinq.secp256k1:secp256k1-kmp:0.11.0")
+                api("fr.acinq.secp256k1:secp256k1-kmp:0.14.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.11.0")
-                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-android:0.11.0")
+                implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-android:0.14.0")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
                 implementation("org.bitcoinj:bitcoinj-core:0.16.2")
@@ -187,7 +187,7 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                api("fr.acinq.secp256k1:secp256k1-kmp:0.11.0")
+                api("fr.acinq.secp256k1:secp256k1-kmp:0.14.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.11.0")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
@@ -206,7 +206,7 @@ kotlin {
                 implementation(npm("@noble/curves", "1.2.0"))
                 implementation(npm("@stablelib/x25519", "1.0.3"))
                 implementation(npm("hash.js", "1.1.7"))
-                implementation(npm("@noble/hashes", "1.3.1", true))
+                implementation(npm("@noble/hashes", "1.3.1"))
 
                 // Polyfill dependencies
                 implementation(npm("stream-browserify", "3.0.0"))
@@ -244,15 +244,14 @@ kotlin {
 
 android {
     namespace = "io.iohk.atala.prism.apollo"
-    compileSdk = 33
+    compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     /**
      * Because Software Components will not be created automatically for Maven publishing from
@@ -323,8 +322,8 @@ tasks.withType<DokkaTask>().configureEach {
     }
     dokkaSourceSets {
         configureEach {
-            jdkVersion.set(11)
-            languageVersion.set("1.9.21")
+            jdkVersion.set(17)
+            languageVersion.set("1.9.22")
             apiVersion.set("2.0")
             includes.from(
                 "docs/Apollo.md",
@@ -388,14 +387,10 @@ npmPublish {
 
 // Workaround for a bug in Gradle
 afterEvaluate {
-    tasks.named("lintAnalyzeDebug") {
-        this.enabled = false
-    }
-    tasks.named("lintAnalyzeRelease") {
-        this.enabled = false
-    }
-    tasks.named("iosX64Test") {
-        this.enabled = false
+    if (tasks.findByName("iosX64Test") != null) {
+        tasks.named("iosX64Test") {
+            this.enabled = false
+        }
     }
     tasks.withType<PublishToMavenRepository> {
         dependsOn(tasks.withType<Sign>())

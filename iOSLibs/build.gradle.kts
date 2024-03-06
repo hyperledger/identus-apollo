@@ -6,7 +6,7 @@ val sdks = listOf("iphoneos", "iphonesimulator", "macosx")
 
 libraries.forEach { library ->
     sdks.forEach { sdk ->
-        tasks.create<Exec>("build${library.capitalize()}${sdk.capitalize()}") {
+        tasks.create<Exec>("build${library.replaceFirstChar(Char::uppercase)}${sdk.replaceFirstChar(Char::uppercase)}") {
             group = "build swift"
 
             if (os.isMacOsX) {
