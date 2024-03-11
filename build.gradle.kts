@@ -3,7 +3,7 @@ import java.util.Base64
 val publishedMavenId: String = "io.iohk.atala.prism.apollo"
 
 plugins {
-    id("org.jetbrains.dokka") version "1.9.10"
+    id("org.jetbrains.dokka") version "1.9.20"
     id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     id("maven-publish")
     id("org.jetbrains.kotlinx.kover") version "0.7.5"
@@ -20,7 +20,7 @@ buildscript {
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22")
-        classpath("org.jetbrains.dokka:dokka-base:1.9.10")
+        classpath("org.jetbrains.dokka:dokka-base:1.9.20")
     }
 }
 
@@ -126,21 +126,15 @@ allprojects {
                     signing {
                         val base64EncodedAsciiArmoredSigningKey: String = System.getenv("BASE64_ARMORED_GPG_SIGNING_KEY_MAVEN") ?: ""
                         val signingKeyPassword: String = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
-                        useInMemoryPgpKeys(String(Base64.getDecoder().decode(base64EncodedAsciiArmoredSigningKey.toByteArray())), signingKeyPassword)
+                        useInMemoryPgpKeys(
+                            String(
+                                Base64.getDecoder().decode(base64EncodedAsciiArmoredSigningKey.toByteArray())
+                            ),
+                            signingKeyPassword
+                        )
                         sign(this@withType)
                     }
                 }
-            }
-            repositories {
-                // GitHub Maven Repo
-//            maven {
-//                this.name = "GitHubPackages"
-//                this.url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-apollo")
-//                credentials {
-//                    this.username = System.getenv("ATALA_GITHUB_ACTOR")
-//                    this.password = System.getenv("ATALA_GITHUB_TOKEN")
-//                }
-//            }
             }
         }
     }
