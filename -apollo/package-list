@@ -1,5 +1,56 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:fr.acinq.secp256k1////PointingToDeclaration/-apollo/fr.acinq.secp256k1/index.html
+$dokka.location:fr.acinq.secp256k1/Hex///PointingToDeclaration/-apollo/fr.acinq.secp256k1/-hex/index.html
+$dokka.location:fr.acinq.secp256k1/Hex/decode/#kotlin.String/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-hex/decode.html
+$dokka.location:fr.acinq.secp256k1/Hex/encode/#kotlin.ByteArray#kotlin.Int#kotlin.Int/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-hex/encode.html
+$dokka.location:fr.acinq.secp256k1/Hex/encode/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-hex/encode.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1.Companion///PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/-companion/index.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1.Companion/get/#/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/-companion/get.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1///PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/index.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/cleanup/#/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/cleanup.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/compact2der/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/compact2der.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/ecdh/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/ecdh.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/ecdsaRecover/#kotlin.ByteArray#kotlin.ByteArray#kotlin.Int/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/ecdsa-recover.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/privKeyNegate/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/priv-key-negate.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/privKeyTweakAdd/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/priv-key-tweak-add.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/privKeyTweakMul/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/priv-key-tweak-mul.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/pubKeyCombine/#kotlin.Array[kotlin.ByteArray]/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/pub-key-combine.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/pubKeyCompress/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/pub-key-compress.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/pubKeyNegate/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/pub-key-negate.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/pubKeyTweakAdd/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/pub-key-tweak-add.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/pubKeyTweakMul/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/pub-key-tweak-mul.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/pubkeyCreate/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/pubkey-create.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/pubkeyParse/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/pubkey-parse.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/secKeyVerify/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/sec-key-verify.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/sign/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/sign.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/signSchnorr/#kotlin.ByteArray#kotlin.ByteArray#kotlin.ByteArray?/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/sign-schnorr.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/signatureNormalize/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/signature-normalize.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/verify/#kotlin.ByteArray#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/verify.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1/verifySchnorr/#kotlin.ByteArray#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1/verify-schnorr.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Exception///PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-exception/index.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Exception/Secp256k1Exception/#/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-exception/-secp256k1-exception.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Exception/Secp256k1Exception/#kotlin.String?/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-exception/-secp256k1-exception.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native///PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/index.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/cleanup/#/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/cleanup.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/compact2der/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/compact2der.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/ecdh/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/ecdh.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/ecdsaRecover/#kotlin.ByteArray#kotlin.ByteArray#kotlin.Int/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/ecdsa-recover.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/privKeyNegate/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/priv-key-negate.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/privKeyTweakAdd/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/priv-key-tweak-add.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/privKeyTweakMul/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/priv-key-tweak-mul.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/pubKeyCombine/#kotlin.Array[kotlin.ByteArray]/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/pub-key-combine.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/pubKeyNegate/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/pub-key-negate.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/pubKeyTweakAdd/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/pub-key-tweak-add.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/pubKeyTweakMul/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/pub-key-tweak-mul.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/pubkeyCreate/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/pubkey-create.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/pubkeyParse/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/pubkey-parse.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/secKeyVerify/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/sec-key-verify.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/sign/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/sign.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/signSchnorr/#kotlin.ByteArray#kotlin.ByteArray#kotlin.ByteArray?/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/sign-schnorr.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/signatureNormalize/#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/signature-normalize.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/verify/#kotlin.ByteArray#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/verify.html
+$dokka.location:fr.acinq.secp256k1/Secp256k1Native/verifySchnorr/#kotlin.ByteArray#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/fr.acinq.secp256k1/-secp256k1-native/verify-schnorr.html
 $dokka.location:io.iohk.atala.prism.apollo.base64////PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.base64/index.html
 $dokka.location:io.iohk.atala.prism.apollo.base64//asCharArray/kotlin.ByteArray#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.base64/as-char-array.html
 $dokka.location:io.iohk.atala.prism.apollo.base64//base64Decoded/kotlin.ByteArray#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo.base64/base64-decoded.html
@@ -966,6 +1017,7 @@ $dokka.location:io.iohk.atala.prism.apollo.utils/X25519KeyPairGeneration/generat
 $dokka.location:io.iohk.atala.prism.apollo////PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo/index.html
 $dokka.location:io.iohk.atala.prism.apollo/Platform///PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo/-platform/index.html
 $dokka.location:io.iohk.atala.prism.apollo/Platform/OS/#/PointingToDeclaration/-apollo/io.iohk.atala.prism.apollo/-platform/-o-s.html
+fr.acinq.secp256k1
 io.iohk.atala.prism.apollo
 io.iohk.atala.prism.apollo.base64
 io.iohk.atala.prism.apollo.derivation
