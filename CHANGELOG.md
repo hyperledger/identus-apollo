@@ -1,3 +1,10 @@
+## [1.2.12](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.11...v1.2.12) (2024-03-14)
+
+
+### Bug Fixes
+
+* The need to publish another module to use Apollo ([#149](https://github.com/input-output-hk/atala-prism-apollo/issues/149)) ([91554d9](https://github.com/input-output-hk/atala-prism-apollo/commit/91554d92aef5ab0165cf7868f5c7808673a03af1))
+
 ## [1.2.11](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.10...v1.2.11) (2024-03-06)
 
 
