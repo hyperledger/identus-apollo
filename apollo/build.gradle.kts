@@ -2,6 +2,7 @@ import dev.petuska.npm.publish.extension.domain.NpmAccess
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -10,6 +11,7 @@ import java.time.Year
 
 val currentModuleName: String = "Apollo"
 val os: OperatingSystem = OperatingSystem.current()
+val secp256k1Dir = rootDir.resolve("secp256k1-kmp")
 
 plugins {
     kotlin("multiplatform")
@@ -19,7 +21,13 @@ plugins {
     id("dev.petuska.npm.publish") version "3.4.1"
 }
 
-fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.swiftCinterop(library: String, platform: String) {
+/**
+ * Adds a Swift interop configuration for a library.
+ *
+ * @param library The name of the library.
+ * @param platform The platform for which the interop is being configured.
+ */
+fun KotlinNativeTarget.swiftCinterop(library: String, platform: String) {
     compilations.getByName("main") {
         cinterops.create(library) {
             extraOpts = listOf("-compiler-option", "-DNS_FORMAT_ARGUMENT(A)=")
@@ -37,6 +45,27 @@ fun org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.swiftCinterop(libr
                     tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.replaceFirstChar(Char::uppercase)}Macosx")
                 }
             }
+        }
+    }
+}
+
+/**
+ * Configures the interop settings for the `secp256k1CInterop` method.
+ *
+ * @param target The target platform for which to configure the interop.
+ * @throws IllegalStateException if the compilation is not found or if the interop processing task dependency is not properly set.
+ */
+fun KotlinNativeTarget.secp256k1CInterop(target: String) {
+    compilations["main"].cinterops {
+        val libsecp256k1 by creating {
+            includeDirs.headerFilterOnly(
+                secp256k1Dir
+                    .resolve("native")
+                    .resolve("secp256k1")
+                    .resolve("include")
+            )
+            tasks[interopProcessingTaskName]
+                .dependsOn(":secp256k1-kmp:native:buildSecp256k1${target.replaceFirstChar(Char::uppercase)}")
         }
     }
 }
@@ -77,6 +106,19 @@ kotlin {
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
 
+        secp256k1CInterop("ios")
+        // https://youtrack.jetbrains.com/issue/KT-39396
+        compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
+            "-include-binary",
+            secp256k1Dir
+                .resolve("native")
+                .resolve("build")
+                .resolve("ios")
+                .resolve("arm64-iphoneos")
+                .resolve("libsecp256k1.a")
+                .absolutePath
+        )
+
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
@@ -85,6 +127,19 @@ kotlin {
     iosX64 {
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
+
+        secp256k1CInterop("ios")
+        // https://youtrack.jetbrains.com/issue/KT-39396
+        compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
+            "-include-binary",
+            secp256k1Dir
+                .resolve("native")
+                .resolve("build")
+                .resolve("ios")
+                .resolve("x86_x64-iphonesimulator")
+                .resolve("libsecp256k1.a")
+                .absolutePath
+        )
 
         binaries.framework {
             baseName = "ApolloLibrary"
@@ -100,6 +155,19 @@ kotlin {
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
 
+        secp256k1CInterop("ios")
+        // https://youtrack.jetbrains.com/issue/KT-39396
+        compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
+            "-include-binary",
+            secp256k1Dir
+                .resolve("native")
+                .resolve("build")
+                .resolve("ios")
+                .resolve("arm64-iphonesimulator")
+                .resolve("libsecp256k1.a")
+                .absolutePath
+        )
+
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
@@ -108,6 +176,19 @@ kotlin {
     macosArm64 {
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
+
+        secp256k1CInterop("macosArm64")
+        // https://youtrack.jetbrains.com/issue/KT-39396
+        compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
+            "-include-binary",
+            secp256k1Dir
+                .resolve("native")
+                .resolve("build")
+                .resolve("ios")
+                .resolve("arm64-macosx")
+                .resolve("libsecp256k1.a")
+                .absolutePath
+        )
 
         binaries.framework {
             baseName = "ApolloLibrary"
@@ -219,9 +300,16 @@ kotlin {
         val jsTest by getting
 
         val appleMain by getting {
-            dependencies {
-                implementation(project(":secp256k1-kmp"))
-            }
+            kotlin.srcDirs(
+                secp256k1Dir
+                    .resolve("src")
+                    .resolve("commonMain")
+                    .resolve("kotlin"),
+                secp256k1Dir
+                    .resolve("src")
+                    .resolve("nativeMain")
+                    .resolve("kotlin")
+            )
         }
     }
 
@@ -393,6 +481,9 @@ afterEvaluate {
         }
     }
     tasks.withType<PublishToMavenRepository> {
+        dependsOn(tasks.withType<Sign>())
+    }
+    tasks.withType<PublishToMavenLocal> {
         dependsOn(tasks.withType<Sign>())
     }
     // Disable publish of targets

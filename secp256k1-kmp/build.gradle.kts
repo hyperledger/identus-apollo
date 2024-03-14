@@ -75,7 +75,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("com.ionspin.kotlin:bignum:0.3.8")
+                api("com.ionspin.kotlin:bignum:0.3.9")
             }
         }
         val nativeMain by getting {
@@ -110,9 +110,6 @@ kotlin {
 
 afterEvaluate {
     tasks.withType<PublishToMavenRepository>().configureEach {
-        enabled = false
-    }
-    tasks.withType<PublishToMavenLocal>().configureEach {
         enabled = false
     }
 }
