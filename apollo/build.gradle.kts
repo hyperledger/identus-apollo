@@ -122,6 +122,7 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
+            freeCompilerArgs += listOf("-Xoverride-konan-properties=minVersion.ios=13.0;minVersionSinceXcode15.ios=13.0")
         }
     }
     iosX64 {
@@ -144,6 +145,7 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
+            freeCompilerArgs += listOf("-Xoverride-konan-properties=minVersion.ios=13.0;minVersionSinceXcode15.ios=13.0")
             if (os.isMacOsX) {
                 if (System.getenv().containsKey("XCODE_VERSION_MAJOR") && System.getenv("XCODE_VERSION_MAJOR") == "1500") {
                     linkerOpts += "-ld64"
@@ -171,6 +173,7 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
+            freeCompilerArgs += listOf("-Xoverride-konan-properties=minVersion.ios_simulator_arm64=13.0;minVersionSinceXcode15.ios=13.0")
         }
     }
     macosArm64 {
@@ -193,6 +196,7 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
+            freeCompilerArgs += listOf("-Xoverride-konan-properties=minVersion.macos=11.0;minVersionSinceXcode15.macos=11.0")
         }
     }
     js(IR) {
