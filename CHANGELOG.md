@@ -1,3 +1,10 @@
+## [1.2.13](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.12...v1.2.13) (2024-03-25)
+
+
+### Bug Fixes
+
+* current bug when trying to publish an app on app store with apollo inside ([#150](https://github.com/input-output-hk/atala-prism-apollo/issues/150)) ([258fc08](https://github.com/input-output-hk/atala-prism-apollo/commit/258fc0841bc488aa659f027921e4517346e467ad))
+
 ## [1.2.12](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.11...v1.2.12) (2024-03-14)
 
 
