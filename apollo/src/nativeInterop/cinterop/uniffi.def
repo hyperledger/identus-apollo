@@ -1,0 +1,13 @@
+package = ed25519_bip32.cinterop
+headers = ed25519_bip32.h
+headerFilter = **
+
+staticLibraries.ios = libed25519_bip32_wrapper.a
+
+
+libraryPaths.ios_x64 = ../../rust-ed25519-bip32/wrapper/target/x86_64-apple-ios/release
+libraryPaths.ios_arm64 = ../../rust-ed25519-bip32/wrapper/target/aarch64-apple-ios/release
+libraryPaths.ios_simulator_arm64 = ../../rust-ed25519-bip32/wrapper/target/aarch64-apple-ios-sim/release
+
+staticLibraries.osx = libed25519_bip32_wrapper.a
+libraryPaths.osx = ../../rust-ed25519-bip32/wrapper/out/kmpp-uniffi/macos-native/static

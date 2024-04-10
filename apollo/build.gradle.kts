@@ -21,6 +21,24 @@ plugins {
     id("dev.petuska.npm.publish") version "3.4.1"
 }
 
+val ed25519bip32Dir = file("../../rust-ed25519-bip32/wrapper")
+val uniffiBindings = ed25519bip32Dir.resolve("out/kmpp-uniffi")
+val jniLibs = uniffiBindings.resolve("jniLibs")
+val processBinaries = tasks.register("processBinaries", Copy::class) {
+    val directory = buildDir
+        .resolve("processedResources")
+        .resolve("jvm")
+        .resolve("main")
+
+    from(uniffiBindings.resolve("macos-native").resolve("dynamic"))
+    include("*.dylib")
+    into(directory)
+}
+
+tasks.withType<ProcessResources> {
+    dependsOn(processBinaries)
+}
+
 /**
  * Adds a Swift interop configuration for a library.
  *
@@ -81,6 +99,28 @@ val javadocJar by tasks.registering(Jar::class) {
 }
 
 kotlin {
+    fun addLibs(libDirectory: String, target: KotlinNativeTarget) {
+        target.compilations.getByName("main") {
+            val uniffi by cinterops.creating {
+                val headerDir = uniffiBindings.resolve("nativeInterop/cinterop/headers/ed25519_bip32")
+                this.includeDirs(headerDir)
+                packageName("ed25519_bip32.cinterop")
+                extraOpts("-libraryPath", libDirectory)
+            }
+        }
+
+        target.binaries.all {
+            linkerOpts("-L${libDirectory}", "-led25519_bip32")
+            linkerOpts("-Wl,-framework,Security")
+        }
+
+        target.binaries{
+            sharedLib{
+                baseName = "ed25519_bip32"
+            }
+        }
+    }
+
     androidTarget {
         publishAllLibraryVariants()
     }
@@ -103,6 +143,9 @@ kotlin {
         }
     }
     iosArm64 {
+        val libDirectory = "${ed25519bip32Dir}/target/aarch64-apple-ios/release"
+        addLibs(libDirectory, this)
+
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
 
@@ -122,10 +165,12 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
-            freeCompilerArgs += listOf("-Xoverride-konan-properties=minVersion.ios=13.0;minVersionSinceXcode15.ios=13.0")
         }
     }
     iosX64 {
+        val libDirectory = "${ed25519bip32Dir}/target/x86_64-apple-ios/release"
+        addLibs(libDirectory, this)
+
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
 
@@ -145,7 +190,6 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
-            freeCompilerArgs += listOf("-Xoverride-konan-properties=minVersion.ios=13.0;minVersionSinceXcode15.ios=13.0")
             if (os.isMacOsX) {
                 if (System.getenv().containsKey("XCODE_VERSION_MAJOR") && System.getenv("XCODE_VERSION_MAJOR") == "1500") {
                     linkerOpts += "-ld64"
@@ -154,6 +198,9 @@ kotlin {
         }
     }
     iosSimulatorArm64 {
+        val libDirectory = "${ed25519bip32Dir}/target/aarch64-apple-ios-sim/release"
+        addLibs(libDirectory, this)
+
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
 
@@ -173,10 +220,12 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
-            freeCompilerArgs += listOf("-Xoverride-konan-properties=minVersion.ios_simulator_arm64=13.0;minVersionSinceXcode15.ios=13.0")
         }
     }
     macosArm64 {
+        val libDirectory = "${uniffiBindings}/macos-native/static"
+        addLibs(libDirectory, this)
+
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
 
@@ -196,7 +245,6 @@ kotlin {
         binaries.framework {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
-            freeCompilerArgs += listOf("-Xoverride-konan-properties=minVersion.macos=11.0;minVersionSinceXcode15.macos=11.0")
         }
     }
     js(IR) {
@@ -243,11 +291,22 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
+            val commonDir = uniffiBindings.resolve("commonMain").resolve("kotlin")
+            val file = commonDir.resolve("ed25519_bip32").resolve("ed25519_bip32.common.kt")
+            val find = Regex("\\t|(?:\\s{4})class ([a-zA-Z]{2,50})\\(\\n.{0,50}\\n.{0,20}: ErrorCode\\(\\) \\{(?:.|\\n){0,100}?(?:\\t|(?:\\s{4}))\\}")
+            val contents = file.readText().replace(find){
+                "class ${it.groupValues[1]}(override val message: kotlin.String): ErrorCode()"
+            }
+            file.writeText(contents)
+            kotlin.srcDir(commonDir)
+
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
                 implementation("com.ionspin.kotlin:bignum:0.3.9")
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
                 implementation("org.kotlincrypto.hash:sha2:0.4.0")
+
+                implementation("com.ionspin.kotlin:multiplatform-crypto-libsodium-bindings:0.9.0")
             }
         }
         val commonTest by getting {
@@ -256,11 +315,13 @@ kotlin {
             }
         }
         val androidMain by getting {
+            kotlin.srcDir(uniffiBindings.resolve("jvmMain").resolve("kotlin"))
+
             dependencies {
                 api("fr.acinq.secp256k1:secp256k1-kmp:0.14.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.11.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-android:0.14.0")
-                implementation("com.google.guava:guava:30.1-jre")
+                implementation("com.godogle.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
                 implementation("org.bitcoinj:bitcoinj-core:0.16.2")
             }
@@ -271,12 +332,15 @@ kotlin {
             }
         }
         val jvmMain by getting {
+            kotlin.srcDir(uniffiBindings.resolve("jvmMain").resolve("kotlin"))
+
             dependencies {
                 api("fr.acinq.secp256k1:secp256k1-kmp:0.14.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.11.0")
                 implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
                 implementation("org.bitcoinj:bitcoinj-core:0.16.2")
+
             }
         }
         val jvmTest by getting {
@@ -315,6 +379,11 @@ kotlin {
                     .resolve("kotlin")
             )
         }
+
+        all {
+//            languageSettings.optIn("kotlin.RequiresOptIn")
+//            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+        }
     }
 
     // Enable the export of KDoc (Experimental feature) to Generated Native targets (Apple, Linux, etc.)
@@ -338,6 +407,8 @@ android {
     namespace = "io.iohk.atala.prism.apollo"
     compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].jniLibs.srcDir(jniLibs)
+
     defaultConfig {
         minSdk = 21
     }
