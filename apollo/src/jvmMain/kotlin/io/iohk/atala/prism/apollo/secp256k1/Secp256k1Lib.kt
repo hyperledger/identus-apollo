@@ -66,8 +66,10 @@ actual class Secp256k1Lib {
             return true
         }
         val normalisedSignature = Secp256k1.signatureNormalize(signature).first
-        val derSignature = transcodeSignatureToDERBitcoin(normalisedSignature)
-        return Secp256k1.verify(derSignature, sha, publicKey)
+        if (Secp256k1.verify(normalisedSignature, sha, publicKey)) {
+            return true
+        }
+        return Secp256k1.verify(transcodeSignatureToDERBitcoin(normalisedSignature), sha, publicKey)
     }
 
     private fun reverseB32(inputBytes: ByteArray): ByteArray {
