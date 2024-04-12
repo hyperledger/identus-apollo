@@ -1,3 +1,10 @@
+## [1.2.14](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.13...v1.2.14) (2024-04-12)
+
+
+### Bug Fixes
+
+* Allow Apollo to verify der signatures from bc and bitcoin seamlessly #ATL-6905 ([#154](https://github.com/input-output-hk/atala-prism-apollo/issues/154)) ([a26a559](https://github.com/input-output-hk/atala-prism-apollo/commit/a26a5597cd5df9d1875f28a664772a1d02168ec9)), closes [#ATL-6905](https://github.com/input-output-hk/atala-prism-apollo/issues/ATL-6905)
+
 ## [1.2.13](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.12...v1.2.13) (2024-03-25)
 
 
