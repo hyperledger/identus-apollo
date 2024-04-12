@@ -944,5 +944,4 @@ class Secp256k1LibJVMTests {
             )
         }
     }
-
 }
