@@ -35,6 +35,8 @@ val processBinaries = tasks.register("processBinaries", Copy::class) {
     into(directory)
 }
 
+
+
 tasks.withType<ProcessResources> {
     dependsOn(processBinaries)
 }
@@ -98,8 +100,13 @@ val javadocJar by tasks.registering(Jar::class) {
     from(tasks.dokkaHtml)
 }
 
+
+
 kotlin {
+
+
     fun addLibs(libDirectory: String, target: KotlinNativeTarget) {
+
         target.compilations.getByName("main") {
             val uniffi by cinterops.creating {
                 val headerDir = uniffiBindings.resolve("nativeInterop/cinterop/headers/ed25519_bip32")
@@ -291,21 +298,14 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
-            val commonDir = uniffiBindings.resolve("commonMain").resolve("kotlin")
-            val file = commonDir.resolve("ed25519_bip32").resolve("ed25519_bip32.common.kt")
-            val find = Regex("\\t|(?:\\s{4})class ([a-zA-Z]{2,50})\\(\\n.{0,50}\\n.{0,20}: ErrorCode\\(\\) \\{(?:.|\\n){0,100}?(?:\\t|(?:\\s{4}))\\}")
-            val contents = file.readText().replace(find){
-                "class ${it.groupValues[1]}(override val message: kotlin.String): ErrorCode()"
-            }
-            file.writeText(contents)
-            kotlin.srcDir(commonDir)
-
             dependencies {
+                implementation("org.jetbrains.kotlinx:atomicfu:0.22.0")
+                implementation("net.java.dev.jna:jna:5.13.0")
+                implementation("com.squareup.okio:okio:3.2.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
                 implementation("com.ionspin.kotlin:bignum:0.3.9")
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
                 implementation("org.kotlincrypto.hash:sha2:0.4.0")
-
                 implementation("com.ionspin.kotlin:multiplatform-crypto-libsodium-bindings:0.9.0")
             }
         }
@@ -314,24 +314,44 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+
+        val allButJSMain by creating {
+            this.dependsOn(commonMain)
+            val commonDir = uniffiBindings.resolve("commonMain").resolve("kotlin")
+            val file = commonDir.resolve("ed25519_bip32").resolve("ed25519_bip32.common.kt")
+            val find = Regex("\\t|(?:\\s{4})class ([a-zA-Z]{2,50})\\(\\n.{0,50}\\n.{0,20}: ErrorCode\\(\\) \\{(?:.|\\n){0,100}?(?:\\t|(?:\\s{4}))\\}")
+            val contents = file.readText().replace(find){
+                "class ${it.groupValues[1]}(override val message: kotlin.String): ErrorCode()"
+            }
+            file.writeText(contents)
+            kotlin.srcDir(commonDir)
+        }
+        val allButJSTest by creating {
+            this.dependsOn(commonTest)
+        }
+
+
+
         val androidMain by getting {
             kotlin.srcDir(uniffiBindings.resolve("jvmMain").resolve("kotlin"))
-
+            this.dependsOn(allButJSMain)
             dependencies {
                 api("fr.acinq.secp256k1:secp256k1-kmp:0.14.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.11.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-android:0.14.0")
-                implementation("com.godogle.guava:guava:30.1-jre")
+                implementation("com.google.guava:guava:30.1-jre")
                 implementation("org.bouncycastle:bcprov-jdk15on:1.68")
                 implementation("org.bitcoinj:bitcoinj-core:0.16.2")
             }
         }
         val androidUnitTest by getting {
+            this.dependsOn(allButJSTest)
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
         }
         val jvmMain by getting {
+            this.dependsOn(allButJSMain)
             kotlin.srcDir(uniffiBindings.resolve("jvmMain").resolve("kotlin"))
 
             dependencies {
@@ -344,6 +364,8 @@ kotlin {
             }
         }
         val jvmTest by getting {
+            this.dependsOn(allButJSTest)
+
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
@@ -368,6 +390,8 @@ kotlin {
         val jsTest by getting
 
         val appleMain by getting {
+            this.dependsOn(allButJSMain)
+
             kotlin.srcDirs(
                 secp256k1Dir
                     .resolve("src")
@@ -376,13 +400,16 @@ kotlin {
                 secp256k1Dir
                     .resolve("src")
                     .resolve("nativeMain")
+                    .resolve("kotlin"),
+                uniffiBindings
+                    .resolve("nativeMain")
                     .resolve("kotlin")
             )
         }
 
         all {
-//            languageSettings.optIn("kotlin.RequiresOptIn")
-//            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            languageSettings.optIn("kotlin.RequiresOptIn")
+            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
         }
     }
 
