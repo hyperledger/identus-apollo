@@ -255,6 +255,11 @@ kotlin {
         }
     }
     js(IR) {
+        val externalDir = File(projectDir, "../build/js/packages/Apollo/kotlin") // Destination directory within your project
+        val sourceDir = File(projectDir,"../../rust-ed25519-bip32/wasm/pkg") // Source directory
+
+        // Copy files from sourceDir to externalDir
+        sourceDir.copyRecursively(externalDir, overwrite = true)
         this.moduleName = currentModuleName
         this.binaries.library()
         this.useCommonJs()
@@ -299,14 +304,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:atomicfu:0.22.0")
-                implementation("net.java.dev.jna:jna:5.13.0")
-                implementation("com.squareup.okio:okio:3.2.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
                 implementation("com.ionspin.kotlin:bignum:0.3.9")
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
                 implementation("org.kotlincrypto.hash:sha2:0.4.0")
-                implementation("com.ionspin.kotlin:multiplatform-crypto-libsodium-bindings:0.9.0")
             }
         }
         val commonTest by getting {

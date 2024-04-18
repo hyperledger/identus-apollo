@@ -18,5 +18,6 @@ external interface ed25519_bip32_export {
     var XPrvWrapper: XPrvWrapper
 }
 
-@JsModule("ed25519_bip32_export")
+@JsModule("./ed25519_bip32_wasm.mjs")
+@JsNonModule
 external val ed25519_bip32: ed25519_bip32_export
