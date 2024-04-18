@@ -1,13 +1,14 @@
 package io.iohk.atala.prism.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.toBigInteger
-import ed25519_bip32.XPrvWrapper
 import io.iohk.atala.prism.apollo.utils.ECConfig
-
+import io.iohk.atala.prism.apollo.utils.external.ed25519_bip32
 
 /**
  * Represents and HDKey with its derive methods
  */
+@OptIn(ExperimentalJsExport::class)
+@JsExport
 class EdHDKey(
     val privateKey: ByteArray,
     val chainCode: ByteArray,
@@ -28,11 +29,11 @@ class EdHDKey(
 
         val key = seed.sliceArray(0 until 32)
         val chainCode = seed.sliceArray(32 until seed.size)
-        val wrapper = XPrvWrapper.fromNonextendedNoforce(key, chainCode)
+        val wrapper = ed25519_bip32.XPrvWrapper.from_nonextended_noforce(key, chainCode)
 
         return EdHDKey(
-            privateKey = wrapper.extendedSecretKey(),
-            chainCode = wrapper.chainCode(),
+            privateKey = wrapper.extended_secret_key(),
+            chainCode = wrapper.chain_code(),
         )
     }
 
@@ -74,13 +75,12 @@ class EdHDKey(
      * @param index value used to derive a key
      */
     fun deriveChild(wrappedIndex: BigIntegerWrapper): EdHDKey {
-        val extendedKey = privateKey.plus(chainCode)
-        val wrapper = XPrvWrapper.fromBytes(extendedKey)
+        val wrapper = ed25519_bip32.XPrvWrapper.from_extended_and_chaincode(privateKey, chainCode)
         val derived = wrapper.derive(wrappedIndex.value.uintValue())
 
         return EdHDKey(
-            privateKey = derived.extendedSecretKey(),
-            chainCode = derived.chainCode(),
+            privateKey = derived.extended_secret_key(),
+            chainCode = derived.chain_code(),
             depth = depth + 1,
             index = wrappedIndex
         )
