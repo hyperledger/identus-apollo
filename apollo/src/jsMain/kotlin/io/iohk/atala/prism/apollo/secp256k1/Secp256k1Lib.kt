@@ -77,7 +77,35 @@ actual class Secp256k1Lib actual constructor() {
     ): Boolean {
         val ecjs = ec("secp256k1")
         val sha = SHA256().digest(data)
-        return ecjs.verify(sha.toHexString(), signature.toHexString(), publicKey.toHexString(), enc = "hex")
+        if (ecjs.verify(sha.toHexString(), signature.toHexString(), publicKey.toHexString(), enc = "hex")) {
+            return true
+        }
+        return ecjs.verify(sha.toHexString(), transcodeSignatureToBitcoin(signature).toHexString(), publicKey.toHexString(), enc = "hex")
+    }
+
+    private fun transcodeSignatureToBitcoin(signature: ByteArray): ByteArray {
+        val rawLen = signature.size / 2
+        val r = signature.copyOfRange(0, rawLen).reversedArray()
+        val s = signature.copyOfRange(rawLen, signature.size).reversedArray()
+        val lenR = r.size
+        val lenS = s.size
+        val derLength = 6 + lenR + lenS
+        val derSignature = ByteArray(derLength)
+        derSignature[0] = 0x30
+        derSignature[1] = (4 + lenR + lenS).toByte()
+        derSignature[2] = 0x02
+        derSignature[3] = lenR.toByte()
+        derSignature.fill(r, 4, lenR + 4)
+        derSignature[4 + lenR] = 0x02
+        derSignature[5 + lenR] = lenS.toByte()
+        derSignature.fill(s, 6 + lenR, lenS + 6 + lenR)
+        return derSignature
+    }
+
+    private fun ByteArray.fill(from: ByteArray, start: Int, end: Int) {
+        for (i in start until end) {
+            this[i] = from[i - start]
+        }
     }
 
     /**

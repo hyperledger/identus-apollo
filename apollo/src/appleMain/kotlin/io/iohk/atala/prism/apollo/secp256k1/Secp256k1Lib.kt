@@ -1,5 +1,6 @@
 package io.iohk.atala.prism.apollo.secp256k1
 
+import fr.acinq.secp256k1.Secp256k1
 import fr.acinq.secp256k1.Secp256k1Native
 import org.kotlincrypto.hash.sha2.SHA256
 
@@ -68,7 +69,27 @@ actual class Secp256k1Lib {
         data: ByteArray
     ): Boolean {
         val sha = SHA256().digest(data)
-        return Secp256k1Native.verify(signature, sha, publicKey)
+        if (Secp256k1.verify(signature, sha, publicKey)) {
+            return true
+        }
+        val normalisedSignature = Secp256k1.signatureNormalize(signature).first
+        if (Secp256k1.verify(normalisedSignature, sha, publicKey)) {
+            return true
+        }
+        return Secp256k1.verify(transcodeSignatureToBitcoin(normalisedSignature), sha, publicKey)
+    }
+
+    /**
+     * Transcodes a signature to format for use in Bitcoin transactions.
+     *
+     * @param signature The signature to be transcoded, in byte array format.
+     * @return A byte array representing the signature in format.
+     */
+    private fun transcodeSignatureToBitcoin(signature: ByteArray): ByteArray {
+        val rawLen = signature.size / 2
+        val r = signature.copyOfRange(0, rawLen)
+        val s = signature.copyOfRange(rawLen, signature.size)
+        return r.reversedArray() + s.reversedArray()
     }
 
     /**
