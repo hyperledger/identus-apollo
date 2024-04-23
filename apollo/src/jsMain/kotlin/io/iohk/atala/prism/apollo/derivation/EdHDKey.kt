@@ -33,7 +33,7 @@ class EdHDKey(
 
         return EdHDKey(
             privateKey = wrapper.extended_secret_key(),
-            chainCode = wrapper.chain_code(),
+            chainCode = wrapper.chain_code()
         )
     }
 

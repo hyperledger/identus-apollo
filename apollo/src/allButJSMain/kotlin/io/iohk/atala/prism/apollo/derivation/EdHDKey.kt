@@ -4,7 +4,6 @@ import com.ionspin.kotlin.bignum.integer.toBigInteger
 import ed25519_bip32.XPrvWrapper
 import io.iohk.atala.prism.apollo.utils.ECConfig
 
-
 /**
  * Represents and HDKey with its derive methods
  */
@@ -32,7 +31,7 @@ class EdHDKey(
 
         return EdHDKey(
             privateKey = wrapper.extendedSecretKey(),
-            chainCode = wrapper.chainCode(),
+            chainCode = wrapper.chainCode()
         )
     }
 
@@ -74,8 +73,7 @@ class EdHDKey(
      * @param index value used to derive a key
      */
     fun deriveChild(wrappedIndex: BigIntegerWrapper): EdHDKey {
-        val extendedKey = privateKey.plus(chainCode)
-        val wrapper = XPrvWrapper.fromBytes(extendedKey)
+        val wrapper = XPrvWrapper.fromExtendedAndChaincode(privateKey, chainCode)
         val derived = wrapper.derive(wrappedIndex.value.uintValue())
 
         return EdHDKey(
