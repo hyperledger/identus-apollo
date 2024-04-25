@@ -136,6 +136,7 @@ tasks {
 }
 
 afterEvaluate {
+    tasks.getByName("compileKotlinIosArm64").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeDebugJniLibFolders").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("packageDebugResources").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("extractDeepLinksForAarDebug").dependsOn(buildEd25519Bip32Task)

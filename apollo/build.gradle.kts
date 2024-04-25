@@ -336,6 +336,11 @@ kotlin {
                     .resolve("nativeMain")
                     .resolve("kotlin")
             )
+
+        }
+
+        all {
+            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
         }
     }
 
