@@ -2,7 +2,6 @@ package io.iohk.atala.prism.apollo.secp256k1
 
 import fr.acinq.secp256k1.Secp256k1
 import org.kotlincrypto.hash.sha2.SHA256
-import java.math.BigInteger
 
 /**
  * This class provides various Secp256k1 cryptographic functionalities such as creating public keys, signing data,
@@ -69,38 +68,20 @@ actual class Secp256k1Lib {
         if (Secp256k1.verify(normalisedSignature, sha, publicKey)) {
             return true
         }
-        return Secp256k1.verify(transcodeSignatureToDERBitcoin(normalisedSignature), sha, publicKey)
+        return Secp256k1.verify(transcodeSignatureToBitcoin(normalisedSignature), sha, publicKey)
     }
 
-    private fun reverseB32(inputBytes: ByteArray): ByteArray {
-        val reversedBytes = ByteArray(inputBytes.size)
-        for (i in inputBytes.indices) {
-            reversedBytes[inputBytes.size - i - 1] = inputBytes[i]
-        }
-        return reversedBytes
-    }
-
-    private fun transcodeSignatureToDERBitcoin(signature: ByteArray): ByteArray {
+    /**
+     * Transcodes a signature to format for use in Bitcoin transactions.
+     *
+     * @param signature The signature to be transcoded, in byte array format.
+     * @return A byte array representing the signature in format.
+     */
+    private fun transcodeSignatureToBitcoin(signature: ByteArray): ByteArray {
         val rawLen = signature.size / 2
-        val bigR = BigInteger(1, signature.copyOfRange(0, rawLen))
-        val bigS = BigInteger(1, signature.copyOfRange(rawLen, signature.size))
-        var r = bigR.toByteArray()
-        var s = bigS.toByteArray()
-        r = reverseB32(r)
-        s = reverseB32(s)
-        val lenR = r.size
-        val lenS = s.size
-        val derLength = 6 + lenR + lenS
-        val derSignature = ByteArray(derLength)
-        derSignature[0] = 0x30
-        derSignature[1] = (4 + lenR + lenS).toByte()
-        derSignature[2] = 0x02
-        derSignature[3] = lenR.toByte()
-        System.arraycopy(r, 0, derSignature, 4, lenR)
-        derSignature[4 + lenR] = 0x02
-        derSignature[5 + lenR] = lenS.toByte()
-        System.arraycopy(s, 0, derSignature, 6 + lenR, lenS)
-        return derSignature
+        val r = signature.copyOfRange(0, rawLen)
+        val s = signature.copyOfRange(rawLen, signature.size)
+        return r.reversedArray() + s.reversedArray()
     }
 
     /**
