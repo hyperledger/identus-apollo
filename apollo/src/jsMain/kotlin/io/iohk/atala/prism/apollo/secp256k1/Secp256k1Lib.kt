@@ -62,10 +62,10 @@ actual class Secp256k1Lib actual constructor() {
 
     private fun normalise(signatureBytes: ByteArray): SignatureType {
         val jsSignatureByteArray = signatureBytes.asUint8Array()
-        val signature =  try {
+        val signature = try {
             secp256k1.Signature.fromDER(jsSignatureByteArray)
         } catch (e: dynamic) {
-           secp256k1.Signature.fromCompact(jsSignatureByteArray)
+            secp256k1.Signature.fromCompact(jsSignatureByteArray)
         }
         return signature.normalizeS()
     }
@@ -84,21 +84,12 @@ actual class Secp256k1Lib actual constructor() {
         data: ByteArray
     ): Boolean {
         val normalised = this.normalise(signature)
-        val sha = SHA256().digest(data);
-        if (secp256k1.verify(
-                normalised,
-                sha.asUint8Array(),
-                publicKey.asUint8Array(),
-                {}
-            )) {
+        val sha = SHA256().digest(data)
+        if (secp256k1.verify( normalised, sha.asUint8Array(), publicKey.asUint8Array(), {})) {
             return true
         }
-        return secp256k1.verify(
-            transcodeSignatureToBitcoin(normalised.toCompactRawBytes().asByteArray()),
-            sha.asUint8Array(),
-            publicKey.asUint8Array(),
-            {}
-        )
+        val transcoded = transcodeSignatureToBitcoin(normalised.toCompactRawBytes().asByteArray())
+        return secp256k1.verify(transcoded, sha.asUint8Array(), publicKey.asUint8Array(), {})
     }
 
     private fun transcodeSignatureToBitcoin(signature: ByteArray): SignatureType {
