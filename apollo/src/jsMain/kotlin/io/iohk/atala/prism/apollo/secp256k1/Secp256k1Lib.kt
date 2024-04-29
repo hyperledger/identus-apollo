@@ -4,9 +4,9 @@ import com.ionspin.kotlin.bignum.integer.BigInteger
 import io.iohk.atala.prism.apollo.utils.ECConfig
 import io.iohk.atala.prism.apollo.utils.asByteArray
 import io.iohk.atala.prism.apollo.utils.asUint8Array
-import io.iohk.atala.prism.apollo.utils.decodeHex
 import io.iohk.atala.prism.apollo.utils.external.BN
 import io.iohk.atala.prism.apollo.utils.external.ec
+import io.iohk.atala.prism.apollo.utils.external.secp256k1.SignatureType
 import io.iohk.atala.prism.apollo.utils.external.secp256k1.secp256k1
 import io.iohk.atala.prism.apollo.utils.toHexString
 import org.kotlincrypto.hash.sha2.SHA256
@@ -39,9 +39,7 @@ actual class Secp256k1Lib actual constructor() {
         val derivedPrivKeyString = derivedPrivateKeyBytes.toHexString()
         val privKey = BigInteger.parseString(privKeyString, 16)
         val derivedPrivKey = BigInteger.parseString(derivedPrivKeyString, 16)
-
         val added = (privKey + derivedPrivKey) % ECConfig.n
-
         return added.toByteArray()
     }
 
@@ -53,13 +51,23 @@ actual class Secp256k1Lib actual constructor() {
      * @return The signature of the data in DER format.
      */
     actual fun sign(privateKey: ByteArray, data: ByteArray): ByteArray {
-        // TODO: "Using noble/secp256k1 would be problematic since it requires a configuration so it can use Sync methods to sign, also it doesnt have DER signatures")
         val sha = SHA256().digest(data)
-        val ecInstance = ec("secp256k1")
-        val key = ecInstance.keyFromPrivate(privateKey.asUint8Array())
-        val signature = key.sign(sha.asUint8Array())
-        val derSignature = signature.toDER(enc = "hex").unsafeCast<String>()
-        return derSignature.decodeHex()
+        val signature = secp256k1.sign(
+            sha.asUint8Array(),
+            privateKey.asUint8Array(),
+            {}
+        )
+        return signature.toDERRawBytes().asByteArray()
+    }
+
+    private fun normalise(signatureBytes: ByteArray): SignatureType {
+        val jsSignatureByteArray = signatureBytes.asUint8Array()
+        val signature =  try {
+            secp256k1.Signature.fromDER(jsSignatureByteArray)
+        } catch (e: dynamic) {
+           secp256k1.Signature.fromCompact(jsSignatureByteArray)
+        }
+        return signature.normalizeS()
     }
 
     /**
@@ -75,15 +83,25 @@ actual class Secp256k1Lib actual constructor() {
         signature: ByteArray,
         data: ByteArray
     ): Boolean {
-        val ecjs = ec("secp256k1")
-        val sha = SHA256().digest(data)
-        if (ecjs.verify(sha.toHexString(), signature.toHexString(), publicKey.toHexString(), enc = "hex")) {
+        val normalised = this.normalise(signature)
+        val sha = SHA256().digest(data);
+        if (secp256k1.verify(
+                normalised,
+                sha.asUint8Array(),
+                publicKey.asUint8Array(),
+                {}
+            )) {
             return true
         }
-        return ecjs.verify(sha.toHexString(), transcodeSignatureToBitcoin(signature).toHexString(), publicKey.toHexString(), enc = "hex")
+        return secp256k1.verify(
+            transcodeSignatureToBitcoin(normalised.toCompactRawBytes().asByteArray()),
+            sha.asUint8Array(),
+            publicKey.asUint8Array(),
+            {}
+        )
     }
 
-    private fun transcodeSignatureToBitcoin(signature: ByteArray): ByteArray {
+    private fun transcodeSignatureToBitcoin(signature: ByteArray): SignatureType {
         val rawLen = signature.size / 2
         val r = signature.copyOfRange(0, rawLen).reversedArray()
         val s = signature.copyOfRange(rawLen, signature.size).reversedArray()
@@ -99,7 +117,7 @@ actual class Secp256k1Lib actual constructor() {
         derSignature[4 + lenR] = 0x02
         derSignature[5 + lenR] = lenS.toByte()
         derSignature.fill(s, 6 + lenR, lenS + 6 + lenR)
-        return derSignature
+        return secp256k1.Signature.fromDER(derSignature.asUint8Array())
     }
 
     private fun ByteArray.fill(from: ByteArray, start: Int, end: Int) {
@@ -117,12 +135,9 @@ actual class Secp256k1Lib actual constructor() {
     @OptIn(ExperimentalUnsignedTypes::class)
     actual fun uncompressPublicKey(compressed: ByteArray): ByteArray {
         val ecjs = ec("secp256k1")
-
         val decoded = ecjs.curve.decodePoint(compressed.asUint8Array())
-
         val x = ByteArray(decoded.getX().toArray().size) { index -> decoded.getX().toArray()[index].asDynamic() as Byte }
         val y = ByteArray(decoded.getX().toArray().size) { index -> decoded.getY().toArray()[index].asDynamic() as Byte }
-
         val header: Byte = 0x04
         return byteArrayOf(header) + x + y
     }
