@@ -5,8 +5,6 @@
 
 package io.iohk.atala.prism.apollo.utils.external.secp256k1
 
-import io.iohk.atala.prism.apollo.utils.external.BN
-import kotlin.js.*
 import org.khronos.webgl.*
 import org.w3c.dom.*
 import org.w3c.dom.events.*
@@ -19,7 +17,7 @@ import org.w3c.notifications.*
 import org.w3c.performance.*
 import org.w3c.workers.*
 import org.w3c.xhr.*
-import org.khronos.webgl.Uint8Array
+import kotlin.js.*
 
 /**
  * Represents an external interface `T$0`.
@@ -77,11 +75,24 @@ external interface `T$1` {
  * @property bits2int_modN The function to convert bits to an integer modulo `N`.
  * @property p The value of `p`.
  */
+
+external class BigInt {
+    fun toBuffer()
+
+}
+
+external class ProjectivePoint {
+        fun fromHex(bytes: Uint8Array): ProjectivePoint
+        val x: Uint8Array
+        val y: Uint8Array
+        fun toRawBytes(isCompressed: dynamic): Uint8Array
+}
+
 external interface `T$2` {
     var nBitLength: Number
     var nByteLength: Number
     var Fp: Any
-    var n: Any
+    var n: BigInt
     var h: Any
     var hEff: Any?
         get() = definedExternally
@@ -119,11 +130,42 @@ external interface `T$2` {
  * Represents the interface `T$4`.
  */
 external interface `T$4` {
-    var normPrivateKeyToScalar: (key: dynamic /* Uint8Array | String | Any */) -> Any
+    var normPrivateKeyToScalar: (key: dynamic /* Uint8Array | String | Any */) -> BigInt
     fun isValidPrivateKey(privateKey: Uint8Array): Boolean
     fun isValidPrivateKey(privateKey: String): Boolean
     fun isValidPrivateKey(privateKey: Any): Boolean
     var randomPrivateKey: () -> Uint8Array
+}
+
+external interface SignatureType {
+    val r: Any
+    val s: Any
+    val recovery: Number?
+        get() = definedExternally
+    fun assertValidity()
+    fun addRecoveryBit(recovery: Number): SignatureType /* SignatureType & `T$12` */
+    fun hasHighS(): Boolean
+    fun normalizeS(): SignatureType
+    fun recoverPublicKey(msgHash: Uint8Array): Any
+    fun recoverPublicKey(msgHash: String): Any
+    fun toCompactRawBytes(): Uint8Array
+    fun toCompactHex(): String
+    fun toDERRawBytes(isCompressed: Boolean = definedExternally): Uint8Array
+    fun toDERHex(isCompressed: Boolean = definedExternally): String
+}
+
+external interface SignatureConstructor {
+    fun fromCompact(hex: Uint8Array): SignatureType
+    fun fromCompact(hex: String): SignatureType
+    fun fromDER(hex: Uint8Array): SignatureType
+    fun fromDER(hex: String): SignatureType
+}
+
+/**
+ * Represents the signature `T$6`.
+ */
+external interface `T$6` {
+    var normPrivateKeyToScalar: (key: dynamic /* Uint8Array | String | Any */) -> Any
 }
 
 /**
@@ -134,10 +176,10 @@ external interface `T$5` {
     var CURVE:`T$2`
     var getPublicKey: (privateKey: dynamic /* Uint8Array | String | Any */, isCompressed: Boolean?) -> Uint8Array
     var getSharedSecret: (privateA: dynamic /* Uint8Array | String | Any */, publicB: dynamic /* Uint8Array | String */, isCompressed: Boolean?) -> Uint8Array
-    var sign: (msgHash: dynamic /* Uint8Array | String */, privKey: dynamic /* Uint8Array | String | Any */, opts: Any?) -> Any
-    var verify: (signature: dynamic /* Uint8Array | String | `T$3` */, msgHash: dynamic /* Uint8Array | String */, publicKey: dynamic /* Uint8Array | String */, opts: Any?) -> Boolean
-    var ProjectivePoint: Any
-    var Signature: Any
+    var sign: (msgHash: dynamic /* Uint8Array | String */, privKey: dynamic /* Uint8Array | String | Any */, opts: Any?) -> SignatureType
+    var verify: (signature: SignatureType, msgHash: dynamic /* Uint8Array | String */, publicKey: dynamic /* Uint8Array | String */, opts: Any?) -> Boolean
+    var ProjectivePoint: ProjectivePoint
+    var Signature: SignatureConstructor
     var utils: `T$4`
 }
 
