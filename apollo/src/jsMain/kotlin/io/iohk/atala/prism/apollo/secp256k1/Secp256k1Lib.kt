@@ -85,7 +85,7 @@ actual class Secp256k1Lib actual constructor() {
     ): Boolean {
         val normalised = this.normalise(signature)
         val sha = SHA256().digest(data)
-        if (secp256k1.verify( normalised, sha.asUint8Array(), publicKey.asUint8Array(), {})) {
+        if (secp256k1.verify(normalised, sha.asUint8Array(), publicKey.asUint8Array(), {})) {
             return true
         }
         val transcoded = transcodeSignatureToBitcoin(normalised.toCompactRawBytes().asByteArray())
