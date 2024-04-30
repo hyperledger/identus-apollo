@@ -1,6 +1,6 @@
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence
-* @hamada147 
+* @elribonazo @hamada147 @goncalo-frade-iohk @yshyn-iohk @curtis-h @cristianIOHK @amagyar-iohk
 
 # Docs:
 *.md @petevielhaber
