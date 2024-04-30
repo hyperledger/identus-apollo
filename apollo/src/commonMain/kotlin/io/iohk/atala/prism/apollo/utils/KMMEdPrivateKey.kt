@@ -12,4 +12,12 @@ public expect class KMMEdPrivateKey {
      * @return ByteArray representing the signed message
      */
     fun sign(message: ByteArray): ByteArray
+
+    /**
+     * Method convert an ed25519 private key to a x25519 private key
+     *
+     * @return KMMX25519PrivateKey private key
+     */
+    fun x25519PrivateKey(): KMMX25519PrivateKey
+
 }

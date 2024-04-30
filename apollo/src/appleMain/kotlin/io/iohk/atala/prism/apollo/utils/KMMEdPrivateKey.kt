@@ -44,4 +44,14 @@ public actual class KMMEdPrivateKey(val raw: ByteArray) {
         val publicRaw = result.success()?.toByteArray() ?: throw RuntimeException("Null result")
         return KMMEdPublicKey(publicRaw)
     }
+
+    /**
+     * Method convert an ed25519 private key to a x25519 private key
+     *
+     * @return KMMX25519PrivateKey private key
+     */
+    actual fun x25519PrivateKey(): KMMX25519PrivateKey {
+        val rawX25519Prv = convertSecretKeyToX25519(this.raw)
+        return KMMX25519PrivateKey(rawX25519Prv)
+    }
 }
