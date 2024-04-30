@@ -1,7 +1,7 @@
 package io.iohk.atala.prism.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.toBigInteger
-import ed25519_bip32.XPrvWrapper
+import ed25519_bip32_wrapper.XPrvWrapper
 import io.iohk.atala.prism.apollo.utils.ECConfig
 
 /**

@@ -89,7 +89,7 @@ fun KotlinNativeTarget.secp256k1CInterop(target: String) {
 fun KotlinNativeTarget.ed25519Bip32CInterop(target: String) {
     compilations.getByName("main") {
         cinterops {
-            val ed25519_bip32 by creating {
+            val ed25519_bip32_wrapper by creating {
                 val crate = this.name
                 packageName("$crate.cinterop")
                 header(
@@ -682,39 +682,6 @@ android {
     }
 }
 
-afterEvaluate {
-    tasks.withType<KotlinCompile> {
-        dependsOn(
-            ":iOSLibs:buildIOHKCryptoKitIphoneos",
-            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
-            ":iOSLibs:buildIOHKCryptoKitMacosx",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
-            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
-        )
-    }
-    tasks.withType<ProcessResources> {
-        dependsOn(
-            ":iOSLibs:buildIOHKCryptoKitIphoneos",
-            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
-            ":iOSLibs:buildIOHKCryptoKitMacosx",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
-            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
-        )
-    }
-    tasks.withType<CInteropProcess> {
-        dependsOn(
-            ":iOSLibs:buildIOHKCryptoKitIphoneos",
-            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
-            ":iOSLibs:buildIOHKCryptoKitMacosx",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
-            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
-        )
-    }
-}
-
 ktlint {
     filter {
         exclude {
@@ -804,17 +771,41 @@ npmPublish {
 
 // Workaround for a bug in Gradle
 afterEvaluate {
-    tasks.getByName<Delete>("clean") {
-        // dependsOn(cleanEd25519Bip32)
+    tasks.withType<KotlinCompile> {
+        dependsOn(
+            ":iOSLibs:buildIOHKCryptoKitIphoneos",
+            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
+            ":iOSLibs:buildIOHKCryptoKitMacosx",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
+            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx",
+            buildEd25519Bip32Task
+        )
     }
     tasks.withType<ProcessResources> {
-        dependsOn(buildEd25519Bip32Task)
+        dependsOn(
+            ":iOSLibs:buildIOHKCryptoKitIphoneos",
+            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
+            ":iOSLibs:buildIOHKCryptoKitMacosx",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
+            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx",
+            buildEd25519Bip32Task
+        )
     }
     tasks.withType<CInteropProcess> {
-        dependsOn(copyEd25519Bip32GeneratedTask)
+        dependsOn(
+            ":iOSLibs:buildIOHKCryptoKitIphoneos",
+            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
+            ":iOSLibs:buildIOHKCryptoKitMacosx",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
+            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx",
+            copyEd25519Bip32GeneratedTask
+        )
     }
-    tasks.withType<KotlinCompile> {
-        dependsOn(buildEd25519Bip32Task)
+    tasks.getByName<Delete>("clean") {
+        // dependsOn(cleanEd25519Bip32)
     }
     tasks.withType<KtLintCheckTask> {
         dependsOn(buildEd25519Bip32Task)
