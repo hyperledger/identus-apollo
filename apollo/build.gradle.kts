@@ -8,11 +8,18 @@ import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URL
 import java.time.Year
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jlleitschuh.gradle.ktlint.tasks.KtLintCheckTask
 
 val currentModuleName: String = "Apollo"
 val os: OperatingSystem = OperatingSystem.current()
 val secp256k1Dir = rootDir.resolve("secp256k1-kmp")
-val generatedDir = projectDir.resolve("build").resolve("generated")
+
+val taskGroup = "build ed25519-bip32"
+val ed25519bip32Dir = rootDir.resolve("rust-ed25519-bip32")
+val generatedDir = project.layout.buildDirectory.asFile.get().resolve("generated")
+val sourceDir = ed25519bip32Dir.resolve("wrapper").resolve("target")
+val generatedResourcesDir = projectDir.resolve("build").resolve("generatedResources")
 
 plugins {
     kotlin("multiplatform")
@@ -21,8 +28,6 @@ plugins {
     id("org.jetbrains.dokka")
     id("dev.petuska.npm.publish") version "3.4.1"
 }
-
-apply(from = "build.ed25519bip32.gradle.kts")
 
 /**
  * Adds a Swift interop configuration for a library.
@@ -74,6 +79,126 @@ fun KotlinNativeTarget.secp256k1CInterop(target: String) {
 }
 
 /**
+ * Generates the cinterop configuration for the ed25519Bip32 library based on the target platform.
+ *
+ * @param target The target platform for which the cinterop configuration is generated.
+ *               Supported values are "macosX64", "macosArm64", "iosArm64", "iosX64", and "iosSimulatorArm64".
+ *
+ * @throws GradleException if an unsupported target platform is specified.
+ */
+fun KotlinNativeTarget.ed25519Bip32CInterop(target: String) {
+    compilations.getByName("main") {
+        cinterops {
+            val ed25519_bip32 by creating {
+                val crate = this.name
+                packageName("$crate.cinterop")
+                header(
+                    project.layout.buildDirectory.asFile.get()
+                        .resolve("generated")
+                        .resolve("nativeInterop")
+                        .resolve("cinterop")
+                        .resolve("headers")
+                        .resolve(crate)
+                        .resolve("$crate.h")
+                )
+                tasks.named(interopProcessingTaskName) {
+                    dependsOn(":apollo:buildEd25519Bip32")
+                }
+                when (target) {
+                    "macosX64" -> {
+                        extraOpts(
+                            "-libraryPath",
+                            rootDir
+                                .resolve("rust-ed25519-bip32")
+                                .resolve("wrapper")
+                                .resolve("target")
+                                .resolve("x86_64-apple-darwin")
+                                .resolve("release")
+                                .absolutePath
+                        )
+                    }
+
+                    "macosArm64" -> {
+                        extraOpts(
+                            "-libraryPath",
+                            rootDir
+                                .resolve("rust-ed25519-bip32")
+                                .resolve("wrapper")
+                                .resolve("target")
+                                .resolve("aarch64-apple-darwin")
+                                .resolve("release")
+                                .absolutePath
+                        )
+                    }
+
+                    "iosArm64" -> {
+                        extraOpts(
+                            "-libraryPath",
+                            rootDir
+                                .resolve("rust-ed25519-bip32")
+                                .resolve("wrapper")
+                                .resolve("target")
+                                .resolve("aarch64-apple-ios")
+                                .resolve("release")
+                                .absolutePath
+                        )
+                    }
+
+                    "iosX64" -> {
+                        extraOpts(
+                            "-libraryPath",
+                            rootDir
+                                .resolve("rust-ed25519-bip32")
+                                .resolve("wrapper")
+                                .resolve("target")
+                                .resolve("x86_64-apple-ios")
+                                .resolve("release")
+                                .absolutePath
+                        )
+                    }
+
+                    "iosSimulatorArm64" -> {
+                        extraOpts(
+                            "-libraryPath",
+                            rootDir
+                                .resolve("rust-ed25519-bip32")
+                                .resolve("wrapper")
+                                .resolve("target")
+                                .resolve("aarch64-apple-ios-sim")
+                                .resolve("release")
+                                .absolutePath
+                        )
+                    }
+
+                    else -> {
+                        throw GradleException("Unsupported linking for $target")
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Creates a copy task with the specified parameters.
+ *
+ * @param name The name of the copy task.
+ * @param fromDir The source directory from which files will be copied.
+ * @param intoDir The destination directory where files will be copied into.
+ */
+fun createCopyTask(
+    name: String,
+    fromDir: File,
+    intoDir: File
+) = tasks.register<Copy>(name) {
+    group = taskGroup
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    include("*.so", "*.a", "*.d", "*.dylib", "**/*.kt", "*.js", "**/*.h")
+    from(fromDir)
+    into(intoDir)
+}
+
+/**
  * The `javadocJar` variable is used to register a `Jar` task to generate a Javadoc JAR file.
  * The Javadoc JAR file is created with the classifier "javadoc" and it includes the HTML documentation generated
  * by the `dokkaHtml` task.
@@ -81,6 +206,125 @@ fun KotlinNativeTarget.secp256k1CInterop(target: String) {
 val javadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")
     from(tasks.dokkaHtml)
+}
+
+val copyEd25519Bip32GeneratedTask = createCopyTask(
+    "copyEd25519Bip32Generated",
+    ed25519bip32Dir.resolve("wrapper").resolve("build").resolve("generated"),
+    generatedDir
+)
+
+val copyToAndroidSrc by tasks.register<Copy>("copyToAndroidSrc") {
+    group = taskGroup
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    include("*.so", "*.a", "*.d", "*.dylib", "**/*.kt", "*.js", "**/*.h")
+    from(project.layout.buildDirectory.asFile.get().resolve("generated").resolve("jvmMain"))
+    into(project.layout.buildDirectory.asFile.get().resolve("generated").resolve("androidMain"))
+    dependsOn(copyEd25519Bip32GeneratedTask)
+    mustRunAfter(copyEd25519Bip32GeneratedTask)
+}
+
+val copyEd25519Bip32ForMacOSX8664Task = createCopyTask(
+    "copyEd25519Bip32ForMacOSX86_64",
+    sourceDir.resolve("x86_64-apple-darwin").resolve("release"),
+    generatedResourcesDir.resolve("jvm").resolve("main").resolve("darwin-x86-64")
+)
+
+val copyEd25519Bip32ForMacOSArch64Task = createCopyTask(
+    "copyEd25519Bip32ForMacOSArch64",
+    sourceDir.resolve("aarch64-apple-darwin").resolve("release"),
+    generatedResourcesDir.resolve("jvm").resolve("main").resolve("darwin-aarch64")
+)
+
+val copyEd25519Bip32ForLinuxX8664Task = createCopyTask(
+    "copyEd25519Bip32ForLinuxX86_64",
+    sourceDir.resolve("x86_64-unknown-linux-gnu").resolve("release"),
+    generatedResourcesDir.resolve("jvm").resolve("main").resolve("linux-x86-64")
+)
+
+val copyEd25519Bip32ForLinuxArch64Task = createCopyTask(
+    "copyEd25519Bip32ForLinuxArch64",
+    sourceDir.resolve("aarch64-unknown-linux-gnu").resolve("release"),
+    generatedResourcesDir.resolve("jvm").resolve("main").resolve("linux-aarch64")
+)
+
+val copyEd25519Bip32ForAndroidX8664Task = createCopyTask(
+    "copyEd25519Bip32ForAndroidX86_64",
+    sourceDir.resolve("x86_64-linux-android").resolve("release"),
+    generatedResourcesDir.resolve("android").resolve("main").resolve("jniLibs").resolve("x86_64")
+)
+
+val copyEd25519Bip32ForAndroidArch64Task = createCopyTask(
+    "copyEd25519Bip32ForAndroidArch64",
+    sourceDir.resolve("aarch64-linux-android").resolve("release"),
+    generatedResourcesDir.resolve("android").resolve("main").resolve("jniLibs").resolve("arm64-v8a")
+)
+
+val copyEd25519Bip32ForAndroidI686Task = createCopyTask(
+    "copyEd25519Bip32ForAndroidI686",
+    sourceDir.resolve("i686-linux-android").resolve("release"),
+    generatedResourcesDir.resolve("android").resolve("main").resolve("jniLibs").resolve("x86")
+)
+
+val copyEd25519Bip32ForAndroidArmv7aTask = createCopyTask(
+    "copyEd25519Bip32ForAndroidArmv7a",
+    sourceDir.resolve("armv7-linux-androideabi").resolve("release"),
+    generatedResourcesDir.resolve("android").resolve("main").resolve("jniLibs").resolve("armeabi-v7a")
+)
+
+val copyEd25519Bip32Wrapper by tasks.register("copyEd25519Bip32") {
+    dependsOn(
+        copyEd25519Bip32GeneratedTask,
+        copyEd25519Bip32ForMacOSX8664Task,
+        copyEd25519Bip32ForMacOSArch64Task,
+        copyEd25519Bip32ForLinuxX8664Task,
+        copyEd25519Bip32ForLinuxArch64Task,
+        copyEd25519Bip32ForAndroidX8664Task,
+        copyEd25519Bip32ForAndroidArch64Task,
+        copyEd25519Bip32ForAndroidI686Task,
+        copyEd25519Bip32ForAndroidArmv7aTask,
+        copyToAndroidSrc
+    )
+    mustRunAfter(buildEd25519Bip32Wrapper)
+}
+
+val buildEd25519Bip32Wrapper by tasks.register<Exec>("buildEd25519Bip32Wrapper") {
+    group = taskGroup
+    workingDir = ed25519bip32Dir.resolve("wrapper")
+    commandLine("./build-kotlin-library.sh")
+}
+
+val copyEd25519Bip32Wasm = createCopyTask(
+    "copyEd25519Bip32GeneratedWasm",
+    ed25519bip32Dir.resolve("wasm").resolve("build"),
+    projectDir.resolve("build").resolve("js").resolve("packages").resolve("Apollo").resolve("kotlin")
+)
+copyEd25519Bip32Wasm.configure {
+    mustRunAfter(buildEd25519Bip32Wasm)
+}
+
+val buildEd25519Bip32Wasm by tasks.register<Exec>("buildEd25519Bip32Wasm") {
+    group = taskGroup
+    workingDir = ed25519bip32Dir.resolve("wasm")
+    commandLine("./build_kotlin_library.sh")
+}
+
+val buildEd25519Bip32Task by tasks.register("buildEd25519Bip32") {
+    group = taskGroup
+    dependsOn(buildEd25519Bip32Wasm, copyEd25519Bip32Wasm, buildEd25519Bip32Wrapper, copyEd25519Bip32Wrapper)
+}
+
+val cleanEd25519Bip32 by tasks.register<Delete>("cleanEd25519Bip32") {
+    group = taskGroup
+    val wasmDir = ed25519bip32Dir.resolve("wasm")
+    delete.add(wasmDir.resolve("build"))
+    delete.add(wasmDir.resolve("pkg"))
+    delete.add(wasmDir.resolve("node_modules"))
+    delete.add(wasmDir.resolve("target"))
+
+    val wrapperDir = ed25519bip32Dir.resolve("wrapper")
+    delete.add(wrapperDir.resolve("build"))
+    delete.add(wrapperDir.resolve("target"))
 }
 
 kotlin {
@@ -110,6 +354,8 @@ kotlin {
         swiftCinterop("IOHKCryptoKit", name)
 
         secp256k1CInterop("ios")
+        ed25519Bip32CInterop(name)
+
         // https://youtrack.jetbrains.com/issue/KT-39396
         compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
             "-include-binary",
@@ -130,7 +376,10 @@ kotlin {
     iosX64 {
         swiftCinterop("IOHKSecureRandomGeneration", name)
         swiftCinterop("IOHKCryptoKit", name)
+
         secp256k1CInterop("ios")
+        ed25519Bip32CInterop(name)
+
         // https://youtrack.jetbrains.com/issue/KT-39396
         compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
             "-include-binary",
@@ -158,6 +407,8 @@ kotlin {
         swiftCinterop("IOHKCryptoKit", name)
 
         secp256k1CInterop("ios")
+        ed25519Bip32CInterop(name)
+
         // https://youtrack.jetbrains.com/issue/KT-39396
         compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
             "-include-binary",
@@ -180,6 +431,8 @@ kotlin {
         swiftCinterop("IOHKCryptoKit", name)
 
         secp256k1CInterop("macosArm64")
+        ed25519Bip32CInterop(name)
+
         // https://youtrack.jetbrains.com/issue/KT-39396
         compilations["main"].kotlinOptions.freeCompilerArgs += listOf(
             "-include-binary",
@@ -246,8 +499,8 @@ kotlin {
                 implementation("com.ionspin.kotlin:bignum:0.3.9")
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
                 implementation("org.kotlincrypto.hash:sha2:0.4.0")
-                implementation("com.squareup.okio:okio:3.2.0")
-                implementation("org.jetbrains.kotlinx:atomicfu:0.22.0")
+                implementation("com.squareup.okio:okio:3.7.0")
+                implementation("org.jetbrains.kotlinx:atomicfu:0.23.1")
             }
         }
         val commonTest by getting {
@@ -255,19 +508,30 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-
         val allButJSMain by creating {
-            this.dependsOn(commonMain)
-            kotlin.srcDir(generatedDir.resolve("commonMain").resolve("kotlin"))
+            dependsOn(commonMain)
+            kotlin.srcDir(
+                generatedDir
+                    .resolve("commonMain")
+                    .resolve("kotlin")
+            )
         }
         val allButJSTest by creating {
-            this.dependsOn(commonTest)
+            dependsOn(commonTest)
         }
-
         val androidMain by getting {
-            this.dependsOn(allButJSMain)
-            kotlin.srcDir(generatedDir.resolve("jvmMain").resolve("kotlin"))
-
+            dependsOn(allButJSMain)
+            kotlin.srcDir(
+                generatedDir
+                    .resolve("androidMain")
+                    .resolve("kotlin")
+            )
+            val generatedResources = project.layout.buildDirectory.asFile.get()
+                .resolve("generatedResources")
+                .resolve("android")
+                .resolve("main")
+                .resolve("jniLibs")
+            resources.srcDir(generatedResources)
             dependencies {
                 api("fr.acinq.secp256k1:secp256k1-kmp:0.14.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.11.0")
@@ -279,15 +543,23 @@ kotlin {
             }
         }
         val androidUnitTest by getting {
-            this.dependsOn(allButJSTest)
+            dependsOn(allButJSTest)
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
         }
         val jvmMain by getting {
-            this.dependsOn(allButJSMain)
-            kotlin.srcDir(generatedDir.resolve("jvmMain").resolve("kotlin"))
-
+            dependsOn(allButJSMain)
+            kotlin.srcDir(
+                generatedDir
+                    .resolve("jvmMain")
+                    .resolve("kotlin")
+            )
+            val generatedResources = project.layout.buildDirectory.asFile.get()
+                .resolve("generatedResources")
+                .resolve("jvm")
+                .resolve("main")
+            resources.srcDir(generatedResources)
             dependencies {
                 api("fr.acinq.secp256k1:secp256k1-kmp:0.14.0")
                 implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:0.11.0")
@@ -298,8 +570,7 @@ kotlin {
             }
         }
         val jvmTest by getting {
-            this.dependsOn(allButJSTest)
-
+            dependsOn(allButJSTest)
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
@@ -322,10 +593,15 @@ kotlin {
             }
         }
         val jsTest by getting
-
+        val nativeMain by getting {
+            dependsOn(allButJSMain)
+            kotlin.srcDir(
+                generatedDir
+                    .resolve("nativeMain")
+                    .resolve("kotlin")
+            )
+        }
         val appleMain by getting {
-            this.dependsOn(allButJSMain)
-
             kotlin.srcDirs(
                 secp256k1Dir
                     .resolve("src")
@@ -336,16 +612,23 @@ kotlin {
                     .resolve("nativeMain")
                     .resolve("kotlin")
             )
-
         }
 
         all {
-            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            languageSettings {
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            }
         }
     }
 
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
     // Enable the export of KDoc (Experimental feature) to Generated Native targets (Apple, Linux, etc.)
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+    targets.withType<KotlinNativeTarget> {
         compilations.getByName("main") {
             compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
         }
@@ -521,6 +804,28 @@ npmPublish {
 
 // Workaround for a bug in Gradle
 afterEvaluate {
+    tasks.getByName<Delete>("clean") {
+        // dependsOn(cleanEd25519Bip32)
+    }
+    tasks.withType<ProcessResources> {
+        dependsOn(buildEd25519Bip32Task)
+    }
+    tasks.withType<CInteropProcess> {
+        dependsOn(copyEd25519Bip32GeneratedTask)
+    }
+    tasks.withType<KotlinCompile> {
+        dependsOn(buildEd25519Bip32Task)
+    }
+    tasks.withType<KtLintCheckTask> {
+        dependsOn(buildEd25519Bip32Task)
+    }
+    tasks.getByName("mergeDebugJniLibFolders").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("packageDebugResources").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("extractDeepLinksForAarDebug").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("mergeReleaseJniLibFolders").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("extractDeepLinksForAarRelease").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("packageReleaseResources").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("mergeReleaseResources").dependsOn(buildEd25519Bip32Task)
     if (tasks.findByName("iosX64Test") != null) {
         tasks.named("iosX64Test") {
             this.enabled = false
