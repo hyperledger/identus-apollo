@@ -1,15 +1,16 @@
+
 import dev.petuska.npm.publish.extension.domain.NpmAccess
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackOutput.Target
 import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jlleitschuh.gradle.ktlint.tasks.KtLintCheckTask
 import java.net.URL
 import java.time.Year
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jlleitschuh.gradle.ktlint.tasks.KtLintCheckTask
 
 val currentModuleName: String = "Apollo"
 val os: OperatingSystem = OperatingSystem.current()
@@ -303,6 +304,16 @@ copyEd25519Bip32Wasm.configure {
     mustRunAfter(buildEd25519Bip32Wasm)
 }
 
+val copyEd25519Bip32WasmTest = createCopyTask(
+    "copyEd25519Bip32GeneratedWasmTest",
+    ed25519bip32Dir.resolve("wasm").resolve("build"),
+    rootDir.resolve("build").resolve("js").resolve("packages").resolve("Apollo-test").resolve("kotlin")
+)
+copyEd25519Bip32WasmTest.configure {
+    mustRunAfter(buildEd25519Bip32Wasm)
+}
+
+
 val buildEd25519Bip32Wasm by tasks.register<Exec>("buildEd25519Bip32Wasm") {
     group = taskGroup
     workingDir = ed25519bip32Dir.resolve("wasm")
@@ -311,7 +322,7 @@ val buildEd25519Bip32Wasm by tasks.register<Exec>("buildEd25519Bip32Wasm") {
 
 val buildEd25519Bip32Task by tasks.register("buildEd25519Bip32") {
     group = taskGroup
-    dependsOn(buildEd25519Bip32Wasm, copyEd25519Bip32Wasm, buildEd25519Bip32Wrapper, copyEd25519Bip32Wrapper)
+    dependsOn(buildEd25519Bip32Wasm, copyEd25519Bip32Wasm, copyEd25519Bip32WasmTest, buildEd25519Bip32Wrapper, copyEd25519Bip32Wrapper)
 }
 
 val cleanEd25519Bip32 by tasks.register<Delete>("cleanEd25519Bip32") {
@@ -468,7 +479,8 @@ kotlin {
             }
             this.testTask {
                 this.useKarma {
-                    this.useChromeHeadless()
+//                    this.useChromeHeadless()
+                    this.useFirefox()
                 }
             }
         }
