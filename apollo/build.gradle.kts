@@ -297,7 +297,7 @@ val buildEd25519Bip32Wrapper by tasks.register<Exec>("buildEd25519Bip32Wrapper")
 val copyEd25519Bip32Wasm = createCopyTask(
     "copyEd25519Bip32GeneratedWasm",
     ed25519bip32Dir.resolve("wasm").resolve("build"),
-    projectDir.resolve("build").resolve("js").resolve("packages").resolve("Apollo").resolve("kotlin")
+    rootDir.resolve("build").resolve("js").resolve("packages").resolve("Apollo").resolve("kotlin")
 )
 copyEd25519Bip32Wasm.configure {
     mustRunAfter(buildEd25519Bip32Wasm)
