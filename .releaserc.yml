@@ -9,6 +9,8 @@ plugins:
   - [ "@semantic-release/changelog", { changelogFile: "CHANGELOG.md" } ]
   - "gradle-semantic-release-plugin"
   - [ '@semantic-release/exec', {
+    prepareCmd: './gradlew :apollo:publishJsPackageToNpmjsRegistry' } ]
+  - [ '@semantic-release/exec', {
     prepareCmd: './gradlew :apollo:createSwiftPackage' } ]
   - [ '@semantic-release/exec', {
     prepareCmd: '(cd ./apollo/build/packages/ApolloSwift && zip -r "Apollo.xcframework.zip" Apollo.xcframework)' } ]
