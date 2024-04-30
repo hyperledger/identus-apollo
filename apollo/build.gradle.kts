@@ -313,7 +313,6 @@ copyEd25519Bip32WasmTest.configure {
     mustRunAfter(buildEd25519Bip32Wasm)
 }
 
-
 val buildEd25519Bip32Wasm by tasks.register<Exec>("buildEd25519Bip32Wasm") {
     group = taskGroup
     workingDir = ed25519bip32Dir.resolve("wasm")
@@ -479,8 +478,7 @@ kotlin {
             }
             this.testTask {
                 this.useKarma {
-//                    this.useChromeHeadless()
-                    this.useFirefox()
+                    this.useChromeHeadless()
                 }
             }
         }
