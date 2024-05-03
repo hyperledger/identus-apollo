@@ -19,5 +19,4 @@ public expect class KMMEdPrivateKey {
      * @return KMMX25519PrivateKey private key
      */
     fun x25519PrivateKey(): KMMX25519PrivateKey
-
 }

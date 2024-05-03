@@ -4,7 +4,6 @@ import org.kotlincrypto.hash.sha2.SHA512
 import kotlin.experimental.and
 import kotlin.experimental.or
 
-
 fun convertSecretKeyToX25519(secretKey: ByteArray): ByteArray {
     // Hash the first 32 bytes of the Ed25519 secret key
     val hashed = SHA512().digest(secretKey.sliceArray(0 until 32))

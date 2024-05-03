@@ -16,25 +16,27 @@ class EdHDKey(
     val depth: Int = 0,
     val index: BigIntegerWrapper = BigIntegerWrapper(0)
 ) {
-    /**
-     * Constructs a new EdHDKey object from a seed
-     *
-     * @param seed The seed used to derive the private key and chain code.
-     * @throws IllegalArgumentException if the seed length is not equal to 64.
-     */
-    fun initFromSeed(seed: ByteArray): EdHDKey {
-        require(seed.size == 64) {
-            "Seed expected byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}"
+    companion object {
+        /**
+         * Constructs a new EdHDKey object from a seed
+         *
+         * @param seed The seed used to derive the private key and chain code.
+         * @throws IllegalArgumentException if the seed length is not equal to 64.
+         */
+        fun initFromSeed(seed: ByteArray): EdHDKey {
+            require(seed.size == 64) {
+                "Seed expected byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}"
+            }
+
+            val key = seed.sliceArray(0 until 32)
+            val chainCode = seed.sliceArray(32 until seed.size)
+            val wrapper = ed25519_bip32.XPrvWrapper.from_nonextended_noforce(key, chainCode)
+
+            return EdHDKey(
+                privateKey = wrapper.extended_secret_key(),
+                chainCode = wrapper.chain_code()
+            )
         }
-
-        val key = seed.sliceArray(0 until 32)
-        val chainCode = seed.sliceArray(32 until seed.size)
-        val wrapper = ed25519_bip32.XPrvWrapper.from_nonextended_noforce(key, chainCode)
-
-        return EdHDKey(
-            privateKey = wrapper.extended_secret_key(),
-            chainCode = wrapper.chain_code()
-        )
     }
 
     /**

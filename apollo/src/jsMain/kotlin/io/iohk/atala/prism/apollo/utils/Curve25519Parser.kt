@@ -1,6 +1,8 @@
 package io.iohk.atala.prism.apollo.utils
 
 import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
+import io.iohk.atala.prism.apollo.utils.Curve25519Parser.encodedLength
+import io.iohk.atala.prism.apollo.utils.Curve25519Parser.rawLength
 import node.buffer.Buffer
 
 /**
@@ -13,6 +15,7 @@ import node.buffer.Buffer
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 object Curve25519Parser {
+    val extendedLength = 64
     val encodedLength = 43
     val rawLength = 32
 
@@ -27,6 +30,10 @@ object Curve25519Parser {
 
         if (buffer.length == encodedLength) {
             return Buffer.from(buffer.toByteArray().decodeToString().base64UrlDecodedBytes)
+        }
+
+        if (buffer.length == extendedLength) {
+            return buffer
         }
 
         if (buffer.length == rawLength) {
