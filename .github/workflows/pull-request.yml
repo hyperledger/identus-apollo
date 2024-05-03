@@ -63,6 +63,20 @@ jobs:
         with:
           xcode-version: '15.0.1'
 
+      - name: "Install rust toolchain"
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          
+      - name: "Install wasm-pack"
+        uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: wasm-pack
+          
+
       - name: "Test Kotlin code is properly formatted"
         run: ./gradlew ktlintCheck
 
