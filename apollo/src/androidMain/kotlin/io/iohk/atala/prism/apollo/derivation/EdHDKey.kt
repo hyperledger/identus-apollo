@@ -7,40 +7,19 @@ import io.iohk.atala.prism.apollo.utils.ECConfig
 /**
  * Represents and HDKey with its derive methods
  */
-class EdHDKey(
-    val privateKey: ByteArray,
-    val chainCode: ByteArray,
-    val publicKey: ByteArray? = null,
-    val depth: Int = 0,
-    val index: BigIntegerWrapper = BigIntegerWrapper(0)
+actual class EdHDKey actual constructor(
+    actual val privateKey: ByteArray,
+    actual val chainCode: ByteArray,
+    actual val publicKey: ByteArray?,
+    actual val depth: Int,
+    actual val index: BigIntegerWrapper
 ) {
-    /**
-     * Constructs a new EdHDKey object from a seed
-     *
-     * @param seed The seed used to derive the private key and chain code.
-     * @throws IllegalArgumentException if the seed length is not equal to 64.
-     */
-    fun initFromSeed(seed: ByteArray): EdHDKey {
-        require(seed.size == 64) {
-            "Seed expected byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}"
-        }
-
-        val key = seed.sliceArray(0 until 32)
-        val chainCode = seed.sliceArray(32 until seed.size)
-        val wrapper = XPrvWrapper.fromNonextendedNoforce(key, chainCode)
-
-        return EdHDKey(
-            privateKey = wrapper.extendedSecretKey(),
-            chainCode = wrapper.chainCode()
-        )
-    }
-
     /**
      * Method to derive an HDKey by a path
      *
      * @param path value used to derive a key
      */
-    fun derive(path: String): EdHDKey {
+    actual fun derive(path: String): EdHDKey {
         if (!path.matches(Regex("^[mM].*"))) {
             throw Error("Path must start with \"m\" or \"M\"")
         }
@@ -70,9 +49,9 @@ class EdHDKey(
     /**
      * Method to derive an HDKey child by index
      *
-     * @param index value used to derive a key
+     * @param wrappedIndex value used to derive a key
      */
-    fun deriveChild(wrappedIndex: BigIntegerWrapper): EdHDKey {
+    actual fun deriveChild(wrappedIndex: BigIntegerWrapper): EdHDKey {
         val wrapper = XPrvWrapper.fromExtendedAndChaincode(privateKey, chainCode)
         val derived = wrapper.derive(wrappedIndex.value.uintValue())
 
@@ -82,5 +61,28 @@ class EdHDKey(
             depth = depth + 1,
             index = wrappedIndex
         )
+    }
+
+    actual companion object {
+        /**
+         * Constructs a new EdHDKey object from a seed
+         *
+         * @param seed The seed used to derive the private key and chain code.
+         * @throws IllegalArgumentException if the seed length is not equal to 64.
+         */
+        actual fun initFromSeed(seed: ByteArray): EdHDKey {
+            require(seed.size == 64) {
+                "Seed expected byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}"
+            }
+
+            val key = seed.sliceArray(0 until 32)
+            val chainCode = seed.sliceArray(32 until seed.size)
+            val wrapper = XPrvWrapper.fromNonextendedNoforce(key, chainCode)
+
+            return EdHDKey(
+                privateKey = wrapper.extendedSecretKey(),
+                chainCode = wrapper.chainCode()
+            )
+        }
     }
 }

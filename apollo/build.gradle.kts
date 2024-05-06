@@ -18,8 +18,8 @@ val secp256k1Dir = rootDir.resolve("secp256k1-kmp")
 val taskGroup = "build ed25519-bip32"
 val ed25519bip32Dir = rootDir.resolve("rust-ed25519-bip32")
 val generatedDir = project.layout.buildDirectory.asFile.get().resolve("generated")
-val sourceDir = ed25519bip32Dir.resolve("wrapper").resolve("target")
-val generatedResourcesDir = projectDir.resolve("build").resolve("generatedResources")
+val generatedResourcesDir = project.layout.buildDirectory.asFile.get().resolve("generatedResources")
+val ed25519bip32BinariesDir = ed25519bip32Dir.resolve("wrapper").resolve("target")
 
 plugins {
     kotlin("multiplatform")
@@ -208,12 +208,18 @@ val javadocJar by tasks.registering(Jar::class) {
     from(tasks.dokkaHtml)
 }
 
+/**
+ * Copy Generated Kotlin Code
+ */
 val copyEd25519Bip32GeneratedTask = createCopyTask(
     "copyEd25519Bip32Generated",
     ed25519bip32Dir.resolve("wrapper").resolve("build").resolve("generated"),
     generatedDir
 )
 
+/**
+ * Copy JVM Code to Android folder
+ */
 val copyToAndroidSrc by tasks.register<Copy>("copyToAndroidSrc") {
     group = taskGroup
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
@@ -226,63 +232,73 @@ val copyToAndroidSrc by tasks.register<Copy>("copyToAndroidSrc") {
 
 val copyEd25519Bip32ForMacOSX8664Task = createCopyTask(
     "copyEd25519Bip32ForMacOSX86_64",
-    sourceDir.resolve("x86_64-apple-darwin").resolve("release"),
+    ed25519bip32BinariesDir.resolve("x86_64-apple-darwin").resolve("release"),
     generatedResourcesDir.resolve("jvm").resolve("main").resolve("darwin-x86-64")
 )
 
 val copyEd25519Bip32ForMacOSArch64Task = createCopyTask(
     "copyEd25519Bip32ForMacOSArch64",
-    sourceDir.resolve("aarch64-apple-darwin").resolve("release"),
+    ed25519bip32BinariesDir.resolve("aarch64-apple-darwin").resolve("release"),
     generatedResourcesDir.resolve("jvm").resolve("main").resolve("darwin-aarch64")
 )
 
 val copyEd25519Bip32ForLinuxX8664Task = createCopyTask(
     "copyEd25519Bip32ForLinuxX86_64",
-    sourceDir.resolve("x86_64-unknown-linux-gnu").resolve("release"),
+    ed25519bip32BinariesDir.resolve("x86_64-unknown-linux-gnu").resolve("release"),
     generatedResourcesDir.resolve("jvm").resolve("main").resolve("linux-x86-64")
 )
 
 val copyEd25519Bip32ForLinuxArch64Task = createCopyTask(
     "copyEd25519Bip32ForLinuxArch64",
-    sourceDir.resolve("aarch64-unknown-linux-gnu").resolve("release"),
+    ed25519bip32BinariesDir.resolve("aarch64-unknown-linux-gnu").resolve("release"),
     generatedResourcesDir.resolve("jvm").resolve("main").resolve("linux-aarch64")
 )
 
+/**
+ * A task group that responsible for moving generated JVM binaries to correct folder.
+ */
+val copyEd25519Bip32ForJVMTargetTask by tasks.register("copyEd25519Bip32ForJVMTarget") {
+    group = taskGroup
+    dependsOn(copyEd25519Bip32ForMacOSX8664Task, copyEd25519Bip32ForMacOSArch64Task, copyEd25519Bip32ForLinuxX8664Task, copyEd25519Bip32ForLinuxArch64Task)
+}
+
 val copyEd25519Bip32ForAndroidX8664Task = createCopyTask(
     "copyEd25519Bip32ForAndroidX86_64",
-    sourceDir.resolve("x86_64-linux-android").resolve("release"),
+    ed25519bip32BinariesDir.resolve("x86_64-linux-android").resolve("release"),
     generatedResourcesDir.resolve("android").resolve("main").resolve("jniLibs").resolve("x86_64")
 )
 
 val copyEd25519Bip32ForAndroidArch64Task = createCopyTask(
     "copyEd25519Bip32ForAndroidArch64",
-    sourceDir.resolve("aarch64-linux-android").resolve("release"),
+    ed25519bip32BinariesDir.resolve("aarch64-linux-android").resolve("release"),
     generatedResourcesDir.resolve("android").resolve("main").resolve("jniLibs").resolve("arm64-v8a")
 )
 
 val copyEd25519Bip32ForAndroidI686Task = createCopyTask(
     "copyEd25519Bip32ForAndroidI686",
-    sourceDir.resolve("i686-linux-android").resolve("release"),
+    ed25519bip32BinariesDir.resolve("i686-linux-android").resolve("release"),
     generatedResourcesDir.resolve("android").resolve("main").resolve("jniLibs").resolve("x86")
 )
 
 val copyEd25519Bip32ForAndroidArmv7aTask = createCopyTask(
     "copyEd25519Bip32ForAndroidArmv7a",
-    sourceDir.resolve("armv7-linux-androideabi").resolve("release"),
+    ed25519bip32BinariesDir.resolve("armv7-linux-androideabi").resolve("release"),
     generatedResourcesDir.resolve("android").resolve("main").resolve("jniLibs").resolve("armeabi-v7a")
 )
+
+/**
+ * A task group that responsible for moving generated Android binaries to correct folder.
+ */
+val copyEd25519Bip32ForAndroidTargetTask by tasks.register("copyEd25519Bip32ForAndroidTarget") {
+    group = taskGroup
+    dependsOn(copyEd25519Bip32ForAndroidX8664Task, copyEd25519Bip32ForAndroidArch64Task, copyEd25519Bip32ForAndroidI686Task, copyEd25519Bip32ForAndroidArmv7aTask)
+}
 
 val copyEd25519Bip32Wrapper by tasks.register("copyEd25519Bip32") {
     dependsOn(
         copyEd25519Bip32GeneratedTask,
-        copyEd25519Bip32ForMacOSX8664Task,
-        copyEd25519Bip32ForMacOSArch64Task,
-        copyEd25519Bip32ForLinuxX8664Task,
-        copyEd25519Bip32ForLinuxArch64Task,
-        copyEd25519Bip32ForAndroidX8664Task,
-        copyEd25519Bip32ForAndroidArch64Task,
-        copyEd25519Bip32ForAndroidI686Task,
-        copyEd25519Bip32ForAndroidArmv7aTask,
+        copyEd25519Bip32ForJVMTargetTask,
+        copyEd25519Bip32ForAndroidTargetTask,
         copyToAndroidSrc
     )
     mustRunAfter(buildEd25519Bip32Wrapper)
@@ -817,7 +833,7 @@ afterEvaluate {
         // dependsOn(cleanEd25519Bip32)
     }
     tasks.withType<KtLintCheckTask> {
-        dependsOn(buildEd25519Bip32Task)
+        // dependsOn(buildEd25519Bip32Task)
     }
     tasks.getByName("mergeDebugJniLibFolders").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeReleaseJniLibFolders").dependsOn(buildEd25519Bip32Task)
