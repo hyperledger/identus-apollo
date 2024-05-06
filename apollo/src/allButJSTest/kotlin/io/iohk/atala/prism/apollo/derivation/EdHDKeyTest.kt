@@ -1,10 +1,12 @@
 package io.iohk.atala.prism.apollo.derivation
 
+import io.iohk.atala.prism.apollo.IgnoreAndroid
 import io.iohk.atala.prism.apollo.utils.decodeHex
 import io.iohk.atala.prism.apollo.utils.toHexString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+@IgnoreAndroid
 class EdHDKeyTest {
     @Test
     fun test_derive_m1() {

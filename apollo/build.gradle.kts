@@ -1,4 +1,3 @@
-
 import dev.petuska.npm.publish.extension.domain.NpmAccess
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.dokka.gradle.DokkaTask
@@ -821,12 +820,14 @@ afterEvaluate {
         dependsOn(buildEd25519Bip32Task)
     }
     tasks.getByName("mergeDebugJniLibFolders").dependsOn(buildEd25519Bip32Task)
-    tasks.getByName("packageDebugResources").dependsOn(buildEd25519Bip32Task)
-    tasks.getByName("extractDeepLinksForAarDebug").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeReleaseJniLibFolders").dependsOn(buildEd25519Bip32Task)
-    tasks.getByName("extractDeepLinksForAarRelease").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("packageDebugResources").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("packageReleaseResources").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("extractDeepLinksForAarDebug").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("extractDeepLinksForAarRelease").dependsOn(buildEd25519Bip32Task)
+    tasks.getByName("mergeDebugResources").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeReleaseResources").dependsOn(buildEd25519Bip32Task)
+
     if (tasks.findByName("iosX64Test") != null) {
         tasks.named("iosX64Test") {
             this.enabled = false
