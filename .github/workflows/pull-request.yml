@@ -65,7 +65,7 @@ jobs:
 
       - name: "Install rust toolchain (Linux)"
         if: matrix.os-type == 'linux'
-        run: sudo apt install rustc -y
+        run: sudo apt install rustc build-essential -y
 
       - name: "Install rust toolchain (Macos)"
         if: matrix.os-type == 'macos'
