@@ -1,3 +1,11 @@
+## [1.2.15](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.14...v1.2.15) (2024-05-07)
+
+
+### Bug Fixes
+
+* npm package not being published automatically on CI pipeline. ([#156](https://github.com/input-output-hk/atala-prism-apollo/issues/156)) ([aaa7a65](https://github.com/input-output-hk/atala-prism-apollo/commit/aaa7a65e2d2ccd2979e75f621786ea99be310bf8))
+* some platforms were missing the signature normalisation ([#155](https://github.com/input-output-hk/atala-prism-apollo/issues/155)) ([972255d](https://github.com/input-output-hk/atala-prism-apollo/commit/972255d2f0d1edc569265b73c8f05a6be57e4308))
+
 ## [1.2.14](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.13...v1.2.14) (2024-04-12)
 
 
