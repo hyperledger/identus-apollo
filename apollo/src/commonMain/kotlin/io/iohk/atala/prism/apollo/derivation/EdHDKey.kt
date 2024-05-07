@@ -9,7 +9,7 @@ expect class EdHDKey constructor(
     publicKey: ByteArray? = null,
     depth: Int = 0,
     index: BigIntegerWrapper = BigIntegerWrapper(0)
-)  {
+) {
     val privateKey: ByteArray
     val chainCode: ByteArray
     val publicKey: ByteArray?
