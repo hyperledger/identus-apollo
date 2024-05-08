@@ -20,6 +20,8 @@ val ed25519bip32Dir = rootDir.resolve("rust-ed25519-bip32")
 val generatedDir = project.layout.buildDirectory.asFile.get().resolve("generated")
 val generatedResourcesDir = project.layout.buildDirectory.asFile.get().resolve("generatedResources")
 val ed25519bip32BinariesDir = ed25519bip32Dir.resolve("wrapper").resolve("target")
+val ANDROID_SDK = System.getenv("ANDROID_HOME")
+val NDK = System.getenv("ANDROID_NDK_HOME")
 
 plugins {
     kotlin("multiplatform")
@@ -307,6 +309,12 @@ val copyEd25519Bip32Wrapper by tasks.register("copyEd25519Bip32") {
 val buildEd25519Bip32Wrapper by tasks.register<Exec>("buildEd25519Bip32Wrapper") {
     group = taskGroup
     workingDir = ed25519bip32Dir.resolve("wrapper")
+    val localEnv = this.environment
+    localEnv += mapOf(
+        "ANDROID_HOME" to ANDROID_SDK,
+        "ANDROID_NDK_HOME" to NDK
+    )
+    this.environment = localEnv
     commandLine("./build-kotlin-library.sh")
 }
 
