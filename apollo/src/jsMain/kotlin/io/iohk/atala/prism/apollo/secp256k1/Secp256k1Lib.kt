@@ -93,10 +93,11 @@ actual class Secp256k1Lib actual constructor() {
             return true
         }
         return try {
-            secp256k1.verify(normalised, sha.asUint8Array(), publicKey.asUint8Array(), {})
-        } catch (e: dynamic) {
             val transcoded = transcodeSignatureToBitcoin(normalised.toCompactRawBytes().asByteArray())
             secp256k1.verify(transcoded, sha.asUint8Array(), publicKey.asUint8Array(), {})
+        } catch (e: dynamic) {
+            secp256k1.verify(normalised, sha.asUint8Array(), publicKey.asUint8Array(), {})
+
         }
     }
 
