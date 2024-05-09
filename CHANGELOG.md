@@ -1,3 +1,10 @@
+## [1.2.16](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.15...v1.2.16) (2024-05-09)
+
+
+### Bug Fixes
+
+*  Invalid signature integer: negative on JS platform ([#158](https://github.com/input-output-hk/atala-prism-apollo/issues/158)) ([0b454e0](https://github.com/input-output-hk/atala-prism-apollo/commit/0b454e01829b181a5077ccb1f7d8725cd86f85b9))
+
 ## [1.2.15](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.14...v1.2.15) (2024-05-07)
 
 
