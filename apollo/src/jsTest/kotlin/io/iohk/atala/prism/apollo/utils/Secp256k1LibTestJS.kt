@@ -17,7 +17,8 @@ class Secp256k1LibTestJS {
         val signature = sk.sign(data)
         val verified = pk.verify(signature, data)
         assertEquals(
-            verified, true
+            verified,
+            true
         )
     }
 }
