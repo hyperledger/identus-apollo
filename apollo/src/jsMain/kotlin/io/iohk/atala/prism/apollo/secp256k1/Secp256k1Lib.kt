@@ -97,7 +97,6 @@ actual class Secp256k1Lib actual constructor() {
             secp256k1.verify(transcoded, sha.asUint8Array(), publicKey.asUint8Array(), {})
         } catch (e: dynamic) {
             secp256k1.verify(normalised, sha.asUint8Array(), publicKey.asUint8Array(), {})
-
         }
     }
 
