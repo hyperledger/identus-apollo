@@ -58,7 +58,7 @@ actual class EdHDKey actual constructor(
         val secretKey = derived["secret_key"]
         val chainCode = derived["chain_code"]
 
-        if(secretKey == null || chainCode == null) {
+        if (secretKey == null || chainCode == null) {
             throw Error("Unable to derive key")
         }
 
@@ -88,7 +88,7 @@ actual class EdHDKey actual constructor(
             val secretKey = result["secret_key"]
             val chainCode = result["chain_code"]
 
-            if(secretKey == null || chainCode == null) {
+            if (secretKey == null || chainCode == null) {
                 throw Error("Unable to derive key")
             }
 
