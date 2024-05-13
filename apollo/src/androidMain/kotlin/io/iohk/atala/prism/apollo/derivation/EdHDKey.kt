@@ -1,7 +1,8 @@
 package io.iohk.atala.prism.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.toBigInteger
-import ed25519_bip32_wrapper.XPrvWrapper
+import ed25519_bip32_wrapper.deriveBytes
+import ed25519_bip32_wrapper.fromNonextendedNoforce
 import io.iohk.atala.prism.apollo.utils.ECConfig
 
 /**
@@ -52,12 +53,18 @@ actual class EdHDKey actual constructor(
      * @param wrappedIndex value used to derive a key
      */
     actual fun deriveChild(wrappedIndex: BigIntegerWrapper): EdHDKey {
-        val wrapper = XPrvWrapper.fromExtendedAndChaincode(privateKey, chainCode)
-        val derived = wrapper.derive(wrappedIndex.value.uintValue())
+        val index = wrappedIndex.value.uintValue()
+        val derived = deriveBytes(privateKey, chainCode, index)
+        val secretKey = derived["secret_key"]
+        val chainCode = derived["chain_code"]
+
+        if(secretKey == null || chainCode == null) {
+            throw Error("Unable to derive key")
+        }
 
         return EdHDKey(
-            privateKey = derived.extendedSecretKey(),
-            chainCode = derived.chainCode(),
+            privateKey = secretKey,
+            chainCode = chainCode,
             depth = depth + 1,
             index = wrappedIndex
         )
@@ -75,13 +82,19 @@ actual class EdHDKey actual constructor(
                 "Seed expected byte length to be ${ECConfig.PRIVATE_KEY_BYTE_SIZE}"
             }
 
-            val key = seed.sliceArray(0 until 32)
-            val chainCode = seed.sliceArray(32 until seed.size)
-            val wrapper = XPrvWrapper.fromNonextendedNoforce(key, chainCode)
+            val keySlice = seed.sliceArray(0 until 32)
+            val chainCodeSlice = seed.sliceArray(32 until seed.size)
+            val result = fromNonextendedNoforce(keySlice, chainCodeSlice)
+            val secretKey = result["secret_key"]
+            val chainCode = result["chain_code"]
+
+            if(secretKey == null || chainCode == null) {
+                throw Error("Unable to derive key")
+            }
 
             return EdHDKey(
-                privateKey = wrapper.extendedSecretKey(),
-                chainCode = wrapper.chainCode()
+                privateKey = secretKey,
+                chainCode = chainCode
             )
         }
     }
