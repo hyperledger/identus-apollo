@@ -54,12 +54,11 @@ actual class EdHDKey actual constructor(
      * @param wrappedIndex value used to derive a key
      */
     actual fun deriveChild(wrappedIndex: BigIntegerWrapper): EdHDKey {
-        val wrapper = ed25519_bip32.XPrvWrapper.from_extended_and_chaincode(privateKey, chainCode)
-        val derived = wrapper.derive(wrappedIndex.value.uintValue())
+        val derived = ed25519_bip32.derive_bytes(privateKey, chainCode, wrappedIndex.value.uintValue());
 
         return EdHDKey(
-            privateKey = derived.extended_secret_key(),
-            chainCode = derived.chain_code(),
+            privateKey = derived[0],
+            chainCode = derived[1],
             depth = depth + 1,
             index = wrappedIndex
         )
@@ -79,11 +78,11 @@ actual class EdHDKey actual constructor(
 
             val key = seed.sliceArray(0 until 32)
             val chainCode = seed.sliceArray(32 until seed.size)
-            val wrapper = ed25519_bip32.XPrvWrapper.from_nonextended_noforce(key, chainCode)
+            val result = ed25519_bip32.from_nonextended_noforce(key, chainCode)
 
             return EdHDKey(
-                privateKey = wrapper.extended_secret_key(),
-                chainCode = wrapper.chain_code()
+                privateKey = result[0],
+                chainCode = result[1]
             )
         }
     }
