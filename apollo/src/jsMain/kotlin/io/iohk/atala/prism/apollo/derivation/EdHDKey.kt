@@ -12,7 +12,6 @@ import io.iohk.atala.prism.apollo.utils.external.ed25519_bip32
 actual class EdHDKey actual constructor(
     actual val privateKey: ByteArray,
     actual val chainCode: ByteArray,
-    actual val publicKey: ByteArray?,
     actual val depth: Int,
     actual val index: BigIntegerWrapper
 ) {
@@ -54,7 +53,7 @@ actual class EdHDKey actual constructor(
      * @param wrappedIndex value used to derive a key
      */
     actual fun deriveChild(wrappedIndex: BigIntegerWrapper): EdHDKey {
-        val derived = ed25519_bip32.derive_bytes(privateKey, chainCode, wrappedIndex.value.uintValue());
+        val derived = ed25519_bip32.derive_bytes(privateKey, chainCode, wrappedIndex.value.uintValue())
 
         return EdHDKey(
             privateKey = derived[0],

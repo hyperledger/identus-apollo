@@ -11,7 +11,6 @@ import io.iohk.atala.prism.apollo.utils.ECConfig
 actual class EdHDKey actual constructor(
     actual val privateKey: ByteArray,
     actual val chainCode: ByteArray,
-    actual val publicKey: ByteArray?,
     actual val depth: Int,
     actual val index: BigIntegerWrapper
 ) {

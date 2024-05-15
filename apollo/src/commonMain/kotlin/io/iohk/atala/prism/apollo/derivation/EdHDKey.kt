@@ -6,13 +6,11 @@ package io.iohk.atala.prism.apollo.derivation
 expect class EdHDKey constructor(
     privateKey: ByteArray,
     chainCode: ByteArray,
-    publicKey: ByteArray? = null,
     depth: Int = 0,
     index: BigIntegerWrapper = BigIntegerWrapper(0)
 ) {
     val privateKey: ByteArray
     val chainCode: ByteArray
-    val publicKey: ByteArray?
     val depth: Int
     val index: BigIntegerWrapper
 
