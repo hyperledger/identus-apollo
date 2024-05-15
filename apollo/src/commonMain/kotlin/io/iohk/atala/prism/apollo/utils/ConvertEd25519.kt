@@ -4,6 +4,13 @@ import org.kotlincrypto.hash.sha2.SHA512
 import kotlin.experimental.and
 import kotlin.experimental.or
 
+/**
+ * This function converts an Ed25519 secret key into a Curve25519 secret key. 
+ * Curve25519 keys are used in the key exchange process to encrypt communications over networks.
+ *
+ * @param secretKey The Ed25519 secret key to be converted into a Curve25519 secret key.
+ * @return The Curve25519 key, which is a 32-byte hash derived from the original Ed25519 key.
+ */
 fun convertSecretKeyToX25519(secretKey: ByteArray): ByteArray {
     // Hash the first 32 bytes of the Ed25519 secret key
     val hashed = SHA512().digest(secretKey.sliceArray(0 until 32))
