@@ -56,7 +56,6 @@ public object Secp256k1Native : Secp256k1 {
     }
 
     public override fun verify(signature: ByteArray, message: ByteArray, pubkey: ByteArray): Boolean {
-        require(message.size == 32)
         require(pubkey.size == 33 || pubkey.size == 65)
         memScoped {
             val nPubkey = allocPublicKey(pubkey)
@@ -68,7 +67,6 @@ public object Secp256k1Native : Secp256k1 {
 
     public override fun sign(message: ByteArray, privkey: ByteArray): ByteArray {
         require(privkey.size == 32)
-        require(message.size == 32)
         memScoped {
             val nPrivkey = toNat(privkey)
             val nMessage = toNat(message)

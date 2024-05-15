@@ -1,3 +1,25 @@
+## [1.2.16](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.15...v1.2.16) (2024-05-09)
+
+
+### Bug Fixes
+
+*  Invalid signature integer: negative on JS platform ([#158](https://github.com/input-output-hk/atala-prism-apollo/issues/158)) ([0b454e0](https://github.com/input-output-hk/atala-prism-apollo/commit/0b454e01829b181a5077ccb1f7d8725cd86f85b9))
+
+## [1.2.15](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.14...v1.2.15) (2024-05-07)
+
+
+### Bug Fixes
+
+* npm package not being published automatically on CI pipeline. ([#156](https://github.com/input-output-hk/atala-prism-apollo/issues/156)) ([aaa7a65](https://github.com/input-output-hk/atala-prism-apollo/commit/aaa7a65e2d2ccd2979e75f621786ea99be310bf8))
+* some platforms were missing the signature normalisation ([#155](https://github.com/input-output-hk/atala-prism-apollo/issues/155)) ([972255d](https://github.com/input-output-hk/atala-prism-apollo/commit/972255d2f0d1edc569265b73c8f05a6be57e4308))
+
+## [1.2.14](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.13...v1.2.14) (2024-04-12)
+
+
+### Bug Fixes
+
+* Allow Apollo to verify der signatures from bc and bitcoin seamlessly #ATL-6905 ([#154](https://github.com/input-output-hk/atala-prism-apollo/issues/154)) ([a26a559](https://github.com/input-output-hk/atala-prism-apollo/commit/a26a5597cd5df9d1875f28a664772a1d02168ec9)), closes [#ATL-6905](https://github.com/input-output-hk/atala-prism-apollo/issues/ATL-6905)
+
 ## [1.2.13](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.12...v1.2.13) (2024-03-25)
 
 
