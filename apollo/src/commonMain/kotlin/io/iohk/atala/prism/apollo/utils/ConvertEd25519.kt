@@ -5,7 +5,7 @@ import kotlin.experimental.and
 import kotlin.experimental.or
 
 /**
- * This function converts an Ed25519 secret key into a Curve25519 secret key. 
+ * This function converts an Ed25519 secret key into a Curve25519 secret key.
  * Curve25519 keys are used in the key exchange process to encrypt communications over networks.
  *
  * @param secretKey The Ed25519 secret key to be converted into a Curve25519 secret key.
