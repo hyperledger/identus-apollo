@@ -1,7 +1,5 @@
 # Module Apollo
 
-![Atala Prism Logo](./images/Logo.png)
-
 A cryptography lib built with Kotlin Multiplatform with support for the following targets:
 
 - JS
@@ -9,34 +7,40 @@ A cryptography lib built with Kotlin Multiplatform with support for the followin
 - Android
 - JVM
 
-## Apollo: The Secure Foundation of Atala PRISM
+## Apollo: The Secure Foundation of Identus platform
 
-Apollo is the robust cryptographic engine driving the security and privacy of Atala PRISM, a comprehensive suite of 
-blockchain-powered solutions. This collection of cryptographic methods provides the solid foundation upon which Atala PRISM 
-builds its diverse functionalities.
+Apollo is the robust cryptographic engine driving the security and privacy of Identus platform, a comprehensive suite of
+blockchain-powered solutions. This collection of cryptographic methods provides the solid foundation upon which Identus
+platform builds its diverse functionalities.
 
 ### Key Features of Apollo:
 
-- **Hashing:** Cryptographically secure hashing functions, including the widely trusted SHA-2 family and PBKDF2SHA512, ensure data integrity and prevent tampering.
+- **Hashing:** Cryptographically secure hashing functions, including the widely trusted SHA-2 family and PBKDF2SHA512,
+  ensure data integrity and prevent tampering.
 - **Base64 Encoding/Decoding:** This efficient encoding scheme allows secure transmission and storage of binary data.
-- **Elliptic Curve Cryptography (Secp256k1):** This cutting-edge cryptographic algorithm provides robust digital signatures and key generation for secure transactions.
-- **Secure Random Generation:** High-quality randomness is crucial for cryptographic processes, and Apollo employs advanced techniques to guarantee its integrity.
-- **Key Derivation:** Securely deriving new cryptographic keys from existing ones enhances security and protects against key compromise.
-- **Mnemonic Generation:** Transforming complex private keys into human-memorable phrases improves user experience and accessibility.
-- **Hierarchical Deterministic Key Management (HDKey):** This powerful system allows generating a vast number of child keys from a single master key, facilitating robust key management for diverse applications.
+- **Elliptic Curve Cryptography (Secp256k1):** This cutting-edge cryptographic algorithm provides robust digital
+  signatures and key generation for secure transactions.
+- **Secure Random Generation:** High-quality randomness is crucial for cryptographic processes, and Apollo employs
+  advanced techniques to guarantee its integrity.
+- **Key Derivation:** Securely deriving new cryptographic keys from existing ones enhances security and protects against
+  key compromise.
+- **Mnemonic Generation:** Transforming complex private keys into human-memorable phrases improves user experience and
+  accessibility.
+- **Hierarchical Deterministic Key Management (HDKey):** This powerful system allows generating a vast number of child
+  keys from a single master key, facilitating robust key management for diverse applications.
 
 ## Security First:
 
-Apollo's commitment to security is paramount. It has undergone two independent security audits, further validating its 
-reliability and trustworthiness. This meticulous attention to security ensures that Atala PRISM operates at the highest 
-standards, safeguarding user data and privacy.
+Apollo's commitment to security is paramount. It has undergone two independent security audits, further validating its
+reliability and trustworthiness. This meticulous attention to security ensures that Identus platform operates at the
+highest standards, safeguarding user data and privacy.
 
 ## Empowering Secure Solutions:
 
-Through its robust cryptographic capabilities, Apollo empowers Atala PRISM to deliver a range of secure and privacy-preserving 
-solutions across various industries. From identity management and document verification to supply chain tracking and data 
-sharing, Apollo provides the essential cryptographic infrastructure for Atala PRISM to thrive in a connected world demanding 
-unparalleled security and trust.
+Through its robust cryptographic capabilities, Apollo empowers Identus platform to deliver a range of secure and
+privacy-preserving solutions across various industries. From identity management and document verification to supply
+chain tracking and data sharing, Apollo provides the essential cryptographic infrastructure for Identus platform to
+thrive in a connected world demanding unparalleled security and trust.
 
 ## Cryptography Notice
 

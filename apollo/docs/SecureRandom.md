@@ -1,4 +1,4 @@
-# Package io.iohk.atala.prism.apollo.securerandom
+# Package org.hyperledger.identus.apollo.securerandom
 
 Apollo Secure Random is Kotlin Multiplatform library to generate secure random bytes
 

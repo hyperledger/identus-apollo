@@ -1,7 +1,7 @@
 {
-  "name": "atala-prism-apollo",
+  "name": "identus-apollo",
   "version": "1.0.15",
-  "description": "atala-prism-apollo",
+  "description": "identus-apollo",
   "directories": {
     "example": "examples"
   },
