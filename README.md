@@ -232,7 +232,7 @@ kotlin {
         commonMain {
             dependencies {
                 // This following is just an example you can import it as per you needs
-                implementation 'org.hyperledger.identus:apollo:<latest version>'
+                implementation("org.hyperledger.identus:apollo:<latest version>")
             }
         }
     }

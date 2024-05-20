@@ -324,7 +324,7 @@ kotlin {
         }
     }
 
-    if (os.isMacOsX) {
+    if (os.isMacOsX) 
         if (tasks.findByName("iosX64Test") != null) {
             tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
                 device.set("iPhone 14 Plus")
@@ -492,7 +492,7 @@ afterEvaluate {
             ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
         )
     }
-
+    
     // Disable publish of targets
     if (tasks.findByName("publishIosX64PublicationToSonatypeRepository") != null) {
         tasks.named("publishIosX64PublicationToSonatypeRepository") {
