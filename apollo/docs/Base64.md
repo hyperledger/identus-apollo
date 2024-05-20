@@ -1,4 +1,4 @@
-# Package io.iohk.atala.prism.apollo.base64
+# Package org.hyperledger.identus.apollo.base64
 
 Apollo Base64 is Kotlin Multiplatform library containing Standard & URL safe
 

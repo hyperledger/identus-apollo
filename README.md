@@ -11,8 +11,6 @@
 ![badge-platform-js]
 ![badge-platform-js-node]
 
-![Atala Prism Logo](Logo.png)
-
 A cryptography lib built with Kotlin Multiplatform with support for the following targets:
 
 - JS
@@ -159,7 +157,7 @@ repositories {
 For dependencies
 ```kotlin
 dependencies {
-    implementation("io.iohk.atala.prism.apollo:apollo:<latest version>")
+    implementation("org.hyperledger.identus:apollo:<latest version>")
 }
 ```
 
@@ -234,7 +232,7 @@ kotlin {
         commonMain {
             dependencies {
                 // This following is just an example you can import it as per you needs
-                implementation 'io.iohk.atala.prism.apollo:apollo:<latest version>'
+                implementation 'org.hyperledger.identus:apollo:<latest version>'
             }
         }
     }
@@ -258,7 +256,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // This following is just an example you can import it as per you needs
-                implementation("io.iohk.atala.prism.apollo:apollo:<latest version>")
+                implementation("org.hyperledger.identus:apollo:<latest version>")
             }
         }
     }
@@ -268,7 +266,7 @@ kotlin {
 ## How to use for Scala project
 
 ```scala
-libraryDependencies += "io.iohk.atala.prism.apollo" % "apollo-jvm" % "<latest version>"
+libraryDependencies += "org.hyperledger.identus" % "apollo-jvm" % "<latest version>"
 ```
 
 ## Usage

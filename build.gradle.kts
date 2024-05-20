@@ -1,6 +1,6 @@
 import java.util.Base64
 
-val publishedMavenId: String = "io.iohk.atala.prism.apollo"
+val publishedMavenId: String = "org.hyperledger.identus"
 
 plugins {
     id("org.jetbrains.dokka") version "1.9.20"
@@ -48,8 +48,8 @@ allprojects {
                     artifactId = project.name
                     version = project.version.toString()
                     pom {
-                        name.set("Atala PRISM Apollo")
-                        description.set("Collection of the cryptographic methods used all around Atala PRISM")
+                        name.set("Identus Apollo")
+                        description.set("Collection of the cryptographic methods used all around Identus platform")
                         url.set("https://docs.atalaprism.io/")
                         organization {
                             name.set("IOG")
@@ -148,7 +148,7 @@ subprojects {
         filters {
             excludes {
                 classes(
-                    "io.iohk.atala.prism.apollo.utils.bip39.wordlists.*"
+                    "org.hyperledger.identus.apollo.utils.bip39.wordlists.*"
                 )
             }
         }

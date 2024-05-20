@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-description: Report a bug in the Atala PRISM DIDComm
+description: Report a bug in Apollo
 
 body:
   - type: dropdown
