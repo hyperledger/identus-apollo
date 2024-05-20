@@ -1,6 +1,6 @@
 ---
 name: 'Feature Request'
-description: Suggest a new feature for Atala PRISM DIDComm
+description: Suggest a new feature for Apollo
 
 body:
   - type: textarea

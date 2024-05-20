@@ -244,7 +244,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
                 implementation("com.ionspin.kotlin:bignum:0.3.9")
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
                 implementation("org.kotlincrypto.hash:sha2:0.4.0")
@@ -318,24 +318,28 @@ kotlin {
     }
 
     // Enable the export of KDoc (Experimental feature) to Generated Native targets (Apple, Linux, etc.)
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+    targets.withType<KotlinNativeTarget> {
         compilations.getByName("main") {
             compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
         }
     }
 
     if (os.isMacOsX) {
-        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
-            device.set("iPhone 14 Plus")
+        if (tasks.findByName("iosX64Test") != null) {
+            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
+                device.set("iPhone 14 Plus")
+            }
         }
-        tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-            device.set("iPhone 14 Plus")
+        if (tasks.findByName("iosSimulatorArm64Test") != null) {
+            tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
+                device.set("iPhone 14 Plus")
+            }
         }
     }
 }
 
 android {
-    namespace = "io.iohk.atala.prism.apollo"
+    namespace = "org.hyperledger.identus.apollo"
     compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
@@ -360,39 +364,6 @@ android {
     }
 }
 
-afterEvaluate {
-    tasks.withType<KotlinCompile> {
-        dependsOn(
-            ":iOSLibs:buildIOHKCryptoKitIphoneos",
-            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
-            ":iOSLibs:buildIOHKCryptoKitMacosx",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
-            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
-        )
-    }
-    tasks.withType<ProcessResources> {
-        dependsOn(
-            ":iOSLibs:buildIOHKCryptoKitIphoneos",
-            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
-            ":iOSLibs:buildIOHKCryptoKitMacosx",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
-            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
-        )
-    }
-    tasks.withType<CInteropProcess> {
-        dependsOn(
-            ":iOSLibs:buildIOHKCryptoKitIphoneos",
-            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
-            ":iOSLibs:buildIOHKCryptoKitMacosx",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
-            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
-        )
-    }
-}
-
 ktlint {
     filter {
         exclude("**/external/*", "./src/jsMain/kotlin/io/iohk/atala/prism/apollo/utils/external/*")
@@ -409,8 +380,7 @@ tasks.withType<DokkaTask>().configureEach {
     moduleVersion.set(rootProject.version.toString())
     description = "This is a Kotlin Multiplatform Library for cryptography"
     pluginConfiguration<org.jetbrains.dokka.base.DokkaBase, org.jetbrains.dokka.base.DokkaBaseConfiguration> {
-        customAssets = listOf(rootDir.resolve("Logo.png"))
-        footerMessage = "(c) ${Year.now().value} IOG Copyright"
+        footerMessage = "(c) ${Year.now().value} HyberLedger Copyright"
     }
     dokkaSourceSets {
         configureEach {
@@ -448,13 +418,13 @@ tasks.withType<DokkaTask>().configureEach {
 }
 
 npmPublish {
-    organization.set("atala")
+    organization.set("hyperledger")
     version.set(rootProject.version.toString())
     access.set(NpmAccess.PUBLIC)
     packages {
         access.set(NpmAccess.PUBLIC)
         named("js") {
-            scope.set("atala")
+            scope.set("hyperledger")
             packageName.set("apollo")
             readme.set(rootDir.resolve("README.md"))
             packageJson {
@@ -490,6 +460,38 @@ afterEvaluate {
     tasks.withType<PublishToMavenLocal> {
         dependsOn(tasks.withType<Sign>())
     }
+
+    tasks.withType<KotlinCompile> {
+        dependsOn(
+            ":iOSLibs:buildIOHKCryptoKitIphoneos",
+            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
+            ":iOSLibs:buildIOHKCryptoKitMacosx",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
+            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
+        )
+    }
+    tasks.withType<ProcessResources> {
+        dependsOn(
+            ":iOSLibs:buildIOHKCryptoKitIphoneos",
+            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
+            ":iOSLibs:buildIOHKCryptoKitMacosx",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
+            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
+        )
+    }
+    tasks.withType<CInteropProcess> {
+        dependsOn(
+            ":iOSLibs:buildIOHKCryptoKitIphoneos",
+            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
+            ":iOSLibs:buildIOHKCryptoKitMacosx",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
+            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
+            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
+        )
+    }
+
     // Disable publish of targets
     if (tasks.findByName("publishIosX64PublicationToSonatypeRepository") != null) {
         tasks.named("publishIosX64PublicationToSonatypeRepository") {
