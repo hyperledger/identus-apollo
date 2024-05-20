@@ -146,7 +146,7 @@ that repository and provide the following information:
 
 ### Git Commit Messages
 
-Atala PRISM uses [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#specification) please always
+Identius uses [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#specification) please always
 provide a commit following these specifications.
 
 #### Commit Message Format
@@ -234,7 +234,8 @@ change.
 #### <a name="commit-footer"></a>Commit Message Footer
 
 The footer can contain information about breaking changes and deprecations and is also the place to reference GitHub
-issues, Jira tickets, and other PRs that this commit closes or is related to.  
+issues, Jira tickets, and other PRs that this commit closes or is related to. 
+
 For example:
 
 ``` log
@@ -256,6 +257,7 @@ DEPRECATED: <what is deprecated>
 <BLANK LINE>  
 Related to ATL-<issue number>  
 ```  
+
 
 Breaking Change section should start with the phrase "BREAKING CHANGE: " followed by a summary of the breaking change, a
 blank line, and a detailed description of the breaking change that also includes migration instructions.
