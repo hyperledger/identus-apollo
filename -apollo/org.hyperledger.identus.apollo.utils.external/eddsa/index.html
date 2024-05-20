@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>eddsa</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            Apollo
+                    </a>
+            </div>
+            <div class="library-version">
+1.2.16            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector js-like" data-active="" data-filter=":apollo:dokkaHtml/jsMain">js</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="Apollo::org.hyperledger.identus.apollo.utils.external/eddsa///PointingToDeclaration//978008547">
+  <div class="breadcrumbs"><a href="../../../index.html">Apollo</a><span class="delimiter">/</span><a href="../index.html">org.hyperledger.identus.apollo.utils.external</a><span class="delimiter">/</span><span class="current">eddsa</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>eddsa</span></span></h1>
+    <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">external </span><span class="token keyword">class </span><a href="index.html">eddsa</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/input-output-hk/atala-prism-apollo/tree/main/src/jsMain/kotlin/org/hyperledger/identus/apollo/utils/external/Ellipticjs.kt#L259">source</a>)</span></span></div><p class="paragraph">Represents an EdDSA cryptographic system.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>name</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The name of the curve (&quot;ed25519&quot;).</p></div></div></div></div></div></div>    </div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-2127604653%2FConstructors%2F978008547" anchor-label="eddsa" id="-2127604653%2FConstructors%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="eddsa.html"><span><span>eddsa</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2127604653%2FConstructors%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1018057026%2FClasslikes%2F978008547" anchor-label="KeyPair" id="-1018057026%2FClasslikes%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-key-pair/index.html"><span>Key</span><wbr></wbr><span><span>Pair</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1018057026%2FClasslikes%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-key-pair/index.html">KeyPair</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eddsa<span class="token operator">: </span><a href="index.html">eddsa</a><span class="token punctuation">, </span></span><span class="parameter ">params<span class="token operator">: </span><a href="-key-pair-options/index.html">eddsa.KeyPairOptions</a></span></span><span class="token punctuation">)</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2045460550%2FClasslikes%2F978008547" anchor-label="KeyPairOptions" id="2045460550%2FClasslikes%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-key-pair-options/index.html"><span>Key</span><wbr></wbr><span>Pair</span><wbr></wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2045460550%2FClasslikes%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-key-pair-options/index.html">KeyPairOptions</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1596525761%2FClasslikes%2F978008547" anchor-label="Signature" id="-1596525761%2FClasslikes%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-signature/index.html"><span><span>Signature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1596525761%2FClasslikes%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-signature/index.html">Signature</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="464667541%2FProperties%2F978008547" anchor-label="curve" id="464667541%2FProperties%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="curve.html"><span><span>curve</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="464667541%2FProperties%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="curve.html">curve</a><span class="token operator">: </span><a href="../edwards/index.html">edwards</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1705054999%2FFunctions%2F978008547" anchor-label="decodeInt" id="-1705054999%2FFunctions%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="decode-int.html"><span>decode</span><wbr></wbr><span><span>Int</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1705054999%2FFunctions%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="decode-int.html"><span class="token function">decodeInt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">bytes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-b-n/index.html">BN</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="decode-int.html"><span class="token function">decodeInt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">bytes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-b-n/index.html">BN</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="decode-int.html"><span class="token function">decodeInt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">bytes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-b-n/index.html">BN</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="decode-int.html"><span class="token function">decodeInt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">bytes<span class="token operator">: </span><a href="../-b-n/index.html">BN</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-b-n/index.html">BN</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="decode-int.html"><span class="token function">decodeInt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">bytes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/org.khronos.webgl/-uint8-array/index.html">Uint8Array</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-b-n/index.html">BN</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="281414114%2FFunctions%2F978008547" anchor-label="decodePoint" id="281414114%2FFunctions%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="decode-point.html"><span>decode</span><wbr></wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="281414114%2FFunctions%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="decode-point.html"><span class="token function">decodePoint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">bytes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../base/-base-point/index.html">base.BasePoint</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-183794941%2FFunctions%2F978008547" anchor-label="hashInt" id="-183794941%2FFunctions%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hash-int.html"><span>hash</span><wbr></wbr><span><span>Int</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-183794941%2FFunctions%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="hash-int.html"><span class="token function">hashInt</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-b-n/index.html">BN</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1891608991%2FFunctions%2F978008547" anchor-label="isPoint" id="1891608991%2FFunctions%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-point.html"><span>is</span><wbr></wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1891608991%2FFunctions%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-point.html"><span class="token function">isPoint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">param_val<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2143988963%2FFunctions%2F978008547" anchor-label="keyFromPublic" id="2143988963%2FFunctions%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="key-from-public.html"><span>key</span><wbr></wbr><span>From</span><wbr></wbr><span><span>Public</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2143988963%2FFunctions%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="key-from-public.html"><span class="token function">keyFromPublic</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pub<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-key-pair/index.html">eddsa.KeyPair</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="key-from-public.html"><span class="token function">keyFromPublic</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pub<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-key-pair/index.html">eddsa.KeyPair</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="key-from-public.html"><span class="token function">keyFromPublic</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pub<span class="token operator">: </span><a href="../base/-base-point/index.html">base.BasePoint</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-key-pair/index.html">eddsa.KeyPair</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="key-from-public.html"><span class="token function">keyFromPublic</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pub<span class="token operator">: </span><a href="-key-pair/index.html">eddsa.KeyPair</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-key-pair/index.html">eddsa.KeyPair</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1212270858%2FFunctions%2F978008547" anchor-label="keyFromSecret" id="-1212270858%2FFunctions%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="key-from-secret.html"><span>key</span><wbr></wbr><span>From</span><wbr></wbr><span><span>Secret</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1212270858%2FFunctions%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="key-from-secret.html"><span class="token function">keyFromSecret</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">secret<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-key-pair/index.html">eddsa.KeyPair</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="key-from-secret.html"><span class="token function">keyFromSecret</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">secret<span class="token operator">: </span><span data-unresolved-link="node.buffer/Buffer///PointingToDeclaration/">Buffer</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-key-pair/index.html">eddsa.KeyPair</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-694382057%2FFunctions%2F978008547" anchor-label="makeSignature" id="-694382057%2FFunctions%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="make-signature.html"><span>make</span><wbr></wbr><span><span>Signature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-694382057%2FFunctions%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="make-signature.html"><span class="token function">makeSignature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sig<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-signature/index.html">eddsa.Signature</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="make-signature.html"><span class="token function">makeSignature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sig<span class="token operator">: </span><a href="-signature/index.html">eddsa.Signature</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-signature/index.html">eddsa.Signature</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1990552208%2FFunctions%2F978008547" anchor-label="sign" id="-1990552208%2FFunctions%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sign.html"><span><span>sign</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1990552208%2FFunctions%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="sign.html"><span class="token function">sign</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">message<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">secret<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-signature/index.html">eddsa.Signature</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-331318047%2FFunctions%2F978008547" anchor-label="verify" id="-331318047%2FFunctions%2F978008547" data-filterable-set=":apollo:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="verify.html"><span><span>verify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-331318047%2FFunctions%2F978008547"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":apollo:dokkaHtml/jsMain" data-filterable-set=":apollo:dokkaHtml/jsMain" data-active="" data-toggle=":apollo:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":apollo:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="verify.html"><span class="token function">verify</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">message<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">sig<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">pub<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="verify.html"><span class="token function">verify</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">message<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">sig<span class="token operator">: </span><a href="-signature/index.html">eddsa.Signature</a><span class="token punctuation">, </span></span><span class="parameter ">pub<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>(c) 2024 HyberLedger Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
