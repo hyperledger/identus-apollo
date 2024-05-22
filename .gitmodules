@@ -6,4 +6,4 @@
 [submodule "rust-ed25519-bip32"]
 	path = rust-ed25519-bip32
 	url = https://github.com/input-output-hk/rust-ed25519-bip32.git
-	branch = rust-uniffi
+	branch = master
