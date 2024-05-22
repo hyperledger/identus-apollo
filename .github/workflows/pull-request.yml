@@ -65,6 +65,17 @@ jobs:
         with:
           xcode-version: '15.0.1'
 
+      - name: "Install rust toolchain (Linux)"
+        if: matrix.os-type == 'linux'
+        run: sudo apt install rustc build-essential -y
+
+      - name: "Install rust toolchain (Macos)"
+        if: matrix.os-type == 'macos'
+        run: brew install rustup
+          
+      - name: "Install wasm-pack"
+        run: cargo install wasm-pack
+          
       - name: "Test Kotlin code is properly formatted"
         run: ./gradlew ktlintCheck
 

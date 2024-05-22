@@ -1,5 +1,7 @@
 package org.hyperledger.identus.apollo.utils
 
+import kotlin.js.ExperimentalJsExport
+
 /**
  * Interface defining the functionality for generating KMMEd key pairs.
  */
@@ -7,6 +9,7 @@ expect class KMMEdKeyPair(privateKey: KMMEdPrivateKey, publicKey: KMMEdPublicKey
     val privateKey: KMMEdPrivateKey
     val publicKey: KMMEdPublicKey
 
+    @OptIn(ExperimentalJsExport::class)
     companion object : Ed25519KeyPairGeneration
 
     /**
