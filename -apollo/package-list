@@ -111,6 +111,16 @@ $dokka.location:org.hyperledger.identus.apollo.derivation/DerivationPath/Derivat
 $dokka.location:org.hyperledger.identus.apollo.derivation/DerivationPath/axes/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-derivation-path/axes.html
 $dokka.location:org.hyperledger.identus.apollo.derivation/DerivationPath/derive/#org.hyperledger.identus.apollo.derivation.DerivationAxis/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-derivation-path/derive.html
 $dokka.location:org.hyperledger.identus.apollo.derivation/DerivationPath/toString/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-derivation-path/to-string.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey.Companion///PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/-companion/index.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey.Companion/initFromSeed/#kotlin.ByteArray/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/-companion/init-from-seed.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey///PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/index.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey/EdHDKey/#kotlin.ByteArray#kotlin.ByteArray#kotlin.Int#org.hyperledger.identus.apollo.derivation.BigIntegerWrapper/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/-ed-h-d-key.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey/chainCode/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/chain-code.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey/depth/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/depth.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey/derive/#kotlin.String/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/derive.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey/deriveChild/#org.hyperledger.identus.apollo.derivation.BigIntegerWrapper/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/derive-child.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey/index/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/--index--.html
+$dokka.location:org.hyperledger.identus.apollo.derivation/EdHDKey/privateKey/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-ed-h-d-key/private-key.html
 $dokka.location:org.hyperledger.identus.apollo.derivation/HDKey.Companion///PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-h-d-key/-companion/index.html
 $dokka.location:org.hyperledger.identus.apollo.derivation/HDKey.Companion/BITCOIN_VERSIONS_PRIVATE/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-h-d-key/-companion/-b-i-t-c-o-i-n_-v-e-r-s-i-o-n-s_-p-r-i-v-a-t-e.html
 $dokka.location:org.hyperledger.identus.apollo.derivation/HDKey.Companion/BITCOIN_VERSIONS_PUBLIC/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.derivation/-h-d-key/-companion/-b-i-t-c-o-i-n_-v-e-r-s-i-o-n-s_-p-u-b-l-i-c.html
@@ -374,6 +384,7 @@ $dokka.location:org.hyperledger.identus.apollo.utils.external////PointingToDecla
 $dokka.location:org.hyperledger.identus.apollo.utils.external//PUBLIC_KEY_LENGTH/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/-p-u-b-l-i-c_-k-e-y_-l-e-n-g-t-h.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external//SECRET_KEY_LENGTH/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/-s-e-c-r-e-t_-k-e-y_-l-e-n-g-t-h.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external//SHARED_KEY_LENGTH/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/-s-h-a-r-e-d_-k-e-y_-l-e-n-g-t-h.html
+$dokka.location:org.hyperledger.identus.apollo.utils.external//ed25519_bip32/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/ed25519_bip32.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external//generateKeyPair/#kotlin.Any/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/generate-key-pair.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external//generateKeyPairFromSeed/#js.typedarrays.Uint8Array/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/generate-key-pair-from-seed.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external//rand/#kotlin.Number/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/rand.html
@@ -793,6 +804,9 @@ $dokka.location:org.hyperledger.identus.apollo.utils.external/ec/verify/#org.hyp
 $dokka.location:org.hyperledger.identus.apollo.utils.external/ec/verify/#org.hyperledger.identus.apollo.utils.external.BN#kotlin.Any#kotlin.Any/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/ec/verify.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external/ec/verify/#org.khronos.webgl.Uint8Array#kotlin.Any#kotlin.Any#kotlin.String/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/ec/verify.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external/ec/verify/#org.khronos.webgl.Uint8Array#kotlin.Any#kotlin.Any/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/ec/verify.html
+$dokka.location:org.hyperledger.identus.apollo.utils.external/ed25519_bip32_export///PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/ed25519_bip32_export/index.html
+$dokka.location:org.hyperledger.identus.apollo.utils.external/ed25519_bip32_export/derive_bytes/#kotlin.ByteArray#kotlin.ByteArray#kotlin.Any/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/ed25519_bip32_export/derive_bytes.html
+$dokka.location:org.hyperledger.identus.apollo.utils.external/ed25519_bip32_export/from_nonextended_noforce/#kotlin.ByteArray#kotlin.ByteArray/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/ed25519_bip32_export/from_nonextended_noforce.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external/eddsa.KeyPair.Companion///PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/eddsa/-key-pair/-companion/index.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external/eddsa.KeyPair.Companion/fromPublic/#org.hyperledger.identus.apollo.utils.external.eddsa#kotlin.String/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/eddsa/-key-pair/-companion/from-public.html
 $dokka.location:org.hyperledger.identus.apollo.utils.external/eddsa.KeyPair.Companion/fromSecret/#org.hyperledger.identus.apollo.utils.external.eddsa#kotlin.String/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils.external/eddsa/-key-pair/-companion/from-secret.html
@@ -930,6 +944,7 @@ $dokka.location:org.hyperledger.identus.apollo.utils////PointingToDeclaration/-
 $dokka.location:org.hyperledger.identus.apollo.utils//_require/#kotlin.String/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/_require.html
 $dokka.location:org.hyperledger.identus.apollo.utils//asByteArray/org.khronos.webgl.Uint8Array#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/as-byte-array.html
 $dokka.location:org.hyperledger.identus.apollo.utils//asUint8Array/kotlin.ByteArray#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/as-uint8-array.html
+$dokka.location:org.hyperledger.identus.apollo.utils//convertSecretKeyToX25519/#kotlin.ByteArray/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/convert-secret-key-to-x25519.html
 $dokka.location:org.hyperledger.identus.apollo.utils//decodeHex/kotlin.String#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/decode-hex.html
 $dokka.location:org.hyperledger.identus.apollo.utils//global/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/global.html
 $dokka.location:org.hyperledger.identus.apollo.utils//isNode/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/is-node.html
@@ -951,6 +966,7 @@ $dokka.location:org.hyperledger.identus.apollo.utils//toUByteArray/kotlinx.cinte
 $dokka.location:org.hyperledger.identus.apollo.utils//toUnsignedByteArray/java.math.BigInteger#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/[jvm]to-unsigned-byte-array.html
 $dokka.location:org.hyperledger.identus.apollo.utils/Curve25519Parser///PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-curve25519-parser/index.html
 $dokka.location:org.hyperledger.identus.apollo.utils/Curve25519Parser/encodedLength/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-curve25519-parser/encoded-length.html
+$dokka.location:org.hyperledger.identus.apollo.utils/Curve25519Parser/extendedLength/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-curve25519-parser/extended-length.html
 $dokka.location:org.hyperledger.identus.apollo.utils/Curve25519Parser/parseRaw/#kotlin.ByteArray/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-curve25519-parser/parse-raw.html
 $dokka.location:org.hyperledger.identus.apollo.utils/Curve25519Parser/rawLength/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-curve25519-parser/raw-length.html
 $dokka.location:org.hyperledger.identus.apollo.utils/ECConfig///PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-e-c-config/index.html
@@ -1015,6 +1031,7 @@ $dokka.location:org.hyperledger.identus.apollo.utils/KMMEdPrivateKey/getEncoded/
 $dokka.location:org.hyperledger.identus.apollo.utils/KMMEdPrivateKey/publicKey/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-k-m-m-ed-private-key/[jvm]public-key.html
 $dokka.location:org.hyperledger.identus.apollo.utils/KMMEdPrivateKey/raw/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-k-m-m-ed-private-key/[jvm]raw.html
 $dokka.location:org.hyperledger.identus.apollo.utils/KMMEdPrivateKey/sign/#kotlin.ByteArray/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-k-m-m-ed-private-key/sign.html
+$dokka.location:org.hyperledger.identus.apollo.utils/KMMEdPrivateKey/x25519PrivateKey/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-k-m-m-ed-private-key/x25519-private-key.html
 $dokka.location:org.hyperledger.identus.apollo.utils/KMMEdPublicKey///PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-k-m-m-ed-public-key/index.html
 $dokka.location:org.hyperledger.identus.apollo.utils/KMMEdPublicKey/KMMEdPublicKey/#kotlin.ByteArray/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-k-m-m-ed-public-key/-k-m-m-ed-public-key.html
 $dokka.location:org.hyperledger.identus.apollo.utils/KMMEdPublicKey/getEncoded/#/PointingToDeclaration/-apollo/org.hyperledger.identus.apollo.utils/-k-m-m-ed-public-key/get-encoded.html
