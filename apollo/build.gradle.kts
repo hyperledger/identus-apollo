@@ -776,13 +776,13 @@ tasks.withType<DokkaTask>().configureEach {
 }
 
 npmPublish {
-    organization.set("hyperledger")
+    organization.set("atala")
     version.set(rootProject.version.toString())
     access.set(NpmAccess.PUBLIC)
     packages {
         access.set(NpmAccess.PUBLIC)
         named("js") {
-            scope.set("hyperledger")
+            scope.set("atala")
             packageName.set("apollo")
             readme.set(rootDir.resolve("README.md"))
             packageJson {
