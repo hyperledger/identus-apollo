@@ -2,6 +2,8 @@ package org.hyperledger.identus.apollo.utils
 
 import node.buffer.Buffer
 import org.hyperledger.identus.apollo.base64.base64UrlDecodedBytes
+import org.hyperledger.identus.apollo.utils.Curve25519Parser.encodedLength
+import org.hyperledger.identus.apollo.utils.Curve25519Parser.rawLength
 
 /**
  * The Curve25519Parser object provides methods for parsing byte arrays into raw key values.
@@ -13,6 +15,7 @@ import org.hyperledger.identus.apollo.base64.base64UrlDecodedBytes
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 object Curve25519Parser {
+    val extendedLength = 64
     val encodedLength = 43
     val rawLength = 32
 
@@ -27,6 +30,10 @@ object Curve25519Parser {
 
         if (buffer.length == encodedLength) {
             return Buffer.from(buffer.toByteArray().decodeToString().base64UrlDecodedBytes)
+        }
+
+        if (buffer.length == extendedLength) {
+            return buffer
         }
 
         if (buffer.length == rawLength) {
