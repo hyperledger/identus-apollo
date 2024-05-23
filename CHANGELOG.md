@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.16...v1.3.0) (2024-05-23)
+
+
+### Features
+
+* ed25519 derivation ([#161](https://github.com/input-output-hk/atala-prism-apollo/issues/161)) ([78814d8](https://github.com/input-output-hk/atala-prism-apollo/commit/78814d8b9f8894a3bf5724d3019d27c2b4cdbcc4))
+
 ## [1.2.16](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.15...v1.2.16) (2024-05-09)
 
 
