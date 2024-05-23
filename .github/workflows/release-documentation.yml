@@ -38,7 +38,7 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
             ~/.konan
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          key: "${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}"
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -51,6 +51,19 @@ jobs:
       - name: "Install Homebrew"
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+      - name: "Install Docker"
+        if: matrix.os-type == 'macos'
+        run: |
+          brew install --cask docker
+
+      - name: "Start Docker (if needed)"
+        if: matrix.os-type == 'macos'
+        run: open --background -a Docker
+
+      - name: "Check Docker Version"
+        if: matrix.os-type == 'macos'
+        run: docker --version
 
       - name: "Install autoconf, automake, libtool"
         run: |
