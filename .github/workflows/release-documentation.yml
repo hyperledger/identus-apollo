@@ -52,15 +52,6 @@ jobs:
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-      - name: "Install Docker"
-        if: matrix.os-type == 'macos'
-        run: |
-          brew install --cask docker
-
-      - name: "Check Docker Version"
-        if: matrix.os-type == 'macos'
-        run: docker --version
-
       - name: "Install autoconf, automake, libtool"
         run: |
           brew install autoconf automake libtool

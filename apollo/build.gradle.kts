@@ -533,7 +533,7 @@ kotlin {
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
                 implementation("org.kotlincrypto.hash:sha2:0.4.0")
                 implementation("com.squareup.okio:okio:3.7.0")
-                implementation("org.jetbrains.kotlinx:atomicfu:0.23.1")
+                implementation("org.jetbrains.kotlinx:atomicfu:0.23.2")
             }
         }
         val commonTest by getting {
@@ -646,6 +646,7 @@ kotlin {
                     .resolve("kotlin")
             )
         }
+        applyDefaultHierarchyTemplate()
 
         all {
             languageSettings {
