@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.0...v1.3.1) (2024-05-23)
+
+
+### Bug Fixes
+
+* revert PublishedMavenId ([#164](https://github.com/input-output-hk/atala-prism-apollo/issues/164)) ([1bbd5a0](https://github.com/input-output-hk/atala-prism-apollo/commit/1bbd5a083e633e0e1f3d0333fd3bcb095608a96d))
+
 # [1.3.0](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.2.16...v1.3.0) (2024-05-23)
 
 
