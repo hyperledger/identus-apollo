@@ -1,6 +1,6 @@
 import java.util.Base64
 
-val publishedMavenId: String = "org.hyperledger.identus"
+val publishedMavenId: String = "io.iohk.atala.prism.apollo"
 
 plugins {
     id("org.jetbrains.dokka") version "1.9.20"
