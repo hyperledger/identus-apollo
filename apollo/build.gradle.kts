@@ -846,8 +846,8 @@ afterEvaluate {
     tasks.withType<KtLintCheckTask> {
         // dependsOn(buildEd25519Bip32Task)
     }
-    tasks.getByName("androidDebugSourcesJar").dependsOn(copyEd25519Bip32GeneratedTask)
-    tasks.getByName("androidReleaseSourcesJar").dependsOn(copyEd25519Bip32GeneratedTask)
+    tasks.getByName("androidDebugSourcesJar").dependsOn(copyToAndroidSrc)
+    tasks.getByName("androidReleaseSourcesJar").dependsOn(copyToAndroidSrc)
 
     tasks.getByName("mergeDebugJniLibFolders").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeReleaseJniLibFolders").dependsOn(buildEd25519Bip32Task)
