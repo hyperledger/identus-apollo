@@ -841,17 +841,23 @@ afterEvaluate {
         )
     }
     tasks.getByName<Delete>("clean") {
-        // dependsOn(cleanEd25519Bip32)
+        dependsOn(cleanEd25519Bip32)
     }
     tasks.withType<KtLintCheckTask> {
         // dependsOn(buildEd25519Bip32Task)
     }
+    tasks.getByName("androidDebugSourcesJar").dependsOn(copyEd25519Bip32GeneratedTask)
+    tasks.getByName("androidReleaseSourcesJar").dependsOn(copyEd25519Bip32GeneratedTask)
+
     tasks.getByName("mergeDebugJniLibFolders").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeReleaseJniLibFolders").dependsOn(buildEd25519Bip32Task)
+
     tasks.getByName("packageDebugResources").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("packageReleaseResources").dependsOn(buildEd25519Bip32Task)
+
     tasks.getByName("extractDeepLinksForAarDebug").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("extractDeepLinksForAarRelease").dependsOn(buildEd25519Bip32Task)
+
     tasks.getByName("mergeDebugResources").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeReleaseResources").dependsOn(buildEd25519Bip32Task)
 
@@ -865,37 +871,6 @@ afterEvaluate {
     }
     tasks.withType<PublishToMavenLocal> {
         dependsOn(tasks.withType<Sign>())
-    }
-
-    tasks.withType<KotlinCompile> {
-        dependsOn(
-            ":iOSLibs:buildIOHKCryptoKitIphoneos",
-            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
-            ":iOSLibs:buildIOHKCryptoKitMacosx",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
-            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
-        )
-    }
-    tasks.withType<ProcessResources> {
-        dependsOn(
-            ":iOSLibs:buildIOHKCryptoKitIphoneos",
-            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
-            ":iOSLibs:buildIOHKCryptoKitMacosx",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
-            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
-        )
-    }
-    tasks.withType<CInteropProcess> {
-        dependsOn(
-            ":iOSLibs:buildIOHKCryptoKitIphoneos",
-            ":iOSLibs:buildIOHKCryptoKitIphonesimulator",
-            ":iOSLibs:buildIOHKCryptoKitMacosx",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphoneos",
-            ":iOSLibs:buildIOHKSecureRandomGenerationIphonesimulator",
-            ":iOSLibs:buildIOHKSecureRandomGenerationMacosx"
-        )
     }
 
     // Disable publish of targets
