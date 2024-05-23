@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 import org.kotlincrypto.hash.sha2.SHA512
 import kotlin.experimental.and

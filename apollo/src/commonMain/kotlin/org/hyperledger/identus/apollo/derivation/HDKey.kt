@@ -1,10 +1,10 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.toBigInteger
-import org.hyperledger.identus.apollo.utils.ECConfig
-import org.hyperledger.identus.apollo.utils.ECPrivateKeyDecodingException
-import org.hyperledger.identus.apollo.utils.KMMECSecp256k1PrivateKey
+import io.iohk.atala.prism.apollo.utils.ECConfig
+import io.iohk.atala.prism.apollo.utils.ECPrivateKeyDecodingException
+import io.iohk.atala.prism.apollo.utils.KMMECSecp256k1PrivateKey
 import org.kotlincrypto.macs.hmac.sha2.HmacSHA512
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport

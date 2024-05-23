@@ -1,8 +1,8 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
-import org.hyperledger.identus.apollo.Platform
-import org.hyperledger.identus.apollo.utils.decodeHex
-import org.hyperledger.identus.apollo.utils.toHexString
+import io.iohk.atala.prism.apollo.Platform
+import io.iohk.atala.prism.apollo.utils.decodeHex
+import io.iohk.atala.prism.apollo.utils.toHexString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

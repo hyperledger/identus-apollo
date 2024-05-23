@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo
+package io.iohk.atala.prism.apollo
 
 import platform.UIKit.UIDevice
 

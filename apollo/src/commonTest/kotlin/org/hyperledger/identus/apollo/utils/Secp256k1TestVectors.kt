@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 class TestPoint(val x: ByteArray, val y: ByteArray)
 

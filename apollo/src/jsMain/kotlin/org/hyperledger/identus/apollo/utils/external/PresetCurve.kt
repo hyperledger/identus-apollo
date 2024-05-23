@@ -4,7 +4,7 @@
 @file:JsQualifier("curves")
 @file:JsModule("elliptic")
 
-package org.hyperledger.identus.apollo.utils.external
+package io.iohk.atala.prism.apollo.utils.external
 
 /**
  * A class representing a preset curve.

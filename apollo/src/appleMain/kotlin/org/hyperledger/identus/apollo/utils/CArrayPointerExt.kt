@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 import kotlinx.cinterop.CArrayPointer
 import kotlinx.cinterop.ExperimentalForeignApi

@@ -1,9 +1,9 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.toBigInteger
 import ed25519_bip32_wrapper.deriveBytes
 import ed25519_bip32_wrapper.fromNonextendedNoforce
-import org.hyperledger.identus.apollo.utils.ECConfig
+import io.iohk.atala.prism.apollo.utils.ECConfig
 
 /**
  * Represents and HDKey with its derive methods

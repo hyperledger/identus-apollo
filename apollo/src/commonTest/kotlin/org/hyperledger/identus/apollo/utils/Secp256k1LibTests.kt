@@ -1,10 +1,10 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
-import org.hyperledger.identus.apollo.base64.base64DecodedBytes
-import org.hyperledger.identus.apollo.base64.base64PadDecodedBytes
-import org.hyperledger.identus.apollo.base64.base64UrlDecodedBytes
-import org.hyperledger.identus.apollo.base64.base64UrlEncoded
-import org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib
+import io.iohk.atala.prism.apollo.base64.base64DecodedBytes
+import io.iohk.atala.prism.apollo.base64.base64PadDecodedBytes
+import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
+import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
+import io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

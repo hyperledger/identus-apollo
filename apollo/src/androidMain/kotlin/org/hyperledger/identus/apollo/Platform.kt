@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo
+package io.iohk.atala.prism.apollo
 
 /**
  * The `Platform` class represents the platform on which the application is running.

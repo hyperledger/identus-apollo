@@ -1,6 +1,6 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
-import org.hyperledger.identus.apollo.utils.external.generateKeyPair as stableLibGenerateKeyPair
+import io.iohk.atala.prism.apollo.utils.external.generateKeyPair as stableLibGenerateKeyPair
 
 /**
  * Represents a key pair for the X25519 elliptic curve encryption algorithm.

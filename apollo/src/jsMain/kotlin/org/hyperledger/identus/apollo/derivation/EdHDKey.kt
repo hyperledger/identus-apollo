@@ -1,8 +1,8 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.toBigInteger
-import org.hyperledger.identus.apollo.utils.ECConfig
-import org.hyperledger.identus.apollo.utils.external.ed25519_bip32
+import io.iohk.atala.prism.apollo.utils.ECConfig
+import io.iohk.atala.prism.apollo.utils.external.ed25519_bip32
 
 /**
  * Represents and HDKey with its derive methods

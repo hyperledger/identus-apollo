@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 /**
  * The _require function is used to import modules in JavaScript.

@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo
+package io.iohk.atala.prism.apollo
 
 /**
  * Provides information about the platform on which the application is running.

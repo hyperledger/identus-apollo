@@ -4,7 +4,7 @@
 @file:JsQualifier("curve")
 @file:JsModule("elliptic")
 
-package org.hyperledger.identus.apollo.utils.external
+package io.iohk.atala.prism.apollo.utils.external
 
 import org.khronos.webgl.Uint8Array
 

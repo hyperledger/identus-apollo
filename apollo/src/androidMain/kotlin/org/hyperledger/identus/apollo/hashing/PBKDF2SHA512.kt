@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.hashing
+package io.iohk.atala.prism.apollo.hashing
 
 import org.bitcoinj.crypto.PBKDF2SHA512
 

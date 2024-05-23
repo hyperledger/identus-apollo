@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.securerandom
+package io.iohk.atala.prism.apollo.securerandom
 
 import kotlin.test.Test
 import kotlin.test.fail

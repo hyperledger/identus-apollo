@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.securerandom
+package io.iohk.atala.prism.apollo.securerandom
 
 /**
  * The SecureRandomInterface interface defines the contract for generating secure random numbers.

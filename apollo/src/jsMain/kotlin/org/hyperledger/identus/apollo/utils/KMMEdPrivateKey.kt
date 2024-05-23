@@ -1,8 +1,8 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
+import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
+import io.iohk.atala.prism.apollo.utils.external.eddsa
 import node.buffer.Buffer
-import org.hyperledger.identus.apollo.base64.base64UrlEncoded
-import org.hyperledger.identus.apollo.utils.external.eddsa
 
 /**
  * Represents a private key in the KMMEd cryptographic system.

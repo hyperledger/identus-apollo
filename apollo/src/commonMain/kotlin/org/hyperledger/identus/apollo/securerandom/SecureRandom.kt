@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.securerandom
+package io.iohk.atala.prism.apollo.securerandom
 
 /**
  * The SecureRandom class provides a platform-specific implementation for generating secure random numbers.
@@ -12,7 +12,7 @@ expect class SecureRandom
  */
 constructor(
     seed: ByteArray = ByteArray(0)
-) : org.hyperledger.identus.apollo.securerandom.SecureRandomInterface {
+) : io.iohk.atala.prism.apollo.securerandom.SecureRandomInterface {
     val seed: ByteArray
 
     companion object : SecureRandomStaticInterface

@@ -1,6 +1,6 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
-import org.hyperledger.identus.apollo.derivation.Mnemonic
+import io.iohk.atala.prism.apollo.derivation.Mnemonic
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

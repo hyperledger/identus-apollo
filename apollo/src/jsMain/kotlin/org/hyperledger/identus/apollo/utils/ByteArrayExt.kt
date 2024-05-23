@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 import js.buffer.ArrayBuffer
 import org.khronos.webgl.Int8Array

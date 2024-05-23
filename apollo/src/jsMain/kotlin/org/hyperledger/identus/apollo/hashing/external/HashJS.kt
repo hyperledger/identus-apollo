@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.hashing.external
+package io.iohk.atala.prism.apollo.hashing.external
 
 /**
  * The `hash` variable is an instance of the `Hash` interface, which provides access to various hashing algorithms such as HMAC, Ripemd, and SHA.

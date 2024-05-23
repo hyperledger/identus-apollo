@@ -1,8 +1,8 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
-import org.hyperledger.identus.apollo.base64.base64UrlDecodedBytes
-import org.hyperledger.identus.apollo.derivation.HDKey.Companion.HARDENED_OFFSET
+import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
+import io.iohk.atala.prism.apollo.derivation.HDKey.Companion.HARDENED_OFFSET
 import kotlin.random.Random
 import kotlin.test.BeforeTest
 import kotlin.test.Test

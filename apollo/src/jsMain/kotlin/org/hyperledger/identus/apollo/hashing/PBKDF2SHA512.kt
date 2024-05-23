@@ -1,7 +1,7 @@
-package org.hyperledger.identus.apollo.hashing
+package io.iohk.atala.prism.apollo.hashing
 
-import org.hyperledger.identus.apollo.hashing.external.pbkdf2
-import org.hyperledger.identus.apollo.hashing.external.sha512
+import io.iohk.atala.prism.apollo.hashing.external.pbkdf2
+import io.iohk.atala.prism.apollo.hashing.external.sha512
 import org.khronos.webgl.Uint8Array
 import org.khronos.webgl.get
 

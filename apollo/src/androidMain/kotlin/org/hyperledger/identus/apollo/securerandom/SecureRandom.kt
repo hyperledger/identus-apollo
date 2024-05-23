@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.securerandom
+package io.iohk.atala.prism.apollo.securerandom
 
 import android.os.Build
 
@@ -11,7 +11,7 @@ import android.os.Build
  */
 actual class SecureRandom actual constructor(
     actual val seed: ByteArray
-) : org.hyperledger.identus.apollo.securerandom.SecureRandomInterface, java.security.SecureRandom() {
+) : io.iohk.atala.prism.apollo.securerandom.SecureRandomInterface, java.security.SecureRandom() {
     /**
      * The `jvmSecureRandom` property provides a platform-specific implementation for generating secure random numbers.
      *

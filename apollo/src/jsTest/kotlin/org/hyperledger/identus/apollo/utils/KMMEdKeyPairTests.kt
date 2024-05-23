@@ -1,6 +1,6 @@
 @file:Suppress("ktlint")
 
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 import node.buffer.Buffer
 import kotlin.test.Test

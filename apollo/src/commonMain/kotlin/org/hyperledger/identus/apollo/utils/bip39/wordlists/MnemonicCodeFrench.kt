@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.utils.bip39.wordlists
+package io.iohk.atala.prism.apollo.utils.bip39.wordlists
 
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport

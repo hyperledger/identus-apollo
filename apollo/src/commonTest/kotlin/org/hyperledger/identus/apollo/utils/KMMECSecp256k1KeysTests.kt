@@ -1,7 +1,7 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
-import org.hyperledger.identus.apollo.base64.base64UrlDecodedBytes
-import org.hyperledger.identus.apollo.base64.base64UrlEncoded
+import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
+import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull

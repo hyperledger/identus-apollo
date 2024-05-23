@@ -1,9 +1,9 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
+import io.iohk.atala.prism.apollo.base64.base64UrlDecodedBytes
+import io.iohk.atala.prism.apollo.utils.Curve25519Parser.encodedLength
+import io.iohk.atala.prism.apollo.utils.Curve25519Parser.rawLength
 import node.buffer.Buffer
-import org.hyperledger.identus.apollo.base64.base64UrlDecodedBytes
-import org.hyperledger.identus.apollo.utils.Curve25519Parser.encodedLength
-import org.hyperledger.identus.apollo.utils.Curve25519Parser.rawLength
 
 /**
  * The Curve25519Parser object provides methods for parsing byte arrays into raw key values.

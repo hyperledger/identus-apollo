@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo
+package io.iohk.atala.prism.apollo
 
 import kotlin.experimental.ExperimentalNativeApi
 import kotlin.native.Platform

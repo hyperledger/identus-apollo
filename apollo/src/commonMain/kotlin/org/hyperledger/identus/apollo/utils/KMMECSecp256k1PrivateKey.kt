@@ -1,6 +1,6 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
-import org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib
+import io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
@@ -32,7 +32,7 @@ interface KMMECSecp256k1PrivateKeyCommonStaticInterface {
         privateKeyData: ByteArray,
         derivationPrivateKeyData: ByteArray
     ): KMMECSecp256k1PrivateKey {
-        val derivedKey = org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib()
+        val derivedKey = io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib()
             .derivePrivateKey(privateKeyData, derivationPrivateKeyData)
         return derivedKey?.let { KMMECSecp256k1PrivateKey(derivedKey) }
             ?: run { throw ECPrivateKeyDecodingException("Error while tweaking") }
@@ -58,7 +58,7 @@ class KMMECSecp256k1PrivateKey : Encodable {
      * @return KMMECSecp256k1PublicKey
      */
     fun getPublicKey(): KMMECSecp256k1PublicKey {
-        val pubKeyBytes = org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib().createPublicKey(raw, false)
+        val pubKeyBytes = io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib().createPublicKey(raw, false)
         return KMMECSecp256k1PublicKey(pubKeyBytes)
     }
 
@@ -77,7 +77,7 @@ class KMMECSecp256k1PrivateKey : Encodable {
      * @return signature
      */
     fun sign(data: ByteArray): ByteArray {
-        val secp256k1Lib = org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib()
+        val secp256k1Lib = io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib()
         return secp256k1Lib.sign(raw, data)
     }
 
@@ -88,7 +88,7 @@ class KMMECSecp256k1PrivateKey : Encodable {
      * @return true when valid, false when invalid
      */
     fun verify(signature: ByteArray, data: ByteArray): Boolean {
-        val secp256k1Lib = org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib()
+        val secp256k1Lib = io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib()
         return secp256k1Lib.verify(getPublicKey().raw, signature, data)
     }
 

@@ -3,13 +3,13 @@
 // @file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS")
 @file:JsModule("elliptic")
 
-package org.hyperledger.identus.apollo.utils.external
+package io.iohk.atala.prism.apollo.utils.external
 
 import node.buffer.Buffer
 import org.khronos.webgl.Uint8Array
-import org.hyperledger.identus.apollo.utils.external.eddsa.KeyPair as _eddsa_KeyPair
-import org.hyperledger.identus.apollo.utils.external.eddsa.KeyPairOptions as _eddsa_KeyPairOptions
-import org.hyperledger.identus.apollo.utils.external.eddsa.Signature as _eddsa_Signature
+import io.iohk.atala.prism.apollo.utils.external.eddsa.KeyPair as _eddsa_KeyPair
+import io.iohk.atala.prism.apollo.utils.external.eddsa.KeyPairOptions as _eddsa_KeyPairOptions
+import io.iohk.atala.prism.apollo.utils.external.eddsa.Signature as _eddsa_Signature
 
 /**
  * Utility class for various operations.

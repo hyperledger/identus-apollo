@@ -2,7 +2,7 @@
 @file:Suppress("ktlint", "internal:ktlint-suppression")
 @file:JsModule("bip32")
 
-package org.hyperledger.identus.apollo.utils.external
+package io.iohk.atala.prism.apollo.utils.external
 
 import node.buffer.Buffer
 import kotlin.js.*

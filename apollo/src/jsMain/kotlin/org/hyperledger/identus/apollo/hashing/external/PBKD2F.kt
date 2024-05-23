@@ -3,7 +3,7 @@
 @file:JsModule("@noble/hashes/pbkdf2")
 /* ktlint-disable */
 
-package org.hyperledger.identus.apollo.hashing.external
+package io.iohk.atala.prism.apollo.hashing.external
 
 import kotlin.js.*
 import org.khronos.webgl.*

@@ -1,16 +1,16 @@
-package org.hyperledger.identus.apollo.securerandom
+package io.iohk.atala.prism.apollo.securerandom
 
+import io.iohk.atala.prism.apollo.utils._require
+import io.iohk.atala.prism.apollo.utils.global
+import io.iohk.atala.prism.apollo.utils.isNode
 import js.typedarrays.Uint8Array
-import org.hyperledger.identus.apollo.utils._require
-import org.hyperledger.identus.apollo.utils.global
-import org.hyperledger.identus.apollo.utils.isNode
 
 /**
  * The SecureRandom class provides a platform-specific implementation for generating secure random numbers.
  */
 actual class SecureRandom actual constructor(
     actual val seed: ByteArray
-) : org.hyperledger.identus.apollo.securerandom.SecureRandomInterface {
+) : io.iohk.atala.prism.apollo.securerandom.SecureRandomInterface {
 
     /**
      * Generates a specified number of secure random bytes.

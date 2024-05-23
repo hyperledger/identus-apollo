@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 /**
  * Pads the array from the start by adding the given padding value until it reaches the specified length.

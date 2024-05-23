@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
 /**
  * The Mnemonic class provides utility methods for working with mnemonic codes.

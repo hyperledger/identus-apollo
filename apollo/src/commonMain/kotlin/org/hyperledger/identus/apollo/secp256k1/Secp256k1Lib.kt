@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.secp256k1
+package io.iohk.atala.prism.apollo.secp256k1
 
 /**
  * This class provides various Secp256k1 cryptographic functionalities such as creating public keys, signing data,

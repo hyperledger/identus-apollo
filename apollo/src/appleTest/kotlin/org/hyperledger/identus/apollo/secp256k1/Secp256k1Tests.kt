@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.secp256k1
+package io.iohk.atala.prism.apollo.secp256k1
 
 import fr.acinq.secp256k1.Secp256k1Native
 import kotlin.test.Test
@@ -28,7 +28,7 @@ class Secp256k1Tests {
 
     @Test
     fun createValidPublicKey() {
-        val secp256k1 = org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib()
+        val secp256k1 = io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib()
         val privateKey = Hex.decode("67E56582298859DDAE725F972992A07C6C4FB9F62A8FFF58CE3CA926A1063530".lowercase())
         val publicKey = secp256k1.createPublicKey(privateKey, false)
         assertEquals(
@@ -61,7 +61,7 @@ class Secp256k1Tests {
 
     @Test
     fun negatePublicKey() {
-        val secp256k1 = org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib()
+        val secp256k1 = io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib()
         val priv = Hex.decode("67E56582298859DDAE725F972992A07C6C4FB9F62A8FFF58CE3CA926A1063530".lowercase())
         val pub = secp256k1.createPublicKey(priv, false)
         assertEquals(

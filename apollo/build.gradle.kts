@@ -682,7 +682,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.hyperledger.identus.apollo"
+    namespace = "io.iohk.atala.prism.apollo"
     compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].jniLibs {
@@ -844,7 +844,7 @@ afterEvaluate {
         // dependsOn(cleanEd25519Bip32)
     }
     tasks.withType<KtLintCheckTask> {
-        // dependsOn(buildEd25519Bip32Task)
+        dependsOn(buildEd25519Bip32Task)
     }
     tasks.getByName("mergeDebugJniLibFolders").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeReleaseJniLibFolders").dependsOn(buildEd25519Bip32Task)

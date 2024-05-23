@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.secp256k1
+package io.iohk.atala.prism.apollo.secp256k1
 
 /**
  * The Hex object provides utilities for encoding and decoding hexadecimal strings.

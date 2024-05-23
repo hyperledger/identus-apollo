@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.secp256k1
+package io.iohk.atala.prism.apollo.secp256k1
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign

@@ -1,6 +1,6 @@
-package org.hyperledger.identus.apollo.hashing
+package io.iohk.atala.prism.apollo.hashing
 
-import org.hyperledger.identus.apollo.utils.toHexString
+import io.iohk.atala.prism.apollo.utils.toHexString
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals

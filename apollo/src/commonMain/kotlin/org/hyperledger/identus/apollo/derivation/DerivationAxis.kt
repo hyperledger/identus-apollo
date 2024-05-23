@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport

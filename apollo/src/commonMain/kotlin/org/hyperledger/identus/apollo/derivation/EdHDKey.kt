@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
 /**
  * Represents and HDKey with its derive methods

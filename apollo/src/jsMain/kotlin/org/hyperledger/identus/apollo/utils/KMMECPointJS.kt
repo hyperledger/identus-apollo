@@ -1,6 +1,6 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
-import org.hyperledger.identus.apollo.utils.external.BN
+import io.iohk.atala.prism.apollo.utils.external.BN
 
 /**
  * Represents a point on an elliptic curve in JavaScript.

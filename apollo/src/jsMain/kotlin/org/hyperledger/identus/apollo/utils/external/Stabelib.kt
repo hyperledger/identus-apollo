@@ -2,7 +2,7 @@
 @file:Suppress("ktlint", "internal:ktlint-suppression", "SpellCheckingInspection")
 @file:JsModule("@stablelib/x25519")
 
-package org.hyperledger.identus.apollo.utils.external
+package io.iohk.atala.prism.apollo.utils.external
 
 import js.typedarrays.Uint8Array
 

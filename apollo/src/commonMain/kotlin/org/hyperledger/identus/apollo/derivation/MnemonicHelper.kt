@@ -1,7 +1,7 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
-import org.hyperledger.identus.apollo.hashing.PBKDF2SHA512
-import org.hyperledger.identus.apollo.securerandom.SecureRandom
+import io.iohk.atala.prism.apollo.hashing.PBKDF2SHA512
+import io.iohk.atala.prism.apollo.securerandom.SecureRandom
 import org.kotlincrypto.hash.sha2.SHA256
 
 /**

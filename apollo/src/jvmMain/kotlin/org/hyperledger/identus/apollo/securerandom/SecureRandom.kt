@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.securerandom
+package io.iohk.atala.prism.apollo.securerandom
 
 /**
  * The SecureRandom class provides a platform-specific implementation for generating secure random numbers.
@@ -9,7 +9,7 @@ package org.hyperledger.identus.apollo.securerandom
  */
 actual class SecureRandom actual constructor(
     actual val seed: ByteArray
-) : org.hyperledger.identus.apollo.securerandom.SecureRandomInterface, java.security.SecureRandom() {
+) : io.iohk.atala.prism.apollo.securerandom.SecureRandomInterface, java.security.SecureRandom() {
     /**
      * The `jvmSecureRandom` variable is a private property of type `java.security.SecureRandom`. It is used for generating secure random numbers on the JVM platform.
      *

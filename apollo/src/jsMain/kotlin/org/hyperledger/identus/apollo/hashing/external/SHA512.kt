@@ -3,7 +3,7 @@
 @file:JsModule("@noble/hashes/sha512")
 /* ktlint-disable */
 
-package org.hyperledger.identus.apollo.hashing.external
+package io.iohk.atala.prism.apollo.hashing.external
 
 import org.khronos.webgl.* // ktlint-disable no-wildcard-imports
 import kotlin.js.*

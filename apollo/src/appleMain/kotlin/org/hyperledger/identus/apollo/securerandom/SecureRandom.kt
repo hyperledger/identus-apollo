@@ -1,7 +1,7 @@
-package org.hyperledger.identus.apollo.securerandom
+package io.iohk.atala.prism.apollo.securerandom
 
+import io.iohk.atala.prism.apollo.utils.toByteArray
 import kotlinx.cinterop.ExperimentalForeignApi
-import org.hyperledger.identus.apollo.utils.toByteArray
 import swift.secureRandomGeneration.IOHKSecureRandomGeneration
 
 /**
@@ -10,7 +10,7 @@ import swift.secureRandomGeneration.IOHKSecureRandomGeneration
 @OptIn(ExperimentalForeignApi::class)
 actual class SecureRandom actual constructor(
     actual val seed: ByteArray
-) : org.hyperledger.identus.apollo.securerandom.SecureRandomInterface {
+) : io.iohk.atala.prism.apollo.securerandom.SecureRandomInterface {
 
     /**
      * Generates a specified number of secure random bytes.

@@ -1,8 +1,8 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
-import org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib
+import io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
@@ -39,7 +39,7 @@ interface KMMECSecp256k1PublicKeyCommonStaticInterface {
         }
 
         return if (encoded[0].toInt() != 0x04) {
-            KMMECSecp256k1PublicKey(org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib().uncompressPublicKey(encoded))
+            KMMECSecp256k1PublicKey(io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib().uncompressPublicKey(encoded))
         } else {
             KMMECSecp256k1PublicKey(encoded)
         }
@@ -107,7 +107,7 @@ class KMMECSecp256k1PublicKey {
      * @return true when valid, false when invalid
      */
     fun verify(signature: ByteArray, data: ByteArray): Boolean {
-        val secp256k1Lib = org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib()
+        val secp256k1Lib = io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib()
         return secp256k1Lib.verify(raw, signature, data)
     }
 
@@ -117,7 +117,7 @@ class KMMECSecp256k1PublicKey {
      */
     @JsName("getCompressed")
     fun getCompressed(): ByteArray {
-        return org.hyperledger.identus.apollo.secp256k1.Secp256k1Lib().compressPublicKey(raw)
+        return io.iohk.atala.prism.apollo.secp256k1.Secp256k1Lib().compressPublicKey(raw)
     }
 
     public companion object : KMMECSecp256k1PublicKeyCommonStaticInterface

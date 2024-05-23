@@ -1,7 +1,7 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
+import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
 import node.buffer.Buffer
-import org.hyperledger.identus.apollo.base64.base64UrlEncoded
 
 /**
  * Represents a public key for the X25519 elliptic curve encryption algorithm.

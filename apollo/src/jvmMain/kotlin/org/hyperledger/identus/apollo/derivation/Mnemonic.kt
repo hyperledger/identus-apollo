@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.derivation
+package io.iohk.atala.prism.apollo.derivation
 
 final class Mnemonic {
     companion object {

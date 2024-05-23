@@ -1,8 +1,8 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
+import io.iohk.atala.prism.apollo.utils.external.eddsa
+import io.iohk.atala.prism.apollo.utils.external.rand
 import node.buffer.Buffer
-import org.hyperledger.identus.apollo.utils.external.eddsa
-import org.hyperledger.identus.apollo.utils.external.rand
 
 /**
  * Represents a pair of cryptographic keys - a private key and a public key.

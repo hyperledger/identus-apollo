@@ -1,9 +1,9 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
+import io.iohk.atala.prism.apollo.base64.base64UrlEncoded
+import io.iohk.atala.prism.apollo.utils.external.KeyPair
+import io.iohk.atala.prism.apollo.utils.external.generateKeyPairFromSeed
 import node.buffer.Buffer
-import org.hyperledger.identus.apollo.base64.base64UrlEncoded
-import org.hyperledger.identus.apollo.utils.external.KeyPair
-import org.hyperledger.identus.apollo.utils.external.generateKeyPairFromSeed
 
 /**
  * Represents a private key for the X25519 elliptic curve encryption algorithm.

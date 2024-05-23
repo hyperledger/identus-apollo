@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 import com.ionspin.kotlin.bignum.integer.Sign
 import java.math.BigInteger

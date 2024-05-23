@@ -1,14 +1,14 @@
-package org.hyperledger.identus.apollo.secp256k1
+package io.iohk.atala.prism.apollo.secp256k1
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
-import org.hyperledger.identus.apollo.utils.ECConfig
-import org.hyperledger.identus.apollo.utils.asByteArray
-import org.hyperledger.identus.apollo.utils.asUint8Array
-import org.hyperledger.identus.apollo.utils.external.BN
-import org.hyperledger.identus.apollo.utils.external.ec
-import org.hyperledger.identus.apollo.utils.external.secp256k1.SignatureType
-import org.hyperledger.identus.apollo.utils.external.secp256k1.secp256k1
-import org.hyperledger.identus.apollo.utils.toHexString
+import io.iohk.atala.prism.apollo.utils.ECConfig
+import io.iohk.atala.prism.apollo.utils.asByteArray
+import io.iohk.atala.prism.apollo.utils.asUint8Array
+import io.iohk.atala.prism.apollo.utils.external.BN
+import io.iohk.atala.prism.apollo.utils.external.ec
+import io.iohk.atala.prism.apollo.utils.external.secp256k1.SignatureType
+import io.iohk.atala.prism.apollo.utils.external.secp256k1.secp256k1
+import io.iohk.atala.prism.apollo.utils.toHexString
 import org.kotlincrypto.hash.sha2.SHA256
 
 /**

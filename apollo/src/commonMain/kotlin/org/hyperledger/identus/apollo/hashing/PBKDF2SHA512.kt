@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.hashing
+package io.iohk.atala.prism.apollo.hashing
 
 /**
  * The PBKDF2SHA512 class provides a platform-specific implementation for

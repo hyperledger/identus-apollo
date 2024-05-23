@@ -1,7 +1,7 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
-import org.hyperledger.identus.apollo.derivation.MnemonicHelper
-import org.hyperledger.identus.apollo.hashing.PBKDF2SHA512
+import io.iohk.atala.prism.apollo.derivation.MnemonicHelper
+import io.iohk.atala.prism.apollo.hashing.PBKDF2SHA512
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals

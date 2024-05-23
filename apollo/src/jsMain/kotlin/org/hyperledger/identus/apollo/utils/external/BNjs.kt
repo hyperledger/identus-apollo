@@ -2,7 +2,7 @@
 @file:Suppress("ktlint", "internal:ktlint-suppression")
 // @file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS")
 
-package org.hyperledger.identus.apollo.utils.external
+package io.iohk.atala.prism.apollo.utils.external
 
 import org.khronos.webgl.*
 import kotlin.js.*

@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.base64
+package io.iohk.atala.prism.apollo.base64
 
 import kotlin.math.min
 

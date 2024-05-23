@@ -1,4 +1,4 @@
-package org.hyperledger.identus.apollo.utils
+package io.iohk.atala.prism.apollo.utils
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import swift.cryptoKit.X25519
