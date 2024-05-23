@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.1...v1.3.2) (2024-05-23)
+
+
+### Bug Fixes
+
+* task dependency ([#165](https://github.com/input-output-hk/atala-prism-apollo/issues/165)) ([116cc60](https://github.com/input-output-hk/atala-prism-apollo/commit/116cc60f2f68b5ac4d7fa285aa52382c8e587ce2))
+
 ## [1.3.1](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.0...v1.3.1) (2024-05-23)
 
 
