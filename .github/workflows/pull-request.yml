@@ -64,6 +64,16 @@ jobs:
         if: matrix.os-type == 'macos'
         run: docker --version
 
+      - name: Double check installation
+        if: matrix.os-type == 'macos'
+        run: |
+          brew list --cask
+
+      - name: Check installation Path
+        if: matrix.os-type == 'macos'
+        run: |
+          find /Applications -name Docker.app
+
       - name: "Install autoconf, automake, libtool"
         if: matrix.os-type == 'macos'
         run: |
