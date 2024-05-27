@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.2...v1.3.3) (2024-05-27)
+
+
+### Bug Fixes
+
+* ci docker ([#168](https://github.com/input-output-hk/atala-prism-apollo/issues/168)) ([61a9b5b](https://github.com/input-output-hk/atala-prism-apollo/commit/61a9b5b9dd0af91e70170571eb4bd9ec113d0efc))
+
 ## [1.3.2](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.1...v1.3.2) (2024-05-23)
 
 
