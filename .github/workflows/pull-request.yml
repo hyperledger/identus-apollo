@@ -58,15 +58,19 @@ jobs:
       - name: "Install Docker"
         if: matrix.os-type == 'macos'
         run: |
-          brew install --cask docker
+          brew install colima docker
       
       - name: "Open Docker"
         if: matrix.os-type == 'macos'
         run: |
-          open --background /Applications/Docker.app --args --unattended &
+          colima start
       
       - name: Wait for Docker
         run: sleep 10
+
+      - name: Test Docker
+        run: docker version -f '{{ .Server.Os }}'
+
 
       # - name: Set up Docker Buildx
       #   uses: docker/setup-buildx-action@v3
