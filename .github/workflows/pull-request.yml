@@ -55,26 +55,6 @@ jobs:
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-      - name: "Install Docker"
-        if: matrix.os-type == 'macos'
-        run: |
-          brew install colima docker
-      
-      - name: "Open Docker"
-        if: matrix.os-type == 'macos'
-        run: |
-          colima start
-      
-      - name: Wait for Docker
-        run: sleep 10
-
-      - name: Test Docker
-        run: docker version -f '{{ .Server.Os }}'
-
-
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v3
-
       - name: "Install autoconf, automake, libtool"
         if: matrix.os-type == 'macos'
         run: |
@@ -139,11 +119,6 @@ jobs:
       - name: "Install wasm-pack"
         run: cargo install wasm-pack
 
-      - name: "Install Cross"
-        if: matrix.os-type == 'macos'
-        run: |
-          cargo install cross --git https://github.com/cross-rs/cross
-          
       - name: "Test Kotlin code is properly formatted"
         run: ./gradlew ktlintCheck
 
