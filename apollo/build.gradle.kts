@@ -533,7 +533,7 @@ kotlin {
                 implementation("org.kotlincrypto.macs:hmac-sha2:0.3.0")
                 implementation("org.kotlincrypto.hash:sha2:0.4.0")
                 implementation("com.squareup.okio:okio:3.7.0")
-                implementation("org.jetbrains.kotlinx:atomicfu:0.23.1")
+                implementation("org.jetbrains.kotlinx:atomicfu:0.23.2")
             }
         }
         val commonTest by getting {
@@ -646,6 +646,7 @@ kotlin {
                     .resolve("kotlin")
             )
         }
+        applyDefaultHierarchyTemplate()
 
         all {
             languageSettings {
@@ -846,8 +847,12 @@ afterEvaluate {
     tasks.withType<KtLintCheckTask> {
         // dependsOn(buildEd25519Bip32Task)
     }
-    tasks.getByName("androidDebugSourcesJar").dependsOn(copyEd25519Bip32GeneratedTask)
-    tasks.getByName("androidReleaseSourcesJar").dependsOn(copyEd25519Bip32GeneratedTask)
+    tasks.withType<org.gradle.jvm.tasks.Jar> {
+        dependsOn(copyEd25519Bip32GeneratedTask)
+    }
+
+    tasks.getByName("androidDebugSourcesJar").dependsOn(copyToAndroidSrc)
+    tasks.getByName("androidReleaseSourcesJar").dependsOn(copyToAndroidSrc)
 
     tasks.getByName("mergeDebugJniLibFolders").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeReleaseJniLibFolders").dependsOn(buildEd25519Bip32Task)
