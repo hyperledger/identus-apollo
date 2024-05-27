@@ -182,7 +182,7 @@ fun KotlinNativeTarget.ed25519Bip32CInterop(target: String) {
 }
 
 /**
- * Creates a copy task with the specified parameters.
+ * Factory to create a copy task with the specified parameters.
  *
  * @param name The name of the copy task.
  * @param fromDir The source directory from which files will be copied.
