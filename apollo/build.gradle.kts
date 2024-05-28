@@ -46,10 +46,12 @@ fun KotlinNativeTarget.swiftCinterop(library: String, platform: String) {
                     includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphonesimulator/include/")
                     tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.replaceFirstChar(Char::uppercase)}Iphonesimulator")
                 }
+
                 "iosArm64" -> {
                     includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release-iphoneos/include/")
                     tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.replaceFirstChar(Char::uppercase)}Iphoneos")
                 }
+
                 "macosX64", "macosArm64" -> {
                     includeDirs.headerFilterOnly("$rootDir/iOSLibs/$library/build/Release/include/")
                     tasks[interopProcessingTaskName].dependsOn(":iOSLibs:build${library.replaceFirstChar(Char::uppercase)}Macosx")
@@ -261,7 +263,12 @@ val copyEd25519Bip32ForLinuxArch64Task = createCopyTask(
  */
 val copyEd25519Bip32ForJVMTargetTask by tasks.register("copyEd25519Bip32ForJVMTarget") {
     group = taskGroup
-    dependsOn(copyEd25519Bip32ForMacOSX8664Task, copyEd25519Bip32ForMacOSArch64Task, copyEd25519Bip32ForLinuxX8664Task, copyEd25519Bip32ForLinuxArch64Task)
+    dependsOn(
+        copyEd25519Bip32ForMacOSX8664Task,
+        copyEd25519Bip32ForMacOSArch64Task,
+        copyEd25519Bip32ForLinuxX8664Task,
+        copyEd25519Bip32ForLinuxArch64Task
+    )
 }
 
 val copyEd25519Bip32ForAndroidX8664Task = createCopyTask(
@@ -293,7 +300,12 @@ val copyEd25519Bip32ForAndroidArmv7aTask = createCopyTask(
  */
 val copyEd25519Bip32ForAndroidTargetTask by tasks.register("copyEd25519Bip32ForAndroidTarget") {
     group = taskGroup
-    dependsOn(copyEd25519Bip32ForAndroidX8664Task, copyEd25519Bip32ForAndroidArch64Task, copyEd25519Bip32ForAndroidI686Task, copyEd25519Bip32ForAndroidArmv7aTask)
+    dependsOn(
+        copyEd25519Bip32ForAndroidX8664Task,
+        copyEd25519Bip32ForAndroidArch64Task,
+        copyEd25519Bip32ForAndroidI686Task,
+        copyEd25519Bip32ForAndroidArmv7aTask
+    )
 }
 
 val copyEd25519Bip32Wrapper by tasks.register("copyEd25519Bip32") {
@@ -344,7 +356,13 @@ val buildEd25519Bip32Wasm by tasks.register<Exec>("buildEd25519Bip32Wasm") {
 
 val buildEd25519Bip32Task by tasks.register("buildEd25519Bip32") {
     group = taskGroup
-    dependsOn(buildEd25519Bip32Wasm, copyEd25519Bip32Wasm, copyEd25519Bip32WasmTest, buildEd25519Bip32Wrapper, copyEd25519Bip32Wrapper)
+    dependsOn(
+        buildEd25519Bip32Wasm,
+        copyEd25519Bip32Wasm,
+        copyEd25519Bip32WasmTest,
+        buildEd25519Bip32Wrapper,
+        copyEd25519Bip32Wrapper
+    )
 }
 
 val cleanEd25519Bip32 by tasks.register<Delete>("cleanEd25519Bip32") {
@@ -429,7 +447,9 @@ kotlin {
             baseName = "ApolloLibrary"
             embedBitcode(BitcodeEmbeddingMode.DISABLE)
             if (os.isMacOsX) {
-                if (System.getenv().containsKey("XCODE_VERSION_MAJOR") && System.getenv("XCODE_VERSION_MAJOR") == "1500") {
+                if (System.getenv()
+                    .containsKey("XCODE_VERSION_MAJOR") && System.getenv("XCODE_VERSION_MAJOR") == "1500"
+                ) {
                     linkerOpts += "-ld64"
                 }
             }
@@ -786,6 +806,13 @@ npmPublish {
             scope.set("atala")
             packageName.set("apollo")
             readme.set(rootDir.resolve("README.md"))
+            files {
+                from(
+                    ed25519bip32Dir
+                        .resolve("wasm")
+                        .resolve("build")
+                )
+            }
             packageJson {
                 author {
                     name.set("IOG")
