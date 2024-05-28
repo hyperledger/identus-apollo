@@ -866,6 +866,12 @@ afterEvaluate {
     tasks.getByName("mergeDebugResources").dependsOn(buildEd25519Bip32Task)
     tasks.getByName("mergeReleaseResources").dependsOn(buildEd25519Bip32Task)
 
+    tasks.getByName("compileProductionLibraryKotlinJs").doFirst {
+        if(!rootDir.resolve("build/js/packages/Apollo/kotlin/ed25519_bip32_wasm.js").isFile()) {
+            throw Exception("ed25519 wasm missing")
+        }
+    }
+
     if (tasks.findByName("iosX64Test") != null) {
         tasks.named("iosX64Test") {
             this.enabled = false
