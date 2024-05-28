@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.3...v1.3.4) (2024-05-28)
+
+
+### Bug Fixes
+
+* missing ed25519 file from published npm package ([#171](https://github.com/input-output-hk/atala-prism-apollo/issues/171)) ([ebef809](https://github.com/input-output-hk/atala-prism-apollo/commit/ebef809acc36768e0f81779eec917d2c7ed58495))
+
 ## [1.3.3](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.2...v1.3.3) (2024-05-27)
 
 
