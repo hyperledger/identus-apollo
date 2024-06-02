@@ -22,14 +22,14 @@ A cryptography lib built with Kotlin Multiplatform with support for the followin
 
 ### Set Environment Variables
 
-Set variable `ATALA_GITHUB_ACTOR` with your GitHub Username and set variable `ATALA_GITHUB_TOKEN` with your GitHub Personal Access Token.
+Set variable `GITHUB_ACTOR` with your GitHub Username and set variable `GITHUB_TOKEN` with your GitHub Personal Access Token.
 
 As an example we will go with `Bash`
 
 1. Open CMD.
 2. Run `sudo nano $HOME/.bash_profile`.
-3. Insert `export ATALA_GITHUB_ACTOR="YOUR GITHUB USERNAME"`
-4. Insert `export ATALA_GITHUB_TOKEN="YOUR GITHUB PERSONAL ACCESS TOKEN"`
+3. Insert `export GITHUB_ACTOR="YOUR GITHUB USERNAME"`
+4. Insert `export GITHUB_TOKEN="YOUR GITHUB PERSONAL ACCESS TOKEN"`
 5. Save profile and restart CMD to take effect.
 
 ### Install Homebrew (Mac Only)
