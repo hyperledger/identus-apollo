@@ -9,7 +9,7 @@ and feel free to propose changes to this document in a pull request.
 ### Identus
 
 Identus platform is a self-sovereign identity (SSI) platform and service suite for verifiable data and digital identity.
-Built on the Distributed Ledger, it offers core infrastructure for issuing DIDs (Decentralized identifiers) and 
+Built on a distributed ledger, it offers core infrastructure for issuing DIDs (Decentralized identifiers) and 
 verifiable credentials, alongside tools and frameworks to help expand your ecosystem.  
 The complete platform is separated in multiple repositories:
 
