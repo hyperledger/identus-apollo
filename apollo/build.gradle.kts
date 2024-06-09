@@ -828,7 +828,7 @@ npmPublish {
         access.set(NpmAccess.PUBLIC)
         register("npmjs") {
             uri.set("https://registry.npmjs.org")
-            authToken.set(System.getenv("ATALA_NPM_TOKEN"))
+            authToken.set(System.getenv("NPM_TOKEN"))
         }
     }
 }
