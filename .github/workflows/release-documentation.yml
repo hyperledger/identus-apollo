@@ -8,8 +8,8 @@ defaults:
 
 env:
   JAVA_VERSION: 17
-  GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
-  GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
+  GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 on:
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          token: ${{ secrets.ATALA_GITHUB_TOKEN }}
+          token: ${{ env.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: "Validate Gradle Wrapper"
@@ -116,5 +116,5 @@ jobs:
           REPO: self
           BRANCH: gh-pages # The branch name where you want to push the assets
           FOLDER: "apollo/build/dokka/html/" # The directory where your assets are generated
-          GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
           MESSAGE: "feat(docs): ({sha}) {msg}" # The commit message
