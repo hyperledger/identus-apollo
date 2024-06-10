@@ -12,8 +12,8 @@ concurrency:
 
 env:
   JAVA_VERSION: 17
-  GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_ACTOR: ${{ secrets.ATALA_GITHUB_ACTOR }}
+  GITHUB_TOKEN: ${{ secrets.ATALA_GITHUB_TOKEN }}
 
 on:
   pull_request:
