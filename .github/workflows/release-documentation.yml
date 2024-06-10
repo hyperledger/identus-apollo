@@ -81,7 +81,6 @@ jobs:
           rm -f '/usr/local/bin/python3-config'
           rm -f '/usr/local/bin/python3.11-config'
           rm -f '/usr/local/bin/python3.12-config'
-          rm -rf '/usr/local/lib/node_modules'
           brew install --overwrite x86_64-unknown-linux-gnu
 
       - name: "Install Linux GNU for aarch64"
