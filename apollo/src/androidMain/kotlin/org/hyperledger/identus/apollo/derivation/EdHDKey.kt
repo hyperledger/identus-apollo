@@ -2,7 +2,7 @@ package org.hyperledger.identus.apollo.derivation
 
 import com.ionspin.kotlin.bignum.integer.toBigInteger
 import ed25519_bip32_wrapper.deriveBytes
-import ed25519_bip32_wrapper.fromNonextendedNoforce
+import ed25519_bip32_wrapper.fromNonextended
 import org.hyperledger.identus.apollo.utils.ECConfig
 
 /**
@@ -83,7 +83,7 @@ actual class EdHDKey actual constructor(
 
             val keySlice = seed.sliceArray(0 until 32)
             val chainCodeSlice = seed.sliceArray(32 until seed.size)
-            val result = fromNonextendedNoforce(keySlice, chainCodeSlice)
+            val result = fromNonextended(keySlice, chainCodeSlice)
             val secretKey = result["secret_key"]
             val chainCode = result["chain_code"]
 

@@ -1,7 +1,7 @@
 package org.hyperledger.identus.apollo.utils.external
 
 external interface ed25519_bip32_export {
-    fun from_nonextended_noforce(key: ByteArray, chain_code: ByteArray): Array<ByteArray>
+    fun from_nonextended(key: ByteArray, chain_code: ByteArray): Array<ByteArray>
 
     fun derive_bytes(key: ByteArray, chain_code: ByteArray, index: Any): Array<ByteArray>
 }
