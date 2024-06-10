@@ -77,7 +77,7 @@ actual class EdHDKey actual constructor(
 
             val key = seed.sliceArray(0 until 32)
             val chainCode = seed.sliceArray(32 until seed.size)
-            val result = ed25519_bip32.from_nonextended_noforce(key, chainCode)
+            val result = ed25519_bip32.from_nonextended(key, chainCode)
 
             return EdHDKey(
                 privateKey = result[0],
