@@ -1,3 +1,11 @@
+## [1.3.5](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.4...v1.3.5) (2024-06-10)
+
+
+### Bug Fixes
+
+* Removed references to Atala in docs and variables referred to by docs ([#172](https://github.com/input-output-hk/atala-prism-apollo/issues/172)) ([ef2ae86](https://github.com/input-output-hk/atala-prism-apollo/commit/ef2ae866a85afedd30fda2192bc4519bd403acfa))
+* update usage of the bip32ed25519 wrapper. ([#174](https://github.com/input-output-hk/atala-prism-apollo/issues/174)) ([d1ee804](https://github.com/input-output-hk/atala-prism-apollo/commit/d1ee804aa314861e879a576a05426bb98ee2752b))
+
 ## [1.3.4](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.3...v1.3.4) (2024-05-28)
 
 
