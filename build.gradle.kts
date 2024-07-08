@@ -1,6 +1,4 @@
-import java.util.Base64
-
-val publishedMavenId: String = "io.iohk.atala.prism.apollo"
+val publishedMavenId: String = "org.hyperledger.identus.apollo"
 
 plugins {
     id("org.jetbrains.dokka") version "1.9.20"
@@ -33,6 +31,14 @@ allprojects {
         google()
         mavenCentral()
         maven { url = uri("https://jitpack.io") }
+        maven {
+            name = "OSSRH"
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
+                password = project.findProperty("ossrhToken") as String? ?: System.getenv("OSSRH_TOKEN")
+            }
+        }
     }
 
     apply(plugin = "org.gradle.maven-publish")
@@ -123,14 +129,11 @@ allprojects {
                             url.set("https://github.com/input-output-hk/atala-prism-apollo")
                         }
                     }
+
                     signing {
-                        val base64EncodedAsciiArmoredSigningKey: String = System.getenv("BASE64_ARMORED_GPG_SIGNING_KEY_MAVEN") ?: ""
-                        val signingKeyPassword: String = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
                         useInMemoryPgpKeys(
-                            String(
-                                Base64.getDecoder().decode(base64EncodedAsciiArmoredSigningKey.toByteArray())
-                            ),
-                            signingKeyPassword
+                            project.findProperty("signing.signingSecretKey") as String? ?: System.getenv("SIGNING_SECRET_KEY"),
+                            project.findProperty("signing.signingSecretKeyPassword") as String? ?: System.getenv("SIGNING_SECRET_KEY_PASSWORD")
                         )
                         sign(this@withType)
                     }
