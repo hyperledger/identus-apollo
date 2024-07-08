@@ -169,7 +169,7 @@ Inside your `Package.swift` file, add the following
 ```swift
 dependencies: [
     .package(
-        url: "git@github.com:input-output-hk/atala-prism-apollo.git",
+        url: "git@github.com:git@github.com:hyperledger/identus-apollo.git",
         from: "<latest version>"
     )
 ]
@@ -177,7 +177,7 @@ dependencies: [
 ### Using generated xcframework directly
 
 The following instruction using Xcode 15
-1. Go the [Release Page](https://github.com/input-output-hk/atala-prism-apollo/releases) and check the latest version and download the `Apollo.xcframework.zip` file.
+1. Go the [Release Page](https://github.com/hyperledger/identus-apollo/releases) and check the latest version and download the `Apollo.xcframework.zip` file.
 2. Uncompress the downloaded file.
 3. Add the `Apollo.xcframework` to your Xcode project.
 4. When asked select Copy items if needed.

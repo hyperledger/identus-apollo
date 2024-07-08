@@ -63,7 +63,7 @@ allprojects {
                         }
                         issueManagement {
                             system.set("Github")
-                            url.set("https://github.com/input-output-hk/atala-prism-apollo")
+                            url.set("https://github.com/hyperledger/identus-apollo")
                         }
                         licenses {
                             license {
@@ -124,9 +124,9 @@ allprojects {
                             }
                         }
                         scm {
-                            connection.set("scm:git:git://input-output-hk/atala-prism-apollo.git")
-                            developerConnection.set("scm:git:ssh://input-output-hk/atala-prism-apollo.git")
-                            url.set("https://github.com/input-output-hk/atala-prism-apollo")
+                            connection.set("scm:git:git://git@github.com:hyperledger/identus-apollo.git")
+                            developerConnection.set("scm:git:ssh://git@github.com:hyperledger/identus-apollo.git")
+                            url.set("https://github.com/hyperledger/identus-apollo")
                         }
                     }
 
