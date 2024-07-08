@@ -797,14 +797,14 @@ tasks.withType<DokkaTask>().configureEach {
 }
 
 npmPublish {
-    organization.set("atala")
+    organization.set("hyperledger")
     version.set(rootProject.version.toString())
     access.set(NpmAccess.PUBLIC)
     packages {
         access.set(NpmAccess.PUBLIC)
         named("js") {
-            scope.set("atala")
-            packageName.set("apollo")
+            scope.set("hyperledger")
+            packageName.set("identus-apollo")
             readme.set(rootDir.resolve("README.md"))
             files {
                 from(
@@ -819,7 +819,7 @@ npmPublish {
                 }
                 repository {
                     type.set("git")
-                    url.set("https://github.com/input-output-hk/atala-prism-apollo.git")
+                    url.set("https://github.com/hyperledger/identus-apollo.git")
                 }
             }
         }
