@@ -169,7 +169,7 @@ Inside your `Package.swift` file, add the following
 ```swift
 dependencies: [
     .package(
-        url: "git@github.com:git@github.com:hyperledger/identus-apollo.git",
+        url: "git@github.com:hyperledger/identus-apollo.git",
         from: "<latest version>"
     )
 ]

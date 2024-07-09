@@ -124,7 +124,7 @@ allprojects {
                             }
                         }
                         scm {
-                            connection.set("scm:git:git://git@github.com:hyperledger/identus-apollo.git")
+                            connection.set("scm:git://git@github.com:hyperledger/identus-apollo.git")
                             developerConnection.set("scm:git:ssh://git@github.com:hyperledger/identus-apollo.git")
                             url.set("https://github.com/hyperledger/identus-apollo")
                         }
