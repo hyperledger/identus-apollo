@@ -23,6 +23,10 @@ env:
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   release:
     runs-on: macos-13
