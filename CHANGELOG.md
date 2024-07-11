@@ -1,3 +1,10 @@
+## [1.3.17](https://github.com/hyperledger/identus-apollo/compare/v1.3.16...v1.3.17) (2024-07-11)
+
+
+### Bug Fixes
+
+* sonatype configuration ([5c13b1d](https://github.com/hyperledger/identus-apollo/commit/5c13b1dc5456583d25f76a21119f1e11a437a6f5))
+
 ## [1.3.16](https://github.com/hyperledger/identus-apollo/compare/v1.3.15...v1.3.16) (2024-07-11)
 
 
