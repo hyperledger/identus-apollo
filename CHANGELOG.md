@@ -1,3 +1,10 @@
+## [1.3.14](https://github.com/hyperledger/identus-apollo/compare/v1.3.13...v1.3.14) (2024-07-11)
+
+
+### Bug Fixes
+
+* set right sonatype authentication ([5183580](https://github.com/hyperledger/identus-apollo/commit/518358093ce69044b6855f2ab8cc9e3c17c7e6b3))
+
 ## [1.3.13](https://github.com/hyperledger/identus-apollo/compare/v1.3.12...v1.3.13) (2024-07-11)
 
 
