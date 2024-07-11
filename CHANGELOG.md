@@ -1,3 +1,10 @@
+## [1.3.15](https://github.com/hyperledger/identus-apollo/compare/v1.3.14...v1.3.15) (2024-07-11)
+
+
+### Bug Fixes
+
+* add correct signing keys for maven package in HL ([d560f5a](https://github.com/hyperledger/identus-apollo/commit/d560f5a548a13e7882681b826db86e967c553b90))
+
 ## [1.3.14](https://github.com/hyperledger/identus-apollo/compare/v1.3.13...v1.3.14) (2024-07-11)
 
 
