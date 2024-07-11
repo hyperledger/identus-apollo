@@ -1,3 +1,10 @@
+## [1.3.13](https://github.com/hyperledger/identus-apollo/compare/v1.3.12...v1.3.13) (2024-07-11)
+
+
+### Bug Fixes
+
+* checkout also must use identus_ci token ([870b321](https://github.com/hyperledger/identus-apollo/commit/870b321bb9125d1f8878060f9c1fac65dc68b7c5))
+
 ## [1.3.5](https://github.com/input-output-hk/atala-prism-apollo/compare/v1.3.4...v1.3.5) (2024-06-10)
 
 

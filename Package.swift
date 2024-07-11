@@ -24,8 +24,8 @@ let package = Package(
         // RELEASE
         .binaryTarget(
             name: "ApolloBinary",
-            url: "https://github.com/hyperledger/identus-apollo/releases/download/v1.3.5/Apollo.xcframework.zip",
-            checksum: "cd1be90019a8e7f4f1ed62bd412f673d45bdbba699a7ece504e139b07b5cb49a"
+            url: "https://github.com/hyperledger/identus-apollo/releases/download/v1.3.13/Apollo.xcframework.zip",
+            checksum: "5c602730a376afca35e89cc3f7575791832342f17382a00182507d0143079602"
         )
     ]
 )
