@@ -1,3 +1,10 @@
+## [1.3.16](https://github.com/hyperledger/identus-apollo/compare/v1.3.15...v1.3.16) (2024-07-11)
+
+
+### Bug Fixes
+
+* correct some typos in android build for apollo ([d8a0b0a](https://github.com/hyperledger/identus-apollo/commit/d8a0b0a2f8486b27468481e9790a606369d88a05))
+
 ## [1.3.15](https://github.com/hyperledger/identus-apollo/compare/v1.3.14...v1.3.15) (2024-07-11)
 
 
