@@ -19,6 +19,8 @@ env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   SONATYPE_USERNAME: ${{ secrets.OSSRH_USERNAME }}
   SONATYPE_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+  SONATYPE_GPG_SECRET: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+  SONATYPE_GPG_PASSWORD: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
 on:
   workflow_dispatch:
@@ -125,6 +127,8 @@ jobs:
           GIT_COMMITTER_NAME: ${{ steps.import_gpg.outputs.name }}
           SONATYPE_USERNAME: ${{ env.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ env.SONATYPE_PASSWORD }}
+          SONATYPE_GPG_SECRET: ${{ env.SONATYPE_GPG_SECRET }}
+          SONATYPE_GPG_PASSWORD: ${{ env.SONATYPE_GPG_PASSWORD }}
         run: |
           npm install
           npx semantic-release

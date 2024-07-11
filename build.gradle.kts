@@ -35,8 +35,8 @@ allprojects {
             name = "OSSRH"
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
-                password = project.findProperty("ossrhToken") as String? ?: System.getenv("OSSRH_TOKEN")
+                username = project.findProperty("sonatypeUsername") as String? ?: System.getenv("SONATYPE_USERNAME")
+                password = project.findProperty("sonatypePassword") as String? ?: System.getenv("SONATYPE_PASSWORD")
             }
         }
     }
@@ -132,8 +132,8 @@ allprojects {
 
                     signing {
                         useInMemoryPgpKeys(
-                            project.findProperty("signing.signingSecretKey") as String? ?: System.getenv("SIGNING_SECRET_KEY"),
-                            project.findProperty("signing.signingSecretKeyPassword") as String? ?: System.getenv("SIGNING_SECRET_KEY_PASSWORD")
+                            project.findProperty("signing.signingSecretKey") as String? ?: System.getenv("SONATYPE_GPG_SECRET"),
+                            project.findProperty("signing.signingSecretKeyPassword") as String? ?: System.getenv("SONATYPE_GPG_PASSWORD")
                         )
                         sign(this@withType)
                     }
