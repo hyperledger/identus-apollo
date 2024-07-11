@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          token: ${{ env.GITHUB_TOKEN }}
+          token: ${{ secrets.IDENTUS_CI }}
           fetch-depth: 0
 
       - name: "Install Java ${{ env.JAVA_VERSION }}"
