@@ -17,10 +17,6 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  SONATYPE_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-  SONATYPE_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-  SONATYPE_GPG_SECRET: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
-  SONATYPE_GPG_PASSWORD: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
 on:
   workflow_dispatch:
@@ -39,12 +35,16 @@ jobs:
           submodules: recursive
           token: ${{ secrets.IDENTUS_CI }}
           fetch-depth: 0
+          gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          gpg-passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
       - name: "Install Java ${{ env.JAVA_VERSION }}"
         uses: actions/setup-java@v4
         with:
           java-version: "${{ env.JAVA_VERSION }}"
           distribution: zulu
+          gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          gpg-passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
       - name: "Install Homebrew"
         run: >
@@ -100,8 +100,8 @@ jobs:
       - uses: crazy-max/ghaction-import-gpg@v5
         id: import_gpg
         with:
-          gpg_private_key: ${{ secrets.HYP_BOT_GPG_PRIVATE }}
-          passphrase: ${{ secrets.HYP_BOT_GPG_PASSWORD }}
+          gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          passphrase:  ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
           git_user_signingkey: true
           git_commit_gpgsign: true
           git_config_global: true
@@ -125,10 +125,10 @@ jobs:
           GIT_COMMITTER_EMAIL: ${{ steps.import_gpg.outputs.email }}
           GIT_AUTHOR_NAME: ${{ steps.import_gpg.outputs.name }}
           GIT_COMMITTER_NAME: ${{ steps.import_gpg.outputs.name }}
-          SONATYPE_USERNAME: ${{ env.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ env.SONATYPE_PASSWORD }}
-          SONATYPE_GPG_SECRET: ${{ env.SONATYPE_GPG_SECRET }}
-          SONATYPE_GPG_PASSWORD: ${{ env.SONATYPE_GPG_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          SONATYPE_GPG_SECRET: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          SONATYPE_GPG_PASSWORD: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
         run: |
           npm install
           npx semantic-release
