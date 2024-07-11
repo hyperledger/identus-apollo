@@ -1,3 +1,10 @@
+## [1.3.18](https://github.com/hyperledger/identus-apollo/compare/v1.3.17...v1.3.18) (2024-07-11)
+
+
+### Bug Fixes
+
+* ossrh env variables on CI ([d324f12](https://github.com/hyperledger/identus-apollo/commit/d324f123ce82c708da778cd7f8b6e5219288057b))
+
 ## [1.3.17](https://github.com/hyperledger/identus-apollo/compare/v1.3.16...v1.3.17) (2024-07-11)
 
 
