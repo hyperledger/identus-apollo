@@ -123,8 +123,8 @@ allprojects {
 
                     signing {
                         useInMemoryPgpKeys(
-                            project.findProperty("signing.signingSecretKey") as String? ?: System.getenv("SONATYPE_GPG_SECRET"),
-                            project.findProperty("signing.signingSecretKeyPassword") as String? ?: System.getenv("SONATYPE_GPG_PASSWORD")
+                            project.findProperty("signing.signingSecretKey") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
+                            project.findProperty("signing.signingSecretKeyPassword") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
                         )
                         sign(this@withType)
                     }
@@ -172,8 +172,8 @@ nexusPublishing {
         sonatype {
             nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/snapshots/"))
-            username.set(System.getenv("SONATYPE_USERNAME"))
-            password.set(System.getenv("SONATYPE_PASSWORD"))
+            username.set(System.getenv("OSSRH_USERNAME"))
+            password.set(System.getenv("OSSRH_TOKEN"))
         }
     }
 }

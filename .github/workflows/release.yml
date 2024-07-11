@@ -17,6 +17,10 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+  OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+  OSSRH_GPG_SECRET_KEY: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+  OSSRH_GPG_SECRET_KEY_PASSWORD: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
 on:
   workflow_dispatch:
@@ -125,10 +129,6 @@ jobs:
           GIT_COMMITTER_EMAIL: ${{ steps.import_gpg.outputs.email }}
           GIT_AUTHOR_NAME: ${{ steps.import_gpg.outputs.name }}
           GIT_COMMITTER_NAME: ${{ steps.import_gpg.outputs.name }}
-          SONATYPE_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-          SONATYPE_GPG_SECRET: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
-          SONATYPE_GPG_PASSWORD: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
         run: |
           npm install
           npx semantic-release
