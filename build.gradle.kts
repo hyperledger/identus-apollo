@@ -30,15 +30,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://jitpack.io") }
-        maven {
-            name = "OSSRH"
-            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = project.findProperty("sonatypeUsername") as String? ?: System.getenv("SONATYPE_USERNAME")
-                password = project.findProperty("sonatypePassword") as String? ?: System.getenv("SONATYPE_PASSWORD")
-            }
-        }
     }
 
     apply(plugin = "org.gradle.maven-publish")
@@ -124,8 +115,8 @@ allprojects {
                             }
                         }
                         scm {
-                            connection.set("scm:git://git@github.com:hyperledger/identus-apollo.git")
-                            developerConnection.set("scm:git:ssh://git@github.com:hyperledger/identus-apollo.git")
+                            connection.set("scm:git:git://git@github.com/hyperledger/identus-apollo.git")
+                            developerConnection.set("scm:git:ssh://git@github.com/hyperledger/identus-apollo.git")
                             url.set("https://github.com/hyperledger/identus-apollo")
                         }
                     }
@@ -186,3 +177,6 @@ nexusPublishing {
         }
     }
 }
+
+
+
