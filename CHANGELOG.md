@@ -1,3 +1,10 @@
+## [1.3.19](https://github.com/hyperledger/identus-apollo/compare/v1.3.18...v1.3.19) (2024-07-12)
+
+
+### Bug Fixes
+
+* improve env vars for ci pipeline in hl ([9170629](https://github.com/hyperledger/identus-apollo/commit/91706297c20ffc6e9709add1a7da4cf4bd5474ad))
+
 ## [1.3.18](https://github.com/hyperledger/identus-apollo/compare/v1.3.17...v1.3.18) (2024-07-11)
 
 
