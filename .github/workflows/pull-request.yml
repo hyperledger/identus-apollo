@@ -37,6 +37,7 @@ jobs:
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
         run: |
           curl -u $OSSRH_USERNAME:$OSSRH_TOKEN https://oss.sonatype.org/service/local/repositories/releases/content/
+
       - name: "Validate Gradle Wrapper"
         run: pwd
 

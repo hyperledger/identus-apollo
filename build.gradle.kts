@@ -17,7 +17,7 @@ buildscript {
         mavenCentral()
         maven {
             name = "OSSRH"
-            url = uri("hhttps://oss.sonatype.org/service/local/repositories/releases/content/")
+            url = uri("https://oss.sonatype.org/service/local/repositories/releases/content/")
             credentials {
                 username = project.findProperty("sonatypeUsername") as String? ?: System.getenv("OSSRH_USERNAME")
                 password = project.findProperty("sonatypePassword") as String? ?: System.getenv("OSSRH_TOKEN")
