@@ -39,14 +39,15 @@ jobs:
           submodules: recursive
           token: ${{ secrets.IDENTUS_CI }}
           fetch-depth: 0
-          gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
-          gpg-passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
       - name: "Install Java ${{ env.JAVA_VERSION }}"
         uses: actions/setup-java@v4
         with:
           java-version: "${{ env.JAVA_VERSION }}"
           distribution: zulu
+          server-id: ossrh
+          server-username: ${{ secrets.OSSRH_USERNAME }}
+          server-password: ${{ secrets.OSSRH_PASSWORD }}
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
           gpg-passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
 
@@ -62,7 +63,7 @@ jobs:
       - name: "Install Mac ToolChain"
         run: |
           brew tap messense/macos-cross-toolchains
-    
+
       - name: "Install Linux GNU for x86_64"
         run: |
           rm -f '/usr/local/bin/2to3'
@@ -96,7 +97,7 @@ jobs:
           rustup target add x86_64-apple-darwin
           rustup target add aarch64-unknown-linux-gnu
           rustup target add x86_64-unknown-linux-gnu
-          
+
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '15.0.1'
