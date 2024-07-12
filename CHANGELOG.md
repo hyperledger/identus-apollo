@@ -1,3 +1,11 @@
+## [1.3.20](https://github.com/hyperledger/identus-apollo/compare/v1.3.19...v1.3.20) (2024-07-12)
+
+
+### Bug Fixes
+
+* revert import action version ([c4bd736](https://github.com/hyperledger/identus-apollo/commit/c4bd7367c8c51c3266f298ef1c23cb99e05c296d))
+* Update to node20 actions ([#184](https://github.com/hyperledger/identus-apollo/issues/184)) ([0e38317](https://github.com/hyperledger/identus-apollo/commit/0e38317f22c239df10a87797895303f1f18019b1))
+
 ## [1.3.19](https://github.com/hyperledger/identus-apollo/compare/v1.3.18...v1.3.19) (2024-07-12)
 
 
