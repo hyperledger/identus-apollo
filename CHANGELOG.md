@@ -1,3 +1,10 @@
+## [1.3.21](https://github.com/hyperledger/identus-apollo/compare/v1.3.20...v1.3.21) (2024-07-12)
+
+
+### Bug Fixes
+
+* force adding ossrh env vars for maven ([24683fc](https://github.com/hyperledger/identus-apollo/commit/24683fc064f6ef27944dac16a7326cb27ca731c8))
+
 ## [1.3.20](https://github.com/hyperledger/identus-apollo/compare/v1.3.19...v1.3.20) (2024-07-12)
 
 
