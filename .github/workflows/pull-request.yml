@@ -31,6 +31,13 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Check Nexus access
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+        run: |
+          curl -u $OSSRH_USERNAME:$OSSRH_TOKEN https://oss.sonatype.org/service/local/repositories/releases/content/
+
       - name: "Validate Gradle Wrapper"
         run: pwd
 

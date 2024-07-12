@@ -102,7 +102,7 @@ jobs:
         with:
           xcode-version: '15.0.1'
 
-      - uses: crazy-max/ghaction-import-gpg@v5
+      - uses: crazy-max/ghaction-import-gpg@v6
         id: import_gpg
         with:
           gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}

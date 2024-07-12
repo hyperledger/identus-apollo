@@ -15,6 +15,14 @@ buildscript {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven {
+            name = "OSSRH"
+            url = uri("https://oss.sonatype.org/service/local/repositories/releases/content/")
+            credentials {
+                username = project.findProperty("sonatypeUsername") as String? ?: System.getenv("OSSRH_USERNAME")
+                password = project.findProperty("sonatypePassword") as String? ?: System.getenv("OSSRH_TOKEN")
+            }
+        }
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.23")
@@ -177,6 +185,3 @@ nexusPublishing {
         }
     }
 }
-
-
-
