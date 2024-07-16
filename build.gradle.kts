@@ -45,7 +45,7 @@ allprojects {
 
     // Allowed projects to publish to maven
     val allowedProjectsToPublish = listOf("apollo")
-    if (allowedProjectsToPublish.contains(project.name)) {
+    if (allowedProjectsToPublish.contains(project.name) && project.name.contains("androidDebug")) {
         publishing {
             publications {
                 withType<MavenPublication> {
@@ -179,7 +179,7 @@ nexusPublishing {
     repositories {
         sonatype {
             nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/snapshots/"))
+            snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/releases/"))
             username.set(System.getenv("OSSRH_USERNAME"))
             password.set(System.getenv("OSSRH_TOKEN"))
         }
