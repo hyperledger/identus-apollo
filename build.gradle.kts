@@ -15,14 +15,6 @@ buildscript {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven {
-            name = "OSSRH"
-            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
-            credentials {
-                username = project.findProperty("sonatypeUsername") as String? ?: System.getenv("OSSRH_USERNAME")
-                password = project.findProperty("sonatypePassword") as String? ?: System.getenv("OSSRH_TOKEN")
-            }
-        }
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.23")
@@ -47,6 +39,16 @@ allprojects {
     val allowedProjectsToPublish = listOf("apollo")
     if (allowedProjectsToPublish.contains(project.name) && project.name.contains("androidDebug")) {
         publishing {
+            repositories {
+                maven {
+                    name = "OSSRH"
+                    url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+                    credentials {
+                        username = project.findProperty("sonatypeUsername") as String? ?: System.getenv("OSSRH_USERNAME")
+                        password = project.findProperty("sonatypePassword") as String? ?: System.getenv("OSSRH_TOKEN")
+                    }
+                }
+            }
             publications {
                 withType<MavenPublication> {
                     groupId = publishedMavenId
