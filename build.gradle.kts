@@ -149,7 +149,14 @@ allprojects {
                     }
 
                     signing {
-                        useInMemoryPgpKeys(String(Base64.getDecoder().decode(base64EncodedAsciiArmoredSigningKey.toByteArray())), signingKeyPassword)
+                        val base64EncodedAsciiArmoredSigningKey: String = System.getenv("BASE64_ARMORED_GPG_SIGNING_KEY_MAVEN") ?: ""
+                        val signingKeyPassword: String = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
+                        useInMemoryPgpKeys(
+                            String(
+                                Base64.getDecoder().decode(base64EncodedAsciiArmoredSigningKey.toByteArray())
+                            ),
+                            signingKeyPassword
+                        )
 //                        useInMemoryPgpKeys(
 //                            project.findProperty("signing.signingSecretKey") as String?
 //                                ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
