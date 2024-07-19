@@ -48,8 +48,8 @@ jobs:
           server-id: ossrh
           server-username: ${{ secrets.OSSRH_USERNAME }}
           server-password: ${{ secrets.OSSRH_PASSWORD }}
-          gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
-          gpg-passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+          gpg-private-key: ${{ secrets.HYP_BOT_GPG_PRIVATE }}
+          gpg-passphrase: ${{ secrets.HYP_BOT_GPG_PASSWORD }}
 
       - name: "Install Homebrew"
         run: >
@@ -105,8 +105,8 @@ jobs:
       - uses: crazy-max/ghaction-import-gpg@v5
         id: import_gpg
         with:
-          gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
-          passphrase:  ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+          gpg_private_key: ${{ secrets.HYP_BOT_GPG_PRIVATE }}
+          passphrase:  ${{ secrets.HYP_BOT_GPG_PASSWORD }}
           git_user_signingkey: true
           git_commit_gpgsign: true
           git_config_global: true
