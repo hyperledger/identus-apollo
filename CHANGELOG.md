@@ -1,3 +1,10 @@
+## [1.3.24](https://github.com/hyperledger/identus-apollo/compare/v1.3.23...v1.3.24) (2024-07-19)
+
+
+### Bug Fixes
+
+* apply github env vars ([a5f674a](https://github.com/hyperledger/identus-apollo/commit/a5f674ac365cdabd67abd144894cbbb32fc7ffa2))
+
 ## [1.3.21](https://github.com/hyperledger/identus-apollo/compare/v1.3.20...v1.3.21) (2024-07-12)
 
 
