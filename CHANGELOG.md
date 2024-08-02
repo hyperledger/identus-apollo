@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/hyperledger/identus-apollo/compare/v1.3.24...v1.4.0) (2024-08-02)
+
+
+### Features
+
+* almost empty commit to test the release ([#186](https://github.com/hyperledger/identus-apollo/issues/186)) ([89b28a9](https://github.com/hyperledger/identus-apollo/commit/89b28a98e0fa82c5e935138c40024857101bbb4f))
+
 ## [1.3.24](https://github.com/hyperledger/identus-apollo/compare/v1.3.23...v1.3.24) (2024-07-19)
 
 
