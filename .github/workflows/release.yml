@@ -56,9 +56,10 @@ jobs:
           /bin/bash -c "$(curl -fsSL
           https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-      - name: "Install autoconf, automake, libtool"
+      - name: "Install autoconf, automake, libtool, rustup"
         run: |
-          brew install autoconf automake libtool
+          brew install autoconf automake libtool rustup-init
+          rustup-init -y
 
       - name: "Install Mac ToolChain"
         run: |
