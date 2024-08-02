@@ -1,3 +1,10 @@
+# [1.4.0-beta.1](https://github.com/hyperledger/identus-apollo/compare/v1.3.24...v1.4.0-beta.1) (2024-08-02)
+
+
+### Features
+
+* add a beta branch and rust-init installer to the release flow ([dc8fd38](https://github.com/hyperledger/identus-apollo/commit/dc8fd387a6be07eb508657488b943f853df62f9f))
+
 ## [1.3.24](https://github.com/hyperledger/identus-apollo/compare/v1.3.23...v1.3.24) (2024-07-19)
 
 
