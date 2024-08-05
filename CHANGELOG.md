@@ -1,3 +1,11 @@
+# [1.4.0-beta.2](https://github.com/hyperledger/identus-apollo/compare/v1.4.0-beta.1...v1.4.0-beta.2) (2024-08-05)
+
+
+### Features
+
+* add --info to the CI ([b85edb7](https://github.com/hyperledger/identus-apollo/commit/b85edb717a12fabdbc8becded70b20b1cfd0e077))
+* rollback oss.sonatype url and upgrade a gradle-release-plugin to 1.9.2 version ([23e5be8](https://github.com/hyperledger/identus-apollo/commit/23e5be8ca6601fc787e5ac0407ce3c6f01616dea))
+
 # [1.4.0-beta.1](https://github.com/hyperledger/identus-apollo/compare/v1.3.24...v1.4.0-beta.1) (2024-08-02)
 
 
