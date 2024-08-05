@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/hyperledger/identus-apollo/compare/v1.4.0...v1.4.1) (2024-08-05)
+
+
+### Bug Fixes
+
+* change oss publishing url according to the documentation ([#187](https://github.com/hyperledger/identus-apollo/issues/187)) ([f1dea5b](https://github.com/hyperledger/identus-apollo/commit/f1dea5bc1c19e5eaa0d4aba560dd8c46ee4962e6))
+
 # [1.4.0](https://github.com/hyperledger/identus-apollo/compare/v1.3.24...v1.4.0) (2024-08-02)
 
 
