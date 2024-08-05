@@ -42,7 +42,7 @@ allprojects {
             repositories {
                 maven {
                     name = "OSSRH"
-                    url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                    url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
                     credentials {
                         username = project.findProperty("sonatypeUsername") as String? ?: System.getenv("OSSRH_USERNAME")
                         password = project.findProperty("sonatypePassword") as String? ?: System.getenv("OSSRH_TOKEN")
@@ -133,8 +133,10 @@ allprojects {
 
                     signing {
                         useInMemoryPgpKeys(
-                            project.findProperty("signing.signingSecretKey") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
-                            project.findProperty("signing.signingSecretKeyPassword") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
+                            project.findProperty("signing.signingSecretKey") as String?
+                                ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
+                            project.findProperty("signing.signingSecretKeyPassword") as String?
+                                ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
                         )
                         sign(this@withType)
                     }
@@ -167,7 +169,7 @@ subprojects {
             }
             exclude {
                 it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" ||
-                    it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
+                        it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
             }
             exclude {
                 it.file.toString().contains("external")
