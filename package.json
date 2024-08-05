@@ -19,8 +19,8 @@
     "@semantic-release/changelog": "^6.0.2",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "gradle-semantic-release-plugin": "1.7.7",
-    "semantic-release": "^21.0.2",
+    "gradle-semantic-release-plugin": "1.9.2",
+    "semantic-release": "^24.0.0",
     "semantic-release-slack-bot": "^4.0.2"
   }
 }
