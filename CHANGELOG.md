@@ -1,3 +1,12 @@
+# [1.4.0-beta.3](https://github.com/hyperledger/identus-apollo/compare/v1.4.0-beta.2...v1.4.0-beta.3) (2024-08-06)
+
+
+### Features
+
+* add --info to the CI ([1fa8205](https://github.com/hyperledger/identus-apollo/commit/1fa82054bb96cc4c219d55d2f1d255fe8e05cace))
+* add --info to the CI ([8dbd048](https://github.com/hyperledger/identus-apollo/commit/8dbd0488ca2b2409fce4eb5046806f72b8d8d08a))
+* replace maven section with nexusPublishing ([56824ec](https://github.com/hyperledger/identus-apollo/commit/56824ecec1e75ca5d24ee15eec4424daacfebd42))
+
 # [1.4.0-beta.2](https://github.com/hyperledger/identus-apollo/compare/v1.4.0-beta.1...v1.4.0-beta.2) (2024-08-05)
 
 
