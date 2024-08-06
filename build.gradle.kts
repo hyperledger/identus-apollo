@@ -38,108 +38,107 @@ allprojects {
     // Allowed projects to publish to maven
     val allowedProjectsToPublish = listOf("apollo")
     if (allowedProjectsToPublish.contains(project.name) && project.name.contains("androidDebug")) {
-        publishing {
+        nexusPublishing {
             repositories {
-                maven {
-                    name = "OSSRH"
-                    url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
-                    credentials {
-                        username =
-                            project.findProperty("sonatypeUsername") as String? ?: System.getenv("OSSRH_USERNAME")
-                        password = project.findProperty("sonatypePassword") as String? ?: System.getenv("OSSRH_TOKEN")
-                    }
+                sonatype {
+                    nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))
+                    snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+                    username.set(System.getenv("OSSRH_USERNAME"))
+                    password.set(System.getenv("OSSRH_TOKEN"))
                 }
             }
-            publications {
-                withType<MavenPublication> {
-                    groupId = publishedMavenId
-                    artifactId = project.name
-                    version = project.version.toString()
-                    pom {
-                        name.set("Identus Apollo")
-                        description.set("Collection of the cryptographic methods used all around Identus platform")
-                        url.set("https://docs.atalaprism.io/")
-                        organization {
-                            name.set("IOG")
-                            url.set("https://iog.io/")
-                        }
-                        issueManagement {
-                            system.set("Github")
-                            url.set("https://github.com/hyperledger/identus-apollo")
-                        }
-                        licenses {
-                            license {
-                                name.set("The Apache License, Version 2.0")
-                                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+            publishing {
+                publications {
+                    withType<MavenPublication> {
+                        groupId = publishedMavenId
+                        artifactId = project.name
+                        version = project.version.toString()
+                        pom {
+                            name.set("Identus Apollo")
+                            description.set("Collection of the cryptographic methods used all around Identus platform")
+                            url.set("https://docs.atalaprism.io/")
+                            organization {
+                                name.set("IOG")
+                                url.set("https://iog.io/")
+                            }
+                            issueManagement {
+                                system.set("Github")
+                                url.set("https://github.com/hyperledger/identus-apollo")
+                            }
+                            licenses {
+                                license {
+                                    name.set("The Apache License, Version 2.0")
+                                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                                }
+                            }
+                            developers {
+                                developer {
+                                    id.set("hamada147")
+                                    name.set("Ahmed Moussa")
+                                    email.set("ahmed.moussa@iohk.io")
+                                    organization.set("IOG")
+                                    roles.add("developer")
+                                    url.set("https://github.com/hamada147")
+                                }
+                                developer {
+                                    id.set("amagyar-iohk")
+                                    name.set("Allain Magyar")
+                                    email.set("allain.magyar@iohk.io")
+                                    organization.set("IOG")
+                                    roles.add("qc")
+                                }
+                                developer {
+                                    id.set("antonbaliasnikov")
+                                    name.set("Anton Baliasnikov")
+                                    email.set("anton.baliasnikov@iohk.io")
+                                    organization.set("IOG")
+                                    roles.add("qc")
+                                }
+                                developer {
+                                    id.set("elribonazo")
+                                    name.set("Javier Ribó")
+                                    email.set("javier.ribo@iohk.io")
+                                    organization.set("IOG")
+                                    roles.add("developer")
+                                }
+                                developer {
+                                    id.set("goncalo-frade-iohk")
+                                    name.set("Gonçalo Frade")
+                                    email.set("goncalo.frade@iohk.io")
+                                    organization.set("IOG")
+                                    roles.add("developer")
+                                }
+                                developer {
+                                    id.set("curtis-h")
+                                    name.set("Curtis Harding")
+                                    email.set("curtis.harding@iohk.io")
+                                    organization.set("IOG")
+                                    roles.add("developer")
+                                }
+                                developer {
+                                    id.set("cristianIOHK")
+                                    name.set("Cristian Gonzalez")
+                                    email.set("cristian.castro@iohk.io")
+                                    organization.set("IOG")
+                                    roles.add("developer")
+                                }
+                            }
+                            scm {
+                                connection.set("scm:git:git://git@github.com/hyperledger/identus-apollo.git")
+                                developerConnection.set("scm:git:ssh://git@github.com/hyperledger/identus-apollo.git")
+                                url.set("https://github.com/hyperledger/identus-apollo")
                             }
                         }
-                        developers {
-                            developer {
-                                id.set("hamada147")
-                                name.set("Ahmed Moussa")
-                                email.set("ahmed.moussa@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                                url.set("https://github.com/hamada147")
-                            }
-                            developer {
-                                id.set("amagyar-iohk")
-                                name.set("Allain Magyar")
-                                email.set("allain.magyar@iohk.io")
-                                organization.set("IOG")
-                                roles.add("qc")
-                            }
-                            developer {
-                                id.set("antonbaliasnikov")
-                                name.set("Anton Baliasnikov")
-                                email.set("anton.baliasnikov@iohk.io")
-                                organization.set("IOG")
-                                roles.add("qc")
-                            }
-                            developer {
-                                id.set("elribonazo")
-                                name.set("Javier Ribó")
-                                email.set("javier.ribo@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                            }
-                            developer {
-                                id.set("goncalo-frade-iohk")
-                                name.set("Gonçalo Frade")
-                                email.set("goncalo.frade@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                            }
-                            developer {
-                                id.set("curtis-h")
-                                name.set("Curtis Harding")
-                                email.set("curtis.harding@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                            }
-                            developer {
-                                id.set("cristianIOHK")
-                                name.set("Cristian Gonzalez")
-                                email.set("cristian.castro@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                            }
-                        }
-                        scm {
-                            connection.set("scm:git:git://git@github.com/hyperledger/identus-apollo.git")
-                            developerConnection.set("scm:git:ssh://git@github.com/hyperledger/identus-apollo.git")
-                            url.set("https://github.com/hyperledger/identus-apollo")
-                        }
-                    }
 
-                    signing {
-                        useInMemoryPgpKeys(
-                            project.findProperty("signing.signingSecretKey") as String?
-                                ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
-                            project.findProperty("signing.signingSecretKeyPassword") as String?
-                                ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
-                        )
-                        sign(this@withType)
+                        signing {
+                            useInMemoryPgpKeys(
+                                project.findProperty("signing.signingSecretKey") as String?
+                                    ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
+                                project.findProperty("signing.signingSecretKeyPassword") as String?
+                                    ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
+                            )
+                            sign(this@withType)
+                        }
                     }
                 }
             }
