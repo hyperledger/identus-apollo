@@ -44,7 +44,8 @@ allprojects {
                     name = "OSSRH"
                     url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
                     credentials {
-                        username = project.findProperty("sonatypeUsername") as String? ?: System.getenv("OSSRH_USERNAME")
+                        username =
+                            project.findProperty("sonatypeUsername") as String? ?: System.getenv("OSSRH_USERNAME")
                         password = project.findProperty("sonatypePassword") as String? ?: System.getenv("OSSRH_TOKEN")
                     }
                 }
@@ -168,8 +169,7 @@ subprojects {
                 it.file.toString().contains("external")
             }
             exclude {
-                it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" ||
-                        it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
+                it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" || it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
             }
             exclude {
                 it.file.toString().contains("external")
