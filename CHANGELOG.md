@@ -1,3 +1,11 @@
+# [1.4.0-beta.4](https://github.com/hyperledger/identus-apollo/compare/v1.4.0-beta.3...v1.4.0-beta.4) (2024-08-06)
+
+
+### Features
+
+* publish update ([2e1ee7d](https://github.com/hyperledger/identus-apollo/commit/2e1ee7dc3c949062b68c72c17b2191de510f2aa5))
+* update the publishing info ([31f0161](https://github.com/hyperledger/identus-apollo/commit/31f0161d89ccbc8eb94adbbaae90c96d5fb6508e))
+
 # [1.4.0-beta.3](https://github.com/hyperledger/identus-apollo/compare/v1.4.0-beta.2...v1.4.0-beta.3) (2024-08-06)
 
 
