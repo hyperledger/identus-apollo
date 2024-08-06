@@ -35,123 +35,119 @@ allprojects {
     apply(plugin = "org.gradle.maven-publish")
     apply(plugin = "org.gradle.signing")
 
-    // Allowed projects to publish to maven
-    val allowedProjectsToPublish = listOf("apollo")
-    if (allowedProjectsToPublish.contains(project.name) && project.name.contains("androidDebug")) {
-        println("!!!!!!!!!!!!!!!  Publishing ${project.name} to maven")
-        publishing {
-            publications.withType<MavenPublication> {
-                    groupId = publishedMavenId
-                    artifactId = project.name
-                    version = project.version.toString()
-                    pom {
-                        name.set("Identus Apollo")
-                        description.set("Collection of the cryptographic methods used all around Identus platform")
-                        url.set("https://docs.atalaprism.io/")
-                        organization {
-                            name.set("Hyperledger")
-                            url.set("https://www.hyperledger.org/")
-                        }
-                        issueManagement {
-                            system.set("Github")
-                            url.set("https://github.com/hyperledger/identus-apollo")
-                        }
-                        licenses {
-                            license {
-                                name.set("The Apache License, Version 2.0")
-                                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                            }
-                        }
-                        developers {
-                            developer {
-                                id.set("hamada147")
-                                name.set("Ahmed Moussa")
-                                email.set("ahmed.moussa@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                                url.set("https://github.com/hamada147")
-                            }
-                            developer {
-                                id.set("amagyar-iohk")
-                                name.set("Allain Magyar")
-                                email.set("allain.magyar@iohk.io")
-                                organization.set("IOG")
-                                roles.add("qc")
-                            }
-                            developer {
-                                id.set("antonbaliasnikov")
-                                name.set("Anton Baliasnikov")
-                                email.set("anton.baliasnikov@iohk.io")
-                                organization.set("IOG")
-                                roles.add("qc")
-                            }
-                            developer {
-                                id.set("elribonazo")
-                                name.set("Javier Ribó")
-                                email.set("javier.ribo@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                            }
-                            developer {
-                                id.set("goncalo-frade-iohk")
-                                name.set("Gonçalo Frade")
-                                email.set("goncalo.frade@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                            }
-                            developer {
-                                id.set("curtis-h")
-                                name.set("Curtis Harding")
-                                email.set("curtis.harding@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                            }
-                            developer {
-                                id.set("cristianIOHK")
-                                name.set("Cristian Gonzalez")
-                                email.set("cristian.castro@iohk.io")
-                                organization.set("IOG")
-                                roles.add("developer")
-                            }
-                        }
-                        scm {
-                            connection.set("scm:git:git://git@github.com/hyperledger/identus-apollo.git")
-                            developerConnection.set("scm:git:ssh://git@github.com/hyperledger/identus-apollo.git")
-                            url.set("https://github.com/hyperledger/identus-apollo")
-                        }
-                    }
-
-                    signing {
-                        useInMemoryPgpKeys(
-                            project.findProperty("signing.signingSecretKey") as String?
-                                ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
-                            project.findProperty("signing.signingSecretKeyPassword") as String?
-                                ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
-                        )
-                        sign(this@withType)
+    publishing {
+        publications.withType<MavenPublication> {
+            groupId = publishedMavenId
+            artifactId = project.name
+            version = project.version.toString()
+            pom {
+                name.set("Identus Apollo")
+                description.set("Collection of the cryptographic methods used all around Identus platform")
+                url.set("https://docs.atalaprism.io/")
+                organization {
+                    name.set("Hyperledger")
+                    url.set("https://www.hyperledger.org/")
+                }
+                issueManagement {
+                    system.set("Github")
+                    url.set("https://github.com/hyperledger/identus-apollo")
+                }
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
-            publications {
-                create<MavenPublication>("jvm") {
-                    from(components["java"])
-                    groupId = publishedMavenId
-                    artifactId = "apollo-jvm"
-                    version = project.version.toString()
+                developers {
+                    developer {
+                        id.set("hamada147")
+                        name.set("Ahmed Moussa")
+                        email.set("ahmed.moussa@iohk.io")
+                        organization.set("IOG")
+                        roles.add("developer")
+                        url.set("https://github.com/hamada147")
+                    }
+                    developer {
+                        id.set("amagyar-iohk")
+                        name.set("Allain Magyar")
+                        email.set("allain.magyar@iohk.io")
+                        organization.set("IOG")
+                        roles.add("qc")
+                    }
+                    developer {
+                        id.set("antonbaliasnikov")
+                        name.set("Anton Baliasnikov")
+                        email.set("anton.baliasnikov@iohk.io")
+                        organization.set("IOG")
+                        roles.add("qc")
+                    }
+                    developer {
+                        id.set("elribonazo")
+                        name.set("Javier Ribó")
+                        email.set("javier.ribo@iohk.io")
+                        organization.set("IOG")
+                        roles.add("developer")
+                    }
+                    developer {
+                        id.set("goncalo-frade-iohk")
+                        name.set("Gonçalo Frade")
+                        email.set("goncalo.frade@iohk.io")
+                        organization.set("IOG")
+                        roles.add("developer")
+                    }
+                    developer {
+                        id.set("curtis-h")
+                        name.set("Curtis Harding")
+                        email.set("curtis.harding@iohk.io")
+                        organization.set("IOG")
+                        roles.add("developer")
+                    }
+                    developer {
+                        id.set("cristianIOHK")
+                        name.set("Cristian Gonzalez")
+                        email.set("cristian.castro@iohk.io")
+                        organization.set("IOG")
+                        roles.add("developer")
+                    }
                 }
+                scm {
+                    connection.set("scm:git:git://git@github.com/hyperledger/identus-apollo.git")
+                    developerConnection.set("scm:git:ssh://git@github.com/hyperledger/identus-apollo.git")
+                    url.set("https://github.com/hyperledger/identus-apollo")
+                }
+            }
 
-                create<MavenPublication>("androidDebug") {
-                    from(components["androidDebug"])
-                    groupId = publishedMavenId
-                    artifactId = "apollo-android-debug"
-                    version = project.version.toString()
-                }
+//            publications {
+//                create<MavenPublication>("jvm") {
+//                    from(components["java"])
+//                    groupId = publishedMavenId
+//                    artifactId = "apollo-jvm"
+//                    version = project.version.toString()
+//                }
+//
+//                create<MavenPublication>("androidDebug") {
+//                    from(components["androidDebug"])
+//                    groupId = publishedMavenId
+//                    artifactId = "apollo-android-debug"
+//                    version = project.version.toString()
+//                }
+//
+//                create<MavenPublication>("androidRelease") {
+//                    from(components["androidRelease"])
+//                    groupId = publishedMavenId
+//                    artifactId = "apollo-android"
+//                    version = project.version.toString()
+//                }
+//            }
 
-                create<MavenPublication>("androidRelease") {
-                    from(components["androidRelease"])
-                    groupId = publishedMavenId
-                    artifactId = "apollo-android"
-                    version = project.version.toString()
-                }
+            signing {
+                useInMemoryPgpKeys(
+                    project.findProperty("signing.signingSecretKey") as String?
+                        ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
+                    project.findProperty("signing.signingSecretKeyPassword") as String?
+                        ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
+                )
+                sign(this@withType)
             }
         }
     }
