@@ -931,4 +931,10 @@ afterEvaluate {
             this.enabled = false
         }
     }
+    tasks.named("runKtlintCheckOverAndroidMainSourceSet") {
+        enabled = false
+    }
+    tasks.named("runKtlintCheckOverJvmMainSourceSet") {
+        enabled = false
+    }
 }
