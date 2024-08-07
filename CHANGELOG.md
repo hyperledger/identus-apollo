@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/hyperledger/identus-apollo/compare/v1.4.1...v1.4.2) (2024-08-07)
+
+
+### Bug Fixes
+
+* publish to OSSHR repository ([#188](https://github.com/hyperledger/identus-apollo/issues/188)) ([8f98b5a](https://github.com/hyperledger/identus-apollo/commit/8f98b5ae7d106ac7a977f3676492c7c2ee0e73e9))
+
 ## [1.4.1](https://github.com/hyperledger/identus-apollo/compare/v1.4.0...v1.4.1) (2024-08-05)
 
 
