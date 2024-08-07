@@ -109,9 +109,9 @@ You should be able to import and build the project in IntelliJ IDEA now.
 
 Here is a list of common issues you might face and its solutions.
 
-##### Enviroment Variables were added but not available
+##### Environment Variables were added but not available
 
-If you already added the envorment variable to your CMD profile and still not being available.
+If you already added the environment variable to your CMD profile and still not being available.
 
 **Solution**
 
