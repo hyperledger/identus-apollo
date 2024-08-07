@@ -158,7 +158,7 @@ subprojects {
             }
             exclude {
                 it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" ||
-                        it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
+                    it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
             }
             exclude {
                 it.file.toString().contains("external")
