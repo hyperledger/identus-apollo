@@ -49,6 +49,7 @@ brew install autoconf automake libtool
 ```bash
 cs java --jvm adopt:1.11.0-11 --setup
 ```
+
 after that `java -version` should yield something like that
 
 ```text

@@ -117,37 +117,14 @@ allprojects {
                 }
             }
 
-//            publications {
-//                create<MavenPublication>("jvm") {
-//                    from(components["java"])
-//                    groupId = publishedMavenId
-//                    artifactId = "apollo-jvm"
-//                    version = project.version.toString()
-//                }
-//
-//                create<MavenPublication>("androidDebug") {
-//                    from(components["androidDebug"])
-//                    groupId = publishedMavenId
-//                    artifactId = "apollo-android-debug"
-//                    version = project.version.toString()
-//                }
-//
-//                create<MavenPublication>("androidRelease") {
-//                    from(components["androidRelease"])
-//                    groupId = publishedMavenId
-//                    artifactId = "apollo-android"
-//                    version = project.version.toString()
-//                }
-//            }
-
-            signing {
-                useInMemoryPgpKeys(
-                    project.findProperty("signing.signingSecretKey") as String?
-                        ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
-                    project.findProperty("signing.signingSecretKeyPassword") as String?
-                        ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
-                )
-                sign(this@withType)
+                    signing {
+                        useInMemoryPgpKeys(
+                            project.findProperty("signing.signingSecretKey") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
+                            project.findProperty("signing.signingSecretKeyPassword") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
+                        )
+                        sign(this@withType)
+                    }
+                }
             }
         }
     }
@@ -175,7 +152,8 @@ subprojects {
                 it.file.toString().contains("external")
             }
             exclude {
-                it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" || it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
+                it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" ||
+                    it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
             }
             exclude {
                 it.file.toString().contains("external")
@@ -189,7 +167,7 @@ nexusPublishing {
     repositories {
         sonatype {
             nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/releases/"))
             username.set(System.getenv("OSSRH_USERNAME"))
             password.set(System.getenv("OSSRH_TOKEN"))
         }

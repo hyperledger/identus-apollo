@@ -1,34 +1,16 @@
-# [1.4.0-beta.4](https://github.com/hyperledger/identus-apollo/compare/v1.4.0-beta.3...v1.4.0-beta.4) (2024-08-06)
+## [1.4.1](https://github.com/hyperledger/identus-apollo/compare/v1.4.0...v1.4.1) (2024-08-05)
+
+
+### Bug Fixes
+
+* change oss publishing url according to the documentation ([#187](https://github.com/hyperledger/identus-apollo/issues/187)) ([f1dea5b](https://github.com/hyperledger/identus-apollo/commit/f1dea5bc1c19e5eaa0d4aba560dd8c46ee4962e6))
+
+# [1.4.0](https://github.com/hyperledger/identus-apollo/compare/v1.3.24...v1.4.0) (2024-08-02)
 
 
 ### Features
 
-* publish update ([2e1ee7d](https://github.com/hyperledger/identus-apollo/commit/2e1ee7dc3c949062b68c72c17b2191de510f2aa5))
-* update the publishing info ([31f0161](https://github.com/hyperledger/identus-apollo/commit/31f0161d89ccbc8eb94adbbaae90c96d5fb6508e))
-
-# [1.4.0-beta.3](https://github.com/hyperledger/identus-apollo/compare/v1.4.0-beta.2...v1.4.0-beta.3) (2024-08-06)
-
-
-### Features
-
-* add --info to the CI ([1fa8205](https://github.com/hyperledger/identus-apollo/commit/1fa82054bb96cc4c219d55d2f1d255fe8e05cace))
-* add --info to the CI ([8dbd048](https://github.com/hyperledger/identus-apollo/commit/8dbd0488ca2b2409fce4eb5046806f72b8d8d08a))
-* replace maven section with nexusPublishing ([56824ec](https://github.com/hyperledger/identus-apollo/commit/56824ecec1e75ca5d24ee15eec4424daacfebd42))
-
-# [1.4.0-beta.2](https://github.com/hyperledger/identus-apollo/compare/v1.4.0-beta.1...v1.4.0-beta.2) (2024-08-05)
-
-
-### Features
-
-* add --info to the CI ([b85edb7](https://github.com/hyperledger/identus-apollo/commit/b85edb717a12fabdbc8becded70b20b1cfd0e077))
-* rollback oss.sonatype url and upgrade a gradle-release-plugin to 1.9.2 version ([23e5be8](https://github.com/hyperledger/identus-apollo/commit/23e5be8ca6601fc787e5ac0407ce3c6f01616dea))
-
-# [1.4.0-beta.1](https://github.com/hyperledger/identus-apollo/compare/v1.3.24...v1.4.0-beta.1) (2024-08-02)
-
-
-### Features
-
-* add a beta branch and rust-init installer to the release flow ([dc8fd38](https://github.com/hyperledger/identus-apollo/commit/dc8fd387a6be07eb508657488b943f853df62f9f))
+* almost empty commit to test the release ([#186](https://github.com/hyperledger/identus-apollo/issues/186)) ([89b28a9](https://github.com/hyperledger/identus-apollo/commit/89b28a98e0fa82c5e935138c40024857101bbb4f))
 
 ## [1.3.24](https://github.com/hyperledger/identus-apollo/compare/v1.3.23...v1.3.24) (2024-07-19)
 
