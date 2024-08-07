@@ -109,6 +109,13 @@ allprojects {
                         organization.set("IOG")
                         roles.add("developer")
                     }
+                    developer {
+                        id.set("yshyn-iohk")
+                        name.set("Yurii Shynbuiev")
+                        email.set("yurii.shynbuiev@iohk.io")
+                        organization.set("IOG")
+                        roles.add("developer")
+                    }
                 }
                 scm {
                     connection.set("scm:git:git://git@github.com/hyperledger/identus-apollo.git")
@@ -117,14 +124,12 @@ allprojects {
                 }
             }
 
-                    signing {
-                        useInMemoryPgpKeys(
-                            project.findProperty("signing.signingSecretKey") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
-                            project.findProperty("signing.signingSecretKeyPassword") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
-                        )
-                        sign(this@withType)
-                    }
-                }
+            signing {
+                useInMemoryPgpKeys(
+                    project.findProperty("signing.signingSecretKey") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY"),
+                    project.findProperty("signing.signingSecretKeyPassword") as String? ?: System.getenv("OSSRH_GPG_SECRET_KEY_PASSWORD")
+                )
+                sign(this@withType)
             }
         }
     }
@@ -153,7 +158,7 @@ subprojects {
             }
             exclude {
                 it.file.toString() == "BNjs.kt" || it.file.toString() == "Curve.kt" || it.file.toString() == "PresetCurve.kt" ||
-                    it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
+                        it.file.toString() == "Ellipticjs.kt" || it.file.toString() == "secp256k1js.kt"
             }
             exclude {
                 it.file.toString().contains("external")
