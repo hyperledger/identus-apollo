@@ -630,8 +630,8 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                implementation(npm("elliptic", "6.5.4"))
-                implementation(npm("@types/elliptic", "6.4.14"))
+                implementation(npm("elliptic", "6.5.7"))
+                implementation(npm("@types/elliptic", "6.4.18"))
                 implementation(npm("@noble/curves", "1.2.0"))
                 implementation(npm("@stablelib/x25519", "1.0.3"))
                 implementation(npm("hash.js", "1.1.7"))
