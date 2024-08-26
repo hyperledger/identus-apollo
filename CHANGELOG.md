@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/hyperledger/identus-apollo/compare/v1.4.2...v1.4.3) (2024-08-26)
+
+
+### Bug Fixes
+
+* upgrade elliptic dependency ([#191](https://github.com/hyperledger/identus-apollo/issues/191)) ([9ecdbdd](https://github.com/hyperledger/identus-apollo/commit/9ecdbdd9b942ffbdb837c1ffc42ddb793b178461))
+
 ## [1.4.2](https://github.com/hyperledger/identus-apollo/compare/v1.4.1...v1.4.2) (2024-08-07)
 
 
