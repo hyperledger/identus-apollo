@@ -279,7 +279,7 @@ open external class eddsa(name: String /* "ed25519" */) {
     open fun isPoint(param_val: Any): Boolean
     open class Signature {
         constructor(eddsa: eddsa, sig: _eddsa_Signature)
-        constructor(eddsa: eddsa, sig: String)
+        constructor(eddsa: eddsa, sig: Any)
         open fun toBytes(): Buffer
         open fun toHex(): String
     }

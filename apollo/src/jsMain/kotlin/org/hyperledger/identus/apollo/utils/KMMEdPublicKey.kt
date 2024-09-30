@@ -46,6 +46,9 @@ actual class KMMEdPublicKey(bytes: ByteArray) {
      * @return Boolean
      */
     actual fun verify(message: ByteArray, sig: ByteArray): Boolean {
-        return keyPair.verify(Buffer.from(message), sig.decodeToString())
+        return keyPair.verify(
+            Buffer.from(message),
+            sig.toHexString()
+        )
     }
 }
