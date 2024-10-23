@@ -31,7 +31,7 @@ permissions:
 
 jobs:
   release:
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
       - name: "Checkout the repo"
         uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
 
       - name: "Install autoconf, automake, libtool, rustup"
         run: |
-          brew install autoconf automake libtool rustup
+          brew install autoconf automake libtool rustup@1.27.0
 
       - name: "Install Mac ToolChain"
         run: |
