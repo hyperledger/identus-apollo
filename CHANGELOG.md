@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/hyperledger/identus-apollo/compare/v1.4.3...v1.4.4) (2024-10-23)
+
+
+### Bug Fixes
+
+* make fixes to ed25519 sign method + improve tests ([#195](https://github.com/hyperledger/identus-apollo/issues/195)) ([354c9bd](https://github.com/hyperledger/identus-apollo/commit/354c9bdd12027a16fe598dfab187153dd465cd23))
+
 ## [1.4.3](https://github.com/hyperledger/identus-apollo/compare/v1.4.2...v1.4.3) (2024-08-26)
 
 
