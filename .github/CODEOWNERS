@@ -1,6 +1,1 @@
-# These owners will be the default owners for everything in
-# the repo. Unless a later match takes precedence
-* @elribonazo @goncalo-frade-iohk @yshyn-iohk @curtis-h @cristianIOHK @amagyar-iohk
-
-# Docs:
-*.md @petevielhaber
+* @hyperledger/identus-maintainers
