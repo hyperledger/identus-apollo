@@ -49,7 +49,7 @@ actual class KMMEdPrivateKey(bytes: ByteArray) {
     actual fun sign(message: ByteArray): ByteArray {
         val sig = keyPair.sign(Buffer.from(message))
 
-        return sig.toHex().encodeToByteArray()
+        return sig.toBytes().toByteArray()
     }
 
     /**
