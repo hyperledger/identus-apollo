@@ -135,7 +135,7 @@ jobs:
         run: ./gradlew koverHtmlReport koverXmlReport
 
       - name: "Upload coverage html"
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4.0.0
         with:
           name: coverage-results-${{ matrix.os-type }}.zip
           path: apollo/build/reports/kover/html
@@ -154,7 +154,7 @@ jobs:
 
       - name: "Upload the build report"
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: "**/build/reports/"
           name: report-${{ matrix.os-type }}
