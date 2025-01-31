@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/hyperledger/identus-apollo/compare/v1.4.4...v1.4.5) (2025-01-31)
+
+
+### Bug Fixes
+
+* upgrade apollo to 6.6.1 ([#198](https://github.com/hyperledger/identus-apollo/issues/198)) ([9abc11d](https://github.com/hyperledger/identus-apollo/commit/9abc11df066181a787d94f02500c4b7475d00a87))
+
 ## [1.4.4](https://github.com/hyperledger/identus-apollo/compare/v1.4.3...v1.4.4) (2024-10-23)
 
 
