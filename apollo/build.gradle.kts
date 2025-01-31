@@ -691,12 +691,12 @@ kotlin {
     if (os.isMacOsX) {
         if (tasks.findByName("iosX64Test") != null) {
             tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
-                device.set("iPhone 14 Plus")
+                device.set("iPhone 15 Pro Max")
             }
         }
         if (tasks.findByName("iosSimulatorArm64Test") != null) {
             tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                device.set("iPhone 14 Plus")
+                device.set("iPhone 15 Pro Max")
             }
         }
     }
