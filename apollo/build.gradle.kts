@@ -645,7 +645,11 @@ kotlin {
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-node:18.11.13-pre.461")
             }
         }
-        val jsTest by getting
+        val jsTest by getting {
+            dependencies {
+                implementation(npm("url", "0.11.4"))
+            }
+        }
         val nativeMain by getting {
             dependsOn(allButJSMain)
             kotlin.srcDir(
@@ -691,12 +695,12 @@ kotlin {
     if (os.isMacOsX) {
         if (tasks.findByName("iosX64Test") != null) {
             tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosX64Test") {
-                device.set("iPhone 14 Plus")
+                device.set("iPhone 15 Pro Max")
             }
         }
         if (tasks.findByName("iosSimulatorArm64Test") != null) {
             tasks.getByName<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>("iosSimulatorArm64Test") {
-                device.set("iPhone 14 Plus")
+                device.set("iPhone 15 Pro Max")
             }
         }
     }
