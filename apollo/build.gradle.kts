@@ -645,7 +645,11 @@ kotlin {
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-node:18.11.13-pre.461")
             }
         }
-        val jsTest by getting
+        val jsTest by getting {
+            dependencies {
+                implementation(npm("url", "0.11.4"))
+            }
+        }
         val nativeMain by getting {
             dependsOn(allButJSMain)
             kotlin.srcDir(
